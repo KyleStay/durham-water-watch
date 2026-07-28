@@ -1,1 +1,21 @@
-[]
+[
+  {
+    "metrics": [
+      "drought"
+    ],
+    "sourceUrl": "https://www.ncdrought.org/",
+    "reason": "Durham County drought category did not parse",
+    "receivedAt": "2026-07-28T14:18:33.428Z",
+    "disposition": "rejected; last-known-good value preserved"
+  },
+  {
+    "metrics": [
+      "reservoirs.michie",
+      "reservoirs.little"
+    ],
+    "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
+    "reason": "Little River elevation did not parse",
+    "receivedAt": "2026-07-28T14:18:33.428Z",
+    "disposition": "rejected; last-known-good value preserved"
+  }
+]
