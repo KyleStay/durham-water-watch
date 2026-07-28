@@ -26,10 +26,10 @@ npm run build:pages
 npm test
 ```
 
-`pages-dist/` is the complete GitHub Pages artifact. The included workflow
-refreshes USGS data approximately every 30 minutes, checks dated Durham
-readings daily, checks the weekly NC drought update, and deploys through the
-official GitHub Pages Actions.
+`pages-dist/` is the complete GitHub Pages artifact. The included daily
+workflow checks every official source, retries any stale or previously failed
+field, refreshes the City-published chart images on each build, and deploys
+through the official GitHub Pages Actions.
 
 The visible correction-contact placeholder must be replaced before a public
 launch.

@@ -18,6 +18,9 @@ test("produces a complete GitHub Pages artifact", async () => {
   assert.match(html, /How close is Durham to leaving Stage 2/);
   assert.match(html, /Illustrative scenario explorer/);
   assert.match(html, /All four inputs are assumptions/);
+  assert.match(html, /documentID=4123(?:&amp;|&)refresh=/);
+  assert.match(html, /documentID=4124(?:&amp;|&)refresh=/);
+  assert.match(html, /documentID=4125(?:&amp;|&)refresh=/);
   assert.match(html, /href="\.\/assets\//);
   assert.doesNotMatch(html, /(?:href|src)="\/assets\//);
   assert.doesNotMatch(html, /\/api\/water-data/);

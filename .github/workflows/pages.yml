@@ -4,7 +4,7 @@ on:
   push:
     branches: ["main"]
   schedule:
-    - cron: "17,47 * * * *"
+    - cron: "17 12 * * *"
   workflow_dispatch:
 
 permissions:
@@ -30,7 +30,7 @@ jobs:
           cache: npm
       - run: npm ci --ignore-scripts --no-audit --no-fund
       - name: Refresh verified official data
-        run: npm run refresh:data
+        run: npm run refresh:data -- --all
       - name: Preserve the last-known-good snapshot
         run: |
           git config user.name "github-actions[bot]"

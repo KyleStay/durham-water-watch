@@ -1,5 +1,6 @@
 import { readFile, rename, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
+import { sourceIsDue } from "./refresh-policy.mjs";
 
 const snapshotPath = resolve(import.meta.dirname, "../public/data/dashboard.json");
 const temporaryPath = `${snapshotPath}.next`;
@@ -9,6 +10,7 @@ const snapshot = JSON.parse(await readFile(snapshotPath, "utf8"));
 const quarantine = JSON.parse(await readFile(quarantinePath, "utf8"));
 const now = new Date();
 const nowIso = now.toISOString();
+const forceAll = process.argv.includes("--all");
 
 const SOURCES = {
   stage: "https://www.durhamnc.gov/1061/Durham-Saves-Water",
@@ -42,6 +44,17 @@ function numberFrom(text, expression, label) {
   const value = Number(match[1].replaceAll(",", ""));
   if (!Number.isFinite(value)) throw new Error(`${label} was not numeric`);
   return value;
+}
+
+function htmlToPlainText(text) {
+  return text
+    .replace(/<script[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style[\s\S]*?<\/style>/gi, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;|&#160;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 async function fetchOfficialText(url) {
@@ -177,12 +190,12 @@ async function refreshReservoirs() {
     const text = await fetchOfficialText(SOURCES.lakes);
     const sectionStart = text.search(/Current Conditions/i);
     if (sectionStart < 0) throw new Error("Current reservoir section was missing");
-    const section = text.slice(sectionStart);
+    const section = htmlToPlainText(text.slice(sectionStart));
     const observedAt = parseDate(section);
     const michie = numberFrom(section, /Lake Michie Elevation:\s*(\d+(?:\.\d+)?)\s*feet/i, "Lake Michie elevation");
-    const little = numberFrom(section, /Little River Reservoir Elevation:\s*(\d+(?:\.\d+)?)\s*(?:feet|&nbsp;feet)/i, "Little River elevation");
+    const little = numberFrom(section, /Little River Reservoir Elevation:\s*(\d+(?:\.\d+)?)\s*feet/i, "Little River elevation");
     const michieFull = numberFrom(section, /Lake Michie is full at\s*(\d+(?:\.\d+)?)\s*feet/i, "Lake Michie full pool");
-    const littleFull = numberFrom(section, /Little River Reservoir is full at\s*(\d+(?:\.\d+)?)\s*(?:feet|&nbsp;feet)/i, "Little River full pool");
+    const littleFull = numberFrom(section, /Little River Reservoir is full at\s*(\d+(?:\.\d+)?)\s*feet/i, "Little River full pool");
     if (michieFull !== 341 || littleFull !== 355) {
       throw new Error("Reservoir names or full-pool fields did not match");
     }
@@ -210,12 +223,14 @@ async function refreshDrought() {
       ["D1", "Moderate Drought"],
       ["D0", "Abnormally Dry"],
     ];
+    const countyListStart = text.search(/class=["'][^"']*\bcountylist\b/i);
+    if (countyListStart < 0) throw new Error("County drought list was missing");
+    const countySection = text.slice(countyListStart);
     const found = categories.find(([code]) => {
-      const heading = text.search(new RegExp(`(?:<[^>]+>\\s*)*${code}(?:\\s*<[^>]+>)*`, "i"));
-      if (heading < 0) return false;
-      const nextHeading = text.slice(heading + 1).search(/D[0-4]/i);
-      const block = text.slice(heading, nextHeading > 0 ? heading + nextHeading + 1 : heading + 6000);
-      return /\bDurham\b/i.test(block);
+      const block = countySection.match(
+        new RegExp(`<h4[^>]*class=["'][^"']*\\b${code}\\b[^"']*["'][^>]*>[\\s\\S]*?<\\/h4>\\s*<ul>([\\s\\S]*?)<\\/ul>`, "i"),
+      );
+      return block ? /<li[^>]*>\s*Durham\s*<\/li>/i.test(block[1]) : false;
     });
     if (!found) throw new Error("Durham County drought category did not parse");
     accept(paths[0], {
@@ -306,11 +321,34 @@ function updateStatus(metric, kind) {
   metric.status = stale || metric.retrievalStatus === "failed" ? "stale" : "fresh";
 }
 
-const dueDaily = hoursSince(snapshot.stage.verifiedAt) >= 20;
-const dueDrought = calendarDaysOld(snapshot.drought.observedAt) >= 7;
 const jobs = [refreshStreamflow()];
-if (dueDaily) jobs.push(refreshStage(), refreshSupply(), refreshReservoirs());
-if (dueDrought) jobs.push(refreshDrought());
+if (sourceIsDue({
+  forceAll,
+  metrics: [snapshot.stage],
+  elapsed: hoursSince(snapshot.stage.verifiedAt),
+  interval: 20,
+})) jobs.push(refreshStage());
+if (sourceIsDue({
+  forceAll,
+  metrics: Object.values(snapshot.supply),
+  elapsed: hoursSince(snapshot.supply.total.verifiedAt),
+  interval: 20,
+})) jobs.push(refreshSupply());
+if (sourceIsDue({
+  forceAll,
+  metrics: Object.values(snapshot.reservoirs),
+  elapsed: Math.max(
+    hoursSince(snapshot.reservoirs.michie.verifiedAt),
+    hoursSince(snapshot.reservoirs.little.verifiedAt),
+  ),
+  interval: 20,
+})) jobs.push(refreshReservoirs());
+if (sourceIsDue({
+  forceAll,
+  metrics: [snapshot.drought],
+  elapsed: calendarDaysOld(snapshot.drought.observedAt),
+  interval: 7,
+})) jobs.push(refreshDrought());
 await Promise.allSettled(jobs);
 
 updateStatus(snapshot.stage, "stage");

@@ -406,6 +406,7 @@ export default function WaterWatch() {
   const [announcement, setAnnouncement] = useState("");
   const data = seed;
   const t = copy[lang];
+  const chartVersion = encodeURIComponent(data.generatedAt ?? data.historyStarts);
 
   useEffect(() => {
     document.documentElement.lang = lang;
@@ -613,9 +614,9 @@ export default function WaterWatch() {
               <div className="section-heading compact"><p className="kicker">{t.officialCharts}</p><h2>{lang === "en" ? "See the City’s own plotted record." : "Consulte el registro gráfico de la Ciudad."}</h2><p>{t.chartIntro}</p></div>
               <div className="chart-grid">
                 {[
-                  [t.recentChart, "https://www.durhamnc.gov/ImageRepository/Document?documentID=4123", "https://www.durhamnc.gov/DocumentCenter/View/4123", lang === "en" ? "City chart of recent daily reservoir elevations, with date on the horizontal axis and elevation in feet mean sea level on the vertical axis." : "Gráfica de la Ciudad con elevaciones diarias recientes; fecha en el eje horizontal y elevación en pies sobre el nivel medio del mar en el eje vertical."],
-                  [t.michieAnnual, "https://www.durhamnc.gov/ImageRepository/Document?documentID=4124", "https://www.durhamnc.gov/DocumentCenter/View/4124", lang === "en" ? "City historical and annual elevation chart for Lake Michie, including the full-pool reference." : "Gráfica histórica y anual de la Ciudad para Lake Michie, incluida la referencia de capacidad."],
-                  [t.littleAnnual, "https://www.durhamnc.gov/ImageRepository/Document?documentID=4125", "https://www.durhamnc.gov/DocumentCenter/View/4125", lang === "en" ? "City historical and annual elevation chart for Little River Reservoir, including the full-pool reference." : "Gráfica histórica y anual de la Ciudad para Little River Reservoir, incluida la referencia de capacidad."],
+                  [t.recentChart, `https://www.durhamnc.gov/ImageRepository/Document?documentID=4123&refresh=${chartVersion}`, "https://www.durhamnc.gov/DocumentCenter/View/4123", lang === "en" ? "City chart of recent daily reservoir elevations, with date on the horizontal axis and elevation in feet mean sea level on the vertical axis." : "Gráfica de la Ciudad con elevaciones diarias recientes; fecha en el eje horizontal y elevación en pies sobre el nivel medio del mar en el eje vertical."],
+                  [t.michieAnnual, `https://www.durhamnc.gov/ImageRepository/Document?documentID=4124&refresh=${chartVersion}`, "https://www.durhamnc.gov/DocumentCenter/View/4124", lang === "en" ? "City historical and annual elevation chart for Lake Michie, including the full-pool reference." : "Gráfica histórica y anual de la Ciudad para Lake Michie, incluida la referencia de capacidad."],
+                  [t.littleAnnual, `https://www.durhamnc.gov/ImageRepository/Document?documentID=4125&refresh=${chartVersion}`, "https://www.durhamnc.gov/DocumentCenter/View/4125", lang === "en" ? "City historical and annual elevation chart for Little River Reservoir, including the full-pool reference." : "Gráfica histórica y anual de la Ciudad para Little River Reservoir, incluida la referencia de capacidad."],
                 ].map(([label, src, href, alt]) => (
                   <figure className="chart-card" key={label}>
                     <figcaption><strong>{label}</strong><span>{lang === "en" ? "City-published image" : "Imagen publicada por la Ciudad"}</span></figcaption>
