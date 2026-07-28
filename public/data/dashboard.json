@@ -99,31 +99,31 @@
   },
   "streamflow": {
     "flat": {
-      "value": 2.66,
+      "value": 2.45,
       "units": "ft³/s",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
-      "observedAt": "2026-07-28T09:45:00.000-04:00",
-      "verifiedAt": "2026-07-28T14:18:33.428Z",
+      "observedAt": "2026-07-28T11:45:00.000-04:00",
+      "verifiedAt": "2026-07-28T16:37:59.193Z",
       "status": "fresh",
       "retrievalStatus": "verified",
       "validationResult": "accepted",
-      "previousValue": 4.18,
+      "previousValue": 2.66,
       "note": "USGS provisional data; subject to revision."
     },
     "little": {
-      "value": 8.55,
+      "value": 7.46,
       "units": "ft³/s",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/0208521324/",
-      "observedAt": "2026-07-28T09:15:00.000-04:00",
-      "verifiedAt": "2026-07-28T14:18:33.428Z",
+      "observedAt": "2026-07-28T12:15:00.000-04:00",
+      "verifiedAt": "2026-07-28T16:37:59.193Z",
       "status": "fresh",
       "retrievalStatus": "verified",
       "validationResult": "accepted",
-      "previousValue": 16.7,
+      "previousValue": 8.55,
       "note": "USGS provisional data; subject to revision."
     }
   },
   "historyStarts": "2026-07-27",
-  "generatedAt": "2026-07-28T14:18:33.428Z",
-  "lastRefreshResult": "failed: drought; verified: streamflow; failed: reservoirs.michie, reservoirs.little; verified: supply; verified: stage"
+  "generatedAt": "2026-07-28T16:37:59.193Z",
+  "lastRefreshResult": "failed: drought; verified: streamflow"
 }

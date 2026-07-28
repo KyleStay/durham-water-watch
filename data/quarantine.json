@@ -17,5 +17,14 @@
     "reason": "Little River elevation did not parse",
     "receivedAt": "2026-07-28T14:18:33.428Z",
     "disposition": "rejected; last-known-good value preserved"
+  },
+  {
+    "metrics": [
+      "drought"
+    ],
+    "sourceUrl": "https://www.ncdrought.org/",
+    "reason": "Durham County drought category did not parse",
+    "receivedAt": "2026-07-28T16:37:59.193Z",
+    "disposition": "rejected; last-known-good value preserved"
   }
 ]
