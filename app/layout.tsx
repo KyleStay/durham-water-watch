@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   },
   description:
     "Independent, source-linked water supply and drought context for Durham, North Carolina.",
-  metadataBase: new URL("https://durham-water-watch.sites.openai.com"),
+  metadataBase: new URL("https://durham-water-watch.kylestay.chatgpt.site"),
   openGraph: {
     title: "Durham Water Watch",
     description:

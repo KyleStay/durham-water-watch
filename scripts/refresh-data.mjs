@@ -1,0 +1,334 @@
+import { readFile, rename, writeFile } from "node:fs/promises";
+import { resolve } from "node:path";
+
+const snapshotPath = resolve(import.meta.dirname, "../public/data/dashboard.json");
+const temporaryPath = `${snapshotPath}.next`;
+const quarantinePath = resolve(import.meta.dirname, "../data/quarantine.json");
+const quarantineTemporaryPath = `${quarantinePath}.next`;
+const snapshot = JSON.parse(await readFile(snapshotPath, "utf8"));
+const quarantine = JSON.parse(await readFile(quarantinePath, "utf8"));
+const now = new Date();
+const nowIso = now.toISOString();
+
+const SOURCES = {
+  stage: "https://www.durhamnc.gov/1061/Durham-Saves-Water",
+  data: "https://www.durhamnc.gov/1214/Current-Data",
+  lakes: "https://www.durhamnc.gov/1225/Lake-Levels",
+  drought: "https://www.ncdrought.org/",
+  usgs: "https://waterservices.usgs.gov/nwis/iv/?format=json&sites=02085500%2C0208521324&parameterCd=00060&siteStatus=all",
+  flat: "https://waterdata.usgs.gov/monitoring-location/02085500/",
+  little: "https://waterdata.usgs.gov/monitoring-location/0208521324/",
+};
+
+const results = [];
+
+function metricAt(path) {
+  return path.reduce((value, key) => value[key], snapshot);
+}
+
+function parseDate(text) {
+  const match = text.match(
+    /(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2}),\s+(\d{4})/i,
+  );
+  if (!match) throw new Error("No recognizable official date was present");
+  const parsed = new Date(`${match[1]} ${match[2]}, ${match[3]} 12:00:00 GMT-0400`);
+  if (Number.isNaN(parsed.getTime())) throw new Error("The official date did not parse");
+  return parsed.toISOString().slice(0, 10);
+}
+
+function numberFrom(text, expression, label) {
+  const match = text.match(expression);
+  if (!match) throw new Error(`${label} did not parse`);
+  const value = Number(match[1].replaceAll(",", ""));
+  if (!Number.isFinite(value)) throw new Error(`${label} was not numeric`);
+  return value;
+}
+
+async function fetchOfficialText(url) {
+  const response = await fetch(url, {
+    redirect: "follow",
+    headers: {
+      "user-agent": "Durham Water Watch/1.0 (independent community dashboard)",
+      accept: "text/html,application/xhtml+xml",
+    },
+  });
+  const expected = new URL(url);
+  const received = new URL(response.url);
+  if (
+    !response.ok
+    || received.protocol !== "https:"
+    || received.hostname !== expected.hostname
+    || received.pathname !== expected.pathname
+  ) {
+    throw new Error(`Unexpected official response (${response.status})`);
+  }
+  return response.text();
+}
+
+function hoursSince(value) {
+  if (!value) return Number.POSITIVE_INFINITY;
+  return (now.getTime() - new Date(value).getTime()) / 3_600_000;
+}
+
+function accept(path, next, { maxDelta } = {}) {
+  const current = metricAt(path);
+  if (current.observedAt && next.observedAt && new Date(next.observedAt) < new Date(current.observedAt)) {
+    throw new Error("Incoming observation is older than the stored verified reading");
+  }
+  if (
+    maxDelta
+    && typeof current.value === "number"
+    && typeof next.value === "number"
+    && Math.abs(next.value - current.value) > maxDelta
+  ) {
+    throw new Error(`Implausible change exceeded ${maxDelta} ${next.units}`);
+  }
+
+  const isNewObservation = next.observedAt !== current.observedAt;
+  const previousValue = isNewObservation ? current.value : current.previousValue;
+  Object.assign(current, next, {
+    verifiedAt: nowIso,
+    retrievalStatus: "verified",
+    validationResult: "accepted",
+    previousValue: previousValue ?? null,
+    note: next.note,
+  });
+}
+
+function fail(paths, error) {
+  const message = error instanceof Error ? error.message : "Official source could not be refreshed";
+  for (const path of paths) {
+    const metric = metricAt(path);
+    metric.retrievalStatus = "failed";
+    metric.validationResult = "rejected";
+    metric.note = `The official source could not be refreshed: ${message}`;
+  }
+  quarantine.push({
+    metrics: paths.map((path) => path.join(".")),
+    sourceUrl: metricAt(paths[0]).sourceUrl,
+    reason: message,
+    receivedAt: nowIso,
+    disposition: "rejected; last-known-good value preserved",
+  });
+  results.push(`failed: ${paths.map((path) => path.join(".")).join(", ")}`);
+}
+
+async function refreshStage() {
+  const paths = [["stage"]];
+  try {
+    const text = await fetchOfficialText(SOURCES.stage);
+    const match = text.match(
+      /Stage\s+([1-4])\s+in Effect[\s\S]{0,180}?Effective\s+([A-Za-z]+\s+\d{1,2},\s+\d{4})/i,
+    );
+    if (!match) throw new Error("Current stage and effective date did not parse together");
+    const stage = Number(match[1]);
+    accept(paths[0], {
+      value: stage,
+      units: "stage",
+      sourceUrl: SOURCES.stage,
+      observedAt: parseDate(match[2]),
+      effectiveDate: parseDate(match[2]),
+    }, { maxDelta: 2 });
+    results.push("verified: stage");
+  } catch (error) {
+    fail(paths, error);
+  }
+}
+
+async function refreshSupply() {
+  const paths = [
+    ["supply", "accessible"],
+    ["supply", "belowIntakes"],
+    ["supply", "quarry"],
+    ["supply", "total"],
+  ];
+  try {
+    const text = await fetchOfficialText(SOURCES.data);
+    const sectionStart = text.search(/Days of Supply/i);
+    if (sectionStart < 0) throw new Error("Days-of-supply section was missing");
+    const section = text.slice(sectionStart);
+    const observedAt = parseDate(section);
+    const accessible = numberFrom(section, /premium water remaining[^:\d]*:\s*(\d+(?:\.\d+)?)/i, "Accessible supply");
+    const belowIntakes = numberFrom(section, /below the intake structures remaining[^:\d]*:\s*(\d+(?:\.\d+)?)/i, "Below-intake supply");
+    const quarry = numberFrom(section, /Teer Quarry[^:\d]*:\s*(\d+(?:\.\d+)?)/i, "Teer Quarry supply");
+    const total = numberFrom(section, /Total days of supply[^:\d]*:\s*(\d+(?:\.\d+)?)/i, "Total supply");
+
+    if ([accessible, belowIntakes, quarry, total].some((value) => value < 0)) {
+      throw new Error("Days-of-supply components must be nonnegative");
+    }
+    if (Math.abs(accessible + belowIntakes + quarry - total) > 1) {
+      throw new Error("Official total is inconsistent with its displayed components");
+    }
+
+    const common = { units: "days", sourceUrl: SOURCES.data, observedAt };
+    accept(paths[0], { ...common, value: accessible }, { maxDelta: 50 });
+    accept(paths[1], { ...common, value: belowIntakes }, { maxDelta: 50 });
+    accept(paths[2], { ...common, value: quarry }, { maxDelta: 50 });
+    accept(paths[3], { ...common, value: total }, { maxDelta: 75 });
+    results.push("verified: supply");
+  } catch (error) {
+    fail(paths, error);
+  }
+}
+
+async function refreshReservoirs() {
+  const paths = [["reservoirs", "michie"], ["reservoirs", "little"]];
+  try {
+    const text = await fetchOfficialText(SOURCES.lakes);
+    const sectionStart = text.search(/Current Conditions/i);
+    if (sectionStart < 0) throw new Error("Current reservoir section was missing");
+    const section = text.slice(sectionStart);
+    const observedAt = parseDate(section);
+    const michie = numberFrom(section, /Lake Michie Elevation:\s*(\d+(?:\.\d+)?)\s*feet/i, "Lake Michie elevation");
+    const little = numberFrom(section, /Little River Reservoir Elevation:\s*(\d+(?:\.\d+)?)\s*(?:feet|&nbsp;feet)/i, "Little River elevation");
+    const michieFull = numberFrom(section, /Lake Michie is full at\s*(\d+(?:\.\d+)?)\s*feet/i, "Lake Michie full pool");
+    const littleFull = numberFrom(section, /Little River Reservoir is full at\s*(\d+(?:\.\d+)?)\s*(?:feet|&nbsp;feet)/i, "Little River full pool");
+    if (michieFull !== 341 || littleFull !== 355) {
+      throw new Error("Reservoir names or full-pool fields did not match");
+    }
+
+    const common = { units: "ft msl", sourceUrl: SOURCES.lakes, observedAt };
+    accept(paths[0], { ...common, value: michie, fullPool: 341 }, { maxDelta: 10 });
+    accept(paths[1], { ...common, value: little, fullPool: 355 }, { maxDelta: 10 });
+    results.push("verified: reservoirs");
+  } catch (error) {
+    fail(paths, error);
+  }
+}
+
+async function refreshDrought() {
+  const paths = [["drought"]];
+  try {
+    const text = await fetchOfficialText(SOURCES.drought);
+    const sectionStart = text.search(/Current Conditions/i);
+    if (sectionStart < 0) throw new Error("Current drought section was missing");
+    const observedDate = parseDate(text.slice(sectionStart));
+    const categories = [
+      ["D4", "Exceptional Drought"],
+      ["D3", "Extreme Drought"],
+      ["D2", "Severe Drought"],
+      ["D1", "Moderate Drought"],
+      ["D0", "Abnormally Dry"],
+    ];
+    const found = categories.find(([code]) => {
+      const heading = text.search(new RegExp(`(?:<[^>]+>\\s*)*${code}(?:\\s*<[^>]+>)*`, "i"));
+      if (heading < 0) return false;
+      const nextHeading = text.slice(heading + 1).search(/D[0-4]/i);
+      const block = text.slice(heading, nextHeading > 0 ? heading + nextHeading + 1 : heading + 6000);
+      return /\bDurham\b/i.test(block);
+    });
+    if (!found) throw new Error("Durham County drought category did not parse");
+    accept(paths[0], {
+      value: `${found[0]} · ${found[1]}`,
+      units: "category",
+      sourceUrl: SOURCES.drought,
+      observedAt: `${observedDate}T08:00:00-04:00`,
+    });
+    results.push("verified: drought");
+  } catch (error) {
+    fail(paths, error);
+  }
+}
+
+async function refreshStreamflow() {
+  const paths = [["streamflow", "flat"], ["streamflow", "little"]];
+  try {
+    const response = await fetch(SOURCES.usgs, {
+      headers: {
+        "user-agent": "Durham Water Watch/1.0 (independent community dashboard)",
+        accept: "application/json",
+      },
+    });
+    if (!response.ok) throw new Error(`USGS service failed (${response.status})`);
+    const json = await response.json();
+    const series = json?.value?.timeSeries;
+    if (!Array.isArray(series) || !series.length) throw new Error("USGS returned no time series");
+
+    for (const [site, path, sourceUrl] of [
+      ["02085500", paths[0], SOURCES.flat],
+      ["0208521324", paths[1], SOURCES.little],
+    ]) {
+      const item = series.find((candidate) => candidate?.sourceInfo?.siteCode?.[0]?.value === site);
+      const reading = item?.values?.[0]?.value?.[0];
+      const parameter = item?.variable?.variableCode?.[0]?.value;
+      const units = item?.variable?.unit?.unitCode;
+      const value = Number(reading?.value);
+      if (parameter !== "00060" || units !== "ft3/s") {
+        throw new Error(`USGS ${site} parameter or units did not match`);
+      }
+      if (!Number.isFinite(value) || value < 0 || !reading?.dateTime) {
+        throw new Error(`USGS ${site} reading did not validate`);
+      }
+      accept(path, {
+        value,
+        units: "ft³/s",
+        sourceUrl,
+        observedAt: reading.dateTime,
+        note: "USGS provisional data; subject to revision.",
+      }, { maxDelta: 10_000 });
+    }
+    results.push("verified: streamflow");
+  } catch (error) {
+    fail(paths, error);
+  }
+}
+
+function easternDateParts(date) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/New_York",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(date);
+  return Object.fromEntries(parts.map(({ type, value }) => [type, value]));
+}
+
+function calendarDaysOld(value) {
+  if (!value) return Number.POSITIVE_INFINITY;
+  const observed = value.slice(0, 10).split("-").map(Number);
+  const todayParts = easternDateParts(now);
+  const today = [Number(todayParts.year), Number(todayParts.month), Number(todayParts.day)];
+  const observedUtc = Date.UTC(observed[0], observed[1] - 1, observed[2]);
+  const todayUtc = Date.UTC(today[0], today[1] - 1, today[2]);
+  return Math.floor((todayUtc - observedUtc) / 86_400_000);
+}
+
+function updateStatus(metric, kind) {
+  if (metric.value === null || metric.value === undefined) {
+    metric.status = "unavailable";
+    return;
+  }
+  let stale = false;
+  if (kind === "stage") stale = hoursSince(metric.verifiedAt) > 48;
+  if (kind === "durham") stale = calendarDaysOld(metric.observedAt) > 2;
+  if (kind === "usgs") stale = hoursSince(metric.observedAt) > 3;
+  if (kind === "drought") stale = calendarDaysOld(metric.observedAt) > 9;
+  metric.status = stale || metric.retrievalStatus === "failed" ? "stale" : "fresh";
+}
+
+const dueDaily = hoursSince(snapshot.stage.verifiedAt) >= 20;
+const dueDrought = calendarDaysOld(snapshot.drought.observedAt) >= 7;
+const jobs = [refreshStreamflow()];
+if (dueDaily) jobs.push(refreshStage(), refreshSupply(), refreshReservoirs());
+if (dueDrought) jobs.push(refreshDrought());
+await Promise.allSettled(jobs);
+
+updateStatus(snapshot.stage, "stage");
+updateStatus(snapshot.supply.accessible, "durham");
+updateStatus(snapshot.supply.belowIntakes, "durham");
+updateStatus(snapshot.supply.quarry, "durham");
+updateStatus(snapshot.supply.total, "durham");
+updateStatus(snapshot.reservoirs.michie, "durham");
+updateStatus(snapshot.reservoirs.little, "durham");
+updateStatus(snapshot.drought, "drought");
+updateStatus(snapshot.streamflow.flat, "usgs");
+updateStatus(snapshot.streamflow.little, "usgs");
+
+snapshot.generatedAt = nowIso;
+snapshot.lastRefreshResult = results.join("; ") || "No source was due for refresh.";
+
+await writeFile(temporaryPath, `${JSON.stringify(snapshot, null, 2)}\n`);
+await writeFile(quarantineTemporaryPath, `${JSON.stringify(quarantine.slice(-100), null, 2)}\n`);
+await rename(temporaryPath, snapshotPath);
+await rename(quarantineTemporaryPath, quarantinePath);
+console.log(snapshot.lastRefreshResult);

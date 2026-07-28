@@ -117,6 +117,34 @@ h1 { margin: 0; font-family: Georgia, serif; font-size: clamp(2.55rem, 6vw, 5.25
 .why-card > span { flex: 0 0 58px; width: 58px; height: 58px; display: grid; place-items: center; border: 1px solid var(--teal); border-radius: 50%; font: 500 2rem Georgia, serif; }
 .why-card h3 { margin: 0 0 4px; font: 500 1.4rem Georgia, serif; }
 .why-card p { margin: 0; max-width: 82ch; color: #314f52; }
+.exit-outlook { margin-top: 48px; display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--line); background: var(--stone); }
+.exit-outlook-intro, .exit-rule, .forecast-method, .forecast-limits { padding: 34px; }
+.exit-outlook-intro { background: var(--river); color: var(--white); }
+.exit-outlook-intro .kicker { color: #9ccbc6; }
+.exit-outlook-intro h2 { margin: 0 0 24px; max-width: 13ch; font: 500 clamp(2rem, 4vw, 3.4rem)/1.04 Georgia, serif; }
+.exit-outlook-intro > p:last-child { margin-bottom: 0; color: #cbdcdd; font-size: .88rem; }
+.outlook-answer { display: flex; align-items: flex-start; gap: 12px; margin: 0 0 18px; }
+.outlook-answer span { flex: 0 0 30px; width: 30px; height: 30px; display: grid; place-items: center; border: 2px solid #f0a25b; border-radius: 50%; color: #f0a25b; font-weight: 900; }
+.outlook-answer strong { max-width: 30ch; font-size: 1.05rem; }
+.exit-rule { background: var(--white); border-bottom: 1px solid var(--line); }
+.threshold-chain { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 12px; align-items: center; margin: 26px 0; }
+.threshold-chain div { min-width: 0; text-align: center; }
+.threshold-chain strong { display: block; font: 500 clamp(2rem, 4vw, 3.2rem)/1 Georgia, serif; color: var(--river); }
+.threshold-chain span { display: block; margin-top: 8px; color: var(--muted); font-size: .7rem; font-weight: 700; }
+.threshold-chain b { color: var(--teal); font-size: 1.4rem; }
+.discretion-note { color: var(--muted); font-size: .8rem; }
+.exit-rule > a { min-height: 44px; display: inline-flex; align-items: center; color: var(--river-2); font-size: .78rem; font-weight: 800; }
+.forecast-method { background: var(--paper); border-right: 1px solid var(--line); }
+.forecast-method h3, .forecast-limits h3 { margin: 0 0 22px; font: 500 1.45rem Georgia, serif; color: var(--river); }
+.forecast-method ol { margin: 0; padding: 0; list-style: none; counter-reset: forecast; }
+.forecast-method li { counter-increment: forecast; display: grid; grid-template-columns: 28px 1fr; gap: 2px 12px; margin-bottom: 18px; }
+.forecast-method li::before { content: counter(forecast, decimal-leading-zero); grid-row: 1 / span 2; color: var(--teal); font: 700 .68rem "SFMono-Regular", Consolas, monospace; }
+.forecast-method li strong { font-size: .86rem; }
+.forecast-method li span { color: var(--muted); font-size: .78rem; }
+.forecast-limits { background: var(--amber-pale); }
+.forecast-limits ul { margin: 0; padding-left: 20px; }
+.forecast-limits li { margin-bottom: 11px; font-size: .82rem; }
+.forecast-limits p { margin: 24px 0 0; padding-top: 20px; border-top: 1px solid #d7b796; color: #653710; font-size: .82rem; font-weight: 700; }
 .reservoirs-section { background: var(--stone); }
 .reservoir-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 .reservoir-card { padding: 32px; background: var(--paper); border-top: 5px solid var(--teal); }
@@ -236,6 +264,8 @@ footer a { color: #fff; font-size: .8rem; font-weight: 800; }
   .part:nth-child(4) { border-top: 1px solid rgba(255,255,255,.2); }
   .section-heading.split, .history-table, .timeline-grid { grid-template-columns: 1fr; gap: 25px; }
   .chart-grid, .method-grid { grid-template-columns: 1fr 1fr; }
+  .exit-outlook { grid-template-columns: 1fr; }
+  .forecast-method { border-right: 0; border-bottom: 1px solid var(--line); }
   .rules-grid { grid-template-columns: 1fr; }
   .context-grid { grid-template-columns: 1fr; gap: 50px; }
   .source-directory > div { grid-template-columns: 1fr 1fr; }
@@ -266,6 +296,9 @@ footer a { color: #fff; font-size: .8rem; font-weight: 800; }
   .section { padding: 68px 0; }
   .section-heading h2 { font-size: 2.4rem; }
   .signal-grid, .reservoir-grid, .chart-grid, .history-table, .alert-grid, .timeline-grid, .method-grid, .footer-grid { grid-template-columns: 1fr; }
+  .exit-outlook-intro, .exit-rule, .forecast-method, .forecast-limits { padding: 24px; }
+  .threshold-chain { grid-template-columns: 1fr; }
+  .threshold-chain b { transform: rotate(90deg); justify-self: center; }
   .signal-card > p:not(.eyebrow):not(.source-line) { min-height: 0; }
   .why-card { align-items: flex-start; padding: 22px; }
   .why-card > span { flex-basis: 42px; width: 42px; height: 42px; font-size: 1.4rem; }

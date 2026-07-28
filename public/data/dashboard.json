@@ -1,0 +1,128 @@
+{
+  "stage": {
+    "value": 2,
+    "units": "stage",
+    "sourceUrl": "https://www.durhamnc.gov/1061/Durham-Saves-Water",
+    "observedAt": "2026-06-15",
+    "effectiveDate": "2026-06-15",
+    "verifiedAt": "2026-07-27T13:38:00-04:00",
+    "status": "fresh",
+    "retrievalStatus": "verified",
+    "validationResult": "accepted",
+    "previousValue": null
+  },
+  "supply": {
+    "accessible": {
+      "value": 119,
+      "units": "days",
+      "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
+      "observedAt": "2026-07-26",
+      "verifiedAt": "2026-07-27T13:38:00-04:00",
+      "status": "fresh",
+      "retrievalStatus": "verified",
+      "validationResult": "accepted",
+      "previousValue": null
+    },
+    "belowIntakes": {
+      "value": 46,
+      "units": "days",
+      "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
+      "observedAt": "2026-07-26",
+      "verifiedAt": "2026-07-27T13:38:00-04:00",
+      "status": "fresh",
+      "retrievalStatus": "verified",
+      "validationResult": "accepted",
+      "previousValue": null
+    },
+    "quarry": {
+      "value": 30,
+      "units": "days",
+      "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
+      "observedAt": "2026-07-26",
+      "verifiedAt": "2026-07-27T13:38:00-04:00",
+      "status": "fresh",
+      "retrievalStatus": "verified",
+      "validationResult": "accepted",
+      "previousValue": null
+    },
+    "total": {
+      "value": 195,
+      "units": "days",
+      "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
+      "observedAt": "2026-07-26",
+      "verifiedAt": "2026-07-27T13:38:00-04:00",
+      "status": "fresh",
+      "retrievalStatus": "verified",
+      "validationResult": "accepted",
+      "previousValue": null
+    }
+  },
+  "reservoirs": {
+    "michie": {
+      "value": 330.9,
+      "fullPool": 341,
+      "units": "ft msl",
+      "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
+      "observedAt": "2026-07-23",
+      "verifiedAt": "2026-07-27T13:38:00-04:00",
+      "status": "stale",
+      "retrievalStatus": "verified",
+      "validationResult": "accepted",
+      "previousValue": null,
+      "note": "The official page has not posted a newer dated reading."
+    },
+    "little": {
+      "value": 340.51,
+      "fullPool": 355,
+      "units": "ft msl",
+      "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
+      "observedAt": "2026-07-23",
+      "verifiedAt": "2026-07-27T13:38:00-04:00",
+      "status": "stale",
+      "retrievalStatus": "verified",
+      "validationResult": "accepted",
+      "previousValue": null,
+      "note": "The official page has not posted a newer dated reading."
+    }
+  },
+  "drought": {
+    "value": "D3 · Extreme Drought",
+    "units": "category",
+    "sourceUrl": "https://www.ncdrought.org/",
+    "observedAt": "2026-07-21T08:00:00-04:00",
+    "verifiedAt": "2026-07-27T13:38:00-04:00",
+    "status": "fresh",
+    "retrievalStatus": "verified",
+    "validationResult": "accepted",
+    "previousValue": null
+  },
+  "streamflow": {
+    "flat": {
+      "value": 4.18,
+      "units": "ft³/s",
+      "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
+      "observedAt": "2026-07-27T19:45:00.000-04:00",
+      "verifiedAt": "2026-07-28T00:17:46.578Z",
+      "status": "fresh",
+      "retrievalStatus": "verified",
+      "validationResult": "accepted",
+      "previousValue": 5.14,
+      "note": "USGS provisional data; subject to revision."
+    },
+    "little": {
+      "value": 16.7,
+      "units": "ft³/s",
+      "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/0208521324/",
+      "observedAt": "2026-07-27T19:15:00.000-04:00",
+      "verifiedAt": "2026-07-28T00:17:46.578Z",
+      "status": "fresh",
+      "retrievalStatus": "verified",
+      "validationResult": "accepted",
+      "previousValue": 11.8,
+      "note": "USGS provisional data; subject to revision."
+    }
+  },
+  "historyStarts": "2026-07-27",
+  "generatedAt": "2026-07-28T00:17:46.578Z",
+  "lastRefreshResult": "verified: streamflow"
+}

@@ -42,3 +42,4 @@ next-env.d.ts
 /work/
 .plans/
 *.tsbuildinfo
+/pages-dist/

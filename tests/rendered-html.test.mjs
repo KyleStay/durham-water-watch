@@ -23,6 +23,10 @@ test("server-renders the resident-facing dashboard without JavaScript", async ()
   assert.match(html, /195/);
   assert.match(html, /Official City guidance always takes precedence/);
   assert.match(html, /What to do now/);
+  assert.match(html, /How close is Durham to leaving Stage 2/);
+  assert.match(html, /Not calculable from the public readings currently posted/);
+  assert.match(html, /95%[\s\S]{0,120}combined usable storage/);
+  assert.match(html, /10-week forecast/);
   assert.match(html, /Español/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
 });

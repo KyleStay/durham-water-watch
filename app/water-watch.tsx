@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import verifiedSnapshot from "../public/data/dashboard.json";
 
 type Lang = "en" | "es";
 type Freshness = "fresh" | "stale" | "unavailable";
@@ -13,6 +14,8 @@ type Metric = {
   status: Freshness;
   note?: string;
   previousValue?: number | string | null;
+  retrievalStatus?: "verified" | "failed" | "unavailable";
+  validationResult?: "accepted" | "rejected" | "unavailable";
 };
 type DashboardData = {
   stage: Metric & { effectiveDate: string | null };
@@ -29,6 +32,7 @@ type DashboardData = {
   drought: Metric;
   streamflow: { flat: Metric; little: Metric };
   historyStarts: string;
+  generatedAt?: string;
   lastRefreshResult?: string;
 };
 
@@ -45,25 +49,7 @@ const urls = {
   watershed: "https://www.durhamnc.gov/DocumentCenter/View/25818/DurhamWatershedSummary2019_0307_Letter",
 };
 
-const seed: DashboardData = {
-  stage: { value: 2, units: "stage", sourceUrl: urls.stage, observedAt: "2026-06-15", effectiveDate: "2026-06-15", verifiedAt: "2026-07-27T13:38:00-04:00", status: "fresh" },
-  supply: {
-    accessible: { value: 119, units: "days", sourceUrl: urls.data, observedAt: "2026-07-26", verifiedAt: "2026-07-27T13:38:00-04:00", status: "fresh" },
-    belowIntakes: { value: 46, units: "days", sourceUrl: urls.data, observedAt: "2026-07-26", verifiedAt: "2026-07-27T13:38:00-04:00", status: "fresh" },
-    quarry: { value: 30, units: "days", sourceUrl: urls.data, observedAt: "2026-07-26", verifiedAt: "2026-07-27T13:38:00-04:00", status: "fresh" },
-    total: { value: 195, units: "days", sourceUrl: urls.data, observedAt: "2026-07-26", verifiedAt: "2026-07-27T13:38:00-04:00", status: "fresh" },
-  },
-  reservoirs: {
-    michie: { value: 330.9, fullPool: 341, units: "ft msl", sourceUrl: urls.lakes, observedAt: "2026-07-23", verifiedAt: "2026-07-27T13:38:00-04:00", status: "stale", note: "The official page has not posted a newer dated reading." },
-    little: { value: 340.51, fullPool: 355, units: "ft msl", sourceUrl: urls.lakes, observedAt: "2026-07-23", verifiedAt: "2026-07-27T13:38:00-04:00", status: "stale", note: "The official page has not posted a newer dated reading." },
-  },
-  drought: { value: "D3 · Extreme Drought", units: "category", sourceUrl: urls.drought, observedAt: "2026-07-21T08:00:00-04:00", verifiedAt: "2026-07-27T13:38:00-04:00", status: "fresh" },
-  streamflow: {
-    flat: { value: 5.14, units: "ft³/s", sourceUrl: urls.flat, observedAt: "2026-07-27T12:45:00-04:00", verifiedAt: "2026-07-27T13:38:00-04:00", status: "fresh", note: "USGS provisional data; subject to revision." },
-    little: { value: 11.8, units: "ft³/s", sourceUrl: urls.little, observedAt: "2026-07-27T13:15:00-04:00", verifiedAt: "2026-07-27T13:38:00-04:00", status: "fresh", note: "USGS provisional data; subject to revision." },
-  },
-  historyStarts: "2026-07-27",
-};
+const seed = verifiedSnapshot as DashboardData;
 
 const copy = {
   en: {
@@ -302,24 +288,12 @@ function ReservoirCard({ name, metric, lang }: { name: string; metric: Metric & 
 
 export default function WaterWatch() {
   const [lang, setLang] = useState<Lang>("en");
-  const [data, setData] = useState(seed);
   const [announcement, setAnnouncement] = useState("");
+  const data = seed;
   const t = copy[lang];
 
   useEffect(() => {
     document.documentElement.lang = lang;
-  }, [lang]);
-
-  useEffect(() => {
-    const controller = new AbortController();
-    fetch("/api/water-data", { signal: controller.signal })
-      .then((response) => response.ok ? response.json() : Promise.reject())
-      .then((next: DashboardData) => {
-        setData(next);
-        setAnnouncement(copy[lang].refreshed);
-      })
-      .catch(() => {});
-    return () => controller.abort();
   }, [lang]);
 
   const switchLang = () => {
@@ -432,6 +406,82 @@ export default function WaterWatch() {
               </article>
               <aside className="why-card"><span aria-hidden="true">≠</span><div><h3>{t.whyDiffer}</h3><p>{t.whyText}</p></div></aside>
             </div>
+            <article className="exit-outlook" aria-labelledby="exit-outlook-title">
+              <div className="exit-outlook-intro">
+                <p className="kicker">{lang === "en" ? "Stage 2 exit outlook" : "Perspectiva para salir de la Etapa 2"}</p>
+                <h2 id="exit-outlook-title">
+                  {lang === "en"
+                    ? "How close is Durham to leaving Stage 2?"
+                    : "¿Qué tan cerca está Durham de salir de la Etapa 2?"}
+                </h2>
+                <p className="outlook-answer">
+                  <span aria-hidden="true">?</span>
+                  <strong>
+                    {lang === "en"
+                      ? "Not calculable from the public readings currently posted."
+                      : "No se puede calcular con las lecturas públicas disponibles actualmente."}
+                  </strong>
+                </p>
+                <p>
+                  {lang === "en"
+                    ? "The City does not publish the modeled probability or the 10-week combined usable-storage forecast needed to measure distance from the official rescission test. A numeric progress bar here would imply precision the source data do not support."
+                    : "La Ciudad no publica la probabilidad modelada ni el pronóstico de almacenamiento utilizable combinado a 10 semanas necesarios para medir la distancia a la prueba oficial de rescisión. Una barra numérica implicaría una precisión que las fuentes no respaldan."}
+                </p>
+              </div>
+              <div className="exit-rule">
+                <p className="eyebrow">{lang === "en" ? "The plan’s rescission test" : "Prueba de rescisión del plan"}</p>
+                <div className="threshold-chain" aria-label={lang === "en" ? "At least 95 percent probability of reaching 95 percent combined usable storage by the end of a 10-week forecast" : "Al menos 95 por ciento de probabilidad de alcanzar 95 por ciento de almacenamiento utilizable combinado al final de un pronóstico de 10 semanas"}>
+                  <div><strong>≥95%</strong><span>{lang === "en" ? "modeled probability" : "probabilidad modelada"}</span></div>
+                  <b aria-hidden="true">→</b>
+                  <div><strong>95%</strong><span>{lang === "en" ? "combined usable storage" : "almacenamiento utilizable combinado"}</span></div>
+                  <b aria-hidden="true">→</b>
+                  <div><strong>10</strong><span>{lang === "en" ? "week forecast horizon" : "semanas de pronóstico"}</span></div>
+                </div>
+                <p className="discretion-note">
+                  {lang === "en"
+                    ? "Meeting the modeled test does not automatically end Stage 2. The plan allows the City Manager to delay rescission or consider other system conditions."
+                    : "Cumplir la prueba modelada no termina automáticamente la Etapa 2. El plan permite que la administración de la Ciudad retrase la rescisión o considere otras condiciones del sistema."}
+                </p>
+                <a href={urls.plan} target="_blank" rel="noreferrer">
+                  {lang === "en" ? "Read the official response plan, Tables 5.1–5.2" : "Leer el plan oficial, Tablas 5.1–5.2"} ↗
+                </a>
+              </div>
+              <div className="forecast-method">
+                <h3>{lang === "en" ? "How the City’s forecast is described" : "Cómo se describe el pronóstico de la Ciudad"}</h3>
+                <ol>
+                  <li>
+                    <strong>{lang === "en" ? "Model usable storage." : "Modelar el almacenamiento utilizable."}</strong>
+                    <span>{lang === "en" ? "The plan uses combined usable reservoir storage—not individual elevation percentages—as the key forecast input." : "El plan usa el almacenamiento utilizable combinado, no porcentajes de elevación individuales, como dato principal."}</span>
+                  </li>
+                  <li>
+                    <strong>{lang === "en" ? "Project demand and system conditions." : "Proyectar demanda y condiciones del sistema."}</strong>
+                    <span>{lang === "en" ? "The City considers demand, lake elevations, intake access, treatment and distribution capacity, neighboring supplies, weather, and other operational factors." : "La Ciudad considera demanda, elevaciones, acceso a tomas, capacidad de tratamiento y distribución, suministros vecinos, clima y otros factores."}</span>
+                  </li>
+                  <li>
+                    <strong>{lang === "en" ? "Test the 10-week probability." : "Evaluar la probabilidad a 10 semanas."}</strong>
+                    <span>{lang === "en" ? "The model estimates the chance of reaching the combined-storage target by the end of the forecast horizon." : "El modelo estima la posibilidad de alcanzar la meta de almacenamiento combinado al final del período."}</span>
+                  </li>
+                  <li>
+                    <strong>{lang === "en" ? "Apply management judgment." : "Aplicar criterio administrativo."}</strong>
+                    <span>{lang === "en" ? "The City may change stages non-sequentially, act earlier, or rescind more slowly as conditions warrant." : "La Ciudad puede cambiar etapas fuera de secuencia, actuar antes o rescindir más lentamente según las condiciones."}</span>
+                  </li>
+                </ol>
+              </div>
+              <aside className="forecast-limits">
+                <h3>{lang === "en" ? "What does not measure closeness" : "Lo que no mide la cercanía"}</h3>
+                <ul>
+                  <li>{lang === "en" ? "195 estimated days of supply is not an exit threshold." : "195 días estimados no es un umbral de salida."}</li>
+                  <li>{lang === "en" ? "The NC drought category does not mechanically set the City stage." : "La categoría de sequía de NC no determina mecánicamente la etapa."}</li>
+                  <li>{lang === "en" ? "Feet below full cannot be converted to percent storage without official storage curves." : "Los pies por debajo de capacidad no se convierten a porcentaje sin curvas oficiales."}</li>
+                  <li>{lang === "en" ? "Streamflow cannot predict reservoir refill or a stage change." : "El caudal no puede predecir la recarga ni un cambio de etapa."}</li>
+                </ul>
+                <p>
+                  {lang === "en"
+                    ? "If Durham publishes the modeled probability and combined-storage forecast, this dashboard can show that official outlook directly and compare it with the plan—without inventing a forecast."
+                    : "Si Durham publica la probabilidad modelada y el pronóstico combinado, este panel podrá mostrar esa perspectiva oficial y compararla con el plan, sin inventar un pronóstico."}
+                </p>
+              </aside>
+            </article>
           </div>
         </section>
 
@@ -570,10 +620,10 @@ export default function WaterWatch() {
             <div className="method-grid">
               {[
                 [lang === "en" ? "Meaning, not mystery" : "Significado claro", lang === "en" ? "Days of supply combines accessible reservoir water, less-accessible water below the intakes, and Teer Quarry emergency storage. Elevation is never presented as percent storage." : "Los días combinan agua accesible, agua debajo de las tomas y reserva de Teer Quarry. La elevación nunca se presenta como porcentaje."],
-                [lang === "en" ? "Refresh rhythm" : "Ritmo de actualización", lang === "en" ? "Durham dated readings: daily. USGS streamflow: every 15–60 minutes. NC drought: weekly after its scheduled update." : "Lecturas fechadas de Durham: diarias. Caudal USGS: cada 15–60 minutos. Sequía de NC: semanal tras su actualización."],
+                [lang === "en" ? "Refresh rhythm" : "Ritmo de actualización", lang === "en" ? "A scheduled publication workflow checks Durham daily, USGS about every 30 minutes, and NC drought after its weekly update, then rebuilds the static site." : "Un flujo programado comprueba Durham a diario, USGS aproximadamente cada 30 minutos y la sequía de NC tras su actualización semanal, y luego reconstruye el sitio estático."],
                 [lang === "en" ? "Stale thresholds" : "Umbrales de desactualización", lang === "en" ? "Durham daily metrics: two calendar days. USGS: about three hours. NC drought: after the expected weekly update window." : "Métricas diarias de Durham: dos días calendario. USGS: unas tres horas. Sequía de NC: tras la ventana semanal esperada."],
                 [lang === "en" ? "Validation before publication" : "Validación antes de publicar", lang === "en" ? "Expected URL and units, a recognizable date, nonnegative components, internally consistent totals, intended reservoir fields, newer observations, and plausible changes." : "URL y unidades esperadas, fecha reconocible, componentes no negativos, total coherente, campos correctos, observaciones más nuevas y cambios plausibles."],
-                [lang === "en" ? "Failure is visible" : "Las fallas son visibles", lang === "en" ? "Malformed, older, null, or implausible readings are quarantined. The last verified value remains with a stale label; without one, the dashboard says reading unavailable." : "Lecturas malformadas, antiguas, nulas o improbables se ponen en cuarentena. Se conserva el último valor verificado con aviso; sin uno, se indica no disponible."],
+                [lang === "en" ? "Failure is visible" : "Las fallas son visibles", lang === "en" ? "Malformed, older, null, or implausible readings never replace the repository’s last-known-good snapshot. The next static build keeps the verified value with a stale label; without one, it says reading unavailable." : "Lecturas malformadas, antiguas, nulas o improbables nunca reemplazan la última instantánea verificada del repositorio. La compilación estática conserva el valor con aviso; sin uno, indica no disponible."],
                 [lang === "en" ? "Limits" : "Limitaciones", lang === "en" ? "City chart images are not digitized. Streamflow is not used to estimate storage or refill. Trend claims require at least two locally verified readings." : "Las gráficas de la Ciudad no se digitalizan. El caudal no estima almacenamiento ni recarga. Las tendencias requieren al menos dos lecturas verificadas."],
               ].map(([title, body], index) => <article key={title}><span>{String(index + 1).padStart(2, "0")}</span><h3>{title}</h3><p>{body}</p></article>)}
             </div>
