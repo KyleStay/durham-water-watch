@@ -16,6 +16,8 @@ test("produces a complete GitHub Pages artifact", async () => {
   const html = await readFile(new URL("index.html", pagesRoot), "utf8");
   assert.match(html, /Unofficial independent community dashboard/);
   assert.match(html, /How close is Durham to leaving Stage 2/);
+  assert.match(html, /Illustrative scenario explorer/);
+  assert.match(html, /All four inputs are assumptions/);
   assert.match(html, /href="\.\/assets\//);
   assert.doesNotMatch(html, /(?:href|src)="\/assets\//);
   assert.doesNotMatch(html, /\/api\/water-data/);

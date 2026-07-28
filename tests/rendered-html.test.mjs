@@ -27,6 +27,9 @@ test("server-renders the resident-facing dashboard without JavaScript", async ()
   assert.match(html, /Not calculable from the public readings currently posted/);
   assert.match(html, /95%[\s\S]{0,120}combined usable storage/);
   assert.match(html, /10-week forecast/);
+  assert.match(html, /Illustrative scenario explorer/);
+  assert.match(html, /Not an official forecast/);
+  assert.match(html, /does not calculate that probability/);
   assert.match(html, /Español/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
 });

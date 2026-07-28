@@ -286,6 +286,121 @@ function ReservoirCard({ name, metric, lang }: { name: string; metric: Metric & 
   );
 }
 
+function StageExitExplorer({ lang }: { lang: Lang }) {
+  const [startingStorage, setStartingStorage] = useState(70);
+  const [rainfall, setRainfall] = useState(10);
+  const [rainResponse, setRainResponse] = useState(0.8);
+  const [systemDraw, setSystemDraw] = useState(10);
+
+  const models = [
+    { key: "low", multiplier: 0.5, label: lang === "en" ? "Low response" : "Respuesta baja" },
+    { key: "middle", multiplier: 1, label: lang === "en" ? "Middle response" : "Respuesta media" },
+    { key: "high", multiplier: 1.5, label: lang === "en" ? "High response" : "Respuesta alta" },
+  ].map((model) => ({
+    ...model,
+    netChange: rainfall * rainResponse * model.multiplier - systemDraw,
+    endingStorage: Math.max(0, Math.min(100, startingStorage + rainfall * rainResponse * model.multiplier - systemDraw)),
+  }));
+  const weeks = [0, 2, 4, 6, 8, 10];
+
+  const applyPreset = (preset: "dry" | "middle" | "wet") => {
+    const values = {
+      dry: [5, 0.4, 14],
+      middle: [10, 0.8, 10],
+      wet: [18, 1.2, 8],
+    }[preset];
+    setRainfall(values[0]);
+    setRainResponse(values[1]);
+    setSystemDraw(values[2]);
+  };
+
+  return (
+    <section className="scenario-explorer" aria-labelledby="scenario-title">
+      <div className="scenario-heading">
+        <div>
+          <p className="eyebrow">{lang === "en" ? "Illustrative scenario explorer" : "Explorador de escenarios ilustrativos"}</p>
+          <h3 id="scenario-title">{lang === "en" ? "Test how assumptions change the 10-week path" : "Pruebe cómo los supuestos cambian la trayectoria de 10 semanas"}</h3>
+        </div>
+        <p className="model-warning">
+          <strong>{lang === "en" ? "Not an official forecast." : "No es un pronóstico oficial."}</strong>{" "}
+          {lang === "en"
+            ? "All four inputs are assumptions. They are not derived from current reservoir elevations."
+            : "Los cuatro datos son supuestos. No se derivan de las elevaciones actuales de los embalses."}
+        </p>
+      </div>
+
+      <div className="preset-row" aria-label={lang === "en" ? "Example assumption sets" : "Conjuntos de supuestos de ejemplo"}>
+        <span>{lang === "en" ? "Examples:" : "Ejemplos:"}</span>
+        <button type="button" onClick={() => applyPreset("dry")}>{lang === "en" ? "Drier" : "Más seco"}</button>
+        <button type="button" onClick={() => applyPreset("middle")}>{lang === "en" ? "Middle" : "Intermedio"}</button>
+        <button type="button" onClick={() => applyPreset("wet")}>{lang === "en" ? "Wetter" : "Más lluvioso"}</button>
+      </div>
+
+      <div className="scenario-grid">
+        <div className="scenario-controls">
+          <label>
+            <span><strong>{lang === "en" ? "Assumed starting combined usable storage" : "Almacenamiento utilizable combinado inicial supuesto"}</strong><output>{startingStorage}%</output></span>
+            <input type="range" min="40" max="94" step="1" value={startingStorage} onChange={(event) => setStartingStorage(Number(event.target.value))} />
+            <small>{lang === "en" ? "The current official value is not publicly posted." : "El valor oficial actual no se publica."}</small>
+          </label>
+          <label>
+            <span><strong>{lang === "en" ? "Assumed rainfall over 10 weeks" : "Lluvia supuesta durante 10 semanas"}</strong><output>{rainfall} in</output></span>
+            <input type="range" min="0" max="25" step="1" value={rainfall} onChange={(event) => setRainfall(Number(event.target.value))} />
+            <small>{lang === "en" ? "Rainfall alone does not equal reservoir refill." : "La lluvia por sí sola no equivale a recarga del embalse."}</small>
+          </label>
+          <label>
+            <span><strong>{lang === "en" ? "Assumed middle storage response per inch" : "Respuesta media supuesta de almacenamiento por pulgada"}</strong><output>{rainResponse.toFixed(1)} points</output></span>
+            <input type="range" min="0.1" max="2" step="0.1" value={rainResponse} onChange={(event) => setRainResponse(Number(event.target.value))} />
+            <small>{lang === "en" ? "A user-set conversion, not a City watershed coefficient." : "Conversión elegida por el usuario, no un coeficiente de la Ciudad."}</small>
+          </label>
+          <label>
+            <span><strong>{lang === "en" ? "Assumed 10-week demand and other losses" : "Demanda y otras pérdidas supuestas en 10 semanas"}</strong><output>{systemDraw} points</output></span>
+            <input type="range" min="0" max="25" step="1" value={systemDraw} onChange={(event) => setSystemDraw(Number(event.target.value))} />
+            <small>{lang === "en" ? "Combines an assumed draw from demand, evaporation, and other losses." : "Combina una reducción supuesta por demanda, evaporación y otras pérdidas."}</small>
+          </label>
+        </div>
+
+        <div className="scenario-results" aria-live="polite">
+          <div className="scenario-table-wrap">
+            <table>
+              <caption>{lang === "en" ? "Illustrative combined usable storage path" : "Trayectoria ilustrativa del almacenamiento utilizable combinado"}</caption>
+              <thead>
+                <tr>
+                  <th scope="col">{lang === "en" ? "Response" : "Respuesta"}</th>
+                  {weeks.map((week) => <th scope="col" key={week}>{lang === "en" ? `Week ${week}` : `Sem. ${week}`}</th>)}
+                  <th scope="col">{lang === "en" ? "95% target" : "Meta de 95%"}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {models.map((model) => (
+                  <tr key={model.key}>
+                    <th scope="row">{model.label}</th>
+                    {weeks.map((week) => (
+                      <td key={week}>{Math.max(0, Math.min(100, startingStorage + model.netChange * (week / 10))).toFixed(1)}%</td>
+                    ))}
+                    <td>{model.endingStorage >= 95 ? (lang === "en" ? "Reached in this illustration" : "Alcanzada en esta ilustración") : (lang === "en" ? "Not reached" : "No alcanzada")}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="formula">
+            {lang === "en"
+              ? "Simplified arithmetic: starting storage + (rain × assumed response) − assumed draw. Low and high models use one-half and one-and-a-half times the selected response."
+              : "Aritmética simplificada: almacenamiento inicial + (lluvia × respuesta supuesta) − reducción supuesta. Los modelos bajo y alto usan la mitad y una vez y media la respuesta seleccionada."}
+          </p>
+          <p className="probability-limit">
+            <strong>{lang === "en" ? "What this cannot answer:" : "Lo que esto no puede responder:"}</strong>{" "}
+            {lang === "en"
+              ? "The official test also requires at least a 95% modeled probability of reaching 95% combined usable storage. This simple explorer does not calculate that probability, account for timing of storms, or predict a City decision."
+              : "La prueba oficial también exige una probabilidad modelada de al menos 95% de alcanzar 95% de almacenamiento utilizable combinado. Este explorador sencillo no calcula esa probabilidad, no considera el momento de las tormentas ni predice una decisión de la Ciudad."}
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function WaterWatch() {
   const [lang, setLang] = useState<Lang>("en");
   const [announcement, setAnnouncement] = useState("");
@@ -481,6 +596,7 @@ export default function WaterWatch() {
                     : "Si Durham publica la probabilidad modelada y el pronóstico combinado, este panel podrá mostrar esa perspectiva oficial y compararla con el plan, sin inventar un pronóstico."}
                 </p>
               </aside>
+              <StageExitExplorer lang={lang} />
             </article>
           </div>
         </section>
