@@ -58,7 +58,11 @@ try {
     console.log("GitHub Pages already matches the generated site.");
   } else {
     run("git", ["commit", "-m", "Deploy Durham Water Watch"], { cwd: deployRoot });
-    run("git", ["push", "origin", "gh-pages"], { cwd: deployRoot });
+    run("git", [
+      "-c", "http.version=HTTP/1.1",
+      "-c", "http.postBuffer=524288000",
+      "push", "origin", "gh-pages",
+    ], { cwd: deployRoot });
     console.log("Published pages-dist to the gh-pages branch.");
   }
 } finally {
