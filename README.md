@@ -9,7 +9,7 @@ The application:
 - renders a resident-first English and Spanish overview;
 - links every operational metric to an authoritative City, NC DMAC, or USGS source;
 - stores verified last-known-good values in a versioned JSON snapshot;
-- refreshes and validates official sources in a scheduled GitHub Actions workflow;
+- refreshes and validates official sources in a scheduled Codex job;
 - produces a fully static artifact compatible with GitHub Pages;
 - preserves last-known-good values and quarantines invalid, older, or implausible readings;
 - treats drought classification, shortage response, elevation, and streamflow as distinct concepts.
@@ -26,10 +26,11 @@ npm run build:pages
 npm test
 ```
 
-`pages-dist/` is the complete GitHub Pages artifact. The included daily
-workflow checks every official source, retries any stale or previously failed
-field, refreshes the City-published chart images on each build, and deploys
-through the official GitHub Pages Actions.
+`pages-dist/` is the complete GitHub Pages artifact. The daily Codex job checks
+every official source, retries any stale or previously failed field, refreshes
+the City-published chart images on each build, and publishes the artifact
+directly to the `gh-pages` branch with `npm run publish:pages`. GitHub hosts that
+branch but does not run the refresh or build.
 
 The visible correction-contact placeholder must be replaced before a public
 launch.
