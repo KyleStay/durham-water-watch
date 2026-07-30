@@ -8,9 +8,12 @@ const quarantinePath = resolve(import.meta.dirname, "../data/quarantine.json");
 const quarantineTemporaryPath = `${quarantinePath}.next`;
 const historyPath = resolve(import.meta.dirname, "../public/data/history.json");
 const historyTemporaryPath = `${historyPath}.next`;
+const streamflowHistoryPath = resolve(import.meta.dirname, "../public/data/streamflow-history.json");
+const streamflowHistoryTemporaryPath = `${streamflowHistoryPath}.next`;
 const snapshot = JSON.parse(await readFile(snapshotPath, "utf8"));
 const quarantine = JSON.parse(await readFile(quarantinePath, "utf8"));
 const history = JSON.parse(await readFile(historyPath, "utf8"));
+const streamflowHistory = JSON.parse(await readFile(streamflowHistoryPath, "utf8"));
 const now = new Date();
 const nowIso = now.toISOString();
 const forceAll = process.argv.includes("--all");
@@ -291,6 +294,102 @@ async function refreshStreamflow() {
   }
 }
 
+function parseUsgsStatistics(text, site) {
+  const lines = text.split(/\r?\n/).filter((line) => line && !line.startsWith("#"));
+  const headerIndex = lines.findIndex((line) => line.startsWith("agency_cd\t"));
+  if (headerIndex < 0 || !lines[headerIndex + 1]?.startsWith("5s\t")) {
+    throw new Error(`USGS ${site} historical statistics did not include an RDB header`);
+  }
+  const headers = lines[headerIndex].split("\t");
+  return lines.slice(headerIndex + 2).map((line) => {
+    const values = line.split("\t");
+    return Object.fromEntries(headers.map((header, index) => [header, values[index]]));
+  }).filter((row) => row.site_no === site && Number.isFinite(Number(row.mean_va)));
+}
+
+async function fetchUsgsJson(url) {
+  const response = await fetch(url, {
+    headers: {
+      "user-agent": "Durham Water Watch/1.0 (independent community dashboard)",
+      accept: "application/json",
+    },
+  });
+  if (!response.ok) throw new Error(`USGS service failed (${response.status})`);
+  return response.json();
+}
+
+async function refreshStreamflowHistory() {
+  const year = Number(easternDateParts(now).year);
+  const endDate = nowIso.slice(0, 10);
+  for (const [key, site, name, sourceUrl] of [
+    ["flat", "02085500", "Flat River", SOURCES.flat],
+    ["little", "0208521324", "Little River", SOURCES.little],
+  ]) {
+    try {
+      const dailyUrl = `https://waterservices.usgs.gov/nwis/dv/?format=json&sites=${site}&startDT=${year}-01-01&endDT=${endDate}&parameterCd=00060&siteStatus=all`;
+      const statisticsUrl = `https://waterservices.usgs.gov/nwis/stat/?format=rdb&sites=${site}&statReportType=daily&statTypeCd=mean&parameterCd=00060`;
+      const [dailyJson, statisticsText] = await Promise.all([
+        fetchUsgsJson(dailyUrl),
+        fetchOfficialText(statisticsUrl),
+      ]);
+      const series = dailyJson?.value?.timeSeries?.find((item) => item?.name?.endsWith(":00003"));
+      const dailyValues = series?.values?.[0]?.value;
+      if (!Array.isArray(dailyValues) || dailyValues.length < 2) {
+        throw new Error(`USGS ${site} returned insufficient current-year daily means`);
+      }
+      const statistics = parseUsgsStatistics(statisticsText, site);
+      if (statistics.length < 365) {
+        throw new Error(`USGS ${site} returned incomplete historical daily means`);
+      }
+      const statisticsByDay = new Map(statistics.map((row) => [
+        `${String(row.month_nu).padStart(2, "0")}-${String(row.day_nu).padStart(2, "0")}`,
+        row,
+      ]));
+      const days = dailyValues.map((reading) => {
+        const date = reading.dateTime.slice(0, 10);
+        const historical = statisticsByDay.get(date.slice(5));
+        const currentYear = Number(reading.value);
+        const historicalMean = Number(historical?.mean_va);
+        if (!historical || !Number.isFinite(currentYear) || currentYear < 0 || !Number.isFinite(historicalMean) || historicalMean < 0) {
+          throw new Error(`USGS ${site} current or historical daily mean did not validate`);
+        }
+        return {
+          date,
+          currentYear,
+          historicalMean,
+          historicalSampleYears: Number(historical.count_nu),
+        };
+      });
+      const firstStatistic = statistics[0];
+      const lastStatistic = statistics.at(-1);
+      streamflowHistory.stations[key] = {
+        site,
+        name,
+        status: "fresh",
+        sourceUrl,
+        historicalPeriod: `${firstStatistic.begin_yr}–${lastStatistic.end_yr}`,
+        days,
+      };
+      results.push(`verified: ${key} historical streamflow`);
+    } catch (error) {
+      const station = streamflowHistory.stations[key];
+      station.status = station.days?.length ? "stale" : "unavailable";
+      station.note = `The USGS year comparison could not be refreshed: ${error instanceof Error ? error.message : "unknown error"}`;
+      quarantine.push({
+        metrics: [`streamflowHistory.${key}`],
+        sourceUrl,
+        reason: station.note,
+        receivedAt: nowIso,
+        disposition: "rejected; last-known-good year comparison preserved",
+      });
+      results.push(`failed: ${key} historical streamflow`);
+    }
+  }
+  streamflowHistory.schemaVersion = 1;
+  streamflowHistory.year = year;
+  streamflowHistory.updatedAt = nowIso;
+}
+
 function easternDateParts(date) {
   const parts = new Intl.DateTimeFormat("en-US", {
     timeZone: "America/New_York",
@@ -324,7 +423,7 @@ function updateStatus(metric, kind) {
   metric.status = stale || metric.retrievalStatus === "failed" ? "stale" : "fresh";
 }
 
-const jobs = [refreshStreamflow()];
+const jobs = [refreshStreamflow(), refreshStreamflowHistory()];
 if (sourceIsDue({
   forceAll,
   metrics: [snapshot.stage],
@@ -421,7 +520,9 @@ history.days = history.days
 await writeFile(temporaryPath, `${JSON.stringify(snapshot, null, 2)}\n`);
 await writeFile(quarantineTemporaryPath, `${JSON.stringify(quarantine.slice(-100), null, 2)}\n`);
 await writeFile(historyTemporaryPath, `${JSON.stringify(history, null, 2)}\n`);
+await writeFile(streamflowHistoryTemporaryPath, `${JSON.stringify(streamflowHistory, null, 2)}\n`);
 await rename(temporaryPath, snapshotPath);
 await rename(quarantineTemporaryPath, quarantinePath);
 await rename(historyTemporaryPath, historyPath);
+await rename(streamflowHistoryTemporaryPath, streamflowHistoryPath);
 console.log(snapshot.lastRefreshResult);

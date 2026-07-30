@@ -75,18 +75,18 @@
     },
     {
       "date": "2026-07-30",
-      "capturedAt": "2026-07-30T13:03:40.334Z",
+      "capturedAt": "2026-07-30T13:12:48.094Z",
       "values": {
         "stage": 2,
         "supply": {
-          "accessible": 121,
-          "belowIntakes": 47,
+          "accessible": 125,
+          "belowIntakes": 48,
           "quarry": 31,
-          "total": 199
+          "total": 204
         },
         "reservoirs": {
-          "michie": 332.33,
-          "little": 342.63
+          "michie": 332.81,
+          "little": 342.65
         },
         "drought": "D1 · Moderate Drought",
         "streamflow": {

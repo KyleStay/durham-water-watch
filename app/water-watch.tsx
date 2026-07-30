@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import verifiedSnapshot from "../public/data/dashboard.json";
 import verifiedHistory from "../public/data/history.json";
+import verifiedStreamflowHistory from "../public/data/streamflow-history.json";
 
 type Lang = "en" | "es";
 type Freshness = "fresh" | "stale" | "unavailable";
@@ -56,6 +57,27 @@ type DailyEntry = {
   quarantinedFields?: string[];
 };
 type HistoryData = { schemaVersion: number; days: DailyEntry[] };
+type StreamflowHistoryDay = {
+  date: string;
+  currentYear: number;
+  historicalMean: number;
+  historicalSampleYears: number;
+};
+type StreamflowHistoryStation = {
+  site: string;
+  name: string;
+  status: Freshness;
+  sourceUrl: string;
+  historicalPeriod: string | null;
+  days: StreamflowHistoryDay[];
+  note?: string;
+};
+type StreamflowHistoryData = {
+  schemaVersion: number;
+  year: number;
+  updatedAt: string | null;
+  stations: { flat: StreamflowHistoryStation; little: StreamflowHistoryStation };
+};
 
 const urls = {
   stage: "https://www.durhamnc.gov/1061/Durham-Saves-Water",
@@ -72,6 +94,7 @@ const urls = {
 
 const seed = verifiedSnapshot as DashboardData;
 const historySeed = verifiedHistory as HistoryData;
+const streamflowHistorySeed = verifiedStreamflowHistory as StreamflowHistoryData;
 
 const copy = {
   en: {
@@ -347,27 +370,29 @@ function DailyBarChart({
       <div className="daily-chart-legend" aria-hidden="true">
         {series.map((item) => <span key={item.label}><i style={{ backgroundColor: item.color }} />{item.label}</span>)}
       </div>
-      <div className="daily-chart-plot" role="img" aria-label={`${title}. ${description}`}>
-        {days.map((day, dayIndex) => (
-          <div className="daily-chart-day" key={day.date}>
-            <div className="daily-chart-bars">
-              {series.map((item) => {
-                const value = item.values[dayIndex];
-                const height = typeof value === "number" ? Math.max(7, (value / maximum) * 100) : 0;
-                return (
-                  <div className="daily-chart-bar-wrap" key={item.label}>
-                    <span>{typeof value === "number" ? item.format(value) : "—"}</span>
-                    <i
-                      style={{ height: `${height}%`, backgroundColor: item.color }}
-                      title={`${item.label}: ${typeof value === "number" ? item.format(value) : "unavailable"}`}
-                    />
-                  </div>
-                );
-              })}
+      <div className="daily-chart-scroll">
+        <div className="daily-chart-plot" role="img" aria-label={`${title}. ${description}`}>
+          {days.map((day, dayIndex) => (
+            <div className="daily-chart-day" key={day.date}>
+              <div className="daily-chart-bars">
+                {series.map((item) => {
+                  const value = item.values[dayIndex];
+                  const height = typeof value === "number" ? Math.max(7, (value / maximum) * 100) : 0;
+                  return (
+                    <div className="daily-chart-bar-wrap" key={item.label}>
+                      <span>{typeof value === "number" ? item.format(value) : "—"}</span>
+                      <i
+                        style={{ height: `${height}%`, backgroundColor: item.color }}
+                        title={`${item.label}: ${typeof value === "number" ? item.format(value) : "unavailable"}`}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+              <time dateTime={day.date}>{fmtDailyDate(day.date, lang)}</time>
             </div>
-            <time dateTime={day.date}>{fmtDailyDate(day.date, lang)}</time>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </figure>
   );
@@ -379,6 +404,115 @@ function dailyQuality(day: DailyEntry, lang: Lang) {
   if (quarantined) return lang === "en" ? `${quarantined} quarantined` : `${quarantined} en cuarentena`;
   if (retained) return lang === "en" ? `${retained} retained` : `${retained} conservado${retained === 1 ? "" : "s"}`;
   return lang === "en" ? "All current" : "Todo vigente";
+}
+
+function weeklyStreamflow(days: StreamflowHistoryDay[]) {
+  if (!days.length) return [];
+  const year = Number(days[0].date.slice(0, 4));
+  const yearStart = Date.UTC(year, 0, 1);
+  const groups = new Map<number, StreamflowHistoryDay[]>();
+  for (const day of days) {
+    const week = Math.floor((Date.parse(`${day.date}T00:00:00Z`) - yearStart) / 604_800_000);
+    groups.set(week, [...(groups.get(week) ?? []), day]);
+  }
+  return [...groups.entries()].map(([week, values]) => ({
+    week,
+    date: values.at(-1)?.date ?? values[0].date,
+    current: values.reduce((sum, value) => sum + value.currentYear, 0) / values.length,
+    historical: values.reduce((sum, value) => sum + value.historicalMean, 0) / values.length,
+    count: values.length,
+  }));
+}
+
+function YearComparisonChart({ station, year, lang }: {
+  station: StreamflowHistoryStation;
+  year: number;
+  lang: Lang;
+}) {
+  const weekly = weeklyStreamflow(station.days);
+  const width = 1000;
+  const height = 360;
+  const plot = { left: 72, top: 24, right: 24, bottom: 52 };
+  const plotWidth = width - plot.left - plot.right;
+  const plotHeight = height - plot.top - plot.bottom;
+  const maximum = Math.max(1, ...weekly.flatMap((point) => [point.current, point.historical]));
+  const niceMaximum = Math.ceil(maximum / 50) * 50;
+  const x = (week: number) => plot.left + (week / 52) * plotWidth;
+  const y = (value: number) => plot.top + plotHeight - (value / niceMaximum) * plotHeight;
+  const pathFor = (key: "current" | "historical") => weekly
+    .map((point, index) => `${index === 0 ? "M" : "L"} ${x(point.week).toFixed(1)} ${y(point[key]).toFixed(1)}`)
+    .join(" ");
+  const recent = weekly.at(-1);
+  const recentDifference = recent && recent.historical
+    ? Math.round(((recent.current - recent.historical) / recent.historical) * 100)
+    : null;
+  const monthTicks = [
+    [0, lang === "en" ? "Jan" : "Ene"],
+    [9, lang === "en" ? "Mar" : "Mar"],
+    [17, lang === "en" ? "May" : "May"],
+    [26, lang === "en" ? "Jul" : "Jul"],
+    [35, lang === "en" ? "Sep" : "Sep"],
+    [43, lang === "en" ? "Nov" : "Nov"],
+    [52, lang === "en" ? "Dec" : "Dic"],
+  ] as const;
+
+  return (
+    <figure className="year-comparison-chart">
+      <figcaption>
+        <div>
+          <p className="eyebrow">USGS {station.site}</p>
+          <h3>{station.name}: {year} {lang === "en" ? "vs historical daily mean" : "frente al promedio diario histórico"}</h3>
+          <p>
+            {lang === "en"
+              ? `Weekly averages of USGS daily-mean flow. Historical comparison period: ${station.historicalPeriod ?? "unavailable"}.`
+              : `Promedios semanales del caudal medio diario del USGS. Período histórico: ${station.historicalPeriod ?? "no disponible"}.`}
+          </p>
+        </div>
+        <div className="year-comparison-summary">
+          <strong>{recentDifference === null ? "—" : `${Math.abs(recentDifference)}%`}</strong>
+          <span>
+            {recentDifference === null
+              ? (lang === "en" ? "comparison unavailable" : "comparación no disponible")
+              : lang === "en"
+                ? `${recentDifference >= 0 ? "above" : "below"} the historical mean in the latest plotted week`
+                : `${recentDifference >= 0 ? "por encima" : "por debajo"} del promedio histórico en la última semana graficada`}
+          </span>
+        </div>
+      </figcaption>
+      <div className="year-chart-legend">
+        <span><i className="current-year-key" />{year}</span>
+        <span><i className="historical-key" />{lang === "en" ? "Historical daily mean" : "Promedio diario histórico"}</span>
+        <span className={`history-source-status ${station.status}`}>{station.status}</span>
+      </div>
+      {weekly.length ? (
+        <div className="year-chart-scroll">
+          <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-labelledby={`${station.site}-title ${station.site}-desc`}>
+            <title id={`${station.site}-title`}>{station.name} {year} streamflow compared with the historical daily mean</title>
+            <desc id={`${station.site}-desc`}>Weekly averages in cubic feet per second. The solid blue line is {year}; the dashed orange line is the USGS historical daily mean.</desc>
+            {[0, niceMaximum / 2, niceMaximum].map((tick) => (
+              <g key={tick}>
+                <line className="year-grid-line" x1={plot.left} x2={width - plot.right} y1={y(tick)} y2={y(tick)} />
+                <text className="year-axis-label" x={plot.left - 10} y={y(tick) + 4} textAnchor="end">{Math.round(tick)}</text>
+              </g>
+            ))}
+            {monthTicks.map(([week, label]) => (
+              <text className="year-axis-label" key={week} x={x(week)} y={height - 18} textAnchor={week === 0 ? "start" : week === 52 ? "end" : "middle"}>{label}</text>
+            ))}
+            <text className="year-axis-title" transform={`translate(17 ${plot.top + plotHeight / 2}) rotate(-90)`} textAnchor="middle">ft³/s</text>
+            <path className="historical-flow-line" d={pathFor("historical")} />
+            <path className="current-flow-line" d={pathFor("current")} />
+            {recent && <circle className="current-flow-point" cx={x(recent.week)} cy={y(recent.current)} r="5" />}
+          </svg>
+        </div>
+      ) : <p className="stale-note">{station.note ?? (lang === "en" ? "Year comparison unavailable." : "Comparación anual no disponible.")}</p>}
+      <p className="year-chart-source">
+        {lang === "en"
+          ? "Current-year daily means can be provisional. Historical means are USGS day-of-year statistics based on approved daily-mean records."
+          : "Los promedios diarios del año actual pueden ser provisionales. Los promedios históricos son estadísticas del USGS basadas en registros diarios aprobados."}
+        {" "}<a href={station.sourceUrl} target="_blank" rel="noreferrer">{lang === "en" ? "Official station" : "Estación oficial"} ↗</a>
+      </p>
+    </figure>
+  );
 }
 
 function StageExitExplorer({ lang }: { lang: Lang }) {
@@ -502,7 +636,8 @@ export default function WaterWatch() {
   const data = seed;
   const t = copy[lang];
   const chartVersion = encodeURIComponent(data.generatedAt ?? data.historyStarts);
-  const historyDays = historySeed.days.slice(-14);
+  const currentHistoryYear = historySeed.days.at(-1)?.date.slice(0, 4) ?? String(new Date().getFullYear());
+  const historyDays = historySeed.days.filter((day) => day.date.startsWith(currentHistoryYear));
   const latestDay = historyDays.at(-1);
   const previousDay = historyDays.at(-2);
   const supplyChange = latestDay && previousDay
@@ -624,12 +759,12 @@ export default function WaterWatch() {
             <div className="section-heading split">
               <div>
                 <p className="kicker">{lang === "en" ? "Daily snapshot record" : "Registro diario de instantáneas"}</p>
-                <h2>{lang === "en" ? "See what changed—not just today’s number." : "Vea qué cambió, no solo el valor de hoy."}</h2>
+                <h2>{lang === "en" ? `${currentHistoryYear} history, across the full page.` : `Historial de ${currentHistoryYear}, a todo lo ancho.`}</h2>
               </div>
               <p>
                 {lang === "en"
-                  ? "Each daily Codex refresh keeps one row for that date. Exact values appear in the table; the charts make direction and scale easier to scan. Retained or quarantined readings stay clearly labeled."
-                  : "Cada actualización diaria de Codex conserva una fila para esa fecha. La tabla muestra valores exactos y las gráficas facilitan ver la dirección y la escala. Las lecturas conservadas o en cuarentena quedan claramente identificadas."}
+                  ? `The local daily record begins ${fmtDailyDate(historyDays[0]?.date ?? data.historyStarts, lang)} and keeps every ${currentHistoryYear} snapshot. USGS comparisons below cover the year to date and use official historical daily means.`
+                  : `El registro diario local comienza el ${fmtDailyDate(historyDays[0]?.date ?? data.historyStarts, lang)} y conserva cada instantánea de ${currentHistoryYear}. Las comparaciones del USGS cubren el año hasta la fecha y usan promedios diarios históricos oficiales.`}
               </p>
             </div>
 
@@ -686,6 +821,20 @@ export default function WaterWatch() {
                   },
                 ]}
               />
+            </div>
+
+            <div className="year-comparison-heading">
+              <p className="kicker">{lang === "en" ? "Year to date vs historical average" : "Año hasta la fecha frente al promedio histórico"}</p>
+              <h2>{lang === "en" ? "Is feeder-river flow typical for this time of year?" : "¿Es normal el caudal para esta época del año?"}</h2>
+              <p>
+                {lang === "en"
+                  ? "These comparisons use USGS daily-mean records—not the single latest provisional readings shown above. Weekly grouping makes the full-year pattern easier to follow."
+                  : "Estas comparaciones usan registros de caudal medio diario del USGS, no la lectura provisional más reciente mostrada arriba. La agrupación semanal facilita seguir el patrón anual."}
+              </p>
+            </div>
+            <div className="year-comparison-grid">
+              <YearComparisonChart station={streamflowHistorySeed.stations.flat} year={streamflowHistorySeed.year} lang={lang} />
+              <YearComparisonChart station={streamflowHistorySeed.stations.little} year={streamflowHistorySeed.year} lang={lang} />
             </div>
 
             <div className="daily-values-table">
@@ -844,7 +993,7 @@ export default function WaterWatch() {
             </div>
 
             <div className="charts-block">
-              <div className="section-heading compact"><p className="kicker">{t.officialCharts}</p><h2>{lang === "en" ? "See the City’s own plotted record." : "Consulte el registro gráfico de la Ciudad."}</h2><p>{t.chartIntro}</p></div>
+              <div className="section-heading compact"><p className="kicker">{t.officialCharts}</p><h2>{lang === "en" ? "See 2026 against each of the prior ten years." : "Compare 2026 con cada uno de los diez años anteriores."}</h2><p>{lang === "en" ? "The City publishes individual prior-year reservoir traces rather than an average series. These full-width official charts preserve that distinction without estimating values from the image." : "La Ciudad publica trazos de años anteriores, no una serie promedio. Estas gráficas oficiales a todo lo ancho conservan esa distinción sin estimar valores a partir de la imagen."}</p></div>
               <div className="chart-grid">
                 {[
                   [t.recentChart, `https://www.durhamnc.gov/ImageRepository/Document?documentID=4123&refresh=${chartVersion}`, "https://www.durhamnc.gov/DocumentCenter/View/4123", lang === "en" ? "City chart of recent daily reservoir elevations, with date on the horizontal axis and elevation in feet mean sea level on the vertical axis." : "Gráfica de la Ciudad con elevaciones diarias recientes; fecha en el eje horizontal y elevación en pies sobre el nivel medio del mar en el eje vertical."],

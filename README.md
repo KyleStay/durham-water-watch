@@ -11,6 +11,8 @@ The application:
 - stores verified last-known-good values in a versioned JSON snapshot;
 - maintains one dated snapshot per day, including retained and quarantined-field labels;
 - presents important values in a latest-first table and accessible trend charts;
+- compares year-to-date USGS daily-mean streamflow with official day-of-year historical means;
+- shows the City’s full-width annual reservoir charts for 2026 versus prior years;
 - refreshes and validates official sources in a scheduled Codex job;
 - produces a fully static artifact compatible with GitHub Pages;
 - preserves last-known-good values and quarantines invalid, older, or implausible readings;

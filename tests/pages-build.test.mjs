@@ -11,6 +11,7 @@ test("produces a complete GitHub Pages artifact", async () => {
     access(new URL(".nojekyll", pagesRoot)),
     access(new URL("data/dashboard.json", pagesRoot)),
     access(new URL("data/history.json", pagesRoot)),
+    access(new URL("data/streamflow-history.json", pagesRoot)),
     access(new URL("og.png", pagesRoot)),
   ]);
 
@@ -20,6 +21,8 @@ test("produces a complete GitHub Pages artifact", async () => {
   assert.match(html, /Illustrative scenario explorer/);
   assert.match(html, /Daily snapshot record/);
   assert.match(html, /Exact daily values/);
+  assert.match(html, /Year to date vs historical average/);
+  assert.match(html, /vs historical daily mean/);
   assert.match(html, /All four inputs are assumptions/);
   assert.match(html, /documentID=4123(?:&amp;|&)refresh=/);
   assert.match(html, /documentID=4124(?:&amp;|&)refresh=/);
@@ -27,6 +30,26 @@ test("produces a complete GitHub Pages artifact", async () => {
   assert.match(html, /href="\.\/assets\//);
   assert.doesNotMatch(html, /(?:href|src)="\/assets\//);
   assert.doesNotMatch(html, /\/api\/water-data/);
+});
+
+test("publishes USGS year-to-date flow against historical daily means", async () => {
+  const comparison = JSON.parse(await readFile(new URL("data/streamflow-history.json", pagesRoot), "utf8"));
+  assert.equal(comparison.schemaVersion, 1);
+  assert.equal(comparison.year, 2026);
+
+  for (const station of Object.values(comparison.stations)) {
+    assert.equal(station.status, "fresh");
+    assert.match(station.site, /^0208\d+$/);
+    assert.match(station.sourceUrl, /^https:\/\/waterdata\.usgs\.gov\//);
+    assert.match(station.historicalPeriod, /^\d{4}–\d{4}$/);
+    assert.ok(station.days.length > 180);
+    for (const day of station.days) {
+      assert.match(day.date, /^2026-\d{2}-\d{2}$/);
+      assert.ok(day.currentYear >= 0);
+      assert.ok(day.historicalMean >= 0);
+      assert.ok(day.historicalSampleYears > 0);
+    }
+  }
 });
 
 test("publishes a complete, ordered daily values ledger", async () => {
