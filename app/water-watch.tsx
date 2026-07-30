@@ -345,21 +345,32 @@ type BarSeries = {
   values: Array<number | null>;
   format: (value: number) => string;
 };
+type ChartReference = {
+  label: string;
+  value: number;
+  color: string;
+  format: (value: number) => string;
+};
 
 function DailyBarChart({
   title,
   description,
   days,
   series,
+  references = [],
   lang,
 }: {
   title: string;
   description: string;
   days: DailyEntry[];
   series: BarSeries[];
+  references?: ChartReference[];
   lang: Lang;
 }) {
-  const allValues = series.flatMap((item) => item.values).filter((value): value is number => typeof value === "number");
+  const allValues = [
+    ...series.flatMap((item) => item.values).filter((value): value is number => typeof value === "number"),
+    ...references.map((reference) => reference.value),
+  ];
   const maximum = Math.max(1, ...allValues);
   return (
     <figure className="daily-chart">
@@ -369,9 +380,23 @@ function DailyBarChart({
       </figcaption>
       <div className="daily-chart-legend" aria-hidden="true">
         {series.map((item) => <span key={item.label}><i style={{ backgroundColor: item.color }} />{item.label}</span>)}
+        {references.map((item) => <span key={item.label}><i className="reference-key" style={{ borderColor: item.color }} />{item.label}</span>)}
       </div>
       <div className="daily-chart-scroll">
         <div className="daily-chart-plot" role="img" aria-label={`${title}. ${description}`}>
+          {references.map((reference) => (
+            <div
+              className="daily-chart-reference"
+              key={reference.label}
+              style={{
+                bottom: `${28 + (reference.value / maximum) * 228}px`,
+                borderColor: reference.color,
+                color: reference.color,
+              }}
+            >
+              <span>{reference.label}: {reference.format(reference.value)}</span>
+            </div>
+          ))}
           {days.map((day, dayIndex) => (
             <div className="daily-chart-day" key={day.date}>
               <div className="daily-chart-bars">
@@ -404,6 +429,11 @@ function dailyQuality(day: DailyEntry, lang: Lang) {
   if (quarantined) return lang === "en" ? `${quarantined} quarantined` : `${quarantined} en cuarentena`;
   if (retained) return lang === "en" ? `${retained} retained` : `${retained} conservado${retained === 1 ? "" : "s"}`;
   return lang === "en" ? "All current" : "Todo vigente";
+}
+
+function numericAverage(values: Array<number | null>) {
+  const available = values.filter((value): value is number => typeof value === "number");
+  return available.length ? available.reduce((sum, value) => sum + value, 0) / available.length : null;
 }
 
 function weeklyStreamflow(days: StreamflowHistoryDay[]) {
@@ -645,6 +675,16 @@ export default function WaterWatch() {
     && typeof previousDay.values.supply.total === "number"
     ? latestDay.values.supply.total - previousDay.values.supply.total
     : null;
+  const trackedSupplyAverage = numericAverage(historyDays.map((day) => day.values.supply.total));
+  const trackedMichieDistanceAverage = numericAverage(historyDays.map((day) => (
+    typeof day.values.reservoirs.michie === "number" ? 341 - day.values.reservoirs.michie : null
+  )));
+  const trackedLittleDistanceAverage = numericAverage(historyDays.map((day) => (
+    typeof day.values.reservoirs.little === "number" ? 355 - day.values.reservoirs.little : null
+  )));
+  const trackedAverageLabel = lang === "en"
+    ? `${currentHistoryYear} tracked avg since ${fmtDailyDate(historyDays[0]?.date ?? data.historyStarts, lang)}`
+    : `Promedio registrado de ${currentHistoryYear} desde ${fmtDailyDate(historyDays[0]?.date ?? data.historyStarts, lang)}`;
 
   useEffect(() => {
     document.documentElement.lang = lang;
@@ -780,6 +820,12 @@ export default function WaterWatch() {
                   values: historyDays.map((day) => day.values.supply.total),
                   format: (value) => `${value}d`,
                 }]}
+                references={trackedSupplyAverage === null ? [] : [{
+                  label: trackedAverageLabel,
+                  value: trackedSupplyAverage,
+                  color: "#a94f0b",
+                  format: (value) => `${value.toFixed(1)}d`,
+                }]}
               />
               <DailyBarChart
                 title={lang === "en" ? "Distance below full pool" : "Distancia bajo la cota máxima"}
@@ -799,6 +845,20 @@ export default function WaterWatch() {
                     values: historyDays.map((day) => typeof day.values.reservoirs.little === "number" ? 355 - day.values.reservoirs.little : null),
                     format: (value) => `${value.toFixed(1)}ft`,
                   },
+                ]}
+                references={[
+                  ...(trackedMichieDistanceAverage === null ? [] : [{
+                    label: `Lake Michie · ${trackedAverageLabel}`,
+                    value: trackedMichieDistanceAverage,
+                    color: "#7a3e9d",
+                    format: (value: number) => `${value.toFixed(1)}ft`,
+                  }]),
+                  ...(trackedLittleDistanceAverage === null ? [] : [{
+                    label: `Little River · ${trackedAverageLabel}`,
+                    value: trackedLittleDistanceAverage,
+                    color: "#a94f0b",
+                    format: (value: number) => `${value.toFixed(1)}ft`,
+                  }]),
                 ]}
               />
               <DailyBarChart
@@ -822,6 +882,15 @@ export default function WaterWatch() {
                 ]}
               />
             </div>
+            <aside className="comparison-limit-note">
+              <strong>{lang === "en" ? "What the dashed averages mean" : "Qué significan los promedios discontinuos"}</strong>
+              <p>
+                {lang === "en"
+                  ? `Durham does not publish raw historical-average series for total supply or distance below full pool. The dashed lines are averages of this dashboard’s verified ${currentHistoryYear} daily record beginning ${fmtDailyDate(historyDays[0]?.date ?? data.historyStarts, lang)}—not long-term averages. The City’s annual reservoir charts below provide the longer comparison as individual prior years.`
+                  : `Durham no publica series de promedios históricos para el suministro total ni la distancia bajo la cota máxima. Las líneas discontinuas promedian el registro diario verificado de ${currentHistoryYear} desde el ${fmtDailyDate(historyDays[0]?.date ?? data.historyStarts, lang)}; no son promedios a largo plazo. Las gráficas anuales de la Ciudad muestran la comparación más larga como años anteriores individuales.`}
+              </p>
+              <a href={urls.lakes} target="_blank" rel="noreferrer">{lang === "en" ? "Official City lake history" : "Historial oficial de los embalses"} ↗</a>
+            </aside>
 
             <div className="year-comparison-heading">
               <p className="kicker">{lang === "en" ? "Year to date vs historical average" : "Año hasta la fecha frente al promedio histórico"}</p>

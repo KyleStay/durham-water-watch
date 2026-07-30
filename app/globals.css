@@ -609,8 +609,15 @@ thead th { color: var(--muted); font-size: .66rem; text-transform: uppercase; }
 }
 .daily-chart-legend span { display: inline-flex; align-items: center; gap: 5px; }
 .daily-chart-legend i { width: 9px; height: 9px; display: inline-block; border-radius: 2px; }
+.daily-chart-legend .reference-key {
+  width: 26px;
+  height: 0;
+  border-top: 2px dashed;
+  border-radius: 0;
+}
 .daily-chart-scroll { overflow-x: auto; }
 .daily-chart-plot {
+  position: relative;
   width: 100%;
   min-width: 760px;
   height: 270px;
@@ -621,7 +628,27 @@ thead th { color: var(--muted); font-size: .66rem; text-transform: uppercase; }
   border-bottom: 1px solid var(--border);
   overflow-x: auto;
 }
+.daily-chart-reference {
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  border-top: 2px dashed;
+  pointer-events: none;
+}
+.daily-chart-reference span {
+  position: absolute;
+  right: 5px;
+  bottom: 3px;
+  padding: 1px 4px;
+  background: rgba(255,255,255,.9);
+  font-size: .58rem;
+  font-weight: 750;
+  white-space: nowrap;
+}
 .daily-chart-day {
+  position: relative;
+  z-index: 1;
   min-width: 50px;
   flex: 1 0 50px;
   display: grid;
@@ -668,6 +695,15 @@ thead th { color: var(--muted); font-size: .66rem; text-transform: uppercase; }
 .latest-daily-row { background: var(--blue-light); }
 .daily-quality-good { color: var(--teal); font-weight: 700; }
 .daily-quality-warning { color: var(--amber); font-weight: 700; }
+.comparison-limit-note {
+  margin-top: 16px;
+  padding: 16px 18px;
+  background: var(--amber-light);
+  border-left: 3px solid var(--amber);
+}
+.comparison-limit-note strong { color: #6e360e; font-size: .82rem; }
+.comparison-limit-note p { margin: 4px 0 5px; color: #6e4a2d; font-size: .76rem; }
+.comparison-limit-note a { font-size: .72rem; font-weight: 700; }
 
 .year-comparison-heading { max-width: 760px; margin: 54px 0 20px; }
 .year-comparison-heading h2 { margin: 0 0 9px; color: var(--blue-dark); font-size: clamp(1.45rem, 3vw, 2rem); }

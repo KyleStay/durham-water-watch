@@ -23,6 +23,9 @@ test("produces a complete GitHub Pages artifact", async () => {
   assert.match(html, /Exact daily values/);
   assert.match(html, /Year to date vs historical average/);
   assert.match(html, /vs historical daily mean/);
+  assert.match(html, /What the dashed averages mean/);
+  assert.match(html, /tracked avg since/);
+  assert.match(html, /not long-term averages/);
   assert.match(html, /All four inputs are assumptions/);
   assert.match(html, /documentID=4123(?:&amp;|&)refresh=/);
   assert.match(html, /documentID=4124(?:&amp;|&)refresh=/);
