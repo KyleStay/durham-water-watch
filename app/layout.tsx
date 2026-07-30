@@ -14,13 +14,13 @@ export const metadata: Metadata = {
     description:
       "Current shortage stage, days of supply, reservoir levels, and what Durham residents need to do.",
     type: "website",
-    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Durham Water Watch — clear, independent water supply context" }],
+    images: [{ url: "https://kylestay.github.io/durham-water-watch/og.png", width: 1200, height: 630, alt: "Durham Water Watch — clear, independent water supply context" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Durham Water Watch",
     description: "Independent water supply and drought context for Durham, NC.",
-    images: ["/og.png"],
+    images: ["https://kylestay.github.io/durham-water-watch/og.png"],
   },
 };
 
