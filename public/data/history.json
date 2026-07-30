@@ -75,7 +75,7 @@
     },
     {
       "date": "2026-07-30",
-      "capturedAt": "2026-07-30T12:40:52.328Z",
+      "capturedAt": "2026-07-30T13:03:40.334Z",
       "values": {
         "stage": 2,
         "supply": {
@@ -88,9 +88,9 @@
           "michie": 332.33,
           "little": 342.63
         },
-        "drought": "D3 · Extreme Drought",
+        "drought": "D1 · Moderate Drought",
         "streamflow": {
-          "flat": 27.2,
+          "flat": 26,
           "little": 16.2
         }
       },
