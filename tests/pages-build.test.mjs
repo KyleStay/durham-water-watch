@@ -10,6 +10,7 @@ test("produces a complete GitHub Pages artifact", async () => {
     access(new URL("404.html", pagesRoot)),
     access(new URL(".nojekyll", pagesRoot)),
     access(new URL("data/dashboard.json", pagesRoot)),
+    access(new URL("data/history.json", pagesRoot)),
     access(new URL("og.png", pagesRoot)),
   ]);
 
@@ -17,6 +18,8 @@ test("produces a complete GitHub Pages artifact", async () => {
   assert.match(html, /Unofficial independent community dashboard/);
   assert.match(html, /How close is Durham to leaving Stage 2/);
   assert.match(html, /Illustrative scenario explorer/);
+  assert.match(html, /Daily snapshot record/);
+  assert.match(html, /Exact daily values/);
   assert.match(html, /All four inputs are assumptions/);
   assert.match(html, /documentID=4123(?:&amp;|&)refresh=/);
   assert.match(html, /documentID=4124(?:&amp;|&)refresh=/);
@@ -24,6 +27,30 @@ test("produces a complete GitHub Pages artifact", async () => {
   assert.match(html, /href="\.\/assets\//);
   assert.doesNotMatch(html, /(?:href|src)="\/assets\//);
   assert.doesNotMatch(html, /\/api\/water-data/);
+});
+
+test("publishes a complete, ordered daily values ledger", async () => {
+  const history = JSON.parse(await readFile(new URL("data/history.json", pagesRoot), "utf8"));
+  assert.equal(history.schemaVersion, 1);
+  assert.ok(history.days.length >= 4);
+
+  const dates = history.days.map((day) => day.date);
+  assert.deepEqual(dates, [...dates].sort());
+  assert.equal(new Set(dates).size, dates.length);
+
+  for (const day of history.days) {
+    assert.match(day.date, /^\d{4}-\d{2}-\d{2}$/);
+    assert.match(day.capturedAt, /^\d{4}-\d{2}-\d{2}T/);
+    assert.ok("stage" in day.values);
+    assert.ok("total" in day.values.supply);
+    assert.ok("michie" in day.values.reservoirs);
+    assert.ok("little" in day.values.reservoirs);
+    assert.ok("drought" in day.values);
+    assert.ok("flat" in day.values.streamflow);
+    assert.ok("little" in day.values.streamflow);
+    assert.ok(Array.isArray(day.retainedFields));
+    assert.ok(Array.isArray(day.quarantinedFields));
+  }
 });
 
 test("stores transparent last-known-good metadata for every operational metric", async () => {

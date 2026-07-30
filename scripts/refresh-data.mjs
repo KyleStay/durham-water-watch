@@ -6,8 +6,11 @@ const snapshotPath = resolve(import.meta.dirname, "../public/data/dashboard.json
 const temporaryPath = `${snapshotPath}.next`;
 const quarantinePath = resolve(import.meta.dirname, "../data/quarantine.json");
 const quarantineTemporaryPath = `${quarantinePath}.next`;
+const historyPath = resolve(import.meta.dirname, "../public/data/history.json");
+const historyTemporaryPath = `${historyPath}.next`;
 const snapshot = JSON.parse(await readFile(snapshotPath, "utf8"));
 const quarantine = JSON.parse(await readFile(quarantinePath, "utf8"));
+const history = JSON.parse(await readFile(historyPath, "utf8"));
 const now = new Date();
 const nowIso = now.toISOString();
 const forceAll = process.argv.includes("--all");
@@ -365,8 +368,60 @@ updateStatus(snapshot.streamflow.little, "usgs");
 snapshot.generatedAt = nowIso;
 snapshot.lastRefreshResult = results.join("; ") || "No source was due for refresh.";
 
+const todayParts = easternDateParts(now);
+const today = `${todayParts.year}-${todayParts.month}-${todayParts.day}`;
+const dailyEntry = {
+  date: today,
+  capturedAt: nowIso,
+  values: {
+    stage: snapshot.stage.value,
+    supply: {
+      accessible: snapshot.supply.accessible.value,
+      belowIntakes: snapshot.supply.belowIntakes.value,
+      quarry: snapshot.supply.quarry.value,
+      total: snapshot.supply.total.value,
+    },
+    reservoirs: {
+      michie: snapshot.reservoirs.michie.value,
+      little: snapshot.reservoirs.little.value,
+    },
+    drought: snapshot.drought.value,
+    streamflow: {
+      flat: snapshot.streamflow.flat.value,
+      little: snapshot.streamflow.little.value,
+    },
+  },
+  retainedFields: [],
+  quarantinedFields: [],
+};
+const dailyMetrics = [
+  ["stage", snapshot.stage],
+  ["supply.accessible", snapshot.supply.accessible],
+  ["supply.belowIntakes", snapshot.supply.belowIntakes],
+  ["supply.quarry", snapshot.supply.quarry],
+  ["supply.total", snapshot.supply.total],
+  ["reservoirs.michie", snapshot.reservoirs.michie],
+  ["reservoirs.little", snapshot.reservoirs.little],
+  ["drought", snapshot.drought],
+  ["streamflow.flat", snapshot.streamflow.flat],
+  ["streamflow.little", snapshot.streamflow.little],
+];
+for (const [field, metric] of dailyMetrics) {
+  if (metric.status !== "fresh") dailyEntry.retainedFields.push(field);
+  if (metric.validationResult === "rejected") dailyEntry.quarantinedFields.push(field);
+}
+const previousDailyIndex = history.days.findIndex((entry) => entry.date === today);
+if (previousDailyIndex >= 0) history.days[previousDailyIndex] = dailyEntry;
+else history.days.push(dailyEntry);
+history.days = history.days
+  .filter((entry) => entry?.date && entry?.values)
+  .sort((left, right) => left.date.localeCompare(right.date))
+  .slice(-366);
+
 await writeFile(temporaryPath, `${JSON.stringify(snapshot, null, 2)}\n`);
 await writeFile(quarantineTemporaryPath, `${JSON.stringify(quarantine.slice(-100), null, 2)}\n`);
+await writeFile(historyTemporaryPath, `${JSON.stringify(history, null, 2)}\n`);
 await rename(temporaryPath, snapshotPath);
 await rename(quarantineTemporaryPath, quarantinePath);
+await rename(historyTemporaryPath, historyPath);
 console.log(snapshot.lastRefreshResult);

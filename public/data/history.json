@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "days": [
+    {
+      "date": "2026-07-27",
+      "capturedAt": "2026-07-28T00:17:46.578Z",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": 119,
+          "belowIntakes": 46,
+          "quarry": 30,
+          "total": 195
+        },
+        "reservoirs": {
+          "michie": 330.9,
+          "little": 340.51
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 4.18,
+          "little": 16.7
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": []
+    },
+    {
+      "date": "2026-07-28",
+      "capturedAt": "2026-07-28T16:58:58.322Z",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": 120,
+          "belowIntakes": 47,
+          "quarry": 30,
+          "total": 197
+        },
+        "reservoirs": {
+          "michie": 332.22,
+          "little": 342.67
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 2.45,
+          "little": 7.46
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": []
+    },
+    {
+      "date": "2026-07-29",
+      "capturedAt": "2026-07-29T19:16:48.758Z",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": 121,
+          "belowIntakes": 47,
+          "quarry": 31,
+          "total": 199
+        },
+        "reservoirs": {
+          "michie": 332.33,
+          "little": 342.63
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 137,
+          "little": 38.6
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": []
+    },
+    {
+      "date": "2026-07-30",
+      "capturedAt": "2026-07-30T12:40:52.328Z",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": 121,
+          "belowIntakes": 47,
+          "quarry": 31,
+          "total": 199
+        },
+        "reservoirs": {
+          "michie": 332.33,
+          "little": 342.63
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 27.2,
+          "little": 16.2
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": []
+    }
+  ]
+}

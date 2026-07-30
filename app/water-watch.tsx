@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import verifiedSnapshot from "../public/data/dashboard.json";
+import verifiedHistory from "../public/data/history.json";
 
 type Lang = "en" | "es";
 type Freshness = "fresh" | "stale" | "unavailable";
@@ -35,6 +36,26 @@ type DashboardData = {
   generatedAt?: string;
   lastRefreshResult?: string;
 };
+type DailyValues = {
+  stage: number | null;
+  supply: {
+    accessible: number | null;
+    belowIntakes: number | null;
+    quarry: number | null;
+    total: number | null;
+  };
+  reservoirs: { michie: number | null; little: number | null };
+  drought: string | null;
+  streamflow: { flat: number | null; little: number | null };
+};
+type DailyEntry = {
+  date: string;
+  capturedAt: string;
+  values: DailyValues;
+  retainedFields?: string[];
+  quarantinedFields?: string[];
+};
+type HistoryData = { schemaVersion: number; days: DailyEntry[] };
 
 const urls = {
   stage: "https://www.durhamnc.gov/1061/Durham-Saves-Water",
@@ -50,6 +71,7 @@ const urls = {
 };
 
 const seed = verifiedSnapshot as DashboardData;
+const historySeed = verifiedHistory as HistoryData;
 
 const copy = {
   en: {
@@ -58,7 +80,7 @@ const copy = {
     title: "Durham Water Watch",
     deck: "Current water status for Durham",
     official: "Official City guidance always takes precedence.",
-    nav: ["Overview", "Reservoirs & trends", "What to do", "Drought explained", "Sources & methodology"],
+    nav: ["Overview", "Daily trends", "Reservoirs", "What to do", "Drought explained", "Sources & methodology"],
     serious: "How serious is this?",
     stage: "Durham Water Shortage Response Stage",
     inEffect: "in effect",
@@ -146,7 +168,7 @@ const copy = {
     title: "Durham Water Watch",
     deck: "Estado actual del agua en Durham",
     official: "La orientación oficial de la Ciudad siempre tiene prioridad.",
-    nav: ["Resumen", "Embalses y tendencias", "Qué hacer", "La sequía explicada", "Fuentes y metodología"],
+    nav: ["Resumen", "Tendencias diarias", "Embalses", "Qué hacer", "La sequía explicada", "Fuentes y metodología"],
     serious: "¿Qué tan grave es?",
     stage: "Etapa de Respuesta a la Escasez de Agua de Durham",
     inEffect: "vigente",
@@ -286,6 +308,79 @@ function ReservoirCard({ name, metric, lang }: { name: string; metric: Metric & 
   );
 }
 
+function fmtDailyDate(value: string, lang: Lang) {
+  return new Intl.DateTimeFormat(lang === "en" ? "en-US" : "es-US", {
+    month: "short",
+    day: "numeric",
+    timeZone: "America/New_York",
+  }).format(new Date(`${value}T12:00:00-04:00`));
+}
+
+type BarSeries = {
+  label: string;
+  color: string;
+  values: Array<number | null>;
+  format: (value: number) => string;
+};
+
+function DailyBarChart({
+  title,
+  description,
+  days,
+  series,
+  lang,
+}: {
+  title: string;
+  description: string;
+  days: DailyEntry[];
+  series: BarSeries[];
+  lang: Lang;
+}) {
+  const allValues = series.flatMap((item) => item.values).filter((value): value is number => typeof value === "number");
+  const maximum = Math.max(1, ...allValues);
+  return (
+    <figure className="daily-chart">
+      <figcaption>
+        <h3>{title}</h3>
+        <p>{description}</p>
+      </figcaption>
+      <div className="daily-chart-legend" aria-hidden="true">
+        {series.map((item) => <span key={item.label}><i style={{ backgroundColor: item.color }} />{item.label}</span>)}
+      </div>
+      <div className="daily-chart-plot" role="img" aria-label={`${title}. ${description}`}>
+        {days.map((day, dayIndex) => (
+          <div className="daily-chart-day" key={day.date}>
+            <div className="daily-chart-bars">
+              {series.map((item) => {
+                const value = item.values[dayIndex];
+                const height = typeof value === "number" ? Math.max(7, (value / maximum) * 100) : 0;
+                return (
+                  <div className="daily-chart-bar-wrap" key={item.label}>
+                    <span>{typeof value === "number" ? item.format(value) : "—"}</span>
+                    <i
+                      style={{ height: `${height}%`, backgroundColor: item.color }}
+                      title={`${item.label}: ${typeof value === "number" ? item.format(value) : "unavailable"}`}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+            <time dateTime={day.date}>{fmtDailyDate(day.date, lang)}</time>
+          </div>
+        ))}
+      </div>
+    </figure>
+  );
+}
+
+function dailyQuality(day: DailyEntry, lang: Lang) {
+  const retained = day.retainedFields?.length ?? 0;
+  const quarantined = day.quarantinedFields?.length ?? 0;
+  if (quarantined) return lang === "en" ? `${quarantined} quarantined` : `${quarantined} en cuarentena`;
+  if (retained) return lang === "en" ? `${retained} retained` : `${retained} conservado${retained === 1 ? "" : "s"}`;
+  return lang === "en" ? "All current" : "Todo vigente";
+}
+
 function StageExitExplorer({ lang }: { lang: Lang }) {
   const [startingStorage, setStartingStorage] = useState(70);
   const [rainfall, setRainfall] = useState(10);
@@ -407,6 +502,14 @@ export default function WaterWatch() {
   const data = seed;
   const t = copy[lang];
   const chartVersion = encodeURIComponent(data.generatedAt ?? data.historyStarts);
+  const historyDays = historySeed.days.slice(-14);
+  const latestDay = historyDays.at(-1);
+  const previousDay = historyDays.at(-2);
+  const supplyChange = latestDay && previousDay
+    && typeof latestDay.values.supply.total === "number"
+    && typeof previousDay.values.supply.total === "number"
+    ? latestDay.values.supply.total - previousDay.values.supply.total
+    : null;
 
   useEffect(() => {
     document.documentElement.lang = lang;
@@ -443,7 +546,7 @@ export default function WaterWatch() {
           </button>
         </div>
         <nav className="nav wrap" aria-label={lang === "en" ? "Primary navigation" : "Navegación principal"}>
-          {["overview", "reservoirs", "actions", "drought", "methodology"].map((id, index) => (
+          {["overview", "trends", "reservoirs", "actions", "drought", "methodology"].map((id, index) => (
             <a key={id} href={`#${id}`}>{t.nav[index]}</a>
           ))}
         </nav>
@@ -499,7 +602,137 @@ export default function WaterWatch() {
                   </div>
                 ))}
               </div>
-              <div className="trend-row"><strong>{t.trend}</strong><span>→</span><p>{t.trendMissing}</p></div>
+              <div className="trend-row">
+                <strong>{t.trend}</strong>
+                <span>{supplyChange === null || supplyChange === 0 ? "→" : supplyChange > 0 ? "↑" : "↓"}</span>
+                <p>
+                  {supplyChange === null
+                    ? t.trendMissing
+                    : supplyChange === 0
+                      ? (lang === "en" ? "No change from the previous daily snapshot." : "Sin cambios frente a la instantánea diaria anterior.")
+                      : lang === "en"
+                        ? `${Math.abs(supplyChange)} ${Math.abs(supplyChange) === 1 ? "day" : "days"} ${supplyChange > 0 ? "higher" : "lower"} than the previous daily snapshot.`
+                        : `${Math.abs(supplyChange)} ${Math.abs(supplyChange) === 1 ? "día" : "días"} ${supplyChange > 0 ? "más" : "menos"} que la instantánea diaria anterior.`}
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="trends" className="section daily-trends-section">
+          <div className="wrap">
+            <div className="section-heading split">
+              <div>
+                <p className="kicker">{lang === "en" ? "Daily snapshot record" : "Registro diario de instantáneas"}</p>
+                <h2>{lang === "en" ? "See what changed—not just today’s number." : "Vea qué cambió, no solo el valor de hoy."}</h2>
+              </div>
+              <p>
+                {lang === "en"
+                  ? "Each daily Codex refresh keeps one row for that date. Exact values appear in the table; the charts make direction and scale easier to scan. Retained or quarantined readings stay clearly labeled."
+                  : "Cada actualización diaria de Codex conserva una fila para esa fecha. La tabla muestra valores exactos y las gráficas facilitan ver la dirección y la escala. Las lecturas conservadas o en cuarentena quedan claramente identificadas."}
+              </p>
+            </div>
+
+            <div className="daily-chart-grid">
+              <DailyBarChart
+                title={lang === "en" ? "Estimated total supply" : "Suministro total estimado"}
+                description={lang === "en" ? "Days of supply. Bars begin at zero." : "Días de suministro. Las barras comienzan en cero."}
+                days={historyDays}
+                lang={lang}
+                series={[{
+                  label: lang === "en" ? "Total supply" : "Suministro total",
+                  color: "#0d5c8f",
+                  values: historyDays.map((day) => day.values.supply.total),
+                  format: (value) => `${value}d`,
+                }]}
+              />
+              <DailyBarChart
+                title={lang === "en" ? "Distance below full pool" : "Distancia bajo la cota máxima"}
+                description={lang === "en" ? "Fewer feet below full means a higher reservoir level." : "Menos pies por debajo de capacidad significa un nivel más alto."}
+                days={historyDays}
+                lang={lang}
+                series={[
+                  {
+                    label: "Lake Michie",
+                    color: "#148f88",
+                    values: historyDays.map((day) => typeof day.values.reservoirs.michie === "number" ? 341 - day.values.reservoirs.michie : null),
+                    format: (value) => `${value.toFixed(1)}ft`,
+                  },
+                  {
+                    label: "Little River",
+                    color: "#d77a23",
+                    values: historyDays.map((day) => typeof day.values.reservoirs.little === "number" ? 355 - day.values.reservoirs.little : null),
+                    format: (value) => `${value.toFixed(1)}ft`,
+                  },
+                ]}
+              />
+              <DailyBarChart
+                title={lang === "en" ? "Feeder-river streamflow" : "Caudal de los ríos alimentadores"}
+                description={lang === "en" ? "USGS provisional cubic feet per second; short-term changes can be large." : "Pies cúbicos por segundo provisionales del USGS; los cambios diarios pueden ser grandes."}
+                days={historyDays}
+                lang={lang}
+                series={[
+                  {
+                    label: "Flat River",
+                    color: "#5d6ec7",
+                    values: historyDays.map((day) => day.values.streamflow.flat),
+                    format: (value) => value.toLocaleString(undefined, { maximumFractionDigits: 1 }),
+                  },
+                  {
+                    label: "Little River",
+                    color: "#8a5a44",
+                    values: historyDays.map((day) => day.values.streamflow.little),
+                    format: (value) => value.toLocaleString(undefined, { maximumFractionDigits: 1 }),
+                  },
+                ]}
+              />
+            </div>
+
+            <div className="daily-values-table">
+              <div>
+                <p className="kicker">{lang === "en" ? "Exact daily values" : "Valores diarios exactos"}</p>
+                <h3>{lang === "en" ? "Today and previous days" : "Hoy y días anteriores"}</h3>
+                <p>
+                  {lang === "en"
+                    ? "The newest snapshot is first. Reservoir values are elevations in feet mean sea level; streamflow is provisional."
+                    : "La instantánea más reciente aparece primero. Los embalses se muestran en pies sobre el nivel medio del mar; el caudal es provisional."}
+                </p>
+              </div>
+              <div className="table-scroll">
+                <table>
+                  <caption className="sr-only">{lang === "en" ? "Daily verified water values" : "Valores diarios verificados del agua"}</caption>
+                  <thead>
+                    <tr>
+                      <th>{lang === "en" ? "Date" : "Fecha"}</th>
+                      <th>{lang === "en" ? "Stage" : "Etapa"}</th>
+                      <th>{lang === "en" ? "Supply" : "Suministro"}</th>
+                      <th>Lake Michie</th>
+                      <th>Little River</th>
+                      <th>{lang === "en" ? "Drought" : "Sequía"}</th>
+                      <th>{lang === "en" ? "Flat flow" : "Caudal Flat"}</th>
+                      <th>{lang === "en" ? "Little flow" : "Caudal Little"}</th>
+                      <th>{lang === "en" ? "Data quality" : "Calidad"}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[...historyDays].reverse().map((day, index) => (
+                      <tr className={index === 0 ? "latest-daily-row" : undefined} key={day.date}>
+                        <th scope="row">{fmtDailyDate(day.date, lang)}{index === 0 ? ` · ${lang === "en" ? "latest" : "más reciente"}` : ""}</th>
+                        <td>{day.values.stage ?? "—"}</td>
+                        <td>{day.values.supply.total ?? "—"} {lang === "en" ? "days" : "días"}</td>
+                        <td>{typeof day.values.reservoirs.michie === "number" ? day.values.reservoirs.michie.toFixed(2) : "—"} ft</td>
+                        <td>{typeof day.values.reservoirs.little === "number" ? day.values.reservoirs.little.toFixed(2) : "—"} ft</td>
+                        <td>{day.values.drought ?? "—"}</td>
+                        <td>{day.values.streamflow.flat ?? "—"} ft³/s</td>
+                        <td>{day.values.streamflow.little ?? "—"} ft³/s</td>
+                        <td className={(day.retainedFields?.length ?? 0) > 0 || (day.quarantinedFields?.length ?? 0) > 0 ? "daily-quality-warning" : "daily-quality-good"}>
+                          {dailyQuality(day, lang)}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </section>
@@ -627,19 +860,6 @@ export default function WaterWatch() {
               </div>
             </div>
 
-            <div className="history-table">
-              <div><p className="kicker">{t.accumulated}</p><h3>{t.historyBegins}: {fmtDate(data.historyStarts, lang)}</h3><p>{t.oneReading}</p></div>
-              <div className="table-scroll">
-                <table>
-                  <caption className="sr-only">{t.accumulated}</caption>
-                  <thead><tr><th>{t.reservoirName}</th><th>{t.observed}</th><th>{t.elevation}</th><th>{t.status}</th></tr></thead>
-                  <tbody>
-                    <tr><th>Lake Michie</th><td>{fmtDate(data.reservoirs.michie.observedAt, lang)}</td><td>{data.reservoirs.michie.value} ft msl</td><td><Status metric={data.reservoirs.michie} lang={lang} /></td></tr>
-                    <tr><th>Little River Reservoir</th><td>{fmtDate(data.reservoirs.little.observedAt, lang)}</td><td>{data.reservoirs.little.value} ft msl</td><td><Status metric={data.reservoirs.little} lang={lang} /></td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
           </div>
         </section>
 
