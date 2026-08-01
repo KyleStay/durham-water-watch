@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "year": 2026,
-  "updatedAt": "2026-07-31T12:02:18.027Z",
+  "updatedAt": "2026-08-01T12:01:53.812Z",
   "stations": {
     "flat": {
       "site": "02085500",
@@ -1275,6 +1275,12 @@
           "currentYear": 22.5,
           "historicalMean": 53,
           "historicalSampleYears": 100
+        },
+        {
+          "date": "2026-07-31",
+          "currentYear": 6.87,
+          "historicalMean": 53,
+          "historicalSampleYears": 100
         }
       ]
     },
@@ -2441,6 +2447,12 @@
           "date": "2026-07-30",
           "currentYear": 13.9,
           "historicalMean": 20,
+          "historicalSampleYears": 37
+        },
+        {
+          "date": "2026-07-31",
+          "currentYear": 5.49,
+          "historicalMean": 22,
           "historicalSampleYears": 37
         }
       ]
