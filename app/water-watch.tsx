@@ -599,22 +599,22 @@ function StageExitExplorer({ lang }: { lang: Lang }) {
         <div className="scenario-controls">
           <label>
             <span><strong>{lang === "en" ? "Assumed starting combined usable storage" : "Almacenamiento utilizable combinado inicial supuesto"}</strong><output>{startingStorage}%</output></span>
-            <input type="range" min="40" max="94" step="1" value={startingStorage} onChange={(event) => setStartingStorage(Number(event.target.value))} />
+            <input type="range" min="40" max="94" step="1" value={startingStorage} onInput={(event) => setStartingStorage(Number(event.currentTarget.value))} />
             <small>{lang === "en" ? "The current official value is not publicly posted." : "El valor oficial actual no se publica."}</small>
           </label>
           <label>
             <span><strong>{lang === "en" ? "Assumed rainfall over 10 weeks" : "Lluvia supuesta durante 10 semanas"}</strong><output>{rainfall} in</output></span>
-            <input type="range" min="0" max="25" step="1" value={rainfall} onChange={(event) => setRainfall(Number(event.target.value))} />
+            <input type="range" min="0" max="25" step="1" value={rainfall} onInput={(event) => setRainfall(Number(event.currentTarget.value))} />
             <small>{lang === "en" ? "Rainfall alone does not equal reservoir refill." : "La lluvia por sí sola no equivale a recarga del embalse."}</small>
           </label>
           <label>
             <span><strong>{lang === "en" ? "Assumed middle storage response per inch" : "Respuesta media supuesta de almacenamiento por pulgada"}</strong><output>{rainResponse.toFixed(1)} points</output></span>
-            <input type="range" min="0.1" max="2" step="0.1" value={rainResponse} onChange={(event) => setRainResponse(Number(event.target.value))} />
+            <input type="range" min="0.1" max="2" step="0.1" value={rainResponse} onInput={(event) => setRainResponse(Number(event.currentTarget.value))} />
             <small>{lang === "en" ? "A user-set conversion, not a City watershed coefficient." : "Conversión elegida por el usuario, no un coeficiente de la Ciudad."}</small>
           </label>
           <label>
             <span><strong>{lang === "en" ? "Assumed 10-week demand and other losses" : "Demanda y otras pérdidas supuestas en 10 semanas"}</strong><output>{systemDraw} points</output></span>
-            <input type="range" min="0" max="25" step="1" value={systemDraw} onChange={(event) => setSystemDraw(Number(event.target.value))} />
+            <input type="range" min="0" max="25" step="1" value={systemDraw} onInput={(event) => setSystemDraw(Number(event.currentTarget.value))} />
             <small>{lang === "en" ? "Combines an assumed draw from demand, evaporation, and other losses." : "Combina una reducción supuesta por demanda, evaporación y otras pérdidas."}</small>
           </label>
         </div>

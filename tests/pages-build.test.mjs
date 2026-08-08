@@ -31,7 +31,8 @@ test("produces a complete GitHub Pages artifact", async () => {
   assert.match(html, /documentID=4124(?:&amp;|&)refresh=/);
   assert.match(html, /documentID=4125(?:&amp;|&)refresh=/);
   assert.match(html, /href="\.\/assets\//);
-  assert.doesNotMatch(html, /(?:href|src)="\/assets\//);
+  assert.match(html, /import\("\.\/assets\//);
+  assert.doesNotMatch(html, /(?:["'(=:]|\\")\/assets\//);
   assert.doesNotMatch(html, /\/api\/water-data/);
 });
 
