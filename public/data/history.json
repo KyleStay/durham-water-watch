@@ -175,6 +175,40 @@
         "reservoirs.little"
       ],
       "quarantinedFields": []
+    },
+    {
+      "date": "2026-08-08",
+      "capturedAt": "2026-08-08T12:21:38.287Z",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": 127,
+          "belowIntakes": 48,
+          "quarry": 31,
+          "total": 206
+        },
+        "reservoirs": {
+          "michie": 334.6,
+          "little": 342.88
+        },
+        "drought": "D1 · Moderate Drought",
+        "streamflow": {
+          "flat": 1.73,
+          "little": 5.59
+        }
+      },
+      "retainedFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total"
+      ],
+      "quarantinedFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total"
+      ]
     }
   ]
 }

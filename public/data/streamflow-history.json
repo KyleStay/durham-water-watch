@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "year": 2026,
-  "updatedAt": "2026-08-03T12:00:29.688Z",
+  "updatedAt": "2026-08-08T12:21:38.287Z",
   "stations": {
     "flat": {
       "site": "02085500",
@@ -1293,6 +1293,36 @@
           "currentYear": 2.48,
           "historicalMean": 60,
           "historicalSampleYears": 101
+        },
+        {
+          "date": "2026-08-03",
+          "currentYear": 3.06,
+          "historicalMean": 80,
+          "historicalSampleYears": 101
+        },
+        {
+          "date": "2026-08-04",
+          "currentYear": 7.78,
+          "historicalMean": 61,
+          "historicalSampleYears": 101
+        },
+        {
+          "date": "2026-08-05",
+          "currentYear": 17.8,
+          "historicalMean": 53,
+          "historicalSampleYears": 101
+        },
+        {
+          "date": "2026-08-06",
+          "currentYear": 6.26,
+          "historicalMean": 61,
+          "historicalSampleYears": 101
+        },
+        {
+          "date": "2026-08-07",
+          "currentYear": 2.92,
+          "historicalMean": 70,
+          "historicalSampleYears": 101
         }
       ]
     },
@@ -2477,6 +2507,36 @@
           "date": "2026-08-02",
           "currentYear": 2.73,
           "historicalMean": 37,
+          "historicalSampleYears": 37
+        },
+        {
+          "date": "2026-08-03",
+          "currentYear": 5.56,
+          "historicalMean": 31,
+          "historicalSampleYears": 37
+        },
+        {
+          "date": "2026-08-04",
+          "currentYear": 8.88,
+          "historicalMean": 20,
+          "historicalSampleYears": 37
+        },
+        {
+          "date": "2026-08-05",
+          "currentYear": 12.8,
+          "historicalMean": 14,
+          "historicalSampleYears": 37
+        },
+        {
+          "date": "2026-08-06",
+          "currentYear": 9.23,
+          "historicalMean": 13,
+          "historicalSampleYears": 37
+        },
+        {
+          "date": "2026-08-07",
+          "currentYear": 7.56,
+          "historicalMean": 16,
           "historicalSampleYears": 37
         }
       ]

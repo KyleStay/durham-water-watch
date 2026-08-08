@@ -26,5 +26,17 @@
     "reason": "Durham County drought category did not parse",
     "receivedAt": "2026-07-28T16:37:59.193Z",
     "disposition": "rejected; last-known-good value preserved"
+  },
+  {
+    "metrics": [
+      "supply.accessible",
+      "supply.belowIntakes",
+      "supply.quarry",
+      "supply.total"
+    ],
+    "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
+    "reason": "Accessible supply did not parse",
+    "receivedAt": "2026-08-08T12:21:38.287Z",
+    "disposition": "rejected; last-known-good value preserved"
   }
 ]
