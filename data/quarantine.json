@@ -50,5 +50,17 @@
     "reason": "Accessible supply did not parse",
     "receivedAt": "2026-08-09T20:02:42.191Z",
     "disposition": "rejected; last-known-good value preserved"
+  },
+  {
+    "metrics": [
+      "supply.accessible",
+      "supply.belowIntakes",
+      "supply.quarry",
+      "supply.total"
+    ],
+    "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
+    "reason": "Accessible supply did not parse",
+    "receivedAt": "2026-08-10T12:01:59.209Z",
+    "disposition": "rejected; last-known-good value preserved"
   }
 ]
