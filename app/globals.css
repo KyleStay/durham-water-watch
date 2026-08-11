@@ -690,6 +690,28 @@ thead th { color: var(--muted); font-size: .66rem; text-transform: uppercase; }
   text-align: center;
   white-space: nowrap;
 }
+.daily-chart-plot.dense {
+  min-width: 100%;
+  gap: 0;
+  overflow-x: hidden;
+}
+.daily-chart-plot.dense .daily-chart-day {
+  min-width: 0;
+  flex: 1 1 0;
+}
+.daily-chart-plot.dense .daily-chart-bars { gap: 0; }
+.daily-chart-plot.dense .daily-chart-bar-wrap {
+  width: min(8px, 48%);
+}
+.daily-chart-plot.dense .daily-chart-bar-wrap span { display: none; }
+.daily-chart-plot.dense .daily-chart-day time { visibility: hidden; }
+.daily-chart-plot.dense .daily-chart-day.month-start time {
+  position: absolute;
+  left: 0;
+  bottom: 7px;
+  visibility: visible;
+  transform: translateX(-1px);
+}
 .daily-values-table { grid-template-columns: .55fr 1.45fr; margin-top: 22px; }
 .daily-values-table table { min-width: 850px; }
 .latest-daily-row { background: var(--blue-light); }

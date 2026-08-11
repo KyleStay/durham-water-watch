@@ -52,11 +52,18 @@ type DailyValues = {
 type DailyEntry = {
   date: string;
   capturedAt: string;
+  entryKind?: "historical-backfill";
   values: DailyValues;
   retainedFields?: string[];
   quarantinedFields?: string[];
+  unavailableFields?: string[];
+  measurementKinds?: Record<string, string>;
 };
-type HistoryData = { schemaVersion: number; days: DailyEntry[] };
+type HistoryData = {
+  schemaVersion: number;
+  coverage?: { startsOn: string; through: string; note: string };
+  days: DailyEntry[];
+};
 type StreamflowHistoryDay = {
   date: string;
   currentYear: number;
@@ -367,6 +374,7 @@ function DailyBarChart({
   references?: ChartReference[];
   lang: Lang;
 }) {
+  const dense = days.length > 60;
   const allValues = [
     ...series.flatMap((item) => item.values).filter((value): value is number => typeof value === "number"),
     ...references.map((reference) => reference.value),
@@ -383,7 +391,7 @@ function DailyBarChart({
         {references.map((item) => <span key={item.label}><i className="reference-key" style={{ borderColor: item.color }} />{item.label}</span>)}
       </div>
       <div className="daily-chart-scroll">
-        <div className="daily-chart-plot" role="img" aria-label={`${title}. ${description}`}>
+        <div className={`daily-chart-plot${dense ? " dense" : ""}`} role="img" aria-label={`${title}. ${description}`}>
           {references.map((reference) => (
             <div
               className="daily-chart-reference"
@@ -397,8 +405,10 @@ function DailyBarChart({
               <span>{reference.label}: {reference.format(reference.value)}</span>
             </div>
           ))}
-          {days.map((day, dayIndex) => (
-            <div className="daily-chart-day" key={day.date}>
+          {days.map((day, dayIndex) => {
+            const isMonthStart = day.date.endsWith("-01");
+            return (
+            <div className={`daily-chart-day${isMonthStart ? " month-start" : ""}`} key={day.date}>
               <div className="daily-chart-bars">
                 {series.map((item) => {
                   const value = item.values[dayIndex];
@@ -416,7 +426,7 @@ function DailyBarChart({
               </div>
               <time dateTime={day.date}>{fmtDailyDate(day.date, lang)}</time>
             </div>
-          ))}
+          )})}
         </div>
       </div>
     </figure>
@@ -426,8 +436,11 @@ function DailyBarChart({
 function dailyQuality(day: DailyEntry, lang: Lang) {
   const retained = day.retainedFields?.length ?? 0;
   const quarantined = day.quarantinedFields?.length ?? 0;
+  const unavailable = day.unavailableFields?.length ?? 0;
   if (quarantined) return lang === "en" ? `${quarantined} quarantined` : `${quarantined} en cuarentena`;
   if (retained) return lang === "en" ? `${retained} retained` : `${retained} conservado${retained === 1 ? "" : "s"}`;
+  if (unavailable) return lang === "en" ? `${unavailable} unavailable · historical` : `${unavailable} no disponibles · histórico`;
+  if (day.entryKind === "historical-backfill") return lang === "en" ? "Historical sources" : "Fuentes históricas";
   return lang === "en" ? "All current" : "Todo vigente";
 }
 
@@ -683,8 +696,8 @@ export default function WaterWatch() {
     typeof day.values.reservoirs.little === "number" ? 355 - day.values.reservoirs.little : null
   )));
   const trackedAverageLabel = lang === "en"
-    ? `${currentHistoryYear} tracked avg since ${fmtDailyDate(historyDays[0]?.date ?? data.historyStarts, lang)}`
-    : `Promedio registrado de ${currentHistoryYear} desde ${fmtDailyDate(historyDays[0]?.date ?? data.historyStarts, lang)}`;
+    ? `${currentHistoryYear} avg of available verified readings`
+    : `Promedio de lecturas verificadas disponibles de ${currentHistoryYear}`;
 
   useEffect(() => {
     document.documentElement.lang = lang;
@@ -803,8 +816,8 @@ export default function WaterWatch() {
               </div>
               <p>
                 {lang === "en"
-                  ? `The local daily record begins ${fmtDailyDate(historyDays[0]?.date ?? data.historyStarts, lang)} and keeps every ${currentHistoryYear} snapshot. USGS comparisons below cover the year to date and use official historical daily means.`
-                  : `El registro diario local comienza el ${fmtDailyDate(historyDays[0]?.date ?? data.historyStarts, lang)} y conserva cada instantánea de ${currentHistoryYear}. Las comparaciones del USGS cubren el año hasta la fecha y usan promedios diarios históricos oficiales.`}
+                  ? `The daily record now begins ${fmtDailyDate(historyDays[0]?.date ?? data.historyStarts, lang)}. USGS daily means fill every date; City supply and reservoir values appear only where an exact archived reading exists, with no interpolation.`
+                  : `El registro diario ahora comienza el ${fmtDailyDate(historyDays[0]?.date ?? data.historyStarts, lang)}. Los promedios diarios del USGS cubren cada fecha; los valores de suministro y embalses solo aparecen cuando existe una lectura archivada exacta, sin interpolación.`}
               </p>
             </div>
 
@@ -886,8 +899,8 @@ export default function WaterWatch() {
               <strong>{lang === "en" ? "What the dashed averages mean" : "Qué significan los promedios discontinuos"}</strong>
               <p>
                 {lang === "en"
-                  ? `Durham does not publish raw historical-average series for total supply or distance below full pool. The dashed lines are averages of this dashboard’s verified ${currentHistoryYear} daily record beginning ${fmtDailyDate(historyDays[0]?.date ?? data.historyStarts, lang)}—not long-term averages. The City’s annual reservoir charts below provide the longer comparison as individual prior years.`
-                  : `Durham no publica series de promedios históricos para el suministro total ni la distancia bajo la cota máxima. Las líneas discontinuas promedian el registro diario verificado de ${currentHistoryYear} desde el ${fmtDailyDate(historyDays[0]?.date ?? data.historyStarts, lang)}; no son promedios a largo plazo. Las gráficas anuales de la Ciudad muestran la comparación más larga como años anteriores individuales.`}
+                  ? `Durham does not publish raw historical-average series for total supply or distance below full pool. The dashed lines average only the exact verified City readings available since ${fmtDailyDate(historyDays[0]?.date ?? data.historyStarts, lang)}—not missing dates and not a long-term average. The City’s annual reservoir charts below provide the longer comparison as individual prior years.`
+                  : `Durham no publica series de promedios históricos para el suministro total ni la distancia bajo la cota máxima. Las líneas discontinuas promedian solo las lecturas exactas verificadas disponibles desde el ${fmtDailyDate(historyDays[0]?.date ?? data.historyStarts, lang)}; no incluyen fechas faltantes ni son promedios a largo plazo. Las gráficas anuales de la Ciudad muestran la comparación más larga como años anteriores individuales.`}
               </p>
               <a href={urls.lakes} target="_blank" rel="noreferrer">{lang === "en" ? "Official City lake history" : "Historial oficial de los embalses"} ↗</a>
             </aside>
@@ -943,7 +956,7 @@ export default function WaterWatch() {
                         <td>{day.values.drought ?? "—"}</td>
                         <td>{day.values.streamflow.flat ?? "—"} ft³/s</td>
                         <td>{day.values.streamflow.little ?? "—"} ft³/s</td>
-                        <td className={(day.retainedFields?.length ?? 0) > 0 || (day.quarantinedFields?.length ?? 0) > 0 ? "daily-quality-warning" : "daily-quality-good"}>
+                        <td className={(day.retainedFields?.length ?? 0) > 0 || (day.quarantinedFields?.length ?? 0) > 0 || (day.unavailableFields?.length ?? 0) > 0 ? "daily-quality-warning" : "daily-quality-good"}>
                           {dailyQuality(day, lang)}
                         </td>
                       </tr>

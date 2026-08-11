@@ -27,7 +27,8 @@ test("server-renders the resident-facing dashboard without JavaScript", async ()
   assert.match(html, /Historical daily mean/);
   assert.match(html, /1926–2026/);
   assert.match(html, /What the dashed averages mean/);
-  assert.match(html, /not long-term averages/);
+  assert.match(html, /not a long-term average/);
+  assert.match(html, /USGS daily means fill every date/);
   assert.match(html, /Official City guidance always takes precedence/);
   assert.match(html, /What to do now/);
   assert.match(html, /How close is Durham to leaving Stage 2/);

@@ -24,8 +24,9 @@ test("produces a complete GitHub Pages artifact", async () => {
   assert.match(html, /Year to date vs historical average/);
   assert.match(html, /vs historical daily mean/);
   assert.match(html, /What the dashed averages mean/);
-  assert.match(html, /tracked avg since/);
-  assert.match(html, /not long-term averages/);
+  assert.match(html, /avg of available verified readings/);
+  assert.match(html, /not a long-term average/);
+  assert.match(html, /USGS daily means fill every date/);
   assert.match(html, /All four inputs are assumptions/);
   assert.match(html, /documentID=4123(?:&amp;|&)refresh=/);
   assert.match(html, /documentID=4124(?:&amp;|&)refresh=/);
@@ -58,12 +59,20 @@ test("publishes USGS year-to-date flow against historical daily means", async ()
 
 test("publishes a complete, ordered daily values ledger", async () => {
   const history = JSON.parse(await readFile(new URL("data/history.json", pagesRoot), "utf8"));
-  assert.equal(history.schemaVersion, 1);
-  assert.ok(history.days.length >= 4);
+  assert.equal(history.schemaVersion, 2);
+  assert.equal(history.coverage.startsOn, "2026-03-01");
+  assert.match(history.coverage.note, /not interpolated or forward-filled/);
+  assert.ok(history.days.length >= 160);
 
   const dates = history.days.map((day) => day.date);
   assert.deepEqual(dates, [...dates].sort());
   assert.equal(new Set(dates).size, dates.length);
+  assert.equal(dates[0], "2026-03-01");
+  for (let index = 1; index < dates.length; index += 1) {
+    const previous = new Date(`${dates[index - 1]}T12:00:00Z`);
+    previous.setUTCDate(previous.getUTCDate() + 1);
+    assert.equal(dates[index], previous.toISOString().slice(0, 10));
+  }
 
   for (const day of history.days) {
     assert.match(day.date, /^\d{4}-\d{2}-\d{2}$/);
@@ -78,6 +87,16 @@ test("publishes a complete, ordered daily values ledger", async () => {
     assert.ok(Array.isArray(day.retainedFields));
     assert.ok(Array.isArray(day.quarantinedFields));
   }
+
+  const byDate = new Map(history.days.map((day) => [day.date, day]));
+  assert.ok(byDate.get("2026-03-01").values.streamflow.flat > 0);
+  assert.equal(byDate.get("2026-03-01").values.supply.total, null);
+  assert.equal(byDate.get("2026-03-01").values.reservoirs.michie, null);
+  assert.deepEqual(byDate.get("2026-04-12").values.reservoirs, { michie: 340.05, little: 350.06 });
+  assert.deepEqual(byDate.get("2026-05-18").values.supply, { accessible: 135, belowIntakes: 37, quarry: 18, total: 190 });
+  assert.deepEqual(byDate.get("2026-07-01").values.supply, { accessible: 85, belowIntakes: 36, quarry: 24, total: 145 });
+  assert.equal(byDate.get("2026-06-15").values.stage, 2);
+  assert.equal(byDate.get("2026-06-09").values.drought, "D4 · Exceptional Drought");
 });
 
 test("stores transparent last-known-good metadata for every operational metric", async () => {
