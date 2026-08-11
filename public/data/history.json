@@ -248,39 +248,27 @@
     },
     {
       "date": "2026-08-10",
-      "capturedAt": "2026-08-10T12:01:59.209Z",
+      "capturedAt": "2026-08-11T00:09:53.156Z",
       "values": {
         "stage": 2,
         "supply": {
-          "accessible": 127,
-          "belowIntakes": 48,
-          "quarry": 31,
-          "total": 206
+          "accessible": 147,
+          "belowIntakes": 52,
+          "quarry": 32,
+          "total": 231
         },
         "reservoirs": {
-          "michie": 334.6,
-          "little": 342.88
+          "michie": 334.54,
+          "little": 342.87
         },
         "drought": "D1 · Moderate Drought",
         "streamflow": {
-          "flat": 0.71,
-          "little": 2.29
+          "flat": 0.47,
+          "little": 1.78
         }
       },
-      "retainedFields": [
-        "supply.accessible",
-        "supply.belowIntakes",
-        "supply.quarry",
-        "supply.total",
-        "reservoirs.michie",
-        "reservoirs.little"
-      ],
-      "quarantinedFields": [
-        "supply.accessible",
-        "supply.belowIntakes",
-        "supply.quarry",
-        "supply.total"
-      ]
+      "retainedFields": [],
+      "quarantinedFields": []
     }
   ]
 }

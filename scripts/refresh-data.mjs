@@ -1,6 +1,7 @@
 import { readFile, rename, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { sourceIsDue } from "./refresh-policy.mjs";
+import { parseSupplyValues } from "./supply-parser.mjs";
 
 const snapshotPath = resolve(import.meta.dirname, "../public/data/dashboard.json");
 const temporaryPath = `${snapshotPath}.next`;
@@ -167,17 +168,7 @@ async function refreshSupply() {
     if (sectionStart < 0) throw new Error("Days-of-supply section was missing");
     const section = text.slice(sectionStart);
     const observedAt = parseDate(section);
-    const accessible = numberFrom(section, /premium water remaining[^:\d]*:\s*(\d+(?:\.\d+)?)/i, "Accessible supply");
-    const belowIntakes = numberFrom(section, /below the intake structures remaining[^:\d]*:\s*(\d+(?:\.\d+)?)/i, "Below-intake supply");
-    const quarry = numberFrom(section, /Teer Quarry[^:\d]*:\s*(\d+(?:\.\d+)?)/i, "Teer Quarry supply");
-    const total = numberFrom(section, /Total days of supply[^:\d]*:\s*(\d+(?:\.\d+)?)/i, "Total supply");
-
-    if ([accessible, belowIntakes, quarry, total].some((value) => value < 0)) {
-      throw new Error("Days-of-supply components must be nonnegative");
-    }
-    if (Math.abs(accessible + belowIntakes + quarry - total) > 1) {
-      throw new Error("Official total is inconsistent with its displayed components");
-    }
+    const { accessible, belowIntakes, quarry, total } = parseSupplyValues(section);
 
     const common = { units: "days", sourceUrl: SOURCES.data, observedAt };
     accept(paths[0], { ...common, value: accessible }, { maxDelta: 50 });
