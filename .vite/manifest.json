@@ -11,7 +11,7 @@
     "name": "rolldown-runtime"
   },
   "app/water-watch.tsx": {
-    "file": "assets/water-watch-DqAziVmd.js",
+    "file": "assets/water-watch-BDjC5qhl.js",
     "name": "water-watch",
     "src": "app/water-watch.tsx",
     "isDynamicEntry": true,
@@ -21,7 +21,7 @@
     ]
   },
   "node_modules/vinext/dist/shims/layout-segment-context.js": {
-    "file": "assets/layout-segment-context-Br3oDokT.js",
+    "file": "assets/layout-segment-context-42t8Ja4G.js",
     "name": "layout-segment-context",
     "src": "node_modules/vinext/dist/shims/layout-segment-context.js",
     "isDynamicEntry": true,
@@ -32,7 +32,7 @@
     ]
   },
   "virtual:vinext-app-browser-entry": {
-    "file": "assets/index-DakX1W2n.js",
+    "file": "assets/index-B1wEco7d.js",
     "name": "index",
     "src": "virtual:vinext-app-browser-entry",
     "isEntry": true,
