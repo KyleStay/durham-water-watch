@@ -120,7 +120,7 @@
       "note": "USGS provisional data; subject to revision."
     }
   },
-  "historyStarts": "2026-07-27",
+  "historyStarts": "2026-03-01",
   "generatedAt": "2026-08-11T12:01:19.938Z",
   "lastRefreshResult": "verified: stage; verified: drought; verified: supply; verified: reservoirs; verified: streamflow; verified: flat historical streamflow; verified: little historical streamflow"
 }

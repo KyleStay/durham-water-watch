@@ -1,6 +1,5874 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "days": [
+    {
+      "date": "2026-03-01",
+      "capturedAt": "2026-03-01T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 71.6,
+          "little": 42
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-03-02",
+      "capturedAt": "2026-03-02T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 54.4,
+          "little": 31.1
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-03-03",
+      "capturedAt": "2026-03-03T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 43.8,
+          "little": 24.4
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-03-04",
+      "capturedAt": "2026-03-04T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 37.3,
+          "little": 20.7
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-03-05",
+      "capturedAt": "2026-03-05T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 34.6,
+          "little": 18.7
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-03-06",
+      "capturedAt": "2026-03-06T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 32.1,
+          "little": 16.9
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-03-07",
+      "capturedAt": "2026-03-07T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 29.5,
+          "little": 15.9
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-03-08",
+      "capturedAt": "2026-03-08T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 28.4,
+          "little": 15.7
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-03-09",
+      "capturedAt": "2026-03-09T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 27,
+          "little": 15.2
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-03-10",
+      "capturedAt": "2026-03-10T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 27.4,
+          "little": 14.7
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-03-11",
+      "capturedAt": "2026-03-11T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 25.5,
+          "little": 13.5
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-03-12",
+      "capturedAt": "2026-03-12T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 28.7,
+          "little": 19.6
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-03-13",
+      "capturedAt": "2026-03-13T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 84.4,
+          "little": 48.5
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-03-14",
+      "capturedAt": "2026-03-14T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 68.6,
+          "little": 35.5
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-03-15",
+      "capturedAt": "2026-03-15T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 46.6,
+          "little": 24.5
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-03-16",
+      "capturedAt": "2026-03-16T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 277,
+          "little": 140
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-03-17",
+      "capturedAt": "2026-03-17T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 378,
+          "little": 153
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-03-18",
+      "capturedAt": "2026-03-18T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 144,
+          "little": 68.9
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-03-19",
+      "capturedAt": "2026-03-19T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 83,
+          "little": 42.1
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-03-20",
+      "capturedAt": "2026-03-20T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 65,
+          "little": 32.5
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-03-21",
+      "capturedAt": "2026-03-21T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 60.9,
+          "little": 26.9
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-03-22",
+      "capturedAt": "2026-03-22T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 51.3,
+          "little": 23.3
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-03-23",
+      "capturedAt": "2026-03-23T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 44.1,
+          "little": 21
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-03-24",
+      "capturedAt": "2026-03-24T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 37.7,
+          "little": 17.8
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-03-25",
+      "capturedAt": "2026-03-25T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 33.6,
+          "little": 16.1
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-03-26",
+      "capturedAt": "2026-03-26T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 31.2,
+          "little": 15.2
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-03-27",
+      "capturedAt": "2026-03-27T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 31.7,
+          "little": 15.5
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-03-28",
+      "capturedAt": "2026-03-28T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 38.6,
+          "little": 18.2
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-03-29",
+      "capturedAt": "2026-03-29T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 48.3,
+          "little": 19.2
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-03-30",
+      "capturedAt": "2026-03-30T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 37.5,
+          "little": 16.7
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-03-31",
+      "capturedAt": "2026-03-31T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 33.5,
+          "little": 15.1
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-04-01",
+      "capturedAt": "2026-04-01T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 31.3,
+          "little": 14.7
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-04-02",
+      "capturedAt": "2026-04-02T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 29.9,
+          "little": 13.9
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-04-03",
+      "capturedAt": "2026-04-03T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 28.6,
+          "little": 12.9
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-04-04",
+      "capturedAt": "2026-04-04T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 27.2,
+          "little": 12.3
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-04-05",
+      "capturedAt": "2026-04-05T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 27,
+          "little": 12.7
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-04-06",
+      "capturedAt": "2026-04-06T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 25.5,
+          "little": 12.1
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-04-07",
+      "capturedAt": "2026-04-07T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 31.1,
+          "little": 11.4
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-04-08",
+      "capturedAt": "2026-04-08T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 27,
+          "little": 10.3
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-04-09",
+      "capturedAt": "2026-04-09T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 23.7,
+          "little": 9.79
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-04-10",
+      "capturedAt": "2026-04-10T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 23.2,
+          "little": 9.14
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-04-11",
+      "capturedAt": "2026-04-11T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 23.3,
+          "little": 9.45
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-04-12",
+      "capturedAt": "2026-04-12T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": 340.05,
+          "little": 350.06
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 23.4,
+          "little": 8.71
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "archived exact City reading"
+      }
+    },
+    {
+      "date": "2026-04-13",
+      "capturedAt": "2026-04-13T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 23,
+          "little": 8.85
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-04-14",
+      "capturedAt": "2026-04-14T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 22.8,
+          "little": 8.05
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-04-15",
+      "capturedAt": "2026-04-15T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 21.9,
+          "little": 7.55
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-04-16",
+      "capturedAt": "2026-04-16T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 21,
+          "little": 7.24
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-04-17",
+      "capturedAt": "2026-04-17T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 21.1,
+          "little": 6.64
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-04-18",
+      "capturedAt": "2026-04-18T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 19.8,
+          "little": 6.17
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-04-19",
+      "capturedAt": "2026-04-19T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 20,
+          "little": 5.7
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-04-20",
+      "capturedAt": "2026-04-20T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 18.1,
+          "little": 5
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-04-21",
+      "capturedAt": "2026-04-21T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 17.3,
+          "little": 4.83
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-04-22",
+      "capturedAt": "2026-04-22T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 16.6,
+          "little": 4.73
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-04-23",
+      "capturedAt": "2026-04-23T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 16,
+          "little": 4.53
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-04-24",
+      "capturedAt": "2026-04-24T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 15.5,
+          "little": 4.61
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-04-25",
+      "capturedAt": "2026-04-25T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 15.1,
+          "little": 4.85
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-04-26",
+      "capturedAt": "2026-04-26T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 14.9,
+          "little": 4.48
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-04-27",
+      "capturedAt": "2026-04-27T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 15.1,
+          "little": 4.39
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-04-28",
+      "capturedAt": "2026-04-28T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 15.1,
+          "little": 4.56
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-04-29",
+      "capturedAt": "2026-04-29T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 15.3,
+          "little": 4.8
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-04-30",
+      "capturedAt": "2026-04-30T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 15.7,
+          "little": 6.28
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-05-01",
+      "capturedAt": "2026-05-01T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 15.8,
+          "little": 7.25
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-05-02",
+      "capturedAt": "2026-05-02T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 14.9,
+          "little": 6.25
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-05-03",
+      "capturedAt": "2026-05-03T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 12.6,
+          "little": 5.47
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-05-04",
+      "capturedAt": "2026-05-04T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 11,
+          "little": 4.63
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-05-05",
+      "capturedAt": "2026-05-05T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 10.4,
+          "little": 4.12
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-05-06",
+      "capturedAt": "2026-05-06T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 10,
+          "little": 3.75
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-05-07",
+      "capturedAt": "2026-05-07T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 9.93,
+          "little": 4.02
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-05-08",
+      "capturedAt": "2026-05-08T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 10.3,
+          "little": 5.26
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-05-09",
+      "capturedAt": "2026-05-09T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 10.6,
+          "little": 6.09
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-05-10",
+      "capturedAt": "2026-05-10T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 10.6,
+          "little": 5.39
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-05-11",
+      "capturedAt": "2026-05-11T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 9.45,
+          "little": 4.49
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-05-12",
+      "capturedAt": "2026-05-12T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 8.23,
+          "little": 4.1
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-05-13",
+      "capturedAt": "2026-05-13T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 7.15,
+          "little": 3.4
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-05-14",
+      "capturedAt": "2026-05-14T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 6.52,
+          "little": 2.96
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-05-15",
+      "capturedAt": "2026-05-15T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 5.84,
+          "little": 2.84
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-05-16",
+      "capturedAt": "2026-05-16T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 5.24,
+          "little": 2.49
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-05-17",
+      "capturedAt": "2026-05-17T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 4.74,
+          "little": 2.12
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-05-18",
+      "capturedAt": "2026-05-18T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": 135,
+          "belowIntakes": 37,
+          "quarry": 18,
+          "total": 190
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 4.26,
+          "little": 1.88
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "archived exact City reading",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-05-19",
+      "capturedAt": "2026-05-19T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 3.88,
+          "little": 1.91
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-05-20",
+      "capturedAt": "2026-05-20T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 3.64,
+          "little": 1.71
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-05-21",
+      "capturedAt": "2026-05-21T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 3.44,
+          "little": 1.53
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-05-22",
+      "capturedAt": "2026-05-22T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 3.29,
+          "little": 1.59
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-05-23",
+      "capturedAt": "2026-05-23T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 3.23,
+          "little": 1.5
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-05-24",
+      "capturedAt": "2026-05-24T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 3.28,
+          "little": 1.36
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-05-25",
+      "capturedAt": "2026-05-25T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 3.77,
+          "little": 1.53
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-05-26",
+      "capturedAt": "2026-05-26T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 4.26,
+          "little": 1.8
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-05-27",
+      "capturedAt": "2026-05-27T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 4.17,
+          "little": 1.79
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-05-28",
+      "capturedAt": "2026-05-28T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 3.75,
+          "little": 2.08
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-05-29",
+      "capturedAt": "2026-05-29T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 3.38,
+          "little": 2
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-05-30",
+      "capturedAt": "2026-05-30T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 3.09,
+          "little": 1.63
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-05-31",
+      "capturedAt": "2026-05-31T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 2.79,
+          "little": 1.24
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-06-01",
+      "capturedAt": "2026-06-01T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 2.58,
+          "little": 1.19
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-06-02",
+      "capturedAt": "2026-06-02T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 2.35,
+          "little": 0.92
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-06-03",
+      "capturedAt": "2026-06-03T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 2.08,
+          "little": 0.68
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-06-04",
+      "capturedAt": "2026-06-04T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 1.94,
+          "little": 0.7
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-06-05",
+      "capturedAt": "2026-06-05T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 1.94,
+          "little": 0.65
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-06-06",
+      "capturedAt": "2026-06-06T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 2.21,
+          "little": 0.54
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-06-07",
+      "capturedAt": "2026-06-07T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 2.34,
+          "little": 0.33
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-06-08",
+      "capturedAt": "2026-06-08T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 2.49,
+          "little": 0.2
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-06-09",
+      "capturedAt": "2026-06-09T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 2.58,
+          "little": 0.13
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-06-10",
+      "capturedAt": "2026-06-10T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 2.93,
+          "little": 0.1
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-06-11",
+      "capturedAt": "2026-06-11T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 3.42,
+          "little": 0.09
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-06-12",
+      "capturedAt": "2026-06-12T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 3.18,
+          "little": 0.07
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-06-13",
+      "capturedAt": "2026-06-13T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 2.73,
+          "little": 0.06
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-06-14",
+      "capturedAt": "2026-06-14T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": null,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 2.6,
+          "little": 0.11
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "stage",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-06-15",
+      "capturedAt": "2026-06-15T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 2.36,
+          "little": 0.1
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-06-16",
+      "capturedAt": "2026-06-16T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 2.4,
+          "little": 0.09
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-06-17",
+      "capturedAt": "2026-06-17T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 2.31,
+          "little": 0.09
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-06-18",
+      "capturedAt": "2026-06-18T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 3.11,
+          "little": 0.24
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-06-19",
+      "capturedAt": "2026-06-19T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 5.01,
+          "little": 0.72
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-06-20",
+      "capturedAt": "2026-06-20T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 3.65,
+          "little": 0.71
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-06-21",
+      "capturedAt": "2026-06-21T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 3.06,
+          "little": 0.79
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-06-22",
+      "capturedAt": "2026-06-22T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 2.89,
+          "little": 0.53
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-06-23",
+      "capturedAt": "2026-06-23T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 3.18,
+          "little": 0.62
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-06-24",
+      "capturedAt": "2026-06-24T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 3.72,
+          "little": 0.5
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-06-25",
+      "capturedAt": "2026-06-25T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 3.69,
+          "little": 0.37
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-06-26",
+      "capturedAt": "2026-06-26T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 2.85,
+          "little": 0.38
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-06-27",
+      "capturedAt": "2026-06-27T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 2.56,
+          "little": 0.3
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-06-28",
+      "capturedAt": "2026-06-28T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 2.64,
+          "little": 0.21
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-06-29",
+      "capturedAt": "2026-06-29T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 4.37,
+          "little": 0.26
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-06-30",
+      "capturedAt": "2026-06-30T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 3.76,
+          "little": 0.2
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-07-01",
+      "capturedAt": "2026-07-01T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": 85,
+          "belowIntakes": 36,
+          "quarry": 24,
+          "total": 145
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 3.11,
+          "little": 0.15
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "archived exact City reading",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-07-02",
+      "capturedAt": "2026-07-02T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 2.84,
+          "little": 0.1
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-07-03",
+      "capturedAt": "2026-07-03T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 2.38,
+          "little": 0.08
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-07-04",
+      "capturedAt": "2026-07-04T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 2.11,
+          "little": 0.07
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-07-05",
+      "capturedAt": "2026-07-05T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 1.83,
+          "little": 0.06
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-07-06",
+      "capturedAt": "2026-07-06T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 1.63,
+          "little": 0.05
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-07-07",
+      "capturedAt": "2026-07-07T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 2.55,
+          "little": 0.1
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-07-08",
+      "capturedAt": "2026-07-08T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 2.11,
+          "little": 0.21
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-07-09",
+      "capturedAt": "2026-07-09T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 2,
+          "little": 0.14
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-07-10",
+      "capturedAt": "2026-07-10T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 2.07,
+          "little": 0.15
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-07-11",
+      "capturedAt": "2026-07-11T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 2.43,
+          "little": 0.43
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-07-12",
+      "capturedAt": "2026-07-12T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 2.29,
+          "little": 0.44
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-07-13",
+      "capturedAt": "2026-07-13T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 2.33,
+          "little": 0.6
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-07-14",
+      "capturedAt": "2026-07-14T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 1.79,
+          "little": 0.37
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-07-15",
+      "capturedAt": "2026-07-15T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 1.34,
+          "little": null
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-07-16",
+      "capturedAt": "2026-07-16T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 0.86,
+          "little": null
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-07-17",
+      "capturedAt": "2026-07-17T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 0.62,
+          "little": 0.09
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-07-18",
+      "capturedAt": "2026-07-18T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 0.49,
+          "little": 0.08
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-07-19",
+      "capturedAt": "2026-07-19T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 0.64,
+          "little": 0.22
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-07-20",
+      "capturedAt": "2026-07-20T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D4 · Exceptional Drought",
+        "streamflow": {
+          "flat": 1.15,
+          "little": 0.39
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-07-21",
+      "capturedAt": "2026-07-21T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 79,
+          "little": 0.86
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-07-22",
+      "capturedAt": "2026-07-22T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 11.2,
+          "little": 1.33
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-07-23",
+      "capturedAt": "2026-07-23T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 225,
+          "little": 142
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-07-24",
+      "capturedAt": "2026-07-24T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 59.7,
+          "little": 44.2
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-07-25",
+      "capturedAt": "2026-07-25T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 14.3,
+          "little": 16.3
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-07-26",
+      "capturedAt": "2026-07-26T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D3 · Extreme Drought",
+        "streamflow": {
+          "flat": 7.99,
+          "little": 9.74
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
     {
       "date": "2026-07-27",
       "capturedAt": "2026-07-28T00:17:46.578Z",
@@ -146,6 +6014,45 @@
       "quarantinedFields": []
     },
     {
+      "date": "2026-08-02",
+      "capturedAt": "2026-08-02T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 2.48,
+          "little": 2.73
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
       "date": "2026-08-03",
       "capturedAt": "2026-08-03T12:00:29.688Z",
       "values": {
@@ -175,6 +6082,162 @@
         "reservoirs.little"
       ],
       "quarantinedFields": []
+    },
+    {
+      "date": "2026-08-04",
+      "capturedAt": "2026-08-04T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 7.78,
+          "little": 8.88
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-08-05",
+      "capturedAt": "2026-08-05T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 17.8,
+          "little": 12.8
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-08-06",
+      "capturedAt": "2026-08-06T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 6.26,
+          "little": 9.23
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-08-07",
+      "capturedAt": "2026-08-07T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 2.92,
+          "little": 7.56
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "drought": "weekly USDM maximum category present in Durham County",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
     },
     {
       "date": "2026-08-08",
@@ -294,5 +6357,55 @@
       "retainedFields": [],
       "quarantinedFields": []
     }
-  ]
+  ],
+  "coverage": {
+    "startsOn": "2026-03-01",
+    "through": "2026-08-11",
+    "note": "One row per date. USGS daily means and weekly USDM county categories fill the historical record. City supply and reservoir fields are populated only on dates with an exact published reading; gaps are not interpolated or forward-filled.",
+    "sources": [
+      {
+        "fields": [
+          "streamflow.flat",
+          "streamflow.little"
+        ],
+        "label": "U.S. Geological Survey daily values",
+        "url": "https://waterservices.usgs.gov/rest/DV-Service.html"
+      },
+      {
+        "fields": [
+          "drought"
+        ],
+        "label": "U.S. Drought Monitor county statistics",
+        "url": "https://usdmdataservices.unl.edu/"
+      },
+      {
+        "fields": [
+          "stage"
+        ],
+        "label": "City of Durham Stage 2 announcement",
+        "url": "https://www.durhamnc.gov/m/NewsFlash/Home/Detail/4174"
+      },
+      {
+        "fields": [
+          "supply.accessible",
+          "supply.belowIntakes",
+          "supply.quarry",
+          "supply.total"
+        ],
+        "label": "Archived copies of the City of Durham Current Data page",
+        "urls": [
+          "https://web.archive.org/web/20260521132738/https://www.durhamnc.gov/1214/Current-Data",
+          "https://web.archive.org/web/20260706105331/https://www.durhamnc.gov/1214/Current-Data"
+        ]
+      },
+      {
+        "fields": [
+          "reservoirs.michie",
+          "reservoirs.little"
+        ],
+        "label": "Archived copy of the City of Durham Lake Levels page",
+        "url": "https://web.archive.org/web/20260415040721/https://www.durhamnc.gov/1225/Lake-Levels"
+      }
+    ]
+  }
 }
