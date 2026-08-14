@@ -66,7 +66,7 @@ type HistoryData = {
 };
 type StreamflowHistoryDay = {
   date: string;
-  currentYear: number;
+  currentYear: number | null;
   historicalMean: number;
   historicalSampleYears: number;
 };
@@ -461,7 +461,7 @@ function weeklyStreamflow(days: StreamflowHistoryDay[]) {
   return [...groups.entries()].map(([week, values]) => ({
     week,
     date: values.at(-1)?.date ?? values[0].date,
-    current: values.reduce((sum, value) => sum + value.currentYear, 0) / values.length,
+    current: numericAverage(values.map((value) => value.currentYear)),
     historical: values.reduce((sum, value) => sum + value.historicalMean, 0) / values.length,
     count: values.length,
   }));
@@ -478,15 +478,18 @@ function YearComparisonChart({ station, year, lang }: {
   const plot = { left: 72, top: 24, right: 24, bottom: 52 };
   const plotWidth = width - plot.left - plot.right;
   const plotHeight = height - plot.top - plot.bottom;
-  const maximum = Math.max(1, ...weekly.flatMap((point) => [point.current, point.historical]));
+  const maximum = Math.max(1, ...weekly.flatMap((point) => (
+    point.current === null ? [point.historical] : [point.current, point.historical]
+  )));
   const niceMaximum = Math.ceil(maximum / 50) * 50;
   const x = (week: number) => plot.left + (week / 52) * plotWidth;
   const y = (value: number) => plot.top + plotHeight - (value / niceMaximum) * plotHeight;
   const pathFor = (key: "current" | "historical") => weekly
-    .map((point, index) => `${index === 0 ? "M" : "L"} ${x(point.week).toFixed(1)} ${y(point[key]).toFixed(1)}`)
+    .filter((point) => point[key] !== null)
+    .map((point, index) => `${index === 0 ? "M" : "L"} ${x(point.week).toFixed(1)} ${y(point[key]!).toFixed(1)}`)
     .join(" ");
-  const recent = weekly.at(-1);
-  const recentDifference = recent && recent.historical
+  const recent = weekly.findLast((point) => point.current !== null);
+  const recentDifference = recent && recent.current !== null && recent.historical
     ? Math.round(((recent.current - recent.historical) / recent.historical) * 100)
     : null;
   const monthTicks = [
@@ -507,8 +510,8 @@ function YearComparisonChart({ station, year, lang }: {
           <h3>{station.name}: {year} {lang === "en" ? "vs historical daily mean" : "frente al promedio diario histórico"}</h3>
           <p>
             {lang === "en"
-              ? `Weekly averages of USGS daily-mean flow. Historical comparison period: ${station.historicalPeriod ?? "unavailable"}.`
-              : `Promedios semanales del caudal medio diario del USGS. Período histórico: ${station.historicalPeriod ?? "no disponible"}.`}
+              ? `Weekly averages of USGS daily-mean flow. The historical mean continues through the full calendar year so you can see what is typically expected. Historical comparison period: ${station.historicalPeriod ?? "unavailable"}.`
+              : `Promedios semanales del caudal medio diario del USGS. El promedio histórico continúa durante todo el año calendario para mostrar lo que normalmente se espera. Período histórico: ${station.historicalPeriod ?? "no disponible"}.`}
           </p>
         </div>
         <div className="year-comparison-summary">
@@ -544,7 +547,7 @@ function YearComparisonChart({ station, year, lang }: {
             <text className="year-axis-title" transform={`translate(17 ${plot.top + plotHeight / 2}) rotate(-90)`} textAnchor="middle">ft³/s</text>
             <path className="historical-flow-line" d={pathFor("historical")} />
             <path className="current-flow-line" d={pathFor("current")} />
-            {recent && <circle className="current-flow-point" cx={x(recent.week)} cy={y(recent.current)} r="5" />}
+            {recent && recent.current !== null && <circle className="current-flow-point" cx={x(recent.week)} cy={y(recent.current)} r="5" />}
           </svg>
         </div>
       ) : <p className="stale-note">{station.note ?? (lang === "en" ? "Year comparison unavailable." : "Comparación anual no disponible.")}</p>}

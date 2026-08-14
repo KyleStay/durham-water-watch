@@ -25,6 +25,7 @@ test("server-renders the resident-facing dashboard without JavaScript", async ()
   assert.match(html, /Today and previous days/);
   assert.match(html, /Year to date vs historical average/);
   assert.match(html, /Historical daily mean/);
+  assert.match(html, /historical mean continues through the full calendar year/);
   assert.match(html, /1926–2026/);
   assert.match(html, /What the dashed averages mean/);
   assert.match(html, /not a long-term average/);

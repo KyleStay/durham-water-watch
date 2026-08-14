@@ -332,16 +332,17 @@ async function refreshStreamflowHistory() {
       if (statistics.length < 365) {
         throw new Error(`USGS ${site} returned incomplete historical daily means`);
       }
-      const statisticsByDay = new Map(statistics.map((row) => [
-        `${String(row.month_nu).padStart(2, "0")}-${String(row.day_nu).padStart(2, "0")}`,
-        row,
+      const dailyValuesByDay = new Map(dailyValues.map((reading) => [
+        reading.dateTime.slice(5, 10),
+        reading,
       ]));
-      const days = dailyValues.map((reading) => {
-        const date = reading.dateTime.slice(0, 10);
-        const historical = statisticsByDay.get(date.slice(5));
-        const currentYear = Number(reading.value);
+      const days = statistics.map((historical) => {
+        const monthDay = `${String(historical.month_nu).padStart(2, "0")}-${String(historical.day_nu).padStart(2, "0")}`;
+        const reading = dailyValuesByDay.get(monthDay);
+        const date = `${year}-${monthDay}`;
+        const currentYear = reading ? Number(reading.value) : null;
         const historicalMean = Number(historical?.mean_va);
-        if (!historical || !Number.isFinite(currentYear) || currentYear < 0 || !Number.isFinite(historicalMean) || historicalMean < 0) {
+        if ((currentYear !== null && (!Number.isFinite(currentYear) || currentYear < 0)) || !Number.isFinite(historicalMean) || historicalMean < 0) {
           throw new Error(`USGS ${site} current or historical daily mean did not validate`);
         }
         return {

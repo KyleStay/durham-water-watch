@@ -6383,23 +6383,23 @@
     },
     {
       "date": "2026-08-13",
-      "capturedAt": "2026-08-13T12:39:19.459Z",
+      "capturedAt": "2026-08-14T01:45:22.591Z",
       "values": {
         "stage": 2,
         "supply": {
-          "accessible": 146,
+          "accessible": 145,
           "belowIntakes": 52,
           "quarry": 31,
-          "total": 229
+          "total": 228
         },
         "reservoirs": {
-          "michie": 334.37,
-          "little": 342.8
+          "michie": 334.25,
+          "little": 342.81
         },
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 0.12,
-          "little": 1.36
+          "little": 1.27
         }
       },
       "retainedFields": [],
