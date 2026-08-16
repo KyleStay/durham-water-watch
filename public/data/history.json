@@ -6428,11 +6428,82 @@
       },
       "retainedFields": [],
       "quarantinedFields": []
+    },
+    {
+      "date": "2026-08-15",
+      "capturedAt": "2026-08-15T12:00:00.000Z",
+      "entryKind": "historical-backfill",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": null,
+        "streamflow": {
+          "flat": 0.08,
+          "little": 1.45
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little",
+        "drought"
+      ],
+      "measurementKinds": {
+        "drought": "unavailable",
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-08-16",
+      "capturedAt": "2026-08-16T12:02:30.144Z",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": 144,
+          "belowIntakes": 52,
+          "quarry": 31,
+          "total": 227
+        },
+        "reservoirs": {
+          "michie": 334.05,
+          "little": 342.77
+        },
+        "drought": "D1 · Moderate Drought",
+        "streamflow": {
+          "flat": 0.08,
+          "little": 1.27
+        }
+      },
+      "retainedFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "quarantinedFields": []
     }
   ],
   "coverage": {
     "startsOn": "2026-03-01",
-    "through": "2026-08-11",
+    "through": "2026-08-16",
     "note": "One row per date. USGS daily means and weekly USDM county categories fill the historical record. City supply and reservoir fields are populated only on dates with an exact published reading; gaps are not interpolated or forward-filled.",
     "sources": [
       {
