@@ -221,5 +221,24 @@
     "reason": "USGS service failed (503)",
     "receivedAt": "2026-08-19T12:01:31.477Z",
     "disposition": "rejected; last-known-good value preserved"
+  },
+  {
+    "metrics": [
+      "streamflowHistory.flat"
+    ],
+    "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
+    "reason": "The USGS year comparison could not be refreshed: USGS service failed (503)",
+    "receivedAt": "2026-08-20T12:01:11.374Z",
+    "disposition": "rejected; last-known-good year comparison preserved"
+  },
+  {
+    "metrics": [
+      "streamflow.flat",
+      "streamflow.little"
+    ],
+    "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
+    "reason": "USGS service failed (503)",
+    "receivedAt": "2026-08-20T12:01:11.374Z",
+    "disposition": "rejected; last-known-good value preserved"
   }
 ]
