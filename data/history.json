@@ -6640,6 +6640,66 @@
       },
       "retainedFields": [],
       "quarantinedFields": []
+    },
+    {
+      "date": "2026-08-22",
+      "capturedAt": "2026-08-22T17:11:15.354Z",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": 137,
+          "belowIntakes": 52,
+          "quarry": 29,
+          "total": 218
+        },
+        "reservoirs": {
+          "michie": 333,
+          "little": 342.6
+        },
+        "drought": "D1 · Moderate Drought",
+        "streamflow": {
+          "flat": 0.41,
+          "little": 5.25
+        }
+      },
+      "retainedFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total"
+      ],
+      "quarantinedFields": []
+    },
+    {
+      "date": "2026-08-23",
+      "capturedAt": "2026-08-23T12:01:27.047Z",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": 137,
+          "belowIntakes": 52,
+          "quarry": 29,
+          "total": 218
+        },
+        "reservoirs": {
+          "michie": 333,
+          "little": 342.6
+        },
+        "drought": "D1 · Moderate Drought",
+        "streamflow": {
+          "flat": 1.89,
+          "little": 3.09
+        }
+      },
+      "retainedFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "quarantinedFields": []
     }
   ],
   "coverage": {
