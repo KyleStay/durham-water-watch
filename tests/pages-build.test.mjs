@@ -40,7 +40,7 @@ test("produces a complete GitHub Pages artifact", async () => {
 test("publishes USGS year-to-date flow against historical daily means", async () => {
   const comparison = JSON.parse(await readFile(new URL("data/streamflow-history.json", pagesRoot), "utf8"));
   assert.equal(comparison.schemaVersion, 1);
-  assert.equal(comparison.year, 2026);
+  assert.equal(Number.isInteger(comparison.year), true);
 
   for (const station of Object.values(comparison.stations)) {
     assert.equal(station.status, "fresh");
@@ -49,8 +49,9 @@ test("publishes USGS year-to-date flow against historical daily means", async ()
     assert.match(station.historicalPeriod, /^\d{4}–\d{4}$/);
     assert.ok(station.days.length > 180);
     for (const day of station.days) {
-      assert.match(day.date, /^2026-\d{2}-\d{2}$/);
-      assert.ok(day.currentYear >= 0);
+      assert.match(day.date, new RegExp(`^${comparison.year}-\\d{2}-\\d{2}$`));
+      assert.equal(new Date(`${day.date}T12:00:00Z`).toISOString().slice(0, 10), day.date);
+      assert.ok(day.currentYear === null || (Number.isFinite(day.currentYear) && day.currentYear >= 0));
       assert.ok(day.historicalMean >= 0);
       assert.ok(day.historicalSampleYears > 0);
     }
@@ -59,6 +60,7 @@ test("publishes USGS year-to-date flow against historical daily means", async ()
 
 test("publishes a complete, ordered daily values ledger", async () => {
   const history = JSON.parse(await readFile(new URL("data/history.json", pagesRoot), "utf8"));
+  const comparison = JSON.parse(await readFile(new URL("data/streamflow-history.json", pagesRoot), "utf8"));
   assert.equal(history.schemaVersion, 2);
   assert.equal(history.coverage.startsOn, "2026-03-01");
   assert.match(history.coverage.note, /not interpolated or forward-filled/);
@@ -68,6 +70,7 @@ test("publishes a complete, ordered daily values ledger", async () => {
   assert.deepEqual(dates, [...dates].sort());
   assert.equal(new Set(dates).size, dates.length);
   assert.equal(dates[0], "2026-03-01");
+  assert.equal(history.coverage.through, dates.at(-1));
   for (let index = 1; index < dates.length; index += 1) {
     const previous = new Date(`${dates[index - 1]}T12:00:00Z`);
     previous.setUTCDate(previous.getUTCDate() + 1);
@@ -86,9 +89,23 @@ test("publishes a complete, ordered daily values ledger", async () => {
     assert.ok("little" in day.values.streamflow);
     assert.ok(Array.isArray(day.retainedFields));
     assert.ok(Array.isArray(day.quarantinedFields));
+    for (const field of day.retainedFields) {
+      if (field.startsWith("supply.")) {
+        assert.equal(day.values.supply[field.slice("supply.".length)], null);
+      }
+      if (field.startsWith("reservoirs.")) {
+        assert.equal(day.values.reservoirs[field.slice("reservoirs.".length)], null);
+      }
+    }
   }
 
   const byDate = new Map(history.days.map((day) => [day.date, day]));
+  const flatDailyMeans = new Map(comparison.stations.flat.days.map((day) => [day.date, day.currentYear]));
+  const littleDailyMeans = new Map(comparison.stations.little.days.map((day) => [day.date, day.currentYear]));
+  for (const day of history.days) {
+    if (flatDailyMeans.has(day.date)) assert.equal(day.values.streamflow.flat, flatDailyMeans.get(day.date));
+    if (littleDailyMeans.has(day.date)) assert.equal(day.values.streamflow.little, littleDailyMeans.get(day.date));
+  }
   assert.ok(byDate.get("2026-03-01").values.streamflow.flat > 0);
   assert.equal(byDate.get("2026-03-01").values.supply.total, null);
   assert.equal(byDate.get("2026-03-01").values.reservoirs.michie, null);

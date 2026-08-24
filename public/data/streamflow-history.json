@@ -365,12 +365,6 @@
           "historicalSampleYears": 100
         },
         {
-          "date": "2026-02-29",
-          "currentYear": null,
-          "historicalMean": 143,
-          "historicalSampleYears": 25
-        },
-        {
           "date": "2026-03-01",
           "currentYear": 71.6,
           "historicalMean": 341,
@@ -2568,12 +2562,6 @@
           "currentYear": 59.7,
           "historicalMean": 135,
           "historicalSampleYears": 38
-        },
-        {
-          "date": "2026-02-29",
-          "currentYear": null,
-          "historicalMean": 55,
-          "historicalSampleYears": 10
         },
         {
           "date": "2026-03-01",

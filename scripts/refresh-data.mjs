@@ -1,5 +1,9 @@
 import { readFile, rename, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
+import { isCalendarDate } from "./calendar-date.mjs";
+import { freshMetricValue } from "./history-metric.mjs";
+import { backfillStreamflowDailyMeans, dailyMeanFor, retainComparisonYear } from "./history-streamflow.mjs";
+import { acceptMetrics } from "./metric-acceptance.mjs";
 import { sourceIsDue } from "./refresh-policy.mjs";
 import { parseSupplyValues } from "./supply-parser.mjs";
 
@@ -90,29 +94,12 @@ function hoursSince(value) {
   return (now.getTime() - new Date(value).getTime()) / 3_600_000;
 }
 
-function accept(path, next, { maxDelta } = {}) {
-  const current = metricAt(path);
-  if (current.observedAt && next.observedAt && new Date(next.observedAt) < new Date(current.observedAt)) {
-    throw new Error("Incoming observation is older than the stored verified reading");
-  }
-  if (
-    maxDelta
-    && typeof current.value === "number"
-    && typeof next.value === "number"
-    && Math.abs(next.value - current.value) > maxDelta
-  ) {
-    throw new Error(`Implausible change exceeded ${maxDelta} ${next.units}`);
-  }
-
-  const isNewObservation = next.observedAt !== current.observedAt;
-  const previousValue = isNewObservation ? current.value : current.previousValue;
-  Object.assign(current, next, {
-    verifiedAt: nowIso,
-    retrievalStatus: "verified",
-    validationResult: "accepted",
-    previousValue: previousValue ?? null,
-    note: next.note,
-  });
+function accept(entries) {
+  acceptMetrics(entries.map(({ path, next, maxDelta }) => ({
+    current: metricAt(path),
+    next,
+    maxDelta,
+  })), nowIso);
 }
 
 function fail(paths, error) {
@@ -142,13 +129,16 @@ async function refreshStage() {
     );
     if (!match) throw new Error("Current stage and effective date did not parse together");
     const stage = Number(match[1]);
-    accept(paths[0], {
-      value: stage,
-      units: "stage",
-      sourceUrl: SOURCES.stage,
-      observedAt: parseDate(match[2]),
-      effectiveDate: parseDate(match[2]),
-    }, { maxDelta: 2 });
+    accept([{
+      path: paths[0],
+      next: {
+        value: stage,
+        units: "stage",
+        sourceUrl: SOURCES.stage,
+        observedAt: parseDate(match[2]),
+        effectiveDate: parseDate(match[2]),
+      },
+    }]);
     results.push("verified: stage");
   } catch (error) {
     fail(paths, error);
@@ -171,10 +161,12 @@ async function refreshSupply() {
     const { accessible, belowIntakes, quarry, total } = parseSupplyValues(section);
 
     const common = { units: "days", sourceUrl: SOURCES.data, observedAt };
-    accept(paths[0], { ...common, value: accessible }, { maxDelta: 50 });
-    accept(paths[1], { ...common, value: belowIntakes }, { maxDelta: 50 });
-    accept(paths[2], { ...common, value: quarry }, { maxDelta: 50 });
-    accept(paths[3], { ...common, value: total }, { maxDelta: 75 });
+    accept([
+      { path: paths[0], next: { ...common, value: accessible }, maxDelta: 50 },
+      { path: paths[1], next: { ...common, value: belowIntakes }, maxDelta: 50 },
+      { path: paths[2], next: { ...common, value: quarry }, maxDelta: 50 },
+      { path: paths[3], next: { ...common, value: total }, maxDelta: 75 },
+    ]);
     results.push("verified: supply");
   } catch (error) {
     fail(paths, error);
@@ -198,8 +190,10 @@ async function refreshReservoirs() {
     }
 
     const common = { units: "ft msl", sourceUrl: SOURCES.lakes, observedAt };
-    accept(paths[0], { ...common, value: michie, fullPool: 341 }, { maxDelta: 10 });
-    accept(paths[1], { ...common, value: little, fullPool: 355 }, { maxDelta: 10 });
+    accept([
+      { path: paths[0], next: { ...common, value: michie, fullPool: 341 }, maxDelta: 10 },
+      { path: paths[1], next: { ...common, value: little, fullPool: 355 }, maxDelta: 10 },
+    ]);
     results.push("verified: reservoirs");
   } catch (error) {
     fail(paths, error);
@@ -230,12 +224,15 @@ async function refreshDrought() {
       return block ? /<li[^>]*>\s*Durham\s*<\/li>/i.test(block[1]) : false;
     });
     if (!found) throw new Error("Durham County drought category did not parse");
-    accept(paths[0], {
-      value: `${found[0]} · ${found[1]}`,
-      units: "category",
-      sourceUrl: SOURCES.drought,
-      observedAt: `${observedDate}T08:00:00-04:00`,
-    });
+    accept([{
+      path: paths[0],
+      next: {
+        value: `${found[0]} · ${found[1]}`,
+        units: "category",
+        sourceUrl: SOURCES.drought,
+        observedAt: `${observedDate}T08:00:00-04:00`,
+      },
+    }]);
     results.push("verified: drought");
   } catch (error) {
     fail(paths, error);
@@ -256,6 +253,7 @@ async function refreshStreamflow() {
     const series = json?.value?.timeSeries;
     if (!Array.isArray(series) || !series.length) throw new Error("USGS returned no time series");
 
+    const accepted = [];
     for (const [site, path, sourceUrl] of [
       ["02085500", paths[0], SOURCES.flat],
       ["0208521324", paths[1], SOURCES.little],
@@ -271,14 +269,19 @@ async function refreshStreamflow() {
       if (!Number.isFinite(value) || value < 0 || !reading?.dateTime) {
         throw new Error(`USGS ${site} reading did not validate`);
       }
-      accept(path, {
-        value,
-        units: "ft³/s",
-        sourceUrl,
-        observedAt: reading.dateTime,
-        note: "USGS provisional data; subject to revision.",
-      }, { maxDelta: 10_000 });
+      accepted.push({
+        path,
+        next: {
+          value,
+          units: "ft³/s",
+          sourceUrl,
+          observedAt: reading.dateTime,
+          note: "USGS provisional data; subject to revision.",
+        },
+        maxDelta: 10_000,
+      });
     }
+    accept(accepted);
     results.push("verified: streamflow");
   } catch (error) {
     fail(paths, error);
@@ -325,7 +328,7 @@ async function refreshStreamflowHistory() {
       ]);
       const series = dailyJson?.value?.timeSeries?.find((item) => item?.name?.endsWith(":00003"));
       const dailyValues = series?.values?.[0]?.value;
-      if (!Array.isArray(dailyValues) || dailyValues.length < 2) {
+      if (!Array.isArray(dailyValues) || dailyValues.length < 1) {
         throw new Error(`USGS ${site} returned insufficient current-year daily means`);
       }
       const statistics = parseUsgsStatistics(statisticsText, site);
@@ -336,8 +339,11 @@ async function refreshStreamflowHistory() {
         reading.dateTime.slice(5, 10),
         reading,
       ]));
-      const days = statistics.map((historical) => {
-        const monthDay = `${String(historical.month_nu).padStart(2, "0")}-${String(historical.day_nu).padStart(2, "0")}`;
+      const days = statistics.flatMap((historical) => {
+        const month = Number(historical.month_nu);
+        const day = Number(historical.day_nu);
+        if (!isCalendarDate(year, month, day)) return [];
+        const monthDay = `${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
         const reading = dailyValuesByDay.get(monthDay);
         const date = `${year}-${monthDay}`;
         const currentYear = reading ? Number(reading.value) : null;
@@ -345,12 +351,12 @@ async function refreshStreamflowHistory() {
         if ((currentYear !== null && (!Number.isFinite(currentYear) || currentYear < 0)) || !Number.isFinite(historicalMean) || historicalMean < 0) {
           throw new Error(`USGS ${site} current or historical daily mean did not validate`);
         }
-        return {
+        return [{
           date,
           currentYear,
           historicalMean,
           historicalSampleYears: Number(historical.count_nu),
-        };
+        }];
       });
       const firstStatistic = statistics[0];
       const lastStatistic = statistics.at(-1);
@@ -365,7 +371,7 @@ async function refreshStreamflowHistory() {
       results.push(`verified: ${key} historical streamflow`);
     } catch (error) {
       const station = streamflowHistory.stations[key];
-      station.status = station.days?.length ? "stale" : "unavailable";
+      retainComparisonYear(station, year);
       station.note = `The USGS year comparison could not be refreshed: ${error instanceof Error ? error.message : "unknown error"}`;
       quarantine.push({
         metrics: [`streamflowHistory.${key}`],
@@ -445,6 +451,8 @@ if (sourceIsDue({
 })) jobs.push(refreshDrought());
 await Promise.allSettled(jobs);
 
+backfillStreamflowDailyMeans(history, streamflowHistory);
+
 updateStatus(snapshot.stage, "stage");
 updateStatus(snapshot.supply.accessible, "durham");
 updateStatus(snapshot.supply.belowIntakes, "durham");
@@ -461,29 +469,35 @@ snapshot.lastRefreshResult = results.join("; ") || "No source was due for refres
 
 const todayParts = easternDateParts(now);
 const today = `${todayParts.year}-${todayParts.month}-${todayParts.day}`;
+const flatDailyMean = dailyMeanFor(streamflowHistory.stations.flat, today);
+const littleDailyMean = dailyMeanFor(streamflowHistory.stations.little, today);
 const dailyEntry = {
   date: today,
   capturedAt: nowIso,
   values: {
     stage: snapshot.stage.value,
     supply: {
-      accessible: snapshot.supply.accessible.value,
-      belowIntakes: snapshot.supply.belowIntakes.value,
-      quarry: snapshot.supply.quarry.value,
-      total: snapshot.supply.total.value,
+      accessible: freshMetricValue(snapshot.supply.accessible),
+      belowIntakes: freshMetricValue(snapshot.supply.belowIntakes),
+      quarry: freshMetricValue(snapshot.supply.quarry),
+      total: freshMetricValue(snapshot.supply.total),
     },
     reservoirs: {
-      michie: snapshot.reservoirs.michie.value,
-      little: snapshot.reservoirs.little.value,
+      michie: freshMetricValue(snapshot.reservoirs.michie),
+      little: freshMetricValue(snapshot.reservoirs.little),
     },
     drought: snapshot.drought.value,
     streamflow: {
-      flat: snapshot.streamflow.flat.value,
-      little: snapshot.streamflow.little.value,
+      flat: flatDailyMean,
+      little: littleDailyMean,
     },
   },
   retainedFields: [],
   quarantinedFields: [],
+  unavailableFields: [],
+  measurementKinds: {
+    streamflow: "USGS daily mean",
+  },
 };
 const dailyMetrics = [
   ["stage", snapshot.stage],
@@ -501,6 +515,11 @@ for (const [field, metric] of dailyMetrics) {
   if (metric.status !== "fresh") dailyEntry.retainedFields.push(field);
   if (metric.validationResult === "rejected") dailyEntry.quarantinedFields.push(field);
 }
+if (flatDailyMean === null) dailyEntry.unavailableFields.push("streamflow.flat");
+if (littleDailyMean === null) dailyEntry.unavailableFields.push("streamflow.little");
+for (const [field, metric] of dailyMetrics.filter(([field]) => field.startsWith("supply.") || field.startsWith("reservoirs."))) {
+  if (freshMetricValue(metric) === null) dailyEntry.unavailableFields.push(field);
+}
 const previousDailyIndex = history.days.findIndex((entry) => entry.date === today);
 if (previousDailyIndex >= 0) history.days[previousDailyIndex] = dailyEntry;
 else history.days.push(dailyEntry);
@@ -508,6 +527,9 @@ history.days = history.days
   .filter((entry) => entry?.date && entry?.values)
   .sort((left, right) => left.date.localeCompare(right.date))
   .slice(-366);
+if (history.coverage && history.days.length) {
+  history.coverage.through = history.days.at(-1).date;
+}
 
 await writeFile(temporaryPath, `${JSON.stringify(snapshot, null, 2)}\n`);
 await writeFile(quarantineTemporaryPath, `${JSON.stringify(quarantine.slice(-100), null, 2)}\n`);

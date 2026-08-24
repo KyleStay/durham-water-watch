@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import verifiedSnapshot from "../public/data/dashboard.json";
 import verifiedHistory from "../public/data/history.json";
 import verifiedStreamflowHistory from "../public/data/streamflow-history.json";
+import { annualReservoirHeading, showsStageTwoGuidance } from "../scripts/stage-guidance.mjs";
 
 type Lang = "en" | "es";
 type Freshness = "fresh" | "stale" | "unavailable";
@@ -683,6 +684,7 @@ export default function WaterWatch() {
   const t = copy[lang];
   const chartVersion = encodeURIComponent(data.generatedAt ?? data.historyStarts);
   const currentHistoryYear = historySeed.days.at(-1)?.date.slice(0, 4) ?? String(new Date().getFullYear());
+  const isStageTwo = showsStageTwoGuidance(data.stage.value);
   const historyDays = historySeed.days.filter((day) => day.date.startsWith(currentHistoryYear));
   const latestDay = historyDays.at(-1);
   const previousDay = historyDays.at(-2);
@@ -762,7 +764,7 @@ export default function WaterWatch() {
                 <div className="stage-lockup"><span>{data.stage.value ?? "—"}</span><div><strong>Stage / Etapa</strong><small>{t.inEffect}</small></div></div>
                 <p className="effective">{t.effective} <time dateTime={data.stage.effectiveDate || ""}>{fmtDate(data.stage.effectiveDate, lang)}</time></p>
                 <p className="checked">{t.checked}: {fmtDate(data.stage.verifiedAt, lang, true)}</p>
-                <div className="risk-callout"><span aria-hidden="true">!</span><p>{t.risk}</p></div>
+                <div className="risk-callout"><span aria-hidden="true">!</span><p>{isStageTwo ? t.risk : lang === "en" ? "Water-use guidance depends on the current City stage. Check the official rules before using City water outdoors." : "La orientación sobre el uso del agua depende de la etapa actual de la Ciudad. Consulte las reglas oficiales antes de usar agua de la Ciudad al aire libre."}</p></div>
               </article>
 
               <article className="supply-card">
@@ -777,8 +779,8 @@ export default function WaterWatch() {
 
               <article className="action-card">
                 <p className="eyebrow">{t.actionEyebrow}</p>
-                <h2>{t.action}</h2>
-                <p>{lang === "en" ? "Hand watering, drip irrigation, and tree or shrub watering bags are allowed." : "Se permiten el riego manual, por goteo y las bolsas de riego para árboles o arbustos."}</p>
+                <h2>{isStageTwo ? t.action : lang === "en" ? "Check the current City water-use rules." : "Consulte las reglas actuales de uso del agua de la Ciudad."}</h2>
+                <p>{isStageTwo ? (lang === "en" ? "Hand watering, drip irrigation, and tree or shrub watering bags are allowed." : "Se permiten el riego manual, por goteo y las bolsas de riego para árboles o arbustos.") : (lang === "en" ? "This dashboard only summarizes Stage 2 restrictions. Requirements differ at other stages." : "Este panel solo resume las restricciones de la Etapa 2. Los requisitos varían en otras etapas.")}</p>
                 <a className="button light" href={urls.stage} target="_blank" rel="noreferrer">{t.allRules} <span aria-hidden="true">↗</span></a>
               </article>
             </div>
@@ -989,6 +991,7 @@ export default function WaterWatch() {
               </article>
               <aside className="why-card"><span aria-hidden="true">≠</span><div><h3>{t.whyDiffer}</h3><p>{t.whyText}</p></div></aside>
             </div>
+            {isStageTwo ? (
             <article className="exit-outlook" aria-labelledby="exit-outlook-title">
               <div className="exit-outlook-intro">
                 <p className="kicker">{lang === "en" ? "Stage 2 exit outlook" : "Perspectiva para salir de la Etapa 2"}</p>
@@ -1066,6 +1069,16 @@ export default function WaterWatch() {
               </aside>
               <StageExitExplorer lang={lang} />
             </article>
+            ) : (
+              <article className="exit-outlook" aria-labelledby="stage-plan-title">
+                <div className="exit-outlook-intro">
+                  <p className="kicker">{lang === "en" ? "Current stage guidance" : "Orientación para la etapa actual"}</p>
+                  <h2 id="stage-plan-title">{lang === "en" ? "Stage 2 exit criteria do not apply to the displayed stage." : "Los criterios para salir de la Etapa 2 no corresponden a la etapa mostrada."}</h2>
+                  <p>{lang === "en" ? "Use the official response plan and City water-use page for the criteria and restrictions that apply now." : "Consulte el plan oficial y la página de uso del agua de la Ciudad para conocer los criterios y restricciones vigentes."}</p>
+                  <a href={urls.plan} target="_blank" rel="noreferrer">{lang === "en" ? "Read the official response plan" : "Leer el plan oficial"} ↗</a>
+                </div>
+              </article>
+            )}
           </div>
         </section>
 
@@ -1078,7 +1091,7 @@ export default function WaterWatch() {
             </div>
 
             <div className="charts-block">
-              <div className="section-heading compact"><p className="kicker">{t.officialCharts}</p><h2>{lang === "en" ? "See 2026 against each of the prior ten years." : "Compare 2026 con cada uno de los diez años anteriores."}</h2><p>{lang === "en" ? "The City publishes individual prior-year reservoir traces rather than an average series. These full-width official charts preserve that distinction without estimating values from the image." : "La Ciudad publica trazos de años anteriores, no una serie promedio. Estas gráficas oficiales a todo lo ancho conservan esa distinción sin estimar valores a partir de la imagen."}</p></div>
+              <div className="section-heading compact"><p className="kicker">{t.officialCharts}</p><h2>{annualReservoirHeading(currentHistoryYear, lang)}</h2><p>{lang === "en" ? "The City publishes individual prior-year reservoir traces rather than an average series. These full-width official charts preserve that distinction without estimating values from the image." : "La Ciudad publica trazos de años anteriores, no una serie promedio. Estas gráficas oficiales a todo lo ancho conservan esa distinción sin estimar valores a partir de la imagen."}</p></div>
               <div className="chart-grid">
                 {[
                   [t.recentChart, `https://www.durhamnc.gov/ImageRepository/Document?documentID=4123&refresh=${chartVersion}`, "https://www.durhamnc.gov/DocumentCenter/View/4123", lang === "en" ? "City chart of recent daily reservoir elevations, with date on the horizontal axis and elevation in feet mean sea level on the vertical axis." : "Gráfica de la Ciudad con elevaciones diarias recientes; fecha en el eje horizontal y elevación en pies sobre el nivel medio del mar en el eje vertical."],
@@ -1099,6 +1112,8 @@ export default function WaterWatch() {
 
         <section id="actions" className="section actions-section">
           <div className="wrap">
+            {isStageTwo ? (
+            <>
             <div className="section-heading actions-heading"><p className="kicker">{t.whatNow}</p><h2>{lang === "en" ? "Stage 2 rules, at a glance." : "Reglas de la Etapa 2, de un vistazo."}</h2><p>{t.rulesCaveat}</p></div>
             {data.stage.status === "stale" && <p className="stale-banner">! {t.confirmRules}</p>}
             <div className="rules-grid">
@@ -1131,6 +1146,14 @@ export default function WaterWatch() {
               </article>
             </div>
             <div className="rules-footer"><p>{lang === "en" ? "This summary does not replace the official rules." : "Este resumen no reemplaza las reglas oficiales."}</p><a className="button" href={urls.stage} target="_blank" rel="noreferrer">{t.readRules} ↗</a></div>
+            </>
+            ) : (
+              <>
+                <div className="section-heading actions-heading"><p className="kicker">{t.whatNow}</p><h2>{lang === "en" ? "Follow the rules for the displayed City stage." : "Siga las reglas de la etapa mostrada por la Ciudad."}</h2><p>{lang === "en" ? "This dashboard does not summarize restrictions for this stage. The complete official rules control." : "Este panel no resume las restricciones de esta etapa. Las reglas oficiales completas tienen prioridad."}</p></div>
+                {data.stage.status === "stale" && <p className="stale-banner">! {t.confirmRules}</p>}
+                <div className="rules-footer"><p>{lang === "en" ? "Confirm the current stage and requirements on the City website." : "Confirme la etapa y los requisitos actuales en el sitio web de la Ciudad."}</p><a className="button" href={urls.stage} target="_blank" rel="noreferrer">{t.readRules} ↗</a></div>
+              </>
+            )}
           </div>
         </section>
 
@@ -1178,7 +1201,7 @@ export default function WaterWatch() {
 
         <section className="section timeline-section">
           <div className="wrap timeline-grid">
-            <div className="section-heading compact"><p className="kicker">{t.timeline}</p><h2>{lang === "en" ? "A sourced record, one official event at a time." : "Un registro documentado, evento oficial por evento."}</h2><p>{t.noLater}</p></div>
+            <div className="section-heading compact"><p className="kicker">{t.timeline}</p><h2>{lang === "en" ? "A sourced record, one official event at a time." : "Un registro documentado, evento oficial por evento."}</h2><p>{isStageTwo ? t.noLater : lang === "en" ? "This timeline preserves prior official events. Use the current City page for the latest stage guidance." : "Esta cronología conserva eventos oficiales anteriores. Consulte la página actual de la Ciudad para la orientación más reciente."}</p></div>
             <ol className="timeline">
               <li><time dateTime="2026-06-15">{fmtDate("2026-06-15", lang)}</time><span aria-hidden="true" /><div><h3>{t.currentStageEvent}</h3><p>{lang === "en" ? "Mandatory Stage 2 water-use restrictions began for City water customers." : "Comenzaron las restricciones obligatorias de la Etapa 2 para clientes de agua de la Ciudad."}</p><a href={urls.stage} target="_blank" rel="noreferrer">{t.source} ↗</a></div></li>
             </ol>
