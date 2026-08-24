@@ -5431,7 +5431,8 @@
         "supply.quarry",
         "supply.total",
         "reservoirs.michie",
-        "reservoirs.little"
+        "reservoirs.little",
+        "streamflow.little"
       ],
       "measurementKinds": {
         "drought": "weekly USDM maximum category present in Durham County",
@@ -5470,7 +5471,8 @@
         "supply.quarry",
         "supply.total",
         "reservoirs.michie",
-        "reservoirs.little"
+        "reservoirs.little",
+        "streamflow.little"
       ],
       "measurementKinds": {
         "drought": "weekly USDM maximum category present in Durham County",
@@ -5894,7 +5896,8 @@
       "quarantinedFields": [],
       "measurementKinds": {
         "streamflow": "USGS daily mean"
-      }
+      },
+      "unavailableFields": []
     },
     {
       "date": "2026-07-28",
@@ -5921,7 +5924,8 @@
       "quarantinedFields": [],
       "measurementKinds": {
         "streamflow": "USGS daily mean"
-      }
+      },
+      "unavailableFields": []
     },
     {
       "date": "2026-07-29",
@@ -5948,7 +5952,8 @@
       "quarantinedFields": [],
       "measurementKinds": {
         "streamflow": "USGS daily mean"
-      }
+      },
+      "unavailableFields": []
     },
     {
       "date": "2026-07-30",
@@ -5975,7 +5980,8 @@
       "quarantinedFields": [],
       "measurementKinds": {
         "streamflow": "USGS daily mean"
-      }
+      },
+      "unavailableFields": []
     },
     {
       "date": "2026-07-31",
@@ -6002,7 +6008,8 @@
       "quarantinedFields": [],
       "measurementKinds": {
         "streamflow": "USGS daily mean"
-      }
+      },
+      "unavailableFields": []
     },
     {
       "date": "2026-08-01",
@@ -6029,7 +6036,8 @@
       "quarantinedFields": [],
       "measurementKinds": {
         "streamflow": "USGS daily mean"
-      }
+      },
+      "unavailableFields": []
     },
     {
       "date": "2026-08-02",
@@ -6102,7 +6110,8 @@
       "quarantinedFields": [],
       "measurementKinds": {
         "streamflow": "USGS daily mean"
-      }
+      },
+      "unavailableFields": []
     },
     {
       "date": "2026-08-04",
@@ -6295,7 +6304,8 @@
       ],
       "measurementKinds": {
         "streamflow": "USGS daily mean"
-      }
+      },
+      "unavailableFields": []
     },
     {
       "date": "2026-08-09",
@@ -6334,7 +6344,8 @@
       ],
       "measurementKinds": {
         "streamflow": "USGS daily mean"
-      }
+      },
+      "unavailableFields": []
     },
     {
       "date": "2026-08-10",
@@ -6361,7 +6372,8 @@
       "quarantinedFields": [],
       "measurementKinds": {
         "streamflow": "USGS daily mean"
-      }
+      },
+      "unavailableFields": []
     },
     {
       "date": "2026-08-11",
@@ -6388,7 +6400,8 @@
       "quarantinedFields": [],
       "measurementKinds": {
         "streamflow": "USGS daily mean"
-      }
+      },
+      "unavailableFields": []
     },
     {
       "date": "2026-08-12",
@@ -6415,7 +6428,8 @@
       "quarantinedFields": [],
       "measurementKinds": {
         "streamflow": "USGS daily mean"
-      }
+      },
+      "unavailableFields": []
     },
     {
       "date": "2026-08-13",
@@ -6442,7 +6456,8 @@
       "quarantinedFields": [],
       "measurementKinds": {
         "streamflow": "USGS daily mean"
-      }
+      },
+      "unavailableFields": []
     },
     {
       "date": "2026-08-14",
@@ -6469,7 +6484,8 @@
       "quarantinedFields": [],
       "measurementKinds": {
         "streamflow": "USGS daily mean"
-      }
+      },
+      "unavailableFields": []
     },
     {
       "date": "2026-08-15",
@@ -6543,7 +6559,8 @@
       "quarantinedFields": [],
       "measurementKinds": {
         "streamflow": "USGS daily mean"
-      }
+      },
+      "unavailableFields": []
     },
     {
       "date": "2026-08-17",
@@ -6577,7 +6594,8 @@
       "quarantinedFields": [],
       "measurementKinds": {
         "streamflow": "USGS daily mean"
-      }
+      },
+      "unavailableFields": []
     },
     {
       "date": "2026-08-18",
@@ -6611,7 +6629,8 @@
       "quarantinedFields": [],
       "measurementKinds": {
         "streamflow": "USGS daily mean"
-      }
+      },
+      "unavailableFields": []
     },
     {
       "date": "2026-08-19",
@@ -6638,7 +6657,8 @@
       "quarantinedFields": [],
       "measurementKinds": {
         "streamflow": "USGS daily mean"
-      }
+      },
+      "unavailableFields": []
     },
     {
       "date": "2026-08-20",
@@ -6672,7 +6692,8 @@
       "quarantinedFields": [],
       "measurementKinds": {
         "streamflow": "USGS daily mean"
-      }
+      },
+      "unavailableFields": []
     },
     {
       "date": "2026-08-21",
@@ -6699,7 +6720,8 @@
       "quarantinedFields": [],
       "measurementKinds": {
         "streamflow": "USGS daily mean"
-      }
+      },
+      "unavailableFields": []
     },
     {
       "date": "2026-08-22",
@@ -6731,11 +6753,47 @@
       "quarantinedFields": [],
       "measurementKinds": {
         "streamflow": "USGS daily mean"
-      }
+      },
+      "unavailableFields": []
     },
     {
       "date": "2026-08-23",
       "capturedAt": "2026-08-23T12:01:27.047Z",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D1 · Moderate Drought",
+        "streamflow": {
+          "flat": 3.12,
+          "little": 2.73
+        }
+      },
+      "retainedFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "quarantinedFields": [],
+      "unavailableFields": [],
+      "measurementKinds": {
+        "streamflow": "USGS daily mean"
+      }
+    },
+    {
+      "date": "2026-08-24",
+      "capturedAt": "2026-08-24T12:02:08.319Z",
       "values": {
         "stage": 2,
         "supply": {
@@ -6765,7 +6823,13 @@
       "quarantinedFields": [],
       "unavailableFields": [
         "streamflow.flat",
-        "streamflow.little"
+        "streamflow.little",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
       ],
       "measurementKinds": {
         "streamflow": "USGS daily mean"
@@ -6774,7 +6838,7 @@
   ],
   "coverage": {
     "startsOn": "2026-03-01",
-    "through": "2026-08-23",
+    "through": "2026-08-24",
     "note": "One row per date. USGS daily means and weekly USDM county categories fill the historical record. City supply and reservoir fields are populated only on dates with an exact published reading; gaps are not interpolated or forward-filled.",
     "sources": [
       {

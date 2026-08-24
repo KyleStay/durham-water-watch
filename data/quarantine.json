@@ -268,5 +268,61 @@
     "reason": "The USGS year comparison could not be refreshed: Unexpected official response (503)",
     "receivedAt": "2026-08-21T12:00:48.084Z",
     "disposition": "rejected; last-known-good year comparison preserved"
+  },
+  {
+    "metrics": [
+      "streamflowHistory.flat"
+    ],
+    "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
+    "reason": "The USGS year comparison could not be refreshed: Unexpected official response (503)",
+    "receivedAt": "2026-08-24T12:01:19.457Z",
+    "disposition": "rejected; last-known-good year comparison preserved"
+  },
+  {
+    "metrics": [
+      "streamflow.flat",
+      "streamflow.little"
+    ],
+    "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
+    "reason": "USGS service failed (503)",
+    "receivedAt": "2026-08-24T12:01:19.457Z",
+    "disposition": "rejected; last-known-good value preserved"
+  },
+  {
+    "metrics": [
+      "streamflowHistory.little"
+    ],
+    "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/0208521324/",
+    "reason": "The USGS year comparison could not be refreshed: Unexpected official response (503)",
+    "receivedAt": "2026-08-24T12:01:19.457Z",
+    "disposition": "rejected; last-known-good year comparison preserved"
+  },
+  {
+    "metrics": [
+      "streamflowHistory.flat"
+    ],
+    "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
+    "reason": "The USGS year comparison could not be refreshed: USGS service failed (503)",
+    "receivedAt": "2026-08-24T12:01:29.316Z",
+    "disposition": "rejected; last-known-good year comparison preserved"
+  },
+  {
+    "metrics": [
+      "streamflow.flat",
+      "streamflow.little"
+    ],
+    "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
+    "reason": "USGS service failed (503)",
+    "receivedAt": "2026-08-24T12:01:29.316Z",
+    "disposition": "rejected; last-known-good value preserved"
+  },
+  {
+    "metrics": [
+      "streamflowHistory.little"
+    ],
+    "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/0208521324/",
+    "reason": "The USGS year comparison could not be refreshed: USGS service failed (503)",
+    "receivedAt": "2026-08-24T12:01:29.316Z",
+    "disposition": "rejected; last-known-good year comparison preserved"
   }
 ]
