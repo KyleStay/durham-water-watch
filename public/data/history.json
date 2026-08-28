@@ -6906,6 +6906,34 @@
         },
         "drought": "D1 · Moderate Drought",
         "streamflow": {
+          "flat": 4.22,
+          "little": 1.05
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [],
+      "measurementKinds": {
+        "streamflow": "USGS daily mean"
+      }
+    },
+    {
+      "date": "2026-08-28",
+      "capturedAt": "2026-08-28T12:02:37.984Z",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": 125,
+          "belowIntakes": 48,
+          "quarry": 26,
+          "total": 199
+        },
+        "reservoirs": {
+          "michie": 332.58,
+          "little": 342.6
+        },
+        "drought": "D1 · Moderate Drought",
+        "streamflow": {
           "flat": null,
           "little": null
         }
@@ -6923,7 +6951,7 @@
   ],
   "coverage": {
     "startsOn": "2026-03-01",
-    "through": "2026-08-27",
+    "through": "2026-08-28",
     "note": "One row per date. USGS daily means and weekly USDM county categories fill the historical record. City supply and reservoir fields are populated only on dates with an exact published reading; gaps are not interpolated or forward-filled.",
     "sources": [
       {
