@@ -361,5 +361,33 @@
     "reason": "The USGS year comparison could not be refreshed: fetch failed",
     "receivedAt": "2026-08-27T12:02:15.070Z",
     "disposition": "rejected; last-known-good year comparison preserved"
+  },
+  {
+    "metrics": [
+      "streamflow.flat",
+      "streamflow.little"
+    ],
+    "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
+    "reason": "USGS service failed (503)",
+    "receivedAt": "2026-09-01T12:02:21.586Z",
+    "disposition": "rejected; last-known-good value preserved"
+  },
+  {
+    "metrics": [
+      "streamflowHistory.flat"
+    ],
+    "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
+    "reason": "The USGS year comparison could not be refreshed: Unexpected official response (503)",
+    "receivedAt": "2026-09-01T12:02:21.586Z",
+    "disposition": "rejected; last-known-good year comparison preserved"
+  },
+  {
+    "metrics": [
+      "streamflowHistory.little"
+    ],
+    "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/0208521324/",
+    "reason": "The USGS year comparison could not be refreshed: Unexpected official response (503)",
+    "receivedAt": "2026-09-01T12:02:21.586Z",
+    "disposition": "rejected; last-known-good year comparison preserved"
   }
 ]
