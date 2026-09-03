@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "year": 2026,
-  "updatedAt": "2026-09-02T12:01:37.087Z",
+  "updatedAt": "2026-09-03T12:02:26.803Z",
   "stations": {
     "flat": {
       "site": "02085500",
@@ -1476,7 +1476,7 @@
         },
         {
           "date": "2026-09-02",
-          "currentYear": null,
+          "currentYear": 1.41,
           "historicalMean": 37,
           "historicalSampleYears": 101
         },
@@ -3675,7 +3675,7 @@
         },
         {
           "date": "2026-09-02",
-          "currentYear": null,
+          "currentYear": 0.59,
           "historicalMean": 24,
           "historicalSampleYears": 37
         },

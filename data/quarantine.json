@@ -389,5 +389,14 @@
     "reason": "The USGS year comparison could not be refreshed: Unexpected official response (503)",
     "receivedAt": "2026-09-01T12:02:21.586Z",
     "disposition": "rejected; last-known-good year comparison preserved"
+  },
+  {
+    "metrics": [
+      "streamflowHistory.flat"
+    ],
+    "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
+    "reason": "The USGS year comparison could not be refreshed: Unexpected official response (503)",
+    "receivedAt": "2026-09-03T12:02:07.702Z",
+    "disposition": "rejected; last-known-good year comparison preserved"
   }
 ]
