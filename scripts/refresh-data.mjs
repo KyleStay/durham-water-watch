@@ -451,6 +451,82 @@ if (sourceIsDue({
 })) jobs.push(refreshDrought());
 await Promise.allSettled(jobs);
 
+const todayParts = easternDateParts(now);
+const today = `${todayParts.year}-${todayParts.month}-${todayParts.day}`;
+
+function nextDate(date) {
+  const cursor = new Date(`${date}T12:00:00Z`);
+  cursor.setUTCDate(cursor.getUTCDate() + 1);
+  return cursor.toISOString().slice(0, 10);
+}
+
+function observedValueOn(metric, date) {
+  return metric?.validationResult === "accepted"
+    && metric?.observedAt?.slice(0, 10) === date
+    && typeof metric.value === "number"
+    && Number.isFinite(metric.value)
+    ? metric.value
+    : null;
+}
+
+const existingDates = new Set(history.days.map((entry) => entry.date));
+let missingDate = history.coverage?.startsOn
+  ?? history.days.map((entry) => entry.date).sort().at(0);
+while (missingDate < today) {
+  if (!existingDates.has(missingDate)) {
+    const previousEntry = history.days
+      .filter((entry) => entry.date < missingDate)
+      .sort((left, right) => left.date.localeCompare(right.date))
+      .at(-1);
+    const supply = {
+      accessible: observedValueOn(snapshot.supply.accessible, missingDate),
+      belowIntakes: observedValueOn(snapshot.supply.belowIntakes, missingDate),
+      quarry: observedValueOn(snapshot.supply.quarry, missingDate),
+      total: observedValueOn(snapshot.supply.total, missingDate),
+    };
+    const reservoirs = {
+      michie: observedValueOn(snapshot.reservoirs.michie, missingDate),
+      little: observedValueOn(snapshot.reservoirs.little, missingDate),
+    };
+    const flat = dailyMeanFor(streamflowHistory.stations.flat, missingDate);
+    const little = dailyMeanFor(streamflowHistory.stations.little, missingDate);
+    const unavailableFields = [];
+    for (const [field, value] of [
+      ["supply.accessible", supply.accessible],
+      ["supply.belowIntakes", supply.belowIntakes],
+      ["supply.quarry", supply.quarry],
+      ["supply.total", supply.total],
+      ["reservoirs.michie", reservoirs.michie],
+      ["reservoirs.little", reservoirs.little],
+      ["streamflow.flat", flat],
+      ["streamflow.little", little],
+    ]) {
+      if (value === null) unavailableFields.push(field);
+    }
+    history.days.push({
+      date: missingDate,
+      capturedAt: `${missingDate}T12:00:00.000Z`,
+      entryKind: "missed-run-backfill",
+      values: {
+        stage: previousEntry?.values?.stage ?? snapshot.stage.value,
+        supply,
+        reservoirs,
+        drought: previousEntry?.values?.drought ?? snapshot.drought.value,
+        streamflow: { flat, little },
+      },
+      retainedFields: [],
+      quarantinedFields: [],
+      unavailableFields,
+      measurementKinds: {
+        streamflow: "USGS daily mean",
+        supply: supply.total === null ? "unavailable" : "exact City reading",
+        reservoirs: reservoirs.michie === null ? "unavailable" : "exact City reading",
+      },
+    });
+  }
+  missingDate = nextDate(missingDate);
+}
+
 backfillStreamflowDailyMeans(history, streamflowHistory);
 
 updateStatus(snapshot.stage, "stage");
@@ -467,8 +543,6 @@ updateStatus(snapshot.streamflow.little, "usgs");
 snapshot.generatedAt = nowIso;
 snapshot.lastRefreshResult = results.join("; ") || "No source was due for refresh.";
 
-const todayParts = easternDateParts(now);
-const today = `${todayParts.year}-${todayParts.month}-${todayParts.day}`;
 const flatDailyMean = dailyMeanFor(streamflowHistory.stations.flat, today);
 const littleDailyMean = dailyMeanFor(streamflowHistory.stations.little, today);
 const dailyEntry = {
