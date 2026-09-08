@@ -1,0 +1,82 @@
+const SUPPLY_URL = "https://www.durhamnc.gov/1214/Current-Data";
+const RESERVOIR_URL = "https://www.durhamnc.gov/1225/Lake-Levels";
+
+const supply = [
+  ["2026-05-18", 135, 37, 18, 190, "2026-05-21T13:27:38Z", "archived observation listed in scripts/backfill-history.mjs", "https://web.archive.org/web/20260521132738/https://www.durhamnc.gov/1214/Current-Data"],
+  ["2026-07-01", 85, 36, 24, 145, "2026-07-06T10:53:31Z", "archived observation listed in scripts/backfill-history.mjs", "https://web.archive.org/web/20260706105331/https://www.durhamnc.gov/1214/Current-Data"],
+  ["2026-07-26", 119, 46, 30, 195, "2026-07-27T13:38:00-04:00", "dashboard snapshot b38eb83b"],
+  ["2026-07-27", 120, 47, 30, 197, "2026-07-29T12:59:03.645Z", "dashboard snapshot ea260b32"],
+  ["2026-07-28", 121, 47, 31, 199, "2026-07-30T13:03:40.334Z", "dashboard snapshot 5bd0089a"],
+  ["2026-07-29", 125, 48, 31, 204, "2026-07-31T12:02:18.027Z", "dashboard snapshot d39e5c6c"],
+  ["2026-07-30", 127, 48, 31, 206, "2026-08-03T12:00:29.688Z", "dashboard snapshot 7f2eab50"],
+  ["2026-08-09", 147, 52, 32, 231, "2026-08-11T00:09:53.156Z", "dashboard snapshot 6fed32aa"],
+  ["2026-08-10", 147, 52, 31, 230, "2026-08-12T12:04:16.167Z", "dashboard snapshot e07af692"],
+  ["2026-08-11", 146, 52, 31, 229, "2026-08-13T12:39:19.459Z", "dashboard snapshot ed65fd5e"],
+  ["2026-08-12", 145, 52, 31, 228, "2026-08-14T01:45:22.591Z", "dashboard snapshot c2050f5d"],
+  ["2026-08-13", 144, 52, 31, 227, "2026-08-18T12:00:32.898Z", "dashboard snapshot 26e49396"],
+  ["2026-08-17", 141, 52, 30, 223, "2026-08-19T12:01:55.902Z", "dashboard snapshot 66dcda75"],
+  ["2026-08-19", 137, 52, 29, 218, "2026-08-21T12:01:27.076Z", "dashboard snapshot ec7fcd66"],
+  ["2026-08-23", 131, 50, 28, 209, "2026-08-25T12:01:48.142Z", "dashboard snapshot 8254864e"],
+  ["2026-08-24", 130, 49, 27, 206, "2026-08-26T12:02:13.211Z", "dashboard snapshot c946b185"],
+  ["2026-08-25", 127, 49, 26, 202, "2026-08-27T12:02:37.294Z", "dashboard snapshot b69ba5e2"],
+  ["2026-08-26", 125, 48, 26, 199, "2026-08-28T12:02:37.984Z", "dashboard snapshot 73730ce6"],
+  ["2026-08-27", 123, 48, 26, 197, "2026-08-29T12:25:50.978Z", "dashboard snapshot 5aaae391"],
+  ["2026-08-30", 119, 47, 25, 191, "2026-09-01T12:02:40.353Z", "dashboard snapshot 896faa36"],
+  ["2026-09-01", 115, 46, 24, 185, "2026-09-03T12:02:26.803Z", "dashboard snapshot f70633ea"],
+  ["2026-09-02", 113, 46, 24, 183, "2026-09-08T12:01:37.188Z", "dashboard snapshot 23bb8139"],
+];
+
+const reservoirs = [
+  ["2026-04-12", 340.05, 350.06, "2026-04-15T04:07:21Z", "archived observation listed in scripts/backfill-history.mjs", "https://web.archive.org/web/20260415040721/https://www.durhamnc.gov/1225/Lake-Levels"],
+  ["2026-07-23", 330.9, 340.51, "2026-07-27T13:38:00-04:00", "dashboard snapshot 71ab254a"],
+  ["2026-07-27", 332.22, 342.67, "2026-07-28T16:45:28.680Z", "dashboard snapshot bdb26e32"],
+  ["2026-07-28", 332.33, 342.63, "2026-07-29T19:16:48.758Z", "dashboard snapshot 9205e11b"],
+  ["2026-07-29", 332.81, 342.65, "2026-07-30T13:12:48.094Z", "dashboard snapshot 451b02d5"],
+  ["2026-07-30", 333.06, 342.86, "2026-08-01T12:01:53.812Z", "dashboard snapshot 3dd26e62"],
+  ["2026-08-06", 334.6, 342.88, "2026-08-08T12:21:38.287Z", "dashboard snapshot b6e4c182"],
+  ["2026-08-09", 334.54, 342.87, "2026-08-11T00:09:53.156Z", "dashboard snapshot 6fed32aa"],
+  ["2026-08-10", 334.53, 342.9, "2026-08-12T12:04:16.167Z", "dashboard snapshot e07af692"],
+  ["2026-08-11", 334.37, 342.8, "2026-08-13T12:39:19.459Z", "dashboard snapshot ed65fd5e"],
+  ["2026-08-12", 334.25, 342.81, "2026-08-14T01:45:22.591Z", "dashboard snapshot c2050f5d"],
+  ["2026-08-13", 334.05, 342.77, "2026-08-16T12:02:30.144Z", "dashboard snapshot 8c5e12a3"],
+  ["2026-08-17", 333.5, 342.79, "2026-08-19T12:01:55.902Z", "dashboard snapshot 66dcda75"],
+  ["2026-08-19", 333.2, 342.5, "2026-08-21T12:01:27.076Z", "dashboard snapshot ec7fcd66"],
+  ["2026-08-20", 333, 342.6, "2026-08-23T12:01:27.047Z", "dashboard snapshot 5f233737"],
+  ["2026-08-23", 332.81, 342.83, "2026-08-25T12:01:48.142Z", "dashboard snapshot 8254864e"],
+  ["2026-08-24", 332.81, 342.85, "2026-08-26T12:02:13.211Z", "dashboard snapshot c946b185"],
+  ["2026-08-25", 332.68, 342.75, "2026-08-27T12:02:37.294Z", "dashboard snapshot b69ba5e2"],
+  ["2026-08-26", 332.58, 342.6, "2026-08-28T12:02:37.984Z", "dashboard snapshot 73730ce6"],
+  ["2026-08-27", 332.58, 342.58, "2026-08-29T12:25:50.978Z", "dashboard snapshot 5aaae391"],
+  ["2026-08-30", 332.26, 342.33, "2026-09-01T12:02:40.353Z", "dashboard snapshot 896faa36"],
+  ["2026-09-01", 332.09, 342.19, "2026-09-03T12:02:26.803Z", "dashboard snapshot f70633ea"],
+  ["2026-09-02", 331.97, 342.01, "2026-09-05T12:04:08.191Z", "dashboard snapshot b4ca8005"],
+];
+
+export const knownCityObservations = [
+  ...supply.flatMap(([observedAt, accessible, belowIntakes, quarry, total, verifiedAt, evidence, sourceUrl = SUPPLY_URL]) => [
+    ["supply.accessible", accessible],
+    ["supply.belowIntakes", belowIntakes],
+    ["supply.quarry", quarry],
+    ["supply.total", total],
+  ].map(([field, value]) => ({
+    field,
+    value,
+    observedAt,
+    verifiedAt,
+    evidence,
+    sourceUrl,
+    measurementKind: sourceUrl.startsWith("https://web.archive.org/") ? "archived exact City reading" : "exact City reading",
+  }))),
+  ...reservoirs.flatMap(([observedAt, michie, little, verifiedAt, evidence, sourceUrl = RESERVOIR_URL]) => [
+    ["reservoirs.michie", michie],
+    ["reservoirs.little", little],
+  ].map(([field, value]) => ({
+    field,
+    value,
+    observedAt,
+    verifiedAt,
+    evidence,
+    sourceUrl,
+    measurementKind: sourceUrl.startsWith("https://web.archive.org/") ? "archived exact City reading" : "exact City reading",
+  }))),
+];

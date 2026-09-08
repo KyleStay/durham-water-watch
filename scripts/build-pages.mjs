@@ -27,7 +27,8 @@ let html = await response.text();
 html = html
   // vinext emits asset paths in links, the hydration import, and serialized
   // RSC data. Every one must be relative for a GitHub Pages project site.
-  .replaceAll('/assets/', './assets/')
+  .replace(/(?:\/\.\/|\.\/|\/)assets\//g, './assets/')
+  .replace(/(?:\/\.\/|\.\/|\/)_next\//g, './_next/')
   .replaceAll('href="/og.png"', 'href="./og.png"')
   .replaceAll('content="/og.png"', 'content="./og.png"');
 
@@ -42,10 +43,10 @@ const built = await readFile(resolve(output, "index.html"), "utf8");
 if (!built.includes("Unofficial independent community dashboard")) {
   throw new Error("Static HTML is missing the required unofficial framing");
 }
-if (!built.includes("./assets/")) {
+if (!built.includes("./assets/") && !built.includes("./_next/")) {
   throw new Error("Static HTML did not receive relative GitHub Pages asset paths");
 }
-if (/(?:["'(=:]|\\")\/assets\//.test(built)) {
+if (/(?:["'(=:]|\\")\/(?:assets|_next)\//.test(built)) {
   throw new Error("Static HTML still contains root-relative asset paths");
 }
 

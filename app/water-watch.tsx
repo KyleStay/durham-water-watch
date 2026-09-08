@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import verifiedSnapshot from "../public/data/dashboard.json";
 import verifiedHistory from "../public/data/history.json";
 import verifiedStreamflowHistory from "../public/data/streamflow-history.json";
+import { dashboardAt, metricStatus } from "../scripts/freshness.mjs";
 import { annualReservoirHeading, showsStageTwoGuidance } from "../scripts/stage-guidance.mjs";
 
 type Lang = "en" | "es";
@@ -53,7 +54,7 @@ type DailyValues = {
 type DailyEntry = {
   date: string;
   capturedAt: string;
-  entryKind?: "historical-backfill";
+  entryKind?: "historical-backfill" | "missed-run-backfill";
   values: DailyValues;
   retainedFields?: string[];
   quarantinedFields?: string[];
@@ -79,6 +80,7 @@ type StreamflowHistoryStation = {
   historicalPeriod: string | null;
   days: StreamflowHistoryDay[];
   note?: string;
+  verifiedAt?: string;
 };
 type StreamflowHistoryData = {
   schemaVersion: number;
@@ -129,7 +131,7 @@ const copy = {
     quarry: "Teer Quarry emergency storage",
     total: "Official total",
     trend: "Recent direction",
-    trendMissing: "No earlier verified reading is stored yet. Direction will appear after the next accepted City reading.",
+    trendMissing: "Two dated City observations are needed to show a change.",
     twoSignals: "Two signals, different jobs",
     droughtTitle: "NC drought category",
     droughtDesc: "A regional classification of dryness from the NC Drought Management Advisory Council.",
@@ -181,7 +183,7 @@ const copy = {
     method: "Sources & methodology",
     methodology: "This dashboard links every operational metric to its authoritative source, keeps the last verified value when refreshes fail, and never substitutes an estimate.",
     corrections: "Corrections",
-    correctionText: "See something wrong? Contact: corrections@example.org (replace before public launch).",
+    correctionText: "Report an error through this project’s public issue tracker. Include the source and observation date.",
     independent: "Independent ownership",
     noAffiliation: "Not operated by or affiliated with the City of Durham. No accounts, ads, address lookup, or behavioral tracking.",
     fresh: "Fresh",
@@ -217,7 +219,7 @@ const copy = {
     quarry: "Reserva de emergencia de Teer Quarry",
     total: "Total oficial",
     trend: "Dirección reciente",
-    trendMissing: "Aún no hay una lectura verificada anterior. La dirección aparecerá después de la próxima lectura aceptada de la Ciudad.",
+    trendMissing: "Se necesitan dos observaciones fechadas de la Ciudad para mostrar un cambio.",
     twoSignals: "Dos señales, funciones distintas",
     droughtTitle: "Categoría de sequía de NC",
     droughtDesc: "Clasificación regional de la sequedad del Consejo Asesor de Manejo de Sequías de NC.",
@@ -269,7 +271,7 @@ const copy = {
     method: "Fuentes y metodología",
     methodology: "Este panel enlaza cada métrica operativa con su fuente autorizada, conserva el último valor verificado si falla la actualización y nunca sustituye una estimación.",
     corrections: "Correcciones",
-    correctionText: "¿Ve algo incorrecto? Contacto: corrections@example.org (reemplazar antes del lanzamiento público).",
+    correctionText: "Informe errores en el registro público de este proyecto. Incluya la fuente y la fecha de observación.",
     independent: "Propiedad independiente",
     noAffiliation: "No operado ni afiliado con la Ciudad de Durham. Sin cuentas, publicidad, búsqueda de direcciones ni rastreo conductual.",
     fresh: "Actual",
@@ -288,6 +290,7 @@ function fmtDate(value: string | null, lang: Lang, withTime = false) {
   const date = new Date(value.length === 10 ? `${value}T12:00:00-04:00` : value);
   return new Intl.DateTimeFormat(lang === "en" ? "en-US" : "es-US", {
     month: "long", day: "numeric", year: "numeric",
+    timeZone: "America/New_York",
     ...(withTime ? { hour: "numeric", minute: "2-digit", timeZoneName: "short", timeZone: "America/New_York" } : {}),
   }).format(date);
 }
@@ -529,13 +532,14 @@ function YearComparisonChart({ station, year, lang }: {
       <div className="year-chart-legend">
         <span><i className="current-year-key" />{year}</span>
         <span><i className="historical-key" />{lang === "en" ? "Historical daily mean" : "Promedio diario histórico"}</span>
-        <span className={`history-source-status ${station.status}`}>{station.status}</span>
+        <span className={`history-source-status ${station.status}`}>{copy[lang][station.status]}</span>
       </div>
+      {station.status !== "fresh" && <p className="stale-note">{lang === "en" ? "This comparison retains the last verified record. Check the official station for newer data." : "Esta comparación conserva el último registro verificado. Consulte la estación oficial para datos más recientes."}</p>}
       {weekly.length ? (
         <div className="year-chart-scroll">
           <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-labelledby={`${station.site}-title ${station.site}-desc`}>
-            <title id={`${station.site}-title`}>{station.name} {year} streamflow compared with the historical daily mean</title>
-            <desc id={`${station.site}-desc`}>Weekly averages in cubic feet per second. The solid blue line is {year}; the dashed orange line is the USGS historical daily mean.</desc>
+            <title id={`${station.site}-title`}>{`${station.name} ${year} ${lang === "en" ? "streamflow compared with the historical daily mean" : "caudal comparado con el promedio diario histórico"}`}</title>
+            <desc id={`${station.site}-desc`}>{lang === "en" ? `Weekly averages in cubic feet per second. The solid blue line is ${year}; the dashed orange line is the USGS historical daily mean.` : `Promedios semanales en pies cúbicos por segundo. La línea azul es ${year}; la línea naranja discontinua es el promedio diario histórico del USGS.`}</desc>
             {[0, niceMaximum / 2, niceMaximum].map((tick) => (
               <g key={tick}>
                 <line className="year-grid-line" x1={plot.left} x2={width - plot.right} y1={y(tick)} y2={y(tick)} />
@@ -677,17 +681,25 @@ function StageExitExplorer({ lang }: { lang: Lang }) {
   );
 }
 
-export default function WaterWatch() {
+export default function WaterWatch({ snapshot = seed, history = historySeed, comparison = streamflowHistorySeed }: { snapshot?: DashboardData; history?: HistoryData; comparison?: StreamflowHistoryData } = {}) {
   const [lang, setLang] = useState<Lang>("en");
   const [announcement, setAnnouncement] = useState("");
-  const data = seed;
+  const [now, setNow] = useState(() => Date.parse(snapshot.generatedAt ?? "1970-01-01T00:00:00Z"));
+  const data = dashboardAt(snapshot, now) as DashboardData;
   const t = copy[lang];
   const chartVersion = encodeURIComponent(data.generatedAt ?? data.historyStarts);
-  const currentHistoryYear = historySeed.days.at(-1)?.date.slice(0, 4) ?? String(new Date().getFullYear());
+  const currentHistoryYear = history.days.at(-1)?.date.slice(0, 4) ?? String(comparison.year);
+  const ageStation = (station: StreamflowHistoryStation): StreamflowHistoryStation => ({
+    ...station,
+    status: station.status === "fresh"
+      ? metricStatus({ value: 1, verifiedAt: station.verifiedAt ?? comparison.updatedAt }, "stage", now)
+      : station.status,
+  });
   const isStageTwo = showsStageTwoGuidance(data.stage.value);
-  const historyDays = historySeed.days.filter((day) => day.date.startsWith(currentHistoryYear));
-  const latestDay = historyDays.at(-1);
-  const previousDay = historyDays.at(-2);
+  const historyDays = history.days.filter((day) => day.date.startsWith(currentHistoryYear));
+  const supplyObservations = historyDays.filter((day) => typeof day.values.supply.total === "number");
+  const latestDay = supplyObservations.at(-1);
+  const previousDay = supplyObservations.at(-2);
   const supplyChange = latestDay && previousDay
     && typeof latestDay.values.supply.total === "number"
     && typeof previousDay.values.supply.total === "number"
@@ -705,6 +717,14 @@ export default function WaterWatch() {
     : `Promedio de lecturas verificadas disponibles de ${currentHistoryYear}`;
 
   useEffect(() => {
+    const update = () => setNow(Date.now());
+    const initial = setTimeout(update, 0);
+    const timer = setInterval(update, 60_000);
+    document.addEventListener("visibilitychange", update);
+    return () => { clearTimeout(initial); clearInterval(timer); document.removeEventListener("visibilitychange", update); };
+  }, []);
+
+  useEffect(() => {
     document.documentElement.lang = lang;
   }, [lang]);
 
@@ -714,12 +734,12 @@ export default function WaterWatch() {
     setAnnouncement(copy[next].languageChanged);
   };
 
-  const supplyParts = useMemo(() => [
+  const supplyParts = [
     [t.accessible, data.supply.accessible],
     [t.below, data.supply.belowIntakes],
     [t.quarry, data.supply.quarry],
     [t.total, data.supply.total],
-  ] as const, [data, t]);
+  ] as const;
 
   return (
     <>
@@ -755,6 +775,11 @@ export default function WaterWatch() {
               <h1>{t.deck}</h1>
               <p className="official-priority">{t.official}</p>
             </div>
+            <p className="checked" data-publication-time={snapshot.generatedAt}>
+              {lang === "en" ? "Published snapshot: " : "Instantánea publicada: "}{fmtDate(snapshot.generatedAt ?? null, lang, true)}.
+              {" "}{lang === "en" ? "Sources are checked daily. Labels update as readings age." : "Las fuentes se verifican a diario. Los avisos cambian según la antigüedad."}
+            </p>
+            <noscript><p>Freshness labels reflect the published snapshot time. Check the observation dates and official sources for current conditions.</p></noscript>
             <div className="hero-grid">
               <article className="stage-card">
                 <div className="card-top">
@@ -802,10 +827,10 @@ export default function WaterWatch() {
                   {supplyChange === null
                     ? t.trendMissing
                     : supplyChange === 0
-                      ? (lang === "en" ? "No change from the previous daily snapshot." : "Sin cambios frente a la instantánea diaria anterior.")
+                      ? (lang === "en" ? "No change from the previous dated City observation." : "Sin cambios frente a la observación fechada anterior de la Ciudad.")
                       : lang === "en"
-                        ? `${Math.abs(supplyChange)} ${Math.abs(supplyChange) === 1 ? "day" : "days"} ${supplyChange > 0 ? "higher" : "lower"} than the previous daily snapshot.`
-                        : `${Math.abs(supplyChange)} ${Math.abs(supplyChange) === 1 ? "día" : "días"} ${supplyChange > 0 ? "más" : "menos"} que la instantánea diaria anterior.`}
+                        ? `${Math.abs(supplyChange)} ${Math.abs(supplyChange) === 1 ? "day" : "days"} ${supplyChange > 0 ? "higher" : "lower"} than the previous dated City observation.`
+                        : `${Math.abs(supplyChange)} ${Math.abs(supplyChange) === 1 ? "día" : "días"} ${supplyChange > 0 ? "más" : "menos"} que la observación fechada anterior de la Ciudad.`}
                 </p>
               </div>
             </div>
@@ -821,8 +846,8 @@ export default function WaterWatch() {
               </div>
               <p>
                 {lang === "en"
-                  ? `The daily record now begins ${fmtDailyDate(historyDays[0]?.date ?? data.historyStarts, lang)}. USGS daily means fill every date; City supply and reservoir values appear only where an exact archived reading exists, with no interpolation.`
-                  : `El registro diario ahora comienza el ${fmtDailyDate(historyDays[0]?.date ?? data.historyStarts, lang)}. Los promedios diarios del USGS cubren cada fecha; los valores de suministro y embalses solo aparecen cuando existe una lectura archivada exacta, sin interpolación.`}
+                  ? `The daily record now begins ${fmtDailyDate(historyDays[0]?.date ?? data.historyStarts, lang)}. USGS daily means appear where available; City supply and reservoir values appear only where an exact archived reading exists, with no interpolation.`
+                  : `El registro diario ahora comienza el ${fmtDailyDate(historyDays[0]?.date ?? data.historyStarts, lang)}. Los promedios diarios del USGS aparecen donde están disponibles; los valores de suministro y embalses solo aparecen cuando existe una lectura archivada exacta, sin interpolación.`}
               </p>
             </div>
 
@@ -920,8 +945,8 @@ export default function WaterWatch() {
               </p>
             </div>
             <div className="year-comparison-grid">
-              <YearComparisonChart station={streamflowHistorySeed.stations.flat} year={streamflowHistorySeed.year} lang={lang} />
-              <YearComparisonChart station={streamflowHistorySeed.stations.little} year={streamflowHistorySeed.year} lang={lang} />
+              <YearComparisonChart station={ageStation(comparison.stations.flat)} year={comparison.year} lang={lang} />
+              <YearComparisonChart station={ageStation(comparison.stations.little)} year={comparison.year} lang={lang} />
             </div>
 
             <div className="daily-values-table">
@@ -979,7 +1004,8 @@ export default function WaterWatch() {
             <div className="signal-grid">
               <article className="signal-card drought-card">
                 <p className="eyebrow">{t.droughtTitle}</p>
-                <h3>{String(data.drought.value)}</h3>
+                <h3>{data.drought.value === null ? t.unavailable : String(data.drought.value)}</h3>
+                <Status metric={data.drought} lang={lang} />
                 <p>{t.droughtDesc}</p>
                 <SourceLine metric={data.drought} lang={lang} />
               </article>
@@ -1056,7 +1082,7 @@ export default function WaterWatch() {
               <aside className="forecast-limits">
                 <h3>{lang === "en" ? "What does not measure closeness" : "Lo que no mide la cercanía"}</h3>
                 <ul>
-                  <li>{lang === "en" ? "195 estimated days of supply is not an exit threshold." : "195 días estimados no es un umbral de salida."}</li>
+                  <li>{lang === "en" ? "Estimated days of supply is not an exit threshold." : "Los días estimados de suministro no son un umbral de salida."}</li>
                   <li>{lang === "en" ? "The NC drought category does not mechanically set the City stage." : "La categoría de sequía de NC no determina mecánicamente la etapa."}</li>
                   <li>{lang === "en" ? "Feet below full cannot be converted to percent storage without official storage curves." : "Los pies por debajo de capacidad no se convierten a porcentaje sin curvas oficiales."}</li>
                   <li>{lang === "en" ? "Streamflow cannot predict reservoir refill or a stage change." : "El caudal no puede predecir la recarga ni un cambio de etapa."}</li>
@@ -1100,6 +1126,8 @@ export default function WaterWatch() {
                 ].map(([label, src, href, alt]) => (
                   <figure className="chart-card" key={label}>
                     <figcaption><strong>{label}</strong><span>{lang === "en" ? "City-published image" : "Imagen publicada por la Ciudad"}</span></figcaption>
+                    {/* Keep the City image unchanged; there is no image-optimization server on GitHub Pages. */}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={src} alt={alt} width="720" height="430" loading="lazy" />
                     <a href={href} target="_blank" rel="noreferrer">{t.openChart} ↗</a>
                   </figure>
@@ -1214,7 +1242,7 @@ export default function WaterWatch() {
             <div className="method-grid">
               {[
                 [lang === "en" ? "Meaning, not mystery" : "Significado claro", lang === "en" ? "Days of supply combines accessible reservoir water, less-accessible water below the intakes, and Teer Quarry emergency storage. Elevation is never presented as percent storage." : "Los días combinan agua accesible, agua debajo de las tomas y reserva de Teer Quarry. La elevación nunca se presenta como porcentaje."],
-                [lang === "en" ? "Refresh rhythm" : "Ritmo de actualización", lang === "en" ? "A scheduled publication workflow checks Durham daily, USGS about every 30 minutes, and NC drought after its weekly update, then rebuilds the static site." : "Un flujo programado comprueba Durham a diario, USGS aproximadamente cada 30 minutos y la sequía de NC tras su actualización semanal, y luego reconstruye el sitio estático."],
+                [lang === "en" ? "Refresh rhythm" : "Ritmo de actualización", lang === "en" ? "A daily publication checks Durham, USGS, and NC drought sources at about 8 AM Eastern. Source observation dates can be older than the publication. Freshness labels age in your browser; the readings change at the next publication." : "Una publicación diaria verifica Durham, USGS y la sequía de NC alrededor de las 8 a. m., hora del Este. Las observaciones pueden ser anteriores. Los avisos de antigüedad cambian en su navegador; los valores cambian en la próxima publicación."],
                 [lang === "en" ? "Stale thresholds" : "Umbrales de desactualización", lang === "en" ? "Durham daily metrics: two calendar days. USGS: about three hours. NC drought: after the expected weekly update window." : "Métricas diarias de Durham: dos días calendario. USGS: unas tres horas. Sequía de NC: tras la ventana semanal esperada."],
                 [lang === "en" ? "Validation before publication" : "Validación antes de publicar", lang === "en" ? "Expected URL and units, a recognizable date, nonnegative components, internally consistent totals, intended reservoir fields, newer observations, and plausible changes." : "URL y unidades esperadas, fecha reconocible, componentes no negativos, total coherente, campos correctos, observaciones más nuevas y cambios plausibles."],
                 [lang === "en" ? "Failure is visible" : "Las fallas son visibles", lang === "en" ? "Malformed, older, null, or implausible readings never replace the repository’s last-known-good snapshot. The next static build keeps the verified value with a stale label; without one, it says reading unavailable." : "Lecturas malformadas, antiguas, nulas o improbables nunca reemplazan la última instantánea verificada del repositorio. La compilación estática conserva el valor con aviso; sin uno, indica no disponible."],
@@ -1224,9 +1252,9 @@ export default function WaterWatch() {
             <div className="source-directory">
               <h3>{lang === "en" ? "Authoritative source directory" : "Directorio de fuentes autorizadas"}</h3>
               <div>{[
-                ["Current stage & rules", urls.stage], ["Days of supply & demand", urls.data], ["Reservoir elevations & charts", urls.lakes],
-                ["Water Shortage Response Plan", urls.plan], ["NC drought classification", urls.drought], ["Flat River station", urls.flat],
-                ["Little River station", urls.little], ["Official alerts", urls.alerts], ["Watershed context", urls.watershed],
+                [lang === "en" ? "Current stage & rules" : "Etapa y reglas actuales", urls.stage], [lang === "en" ? "Days of supply & demand" : "Días de suministro y demanda", urls.data], [lang === "en" ? "Reservoir elevations & charts" : "Elevaciones y gráficas de embalses", urls.lakes],
+                [lang === "en" ? "Water Shortage Response Plan" : "Plan de respuesta a la escasez", urls.plan], [lang === "en" ? "NC drought classification" : "Clasificación de sequía de NC", urls.drought], [lang === "en" ? "Flat River station" : "Estación Flat River", urls.flat],
+                [lang === "en" ? "Little River station" : "Estación Little River", urls.little], [lang === "en" ? "Official alerts" : "Alertas oficiales", urls.alerts], [lang === "en" ? "Watershed context" : "Contexto de la cuenca", urls.watershed],
               ].map(([label, href]) => <a key={label} href={href} target="_blank" rel="noreferrer">{label} <span>↗</span></a>)}</div>
             </div>
           </div>
@@ -1236,7 +1264,7 @@ export default function WaterWatch() {
       <footer>
         <div className="wrap footer-grid">
           <div><p className="unofficial">{t.unofficial}</p><h2>{t.title}</h2><p>{t.noAffiliation}</p></div>
-          <div><h3>{t.corrections}</h3><p>{t.correctionText}</p><a href={urls.stage} target="_blank" rel="noreferrer">{t.official} ↗</a></div>
+          <div><h3>{t.corrections}</h3><p>{t.correctionText}</p><a href="https://github.com/KyleStay/durham-water-watch/issues" target="_blank" rel="noreferrer">{lang === "en" ? "Report a correction" : "Informar una corrección"} ↗</a><br /><a href={urls.stage} target="_blank" rel="noreferrer">{t.official} ↗</a></div>
         </div>
         <div className="wrap footer-bottom"><span>Durham, North Carolina</span><span>{lang === "en" ? "Built for public understanding." : "Creado para la comprensión pública."}</span></div>
       </footer>

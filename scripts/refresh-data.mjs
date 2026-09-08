@@ -1,10 +1,12 @@
 import { readFile, rename, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { isCalendarDate } from "./calendar-date.mjs";
-import { freshMetricValue } from "./history-metric.mjs";
+import { metricStatus } from "./freshness.mjs";
+import { appendDailyEntry, normalizeCityAvailability, recordCitySnapshot } from "./history-ledger.mjs";
 import { backfillStreamflowDailyMeans, dailyMeanFor, retainComparisonYear } from "./history-streamflow.mjs";
 import { acceptMetrics } from "./metric-acceptance.mjs";
 import { sourceIsDue } from "./refresh-policy.mjs";
+import { fetchJsonWithRetry, fetchTextWithRetry } from "./source-fetch.mjs";
 import { parseSupplyValues } from "./supply-parser.mjs";
 
 const snapshotPath = resolve(import.meta.dirname, "../public/data/dashboard.json");
@@ -69,7 +71,7 @@ function htmlToPlainText(text) {
 }
 
 async function fetchOfficialText(url) {
-  const response = await fetch(url, {
+  const { response, body } = await fetchTextWithRetry(url, {
     redirect: "follow",
     headers: {
       "user-agent": "Durham Water Watch/1.0 (independent community dashboard)",
@@ -86,7 +88,7 @@ async function fetchOfficialText(url) {
   ) {
     throw new Error(`Unexpected official response (${response.status})`);
   }
-  return response.text();
+  return body;
 }
 
 function hoursSince(value) {
@@ -242,14 +244,13 @@ async function refreshDrought() {
 async function refreshStreamflow() {
   const paths = [["streamflow", "flat"], ["streamflow", "little"]];
   try {
-    const response = await fetch(SOURCES.usgs, {
+    const { response, body: json } = await fetchJsonWithRetry(SOURCES.usgs, {
       headers: {
         "user-agent": "Durham Water Watch/1.0 (independent community dashboard)",
         accept: "application/json",
       },
     });
     if (!response.ok) throw new Error(`USGS service failed (${response.status})`);
-    const json = await response.json();
     const series = json?.value?.timeSeries;
     if (!Array.isArray(series) || !series.length) throw new Error("USGS returned no time series");
 
@@ -302,14 +303,14 @@ function parseUsgsStatistics(text, site) {
 }
 
 async function fetchUsgsJson(url) {
-  const response = await fetch(url, {
+  const { response, body } = await fetchJsonWithRetry(url, {
     headers: {
       "user-agent": "Durham Water Watch/1.0 (independent community dashboard)",
       accept: "application/json",
     },
   });
   if (!response.ok) throw new Error(`USGS service failed (${response.status})`);
-  return response.json();
+  return body;
 }
 
 async function refreshStreamflowHistory() {
@@ -366,6 +367,7 @@ async function refreshStreamflowHistory() {
         status: "fresh",
         sourceUrl,
         historicalPeriod: `${firstStatistic.begin_yr}–${lastStatistic.end_yr}`,
+        verifiedAt: nowIso,
         days,
       };
       results.push(`verified: ${key} historical streamflow`);
@@ -409,16 +411,7 @@ function calendarDaysOld(value) {
 }
 
 function updateStatus(metric, kind) {
-  if (metric.value === null || metric.value === undefined) {
-    metric.status = "unavailable";
-    return;
-  }
-  let stale = false;
-  if (kind === "stage") stale = hoursSince(metric.verifiedAt) > 48;
-  if (kind === "durham") stale = calendarDaysOld(metric.observedAt) > 2;
-  if (kind === "usgs") stale = hoursSince(metric.observedAt) > 3;
-  if (kind === "drought") stale = calendarDaysOld(metric.observedAt) > 9;
-  metric.status = stale || metric.retrievalStatus === "failed" ? "stale" : "fresh";
+  metric.status = metricStatus(metric, kind, now);
 }
 
 const jobs = [refreshStreamflow(), refreshStreamflowHistory()];
@@ -460,15 +453,6 @@ function nextDate(date) {
   return cursor.toISOString().slice(0, 10);
 }
 
-function observedValueOn(metric, date) {
-  return metric?.validationResult === "accepted"
-    && metric?.observedAt?.slice(0, 10) === date
-    && typeof metric.value === "number"
-    && Number.isFinite(metric.value)
-    ? metric.value
-    : null;
-}
-
 const existingDates = new Set(history.days.map((entry) => entry.date));
 let missingDate = history.coverage?.startsOn
   ?? history.days.map((entry) => entry.date).sort().at(0);
@@ -478,16 +462,8 @@ while (missingDate < today) {
       .filter((entry) => entry.date < missingDate)
       .sort((left, right) => left.date.localeCompare(right.date))
       .at(-1);
-    const supply = {
-      accessible: observedValueOn(snapshot.supply.accessible, missingDate),
-      belowIntakes: observedValueOn(snapshot.supply.belowIntakes, missingDate),
-      quarry: observedValueOn(snapshot.supply.quarry, missingDate),
-      total: observedValueOn(snapshot.supply.total, missingDate),
-    };
-    const reservoirs = {
-      michie: observedValueOn(snapshot.reservoirs.michie, missingDate),
-      little: observedValueOn(snapshot.reservoirs.little, missingDate),
-    };
+    const supply = { accessible: null, belowIntakes: null, quarry: null, total: null };
+    const reservoirs = { michie: null, little: null };
     const flat = dailyMeanFor(streamflowHistory.stations.flat, missingDate);
     const little = dailyMeanFor(streamflowHistory.stations.little, missingDate);
     const unavailableFields = [];
@@ -519,8 +495,8 @@ while (missingDate < today) {
       unavailableFields,
       measurementKinds: {
         streamflow: "USGS daily mean",
-        supply: supply.total === null ? "unavailable" : "exact City reading",
-        reservoirs: reservoirs.michie === null ? "unavailable" : "exact City reading",
+        supply: "unavailable",
+        reservoirs: "unavailable",
       },
     });
   }
@@ -551,14 +527,14 @@ const dailyEntry = {
   values: {
     stage: snapshot.stage.value,
     supply: {
-      accessible: freshMetricValue(snapshot.supply.accessible),
-      belowIntakes: freshMetricValue(snapshot.supply.belowIntakes),
-      quarry: freshMetricValue(snapshot.supply.quarry),
-      total: freshMetricValue(snapshot.supply.total),
+      accessible: null,
+      belowIntakes: null,
+      quarry: null,
+      total: null,
     },
     reservoirs: {
-      michie: freshMetricValue(snapshot.reservoirs.michie),
-      little: freshMetricValue(snapshot.reservoirs.little),
+      michie: null,
+      little: null,
     },
     drought: snapshot.drought.value,
     streamflow: {
@@ -571,16 +547,12 @@ const dailyEntry = {
   unavailableFields: [],
   measurementKinds: {
     streamflow: "USGS daily mean",
+    supply: "unavailable",
+    reservoirs: "unavailable",
   },
 };
 const dailyMetrics = [
   ["stage", snapshot.stage],
-  ["supply.accessible", snapshot.supply.accessible],
-  ["supply.belowIntakes", snapshot.supply.belowIntakes],
-  ["supply.quarry", snapshot.supply.quarry],
-  ["supply.total", snapshot.supply.total],
-  ["reservoirs.michie", snapshot.reservoirs.michie],
-  ["reservoirs.little", snapshot.reservoirs.little],
   ["drought", snapshot.drought],
   ["streamflow.flat", snapshot.streamflow.flat],
   ["streamflow.little", snapshot.streamflow.little],
@@ -591,19 +563,10 @@ for (const [field, metric] of dailyMetrics) {
 }
 if (flatDailyMean === null) dailyEntry.unavailableFields.push("streamflow.flat");
 if (littleDailyMean === null) dailyEntry.unavailableFields.push("streamflow.little");
-for (const [field, metric] of dailyMetrics.filter(([field]) => field.startsWith("supply.") || field.startsWith("reservoirs."))) {
-  if (freshMetricValue(metric) === null) dailyEntry.unavailableFields.push(field);
-}
-const previousDailyIndex = history.days.findIndex((entry) => entry.date === today);
-if (previousDailyIndex >= 0) history.days[previousDailyIndex] = dailyEntry;
-else history.days.push(dailyEntry);
-history.days = history.days
-  .filter((entry) => entry?.date && entry?.values)
-  .sort((left, right) => left.date.localeCompare(right.date))
-  .slice(-366);
-if (history.coverage && history.days.length) {
-  history.coverage.through = history.days.at(-1).date;
-}
+normalizeCityAvailability(dailyEntry);
+appendDailyEntry(history, dailyEntry);
+recordCitySnapshot(history, snapshot);
+history.schemaVersion = 3;
 
 await writeFile(temporaryPath, `${JSON.stringify(snapshot, null, 2)}\n`);
 await writeFile(quarantineTemporaryPath, `${JSON.stringify(quarantine.slice(-100), null, 2)}\n`);

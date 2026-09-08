@@ -9,12 +9,14 @@ export function backfillStreamflowDailyMeans(history, comparison) {
     const hasLittleDay = comparison.stations.little?.days?.some((day) => day.date === entry.date);
     if (!hasFlatDay && !hasLittleDay) continue;
 
-    const flat = dailyMeanFor(comparison.stations.flat, entry.date);
-    const little = dailyMeanFor(comparison.stations.little, entry.date);
-    entry.values.streamflow.flat = flat;
-    entry.values.streamflow.little = little;
     const unavailableFields = new Set(entry.unavailableFields ?? []);
-    for (const [field, value] of [["streamflow.flat", flat], ["streamflow.little", little]]) {
+    for (const [key, field, present] of [
+      ["flat", "streamflow.flat", hasFlatDay],
+      ["little", "streamflow.little", hasLittleDay],
+    ]) {
+      if (!present) continue;
+      const value = dailyMeanFor(comparison.stations[key], entry.date);
+      entry.values.streamflow[key] = value;
       if (value === null) unavailableFields.add(field);
       else unavailableFields.delete(field);
     }

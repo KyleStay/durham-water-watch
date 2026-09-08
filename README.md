@@ -37,5 +37,31 @@ the City-published chart images on each build, and publishes the artifact
 directly to the `gh-pages` branch with `npm run publish:pages`. GitHub hosts that
 branch but does not run the refresh or build.
 
-The visible correction-contact placeholder must be replaced before a public
-launch.
+## Daily publication
+
+The scheduled Codex task runs at 8:00 AM America/New_York time. This Mac must be
+on and Codex must be running. GitHub Actions and Sites do not refresh or publish
+this dashboard.
+
+Run `npm run daily:update` for the same guarded process by hand. It takes an
+exclusive repository lock, requires a clean `main` worktree, fetches and
+fast-forwards from `origin/main`, and runs the full source refresh. The process
+stops if refresh changes anything except the three public snapshots and
+`data/quarantine.json`. It then runs the build and tests, lint, and TypeScript
+checks. The test command writes a manifest containing hashes and byte counts for
+the artifact and all tracked build inputs.
+
+Only changed snapshot files are committed and pushed to `main`. The publisher
+rejects a missing, stale, or modified manifest, pushes the validated artifact to
+`gh-pages` without force, then compares the live HTML and all three JSON files
+with the built bytes. Verification retries for a bounded period while GitHub
+Pages updates. A later run can safely finish publication after a source commit
+or push succeeds and deployment fails. It never stashes or discards local work.
+
+The daily ledger is a permanent archive. City values appear under the official
+observation date, even when Durham publishes them later. Missing values remain
+missing, and retained or quarantined readings do not become new observations
+for the run date. The version 3 migration rebuilt known City observations from
+archived City pages and earlier dashboard commits. Each migrated value records
+its source URL, verification time, and evidence note. Corrections can be filed
+through the dashboard's GitHub Issues link.

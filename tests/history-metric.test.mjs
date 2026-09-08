@@ -1,10 +1,26 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { freshMetricValue } from "../scripts/history-metric.mjs";
+import { acceptedMetricObservation } from "../scripts/history-metric.mjs";
 
-test("daily history excludes stale and rejected City readings", () => {
-  assert.equal(freshMetricValue({ value: 218, status: "stale", validationResult: "accepted" }), null);
-  assert.equal(freshMetricValue({ value: 218, status: "fresh", validationResult: "rejected" }), null);
-  assert.equal(freshMetricValue({ value: 218, status: "fresh", validationResult: "accepted" }), 218);
+test("daily history accepts verified delayed observations and rejects failed validation", () => {
+  assert.deepEqual(acceptedMetricObservation({
+    value: 218,
+    observedAt: "2026-08-19",
+    verifiedAt: "2026-08-24T12:02:08.319Z",
+    sourceUrl: "official",
+    status: "stale",
+    validationResult: "accepted",
+  }), {
+    value: 218,
+    observedAt: "2026-08-19",
+    verifiedAt: "2026-08-24T12:02:08.319Z",
+    sourceUrl: "official",
+  });
+  assert.equal(acceptedMetricObservation({
+    value: 218,
+    observedAt: "2026-08-19",
+    status: "fresh",
+    validationResult: "rejected",
+  }), null);
 });

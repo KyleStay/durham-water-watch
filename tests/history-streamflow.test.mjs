@@ -44,3 +44,23 @@ test("a failed new-year refresh never relabels prior-year comparison rows", () =
   assert.deepEqual(station.days, []);
   assert.equal(station.status, "unavailable");
 });
+
+test("one station's new-year refresh does not erase the other station's verified prior-year ledger values", () => {
+  const history = {
+    days: [{
+      date: "2026-12-31",
+      values: { streamflow: { flat: 10, little: 20 } },
+      unavailableFields: [],
+    }],
+  };
+  const comparison = {
+    stations: {
+      flat: { days: [{ date: "2027-01-01", currentYear: 11 }] },
+      little: { days: [] },
+    },
+  };
+
+  backfillStreamflowDailyMeans(history, comparison);
+
+  assert.deepEqual(history.days[0].values.streamflow, { flat: 10, little: 20 });
+});

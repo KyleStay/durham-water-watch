@@ -42,6 +42,10 @@ const [history, streamflow, dashboard] = await Promise.all([
   readFile(dashboardPath, "utf8").then(JSON.parse),
 ]);
 
+if (history.schemaVersion >= 3) {
+  throw new Error("The permanent history ledger is already migrated; this legacy backfill must not rewrite schema 3.");
+}
+
 const existingByDate = new Map(history.days.map((day) => [day.date, day]));
 const lastExistingDate = history.days.at(-1)?.date;
 if (!lastExistingDate) throw new Error("Cannot backfill an empty history ledger");

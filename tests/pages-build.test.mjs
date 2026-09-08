@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
-import { access, readFile } from "node:fs/promises";
+import { access, readFile, readdir } from "node:fs/promises";
 import test from "node:test";
+import { validateComparison } from "../scripts/validate-comparison.mjs";
 
 const pagesRoot = new URL("../pages-dist/", import.meta.url);
 
@@ -17,8 +18,7 @@ test("produces a complete GitHub Pages artifact", async () => {
 
   const html = await readFile(new URL("index.html", pagesRoot), "utf8");
   assert.match(html, /Unofficial independent community dashboard/);
-  assert.match(html, /How close is Durham to leaving Stage 2/);
-  assert.match(html, /Illustrative scenario explorer/);
+
   assert.match(html, /Daily snapshot record/);
   assert.match(html, /Exact daily values/);
   assert.match(html, /Year to date vs historical average/);
@@ -26,50 +26,34 @@ test("produces a complete GitHub Pages artifact", async () => {
   assert.match(html, /What the dashed averages mean/);
   assert.match(html, /avg of available verified readings/);
   assert.match(html, /not a long-term average/);
-  assert.match(html, /USGS daily means fill every date/);
-  assert.match(html, /All four inputs are assumptions/);
+  assert.match(html, /USGS daily means appear where available/);
+
   assert.match(html, /documentID=4123(?:&amp;|&)refresh=/);
   assert.match(html, /documentID=4124(?:&amp;|&)refresh=/);
   assert.match(html, /documentID=4125(?:&amp;|&)refresh=/);
-  assert.match(html, /href="\.\/assets\//);
-  assert.match(html, /import\("\.\/assets\//);
-  assert.doesNotMatch(html, /(?:["'(=:]|\\")\/assets\//);
+  assert.match(html, /href="\.\/(?:assets|_next)\//);
+  assert.match(html, /(?:import\("|src=")\.\/(?:assets|_next)\//);
+  assert.doesNotMatch(html, /(?:["'(=:]|\\")\/(?:assets|_next)\//);
   assert.doesNotMatch(html, /\/api\/water-data/);
 });
 
 test("publishes USGS year-to-date flow against historical daily means", async () => {
   const comparison = JSON.parse(await readFile(new URL("data/streamflow-history.json", pagesRoot), "utf8"));
-  assert.equal(comparison.schemaVersion, 1);
-  assert.equal(Number.isInteger(comparison.year), true);
-
-  for (const station of Object.values(comparison.stations)) {
-    assert.equal(station.status, "fresh");
-    assert.match(station.site, /^0208\d+$/);
-    assert.match(station.sourceUrl, /^https:\/\/waterdata\.usgs\.gov\//);
-    assert.match(station.historicalPeriod, /^\d{4}–\d{4}$/);
-    assert.ok(station.days.length > 180);
-    for (const day of station.days) {
-      assert.match(day.date, new RegExp(`^${comparison.year}-\\d{2}-\\d{2}$`));
-      assert.equal(new Date(`${day.date}T12:00:00Z`).toISOString().slice(0, 10), day.date);
-      assert.ok(day.currentYear === null || (Number.isFinite(day.currentYear) && day.currentYear >= 0));
-      assert.ok(day.historicalMean >= 0);
-      assert.ok(day.historicalSampleYears > 0);
-    }
-  }
+  validateComparison(comparison);
 });
 
 test("publishes a complete, ordered daily values ledger", async () => {
   const history = JSON.parse(await readFile(new URL("data/history.json", pagesRoot), "utf8"));
   const comparison = JSON.parse(await readFile(new URL("data/streamflow-history.json", pagesRoot), "utf8"));
-  assert.equal(history.schemaVersion, 2);
-  assert.equal(history.coverage.startsOn, "2026-03-01");
-  assert.match(history.coverage.note, /not interpolated or forward-filled/);
-  assert.ok(history.days.length >= 160);
+  assert.equal(history.schemaVersion, 3);
+  assert.match(history.coverage.startsOn, /^\d{4}-\d{2}-\d{2}$/);
+  assert.match(history.coverage.note, /not forward-filled/);
+  assert.ok(history.days.length > 0);
 
   const dates = history.days.map((day) => day.date);
   assert.deepEqual(dates, [...dates].sort());
   assert.equal(new Set(dates).size, dates.length);
-  assert.equal(dates[0], "2026-03-01");
+  assert.equal(dates[0], history.coverage.startsOn);
   assert.equal(history.coverage.through, dates.at(-1));
   for (let index = 1; index < dates.length; index += 1) {
     const previous = new Date(`${dates[index - 1]}T12:00:00Z`);
@@ -87,6 +71,23 @@ test("publishes a complete, ordered daily values ledger", async () => {
     assert.ok("drought" in day.values);
     assert.ok("flat" in day.values.streamflow);
     assert.ok("little" in day.values.streamflow);
+    for (const [group, keys] of [["supply", ["accessible", "belowIntakes", "quarry", "total"]], ["reservoirs", ["michie", "little"]]]) {
+      for (const key of keys) {
+        const field = `${group}.${key}`;
+        const value = day.values[group][key];
+        if (value === null) {
+          assert.ok(day.unavailableFields.includes(field));
+        } else {
+          assert.ok(Number.isFinite(value));
+          assert.equal(day.observations[field].observedAt.slice(0, 10), day.date);
+          assert.match(day.observations[field].sourceUrl, /^https:\/\//);
+          assert.ok(Number.isFinite(Date.parse(day.observations[field].verifiedAt)));
+          assert.ok(!day.unavailableFields.includes(field));
+        }
+        assert.ok(!day.retainedFields.includes(field));
+        assert.ok(!day.quarantinedFields.includes(field));
+      }
+    }
     assert.ok(Array.isArray(day.retainedFields));
     assert.ok(Array.isArray(day.quarantinedFields));
     for (const field of day.retainedFields) {
@@ -146,4 +147,21 @@ test("stores transparent last-known-good metadata for every operational metric",
 test("keeps rejected readings outside the public artifact", async () => {
   await access(new URL("../data/quarantine.json", import.meta.url));
   await assert.rejects(access(new URL("data/quarantine.json", pagesRoot)));
+});
+
+
+test("dynamic-import preload dependencies resolve beside their scripts", async () => {
+  const chunks = new URL("_next/static/chunks/", pagesRoot);
+  for (const file of await readdir(chunks)) {
+    if (!file.endsWith(".js")) continue;
+    const scriptUrl = new URL(file, chunks);
+    const script = await readFile(scriptUrl, "utf8");
+    const map = script.match(/m\.f=\[(.*?)\]/)?.[1];
+    if (!map) continue;
+    const dependencies = JSON.parse(`[${map}]`);
+    for (const dependency of dependencies) {
+      assert.ok(dependency.startsWith("./"), "Preload paths must be module-relative");
+      await access(new URL(dependency, scriptUrl));
+    }
+  }
 });
