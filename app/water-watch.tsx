@@ -113,7 +113,7 @@ const copy = {
     title: "Durham Water Watch",
     deck: "Current water status for Durham",
     official: "Official City guidance always takes precedence.",
-    nav: ["Overview", "Daily trends", "Reservoirs", "What to do", "Drought explained", "Sources & methodology"],
+    nav: ["Overview", "What to do", "Reservoirs", "Drought explained", "Daily trends", "Sources & methodology"],
     serious: "How serious is this?",
     stage: "Durham Water Shortage Response Stage",
     inEffect: "in effect",
@@ -201,7 +201,7 @@ const copy = {
     title: "Durham Water Watch",
     deck: "Estado actual del agua en Durham",
     official: "La orientación oficial de la Ciudad siempre tiene prioridad.",
-    nav: ["Resumen", "Tendencias diarias", "Embalses", "Qué hacer", "La sequía explicada", "Fuentes y metodología"],
+    nav: ["Resumen", "Qué hacer", "Embalses", "La sequía explicada", "Tendencias diarias", "Fuentes y metodología"],
     serious: "¿Qué tan grave es?",
     stage: "Etapa de Respuesta a la Escasez de Agua de Durham",
     inEffect: "vigente",
@@ -759,7 +759,7 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
           </button>
         </div>
         <nav className="nav wrap" aria-label={lang === "en" ? "Primary navigation" : "Navegación principal"}>
-          {["overview", "trends", "reservoirs", "actions", "drought", "methodology"].map((id, index) => (
+          {["overview", "actions", "reservoirs", "drought", "trends", "methodology"].map((id, index) => (
             <a key={id} href={`#${id}`}>{t.nav[index]}</a>
           ))}
         </nav>
@@ -834,6 +834,128 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
                 </p>
               </div>
             </div>
+          </div>
+        </section>
+
+        <section id="actions" className="section actions-section">
+          <div className="wrap">
+            {isStageTwo ? (
+            <>
+            <div className="section-heading actions-heading"><p className="kicker">{t.whatNow}</p><h2>{lang === "en" ? "Stage 2 rules, at a glance." : "Reglas de la Etapa 2, de un vistazo."}</h2><p>{t.rulesCaveat}</p></div>
+            {data.stage.status === "stale" && <p className="stale-banner">! {t.confirmRules}</p>}
+            <div className="rules-grid">
+              <article className="rule-column stop">
+                <h3><span aria-hidden="true">×</span>{t.prohibited}</h3>
+                <ul>
+                  <li>{lang === "en" ? "No landscape spray irrigation with City water, including hose-end sprinklers." : "No riegue jardines por aspersión con agua de la Ciudad, incluidos aspersores conectados a mangueras."}</li>
+                  <li>{lang === "en" ? "No vehicle washing, except at a commercial or institutional car wash." : "No lave vehículos, excepto en un lavadero comercial o institucional."}</li>
+                  <li>{lang === "en" ? "No washing sidewalks, driveways, decks, exterior walls, or paved areas." : "No lave aceras, entradas, terrazas, muros exteriores ni áreas pavimentadas."}</li>
+                  <li>{lang === "en" ? "Do not add water to decorative fountains, ponds, or pools unless recycled." : "No añada agua a fuentes, estanques o piscinas decorativas, salvo que sea reciclada."}</li>
+                </ul>
+              </article>
+              <article className="rule-column go">
+                <h3><span aria-hidden="true">✓</span>{t.allowed}</h3>
+                <ul>
+                  <li>{lang === "en" ? "Hand watering, drip irrigation, and tree or shrub watering bags." : "Riego manual, por goteo y bolsas para árboles o arbustos."}</li>
+                  <li>{lang === "en" ? "Watering container plants and commercial plant stock for sale." : "Riego de plantas en contenedores y existencias comerciales para venta."}</li>
+                  <li>{lang === "en" ? "Surface washing for a health or safety issue, or before painting." : "Lavado de superficies por salud o seguridad, o antes de pintar."}</li>
+                  <li>{lang === "en" ? "Pool water only for evaporation or spillage loss and chemical feed operation." : "Agua de piscina solo para pérdidas por evaporación o derrame y operación química."}</li>
+                </ul>
+              </article>
+              <article className="rule-column note">
+                <h3><span aria-hidden="true">i</span>{t.special}</h3>
+                <ul>
+                  <li>{lang === "en" ? "Restaurants serve drinking water only when requested." : "Los restaurantes sirven agua potable solo cuando se solicita."}</li>
+                  <li>{lang === "en" ? "Users above 100,000 gallons/day should target a 30% reduction and document efforts." : "Usuarios de más de 100,000 galones/día deben aspirar a reducir 30% y documentar sus esfuerzos."}</li>
+                  <li>{lang === "en" ? "Approved Water Conservation Plans and limited exemptions may apply." : "Pueden aplicar Planes de Conservación aprobados y exenciones limitadas."}</li>
+                  <li>{lang === "en" ? "Violations may lead to civil penalties or service termination." : "Las infracciones pueden resultar en sanciones civiles o terminación del servicio."}</li>
+                </ul>
+              </article>
+            </div>
+            <div className="rules-footer"><p>{lang === "en" ? "This summary does not replace the official rules." : "Este resumen no reemplaza las reglas oficiales."}</p><a className="button" href={urls.stage} target="_blank" rel="noreferrer">{t.readRules} ↗</a></div>
+            </>
+            ) : (
+              <>
+                <div className="section-heading actions-heading"><p className="kicker">{t.whatNow}</p><h2>{lang === "en" ? "Follow the rules for the displayed City stage." : "Siga las reglas de la etapa mostrada por la Ciudad."}</h2><p>{lang === "en" ? "This dashboard does not summarize restrictions for this stage. The complete official rules control." : "Este panel no resume las restricciones de esta etapa. Las reglas oficiales completas tienen prioridad."}</p></div>
+                {data.stage.status === "stale" && <p className="stale-banner">! {t.confirmRules}</p>}
+                <div className="rules-footer"><p>{lang === "en" ? "Confirm the current stage and requirements on the City website." : "Confirme la etapa y los requisitos actuales en el sitio web de la Ciudad."}</p><a className="button" href={urls.stage} target="_blank" rel="noreferrer">{t.readRules} ↗</a></div>
+              </>
+            )}
+          </div>
+        </section>
+
+        <section id="alerts" className="section alert-section">
+          <div className="wrap">
+            <div className="section-heading compact"><p className="kicker">{t.alerts}</p><h2>{lang === "en" ? "Go straight to the City’s channels." : "Consulte directamente los canales de la Ciudad."}</h2></div>
+            <div className="alert-grid">
+              <a className="alert-card" href={urls.alerts} target="_blank" rel="noreferrer"><span className="alert-icon" aria-hidden="true">◉</span><div><h3>{t.alertCenter}</h3><p>{t.alertText}</p><strong>{lang === "en" ? "Open Alert Center" : "Abrir Centro de Alertas"} ↗</strong></div></a>
+              <a className="alert-card" href={urls.daupler} target="_blank" rel="noreferrer"><span className="alert-icon" aria-hidden="true">≈</span><div><h3>{t.daupler}</h3><p>{t.dauplerText}</p><strong>{lang === "en" ? "Open Daupler Notify" : "Abrir Daupler Notify"} ↗</strong></div></a>
+            </div>
+          </div>
+        </section>
+
+        <section id="reservoirs" className="section reservoirs-section">
+          <div className="wrap">
+            <div className="section-heading split"><div><p className="kicker">{t.reservoirs}</p><h2>{lang === "en" ? "Where today’s water line sits." : "Dónde se encuentra hoy el nivel del agua."}</h2></div><p>{t.reservoirIntro}</p></div>
+            <div className="reservoir-grid">
+              <ReservoirCard name="Lake Michie" metric={data.reservoirs.michie} lang={lang} />
+              <ReservoirCard name="Little River Reservoir" metric={data.reservoirs.little} lang={lang} />
+            </div>
+          </div>
+        </section>
+
+        <section id="watershed" className="section context-section">
+          <div className="wrap context-grid">
+            <div className="flow-panel">
+              <div className="section-heading compact"><p className="kicker">{t.flow}</p><h2>{lang === "en" ? "What is moving through the watershed?" : "¿Qué está circulando por la cuenca?"}</h2><p>{t.flowExplain}</p></div>
+              <div className="flow-cards">
+                {[
+                  { name: "Flat River", station: "USGS 02085500", metric: data.streamflow.flat },
+                  { name: "Little River", station: "USGS 0208521324", metric: data.streamflow.little },
+                ].map(({ name, station, metric }) => (
+                  <article className="flow-card" key={name}>
+                    <div className="card-top"><div><p className="eyebrow">{name}</p><small>{station}</small></div><Status metric={metric as Metric} lang={lang} /></div>
+                    <div className="flow-number">{String((metric as Metric).value ?? "—")} <small>ft³/s</small></div>
+                    <p className="provisional">P · {t.provisional}</p>
+                    <SourceLine metric={metric as Metric} lang={lang} />
+                  </article>
+                ))}
+              </div>
+            </div>
+            <aside className="map-panel">
+              <div className="section-heading compact"><p className="kicker">{t.contextMap}</p><h2>{lang === "en" ? "Two rivers. Two reservoirs. One city." : "Dos ríos. Dos embalses. Una ciudad."}</h2></div>
+              <div className="schematic" role="img" aria-label={lang === "en" ? "Schematic showing Flat River feeding Lake Michie and Little River feeding Little River Reservoir, both northwest of Durham." : "Esquema que muestra Flat River alimentando Lake Michie y Little River alimentando Little River Reservoir, ambos al noroeste de Durham."}>
+                <div className="river river-one">Flat River <span>↓</span></div>
+                <div className="lake lake-one">Lake Michie</div>
+                <div className="river river-two">Little River <span>↓</span></div>
+                <div className="lake lake-two">Little River Reservoir</div>
+                <div className="city-dot"><span aria-hidden="true">●</span> Durham</div>
+              </div>
+              <p className="map-note">{t.mapNote} <a href={urls.watershed} target="_blank" rel="noreferrer">{t.source} ↗</a></p>
+            </aside>
+          </div>
+        </section>
+
+        <section id="drought" className="section signal-section">
+          <div className="wrap">
+            <div className="section-heading"><p className="kicker">{t.twoSignals}</p><h2>{lang === "en" ? "Drought is not the same as a water-shortage stage." : "La sequía no es lo mismo que una etapa de escasez."}</h2></div>
+            <div className="signal-grid">
+              <article className="signal-card drought-card">
+                <p className="eyebrow">{t.droughtTitle}</p>
+                <h3>{data.drought.value === null ? t.unavailable : String(data.drought.value)}</h3>
+                <Status metric={data.drought} lang={lang} />
+                <p>{t.droughtDesc}</p>
+                <SourceLine metric={data.drought} lang={lang} />
+              </article>
+              <article className="signal-card shortage-card">
+                <p className="eyebrow">{t.shortageTitle}</p>
+                <h3>Stage / Etapa {String(data.stage.value)}</h3>
+                <p>{t.shortageDesc}</p>
+                <SourceLine metric={data.stage} lang={lang} />
+              </article>
+              <aside className="why-card"><span aria-hidden="true">≠</span><div><h3>{t.whyDiffer}</h3><p>{t.whyText}</p></div></aside>
+            </div>
+
           </div>
         </section>
 
@@ -949,74 +1071,89 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
               <YearComparisonChart station={ageStation(comparison.stations.little)} year={comparison.year} lang={lang} />
             </div>
 
-            <div className="daily-values-table">
-              <div>
-                <p className="kicker">{lang === "en" ? "Exact daily values" : "Valores diarios exactos"}</p>
-                <h3>{lang === "en" ? "Today and previous days" : "Hoy y días anteriores"}</h3>
-                <p>
-                  {lang === "en"
-                    ? "The newest snapshot is first. Reservoir values are elevations in feet mean sea level; streamflow is provisional."
-                    : "La instantánea más reciente aparece primero. Los embalses se muestran en pies sobre el nivel medio del mar; el caudal es provisional."}
-                </p>
-              </div>
-              <div className="table-scroll">
-                <table>
-                  <caption className="sr-only">{lang === "en" ? "Daily verified water values" : "Valores diarios verificados del agua"}</caption>
-                  <thead>
-                    <tr>
-                      <th>{lang === "en" ? "Date" : "Fecha"}</th>
-                      <th>{lang === "en" ? "Stage" : "Etapa"}</th>
-                      <th>{lang === "en" ? "Supply" : "Suministro"}</th>
-                      <th>Lake Michie</th>
-                      <th>Little River</th>
-                      <th>{lang === "en" ? "Drought" : "Sequía"}</th>
-                      <th>{lang === "en" ? "Flat flow" : "Caudal Flat"}</th>
-                      <th>{lang === "en" ? "Little flow" : "Caudal Little"}</th>
-                      <th>{lang === "en" ? "Data quality" : "Calidad"}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {[...historyDays].reverse().map((day, index) => (
-                      <tr className={index === 0 ? "latest-daily-row" : undefined} key={day.date}>
-                        <th scope="row">{fmtDailyDate(day.date, lang)}{index === 0 ? ` · ${lang === "en" ? "latest" : "más reciente"}` : ""}</th>
-                        <td>{day.values.stage ?? "—"}</td>
-                        <td>{day.values.supply.total ?? "—"} {lang === "en" ? "days" : "días"}</td>
-                        <td>{typeof day.values.reservoirs.michie === "number" ? day.values.reservoirs.michie.toFixed(2) : "—"} ft</td>
-                        <td>{typeof day.values.reservoirs.little === "number" ? day.values.reservoirs.little.toFixed(2) : "—"} ft</td>
-                        <td>{day.values.drought ?? "—"}</td>
-                        <td>{day.values.streamflow.flat ?? "—"} ft³/s</td>
-                        <td>{day.values.streamflow.little ?? "—"} ft³/s</td>
-                        <td className={(day.retainedFields?.length ?? 0) > 0 || (day.quarantinedFields?.length ?? 0) > 0 || (day.unavailableFields?.length ?? 0) > 0 ? "daily-quality-warning" : "daily-quality-good"}>
-                          {dailyQuality(day, lang)}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+            <div className="charts-block">
+              <div className="section-heading compact"><p className="kicker">{t.officialCharts}</p><h2>{annualReservoirHeading(currentHistoryYear, lang)}</h2><p>{lang === "en" ? "The City publishes individual prior-year reservoir traces rather than an average series. These full-width official charts preserve that distinction without estimating values from the image." : "La Ciudad publica trazos de años anteriores, no una serie promedio. Estas gráficas oficiales a todo lo ancho conservan esa distinción sin estimar valores a partir de la imagen."}</p></div>
+              <div className="chart-grid">
+                {[
+                  [t.recentChart, `https://www.durhamnc.gov/ImageRepository/Document?documentID=4123&refresh=${chartVersion}`, "https://www.durhamnc.gov/DocumentCenter/View/4123", lang === "en" ? "City chart of recent daily reservoir elevations, with date on the horizontal axis and elevation in feet mean sea level on the vertical axis." : "Gráfica de la Ciudad con elevaciones diarias recientes; fecha en el eje horizontal y elevación en pies sobre el nivel medio del mar en el eje vertical."],
+                  [t.michieAnnual, `https://www.durhamnc.gov/ImageRepository/Document?documentID=4124&refresh=${chartVersion}`, "https://www.durhamnc.gov/DocumentCenter/View/4124", lang === "en" ? "City historical and annual elevation chart for Lake Michie, including the full-pool reference." : "Gráfica histórica y anual de la Ciudad para Lake Michie, incluida la referencia de capacidad."],
+                  [t.littleAnnual, `https://www.durhamnc.gov/ImageRepository/Document?documentID=4125&refresh=${chartVersion}`, "https://www.durhamnc.gov/DocumentCenter/View/4125", lang === "en" ? "City historical and annual elevation chart for Little River Reservoir, including the full-pool reference." : "Gráfica histórica y anual de la Ciudad para Little River Reservoir, incluida la referencia de capacidad."],
+                ].map(([label, src, href, alt]) => (
+                  <figure className="chart-card" key={label}>
+                    <figcaption><strong>{label}</strong><span>{lang === "en" ? "City-published image" : "Imagen publicada por la Ciudad"}</span></figcaption>
+                    {/* Keep the City image unchanged; there is no image-optimization server on GitHub Pages. */}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={src} alt={alt} width="720" height="430" loading="lazy" />
+                    <a href={href} target="_blank" rel="noreferrer">{t.openChart} ↗</a>
+                  </figure>
+                ))}
               </div>
             </div>
+
+            <details className="daily-data-disclosure">
+              <summary>
+                <span className="data-disclosure-label">
+                  <strong>{lang === "en" ? "Daily data" : "Datos diarios"}</strong>
+                  <span>{historyDays.length} {lang === "en" ? "daily records, newest first" : "registros diarios, del más reciente al más antiguo"}</span>
+                </span>
+                <span className="data-disclosure-action">
+                  <span className="when-closed">{lang === "en" ? "Show data" : "Mostrar datos"}</span>
+                  <span className="when-open">{lang === "en" ? "Hide data" : "Ocultar datos"}</span>
+                  <span className="data-disclosure-chevron" aria-hidden="true">⌄</span>
+                </span>
+              </summary>
+              <div className="daily-values-table">
+                <div>
+                  <p className="kicker">{lang === "en" ? "Exact daily values" : "Valores diarios exactos"}</p>
+                  <h3>{lang === "en" ? "Today and previous days" : "Hoy y días anteriores"}</h3>
+                  <p>
+                    {lang === "en"
+                      ? "The newest snapshot is first. Reservoir values are elevations in feet mean sea level; streamflow is provisional."
+                      : "La instantánea más reciente aparece primero. Los embalses se muestran en pies sobre el nivel medio del mar; el caudal es provisional."}
+                  </p>
+                </div>
+                <div className="table-scroll" tabIndex={0} role="region" aria-label={lang === "en" ? "Daily water data, scroll for more dates and columns" : "Datos diarios del agua, desplácese para ver más fechas y columnas"}>
+                  <table>
+                    <caption className="sr-only">{lang === "en" ? "Daily verified water values" : "Valores diarios verificados del agua"}</caption>
+                    <thead>
+                      <tr>
+                        <th>{lang === "en" ? "Date" : "Fecha"}</th>
+                        <th>{lang === "en" ? "Stage" : "Etapa"}</th>
+                        <th>{lang === "en" ? "Supply" : "Suministro"}</th>
+                        <th>Lake Michie</th>
+                        <th>Little River</th>
+                        <th>{lang === "en" ? "Drought" : "Sequía"}</th>
+                        <th>{lang === "en" ? "Flat flow" : "Caudal Flat"}</th>
+                        <th>{lang === "en" ? "Little flow" : "Caudal Little"}</th>
+                        <th>{lang === "en" ? "Data quality" : "Calidad"}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {[...historyDays].reverse().map((day, index) => (
+                        <tr className={index === 0 ? "latest-daily-row" : undefined} key={day.date}>
+                          <th scope="row">{fmtDailyDate(day.date, lang)}{index === 0 ? ` · ${lang === "en" ? "latest" : "más reciente"}` : ""}</th>
+                          <td>{day.values.stage ?? "—"}</td>
+                          <td>{day.values.supply.total ?? "—"} {lang === "en" ? "days" : "días"}</td>
+                          <td>{typeof day.values.reservoirs.michie === "number" ? day.values.reservoirs.michie.toFixed(2) : "—"} ft</td>
+                          <td>{typeof day.values.reservoirs.little === "number" ? day.values.reservoirs.little.toFixed(2) : "—"} ft</td>
+                          <td>{day.values.drought ?? "—"}</td>
+                          <td>{day.values.streamflow.flat ?? "—"} ft³/s</td>
+                          <td>{day.values.streamflow.little ?? "—"} ft³/s</td>
+                          <td className={(day.retainedFields?.length ?? 0) > 0 || (day.quarantinedFields?.length ?? 0) > 0 || (day.unavailableFields?.length ?? 0) > 0 ? "daily-quality-warning" : "daily-quality-good"}>
+                            {dailyQuality(day, lang)}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </details>
           </div>
         </section>
 
-        <section id="drought" className="section signal-section">
+        <section id="outlook" className="section outlook-section">
           <div className="wrap">
-            <div className="section-heading"><p className="kicker">{t.twoSignals}</p><h2>{lang === "en" ? "Drought is not the same as a water-shortage stage." : "La sequía no es lo mismo que una etapa de escasez."}</h2></div>
-            <div className="signal-grid">
-              <article className="signal-card drought-card">
-                <p className="eyebrow">{t.droughtTitle}</p>
-                <h3>{data.drought.value === null ? t.unavailable : String(data.drought.value)}</h3>
-                <Status metric={data.drought} lang={lang} />
-                <p>{t.droughtDesc}</p>
-                <SourceLine metric={data.drought} lang={lang} />
-              </article>
-              <article className="signal-card shortage-card">
-                <p className="eyebrow">{t.shortageTitle}</p>
-                <h3>Stage / Etapa {String(data.stage.value)}</h3>
-                <p>{t.shortageDesc}</p>
-                <SourceLine metric={data.stage} lang={lang} />
-              </article>
-              <aside className="why-card"><span aria-hidden="true">≠</span><div><h3>{t.whyDiffer}</h3><p>{t.whyText}</p></div></aside>
-            </div>
             {isStageTwo ? (
             <article className="exit-outlook" aria-labelledby="exit-outlook-title">
               <div className="exit-outlook-intro">
@@ -1105,125 +1242,6 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
                 </div>
               </article>
             )}
-          </div>
-        </section>
-
-        <section id="reservoirs" className="section reservoirs-section">
-          <div className="wrap">
-            <div className="section-heading split"><div><p className="kicker">{t.reservoirs}</p><h2>{lang === "en" ? "Where today’s water line sits." : "Dónde se encuentra hoy el nivel del agua."}</h2></div><p>{t.reservoirIntro}</p></div>
-            <div className="reservoir-grid">
-              <ReservoirCard name="Lake Michie" metric={data.reservoirs.michie} lang={lang} />
-              <ReservoirCard name="Little River Reservoir" metric={data.reservoirs.little} lang={lang} />
-            </div>
-
-            <div className="charts-block">
-              <div className="section-heading compact"><p className="kicker">{t.officialCharts}</p><h2>{annualReservoirHeading(currentHistoryYear, lang)}</h2><p>{lang === "en" ? "The City publishes individual prior-year reservoir traces rather than an average series. These full-width official charts preserve that distinction without estimating values from the image." : "La Ciudad publica trazos de años anteriores, no una serie promedio. Estas gráficas oficiales a todo lo ancho conservan esa distinción sin estimar valores a partir de la imagen."}</p></div>
-              <div className="chart-grid">
-                {[
-                  [t.recentChart, `https://www.durhamnc.gov/ImageRepository/Document?documentID=4123&refresh=${chartVersion}`, "https://www.durhamnc.gov/DocumentCenter/View/4123", lang === "en" ? "City chart of recent daily reservoir elevations, with date on the horizontal axis and elevation in feet mean sea level on the vertical axis." : "Gráfica de la Ciudad con elevaciones diarias recientes; fecha en el eje horizontal y elevación en pies sobre el nivel medio del mar en el eje vertical."],
-                  [t.michieAnnual, `https://www.durhamnc.gov/ImageRepository/Document?documentID=4124&refresh=${chartVersion}`, "https://www.durhamnc.gov/DocumentCenter/View/4124", lang === "en" ? "City historical and annual elevation chart for Lake Michie, including the full-pool reference." : "Gráfica histórica y anual de la Ciudad para Lake Michie, incluida la referencia de capacidad."],
-                  [t.littleAnnual, `https://www.durhamnc.gov/ImageRepository/Document?documentID=4125&refresh=${chartVersion}`, "https://www.durhamnc.gov/DocumentCenter/View/4125", lang === "en" ? "City historical and annual elevation chart for Little River Reservoir, including the full-pool reference." : "Gráfica histórica y anual de la Ciudad para Little River Reservoir, incluida la referencia de capacidad."],
-                ].map(([label, src, href, alt]) => (
-                  <figure className="chart-card" key={label}>
-                    <figcaption><strong>{label}</strong><span>{lang === "en" ? "City-published image" : "Imagen publicada por la Ciudad"}</span></figcaption>
-                    {/* Keep the City image unchanged; there is no image-optimization server on GitHub Pages. */}
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={src} alt={alt} width="720" height="430" loading="lazy" />
-                    <a href={href} target="_blank" rel="noreferrer">{t.openChart} ↗</a>
-                  </figure>
-                ))}
-              </div>
-            </div>
-
-          </div>
-        </section>
-
-        <section id="actions" className="section actions-section">
-          <div className="wrap">
-            {isStageTwo ? (
-            <>
-            <div className="section-heading actions-heading"><p className="kicker">{t.whatNow}</p><h2>{lang === "en" ? "Stage 2 rules, at a glance." : "Reglas de la Etapa 2, de un vistazo."}</h2><p>{t.rulesCaveat}</p></div>
-            {data.stage.status === "stale" && <p className="stale-banner">! {t.confirmRules}</p>}
-            <div className="rules-grid">
-              <article className="rule-column stop">
-                <h3><span aria-hidden="true">×</span>{t.prohibited}</h3>
-                <ul>
-                  <li>{lang === "en" ? "No landscape spray irrigation with City water, including hose-end sprinklers." : "No riegue jardines por aspersión con agua de la Ciudad, incluidos aspersores conectados a mangueras."}</li>
-                  <li>{lang === "en" ? "No vehicle washing, except at a commercial or institutional car wash." : "No lave vehículos, excepto en un lavadero comercial o institucional."}</li>
-                  <li>{lang === "en" ? "No washing sidewalks, driveways, decks, exterior walls, or paved areas." : "No lave aceras, entradas, terrazas, muros exteriores ni áreas pavimentadas."}</li>
-                  <li>{lang === "en" ? "Do not add water to decorative fountains, ponds, or pools unless recycled." : "No añada agua a fuentes, estanques o piscinas decorativas, salvo que sea reciclada."}</li>
-                </ul>
-              </article>
-              <article className="rule-column go">
-                <h3><span aria-hidden="true">✓</span>{t.allowed}</h3>
-                <ul>
-                  <li>{lang === "en" ? "Hand watering, drip irrigation, and tree or shrub watering bags." : "Riego manual, por goteo y bolsas para árboles o arbustos."}</li>
-                  <li>{lang === "en" ? "Watering container plants and commercial plant stock for sale." : "Riego de plantas en contenedores y existencias comerciales para venta."}</li>
-                  <li>{lang === "en" ? "Surface washing for a health or safety issue, or before painting." : "Lavado de superficies por salud o seguridad, o antes de pintar."}</li>
-                  <li>{lang === "en" ? "Pool water only for evaporation or spillage loss and chemical feed operation." : "Agua de piscina solo para pérdidas por evaporación o derrame y operación química."}</li>
-                </ul>
-              </article>
-              <article className="rule-column note">
-                <h3><span aria-hidden="true">i</span>{t.special}</h3>
-                <ul>
-                  <li>{lang === "en" ? "Restaurants serve drinking water only when requested." : "Los restaurantes sirven agua potable solo cuando se solicita."}</li>
-                  <li>{lang === "en" ? "Users above 100,000 gallons/day should target a 30% reduction and document efforts." : "Usuarios de más de 100,000 galones/día deben aspirar a reducir 30% y documentar sus esfuerzos."}</li>
-                  <li>{lang === "en" ? "Approved Water Conservation Plans and limited exemptions may apply." : "Pueden aplicar Planes de Conservación aprobados y exenciones limitadas."}</li>
-                  <li>{lang === "en" ? "Violations may lead to civil penalties or service termination." : "Las infracciones pueden resultar en sanciones civiles o terminación del servicio."}</li>
-                </ul>
-              </article>
-            </div>
-            <div className="rules-footer"><p>{lang === "en" ? "This summary does not replace the official rules." : "Este resumen no reemplaza las reglas oficiales."}</p><a className="button" href={urls.stage} target="_blank" rel="noreferrer">{t.readRules} ↗</a></div>
-            </>
-            ) : (
-              <>
-                <div className="section-heading actions-heading"><p className="kicker">{t.whatNow}</p><h2>{lang === "en" ? "Follow the rules for the displayed City stage." : "Siga las reglas de la etapa mostrada por la Ciudad."}</h2><p>{lang === "en" ? "This dashboard does not summarize restrictions for this stage. The complete official rules control." : "Este panel no resume las restricciones de esta etapa. Las reglas oficiales completas tienen prioridad."}</p></div>
-                {data.stage.status === "stale" && <p className="stale-banner">! {t.confirmRules}</p>}
-                <div className="rules-footer"><p>{lang === "en" ? "Confirm the current stage and requirements on the City website." : "Confirme la etapa y los requisitos actuales en el sitio web de la Ciudad."}</p><a className="button" href={urls.stage} target="_blank" rel="noreferrer">{t.readRules} ↗</a></div>
-              </>
-            )}
-          </div>
-        </section>
-
-        <section className="section context-section">
-          <div className="wrap context-grid">
-            <div className="flow-panel">
-              <div className="section-heading compact"><p className="kicker">{t.flow}</p><h2>{lang === "en" ? "What is moving through the watershed?" : "¿Qué está circulando por la cuenca?"}</h2><p>{t.flowExplain}</p></div>
-              <div className="flow-cards">
-                {[
-                  { name: "Flat River", station: "USGS 02085500", metric: data.streamflow.flat },
-                  { name: "Little River", station: "USGS 0208521324", metric: data.streamflow.little },
-                ].map(({ name, station, metric }) => (
-                  <article className="flow-card" key={name}>
-                    <div className="card-top"><div><p className="eyebrow">{name}</p><small>{station}</small></div><Status metric={metric as Metric} lang={lang} /></div>
-                    <div className="flow-number">{String((metric as Metric).value ?? "—")} <small>ft³/s</small></div>
-                    <p className="provisional">P · {t.provisional}</p>
-                    <SourceLine metric={metric as Metric} lang={lang} />
-                  </article>
-                ))}
-              </div>
-            </div>
-            <aside className="map-panel">
-              <div className="section-heading compact"><p className="kicker">{t.contextMap}</p><h2>{lang === "en" ? "Two rivers. Two reservoirs. One city." : "Dos ríos. Dos embalses. Una ciudad."}</h2></div>
-              <div className="schematic" role="img" aria-label={lang === "en" ? "Schematic showing Flat River feeding Lake Michie and Little River feeding Little River Reservoir, both northwest of Durham." : "Esquema que muestra Flat River alimentando Lake Michie y Little River alimentando Little River Reservoir, ambos al noroeste de Durham."}>
-                <div className="river river-one">Flat River <span>↓</span></div>
-                <div className="lake lake-one">Lake Michie</div>
-                <div className="river river-two">Little River <span>↓</span></div>
-                <div className="lake lake-two">Little River Reservoir</div>
-                <div className="city-dot"><span aria-hidden="true">●</span> Durham</div>
-              </div>
-              <p className="map-note">{t.mapNote} <a href={urls.watershed} target="_blank" rel="noreferrer">{t.source} ↗</a></p>
-            </aside>
-          </div>
-        </section>
-
-        <section className="section alert-section">
-          <div className="wrap">
-            <div className="section-heading compact"><p className="kicker">{t.alerts}</p><h2>{lang === "en" ? "Go straight to the City’s channels." : "Consulte directamente los canales de la Ciudad."}</h2></div>
-            <div className="alert-grid">
-              <a className="alert-card" href={urls.alerts} target="_blank" rel="noreferrer"><span className="alert-icon" aria-hidden="true">◉</span><div><h3>{t.alertCenter}</h3><p>{t.alertText}</p><strong>{lang === "en" ? "Open Alert Center" : "Abrir Centro de Alertas"} ↗</strong></div></a>
-              <a className="alert-card" href={urls.daupler} target="_blank" rel="noreferrer"><span className="alert-icon" aria-hidden="true">≈</span><div><h3>{t.daupler}</h3><p>{t.dauplerText}</p><strong>{lang === "en" ? "Open Daupler Notify" : "Abrir Daupler Notify"} ↗</strong></div></a>
-            </div>
           </div>
         </section>
 

@@ -1006,3 +1006,26 @@ footer a { color: #fff; font-size: .78rem; font-weight: 700; }
     animation: none !important;
   }
 }
+
+/* Keep the full archive available without making it the default reading path. */
+.daily-data-disclosure { margin-top: 28px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); }
+.daily-data-disclosure > summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 22px; cursor: pointer; list-style: none; }
+.daily-data-disclosure > summary::-webkit-details-marker { display: none; }
+.daily-data-disclosure > summary:hover { background: var(--blue-light); }
+.data-disclosure-label { display: grid; gap: 5px; }
+.data-disclosure-label strong { font-size: 1.05rem; }
+.data-disclosure-label > span { color: var(--muted); font-size: .8rem; }
+.data-disclosure-action { display: flex; align-items: center; gap: 10px; flex-shrink: 0; color: var(--blue-dark); font-size: .8rem; font-weight: 700; }
+.data-disclosure-chevron { font-size: 1.3rem; }
+.daily-data-disclosure:not([open]) .when-open, .daily-data-disclosure[open] .when-closed { display: none; }
+.daily-data-disclosure[open] .data-disclosure-chevron { transform: rotate(180deg); }
+.daily-data-disclosure .daily-values-table { display: block; margin: 0; border: 0; border-top: 1px solid var(--border); border-radius: 0; background: transparent; }
+.daily-data-disclosure .table-scroll { margin-top: 18px; max-height: 65vh; overflow: auto; }
+.daily-data-disclosure thead th { position: sticky; top: 0; z-index: 1; background: var(--surface); }
+.outlook-section { background: var(--surface); }
+.outlook-section .exit-outlook { margin-top: 0; }
+.exit-outlook > *, .scenario-grid > * { min-width: 0; }
+@media (max-width: 540px) {
+  .daily-data-disclosure > summary { padding: 18px 14px; gap: 12px; }
+  .daily-data-disclosure .daily-values-table { padding: 16px 12px; }
+}
