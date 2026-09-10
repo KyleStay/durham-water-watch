@@ -466,5 +466,36 @@
     "reason": "The USGS year comparison could not be refreshed: fetch failed",
     "receivedAt": "2026-09-05T12:03:39.911Z",
     "disposition": "rejected; last-known-good year comparison preserved"
+  },
+  {
+    "metrics": [
+      "supply.accessible",
+      "supply.belowIntakes",
+      "supply.quarry",
+      "supply.total"
+    ],
+    "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
+    "reason": "fetch failed",
+    "receivedAt": "2026-09-10T12:01:16.300Z",
+    "disposition": "rejected; last-known-good value preserved"
+  },
+  {
+    "metrics": [
+      "stage"
+    ],
+    "sourceUrl": "https://www.durhamnc.gov/1061/Durham-Saves-Water",
+    "reason": "fetch failed",
+    "receivedAt": "2026-09-10T12:01:16.300Z",
+    "disposition": "rejected; last-known-good value preserved"
+  },
+  {
+    "metrics": [
+      "reservoirs.michie",
+      "reservoirs.little"
+    ],
+    "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
+    "reason": "fetch failed",
+    "receivedAt": "2026-09-10T12:01:16.300Z",
+    "disposition": "rejected; last-known-good value preserved"
   }
 ]
