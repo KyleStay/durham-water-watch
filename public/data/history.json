@@ -8361,37 +8361,37 @@
       "observations": {
         "supply.accessible": {
           "observedAt": "2026-09-10",
-          "verifiedAt": "2026-09-12T12:01:48.154Z",
+          "verifiedAt": "2026-09-13T12:00:57.301Z",
           "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
           "evidence": "accepted official-source refresh"
         },
         "supply.belowIntakes": {
           "observedAt": "2026-09-10",
-          "verifiedAt": "2026-09-12T12:01:48.154Z",
+          "verifiedAt": "2026-09-13T12:00:57.301Z",
           "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
           "evidence": "accepted official-source refresh"
         },
         "supply.quarry": {
           "observedAt": "2026-09-10",
-          "verifiedAt": "2026-09-12T12:01:48.154Z",
+          "verifiedAt": "2026-09-13T12:00:57.301Z",
           "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
           "evidence": "accepted official-source refresh"
         },
         "supply.total": {
           "observedAt": "2026-09-10",
-          "verifiedAt": "2026-09-12T12:01:48.154Z",
+          "verifiedAt": "2026-09-13T12:00:57.301Z",
           "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
           "evidence": "accepted official-source refresh"
         },
         "reservoirs.michie": {
           "observedAt": "2026-09-10",
-          "verifiedAt": "2026-09-12T12:01:48.154Z",
+          "verifiedAt": "2026-09-13T12:00:57.301Z",
           "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
           "evidence": "accepted official-source refresh"
         },
         "reservoirs.little": {
           "observedAt": "2026-09-10",
-          "verifiedAt": "2026-09-12T12:01:48.154Z",
+          "verifiedAt": "2026-09-13T12:00:57.301Z",
           "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
           "evidence": "accepted official-source refresh"
         }
@@ -8472,11 +8472,56 @@
         "supply": "unavailable",
         "reservoirs": "unavailable"
       }
+    },
+    {
+      "date": "2026-09-13",
+      "capturedAt": "2026-09-13T12:00:57.301Z",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D1 · Moderate Drought",
+        "streamflow": {
+          "flat": null,
+          "little": null
+        }
+      },
+      "retainedFields": [
+        "streamflow.flat",
+        "streamflow.little"
+      ],
+      "quarantinedFields": [
+        "streamflow.flat",
+        "streamflow.little"
+      ],
+      "unavailableFields": [
+        "streamflow.flat",
+        "streamflow.little",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
     }
   ],
   "coverage": {
     "startsOn": "2026-03-01",
-    "through": "2026-09-12",
+    "through": "2026-09-13",
     "note": "Permanent daily archive. USGS daily means and weekly USDM county categories fill the historical record. City supply and reservoir values appear only on their official observation dates; unavailable dates remain null and are not forward-filled.",
     "sources": [
       {
