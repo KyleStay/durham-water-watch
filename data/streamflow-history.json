@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "year": 2026,
-  "updatedAt": "2026-09-12T12:01:48.154Z",
+  "updatedAt": "2026-09-13T12:00:57.301Z",
   "stations": {
     "flat": {
       "site": "02085500",
       "name": "Flat River",
-      "status": "fresh",
+      "status": "stale",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
       "historicalPeriod": "1926–2026",
       "verifiedAt": "2026-09-12T12:01:48.154Z",
@@ -2201,12 +2201,13 @@
           "historicalMean": 148,
           "historicalSampleYears": 101
         }
-      ]
+      ],
+      "note": "The USGS year comparison could not be refreshed: Unexpected official response (503)"
     },
     "little": {
       "site": "0208521324",
       "name": "Little River",
-      "status": "fresh",
+      "status": "stale",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/0208521324/",
       "historicalPeriod": "1988–2025",
       "verifiedAt": "2026-09-12T12:01:48.154Z",
@@ -4401,7 +4402,8 @@
           "historicalMean": 71,
           "historicalSampleYears": 38
         }
-      ]
+      ],
+      "note": "The USGS year comparison could not be refreshed: Unexpected official response (503)"
     }
   }
 }
