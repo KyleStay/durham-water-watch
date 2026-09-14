@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
   "year": 2026,
-  "updatedAt": "2026-09-13T12:00:57.301Z",
+  "updatedAt": "2026-09-14T12:02:00.508Z",
   "stations": {
     "flat": {
       "site": "02085500",
       "name": "Flat River",
-      "status": "stale",
+      "status": "fresh",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
       "historicalPeriod": "1926–2026",
-      "verifiedAt": "2026-09-12T12:01:48.154Z",
+      "verifiedAt": "2026-09-14T12:02:00.508Z",
       "days": [
         {
           "date": "2026-01-01",
@@ -1537,13 +1537,13 @@
         },
         {
           "date": "2026-09-12",
-          "currentYear": null,
+          "currentYear": 1.07,
           "historicalMean": 57,
           "historicalSampleYears": 101
         },
         {
           "date": "2026-09-13",
-          "currentYear": null,
+          "currentYear": 194,
           "historicalMean": 51,
           "historicalSampleYears": 101
         },
@@ -2201,16 +2201,15 @@
           "historicalMean": 148,
           "historicalSampleYears": 101
         }
-      ],
-      "note": "The USGS year comparison could not be refreshed: Unexpected official response (503)"
+      ]
     },
     "little": {
       "site": "0208521324",
       "name": "Little River",
-      "status": "stale",
+      "status": "fresh",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/0208521324/",
       "historicalPeriod": "1988–2025",
-      "verifiedAt": "2026-09-12T12:01:48.154Z",
+      "verifiedAt": "2026-09-14T12:02:00.508Z",
       "days": [
         {
           "date": "2026-01-01",
@@ -3738,13 +3737,13 @@
         },
         {
           "date": "2026-09-12",
-          "currentYear": null,
+          "currentYear": 0.3,
           "historicalMean": 15,
           "historicalSampleYears": 37
         },
         {
           "date": "2026-09-13",
-          "currentYear": null,
+          "currentYear": 31.8,
           "historicalMean": 9.4,
           "historicalSampleYears": 37
         },
@@ -4402,8 +4401,7 @@
           "historicalMean": 71,
           "historicalSampleYears": 38
         }
-      ],
-      "note": "The USGS year comparison could not be refreshed: Unexpected official response (503)"
+      ]
     }
   }
 }

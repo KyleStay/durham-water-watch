@@ -8361,37 +8361,37 @@
       "observations": {
         "supply.accessible": {
           "observedAt": "2026-09-10",
-          "verifiedAt": "2026-09-13T12:00:57.301Z",
+          "verifiedAt": "2026-09-14T12:02:00.508Z",
           "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
           "evidence": "accepted official-source refresh"
         },
         "supply.belowIntakes": {
           "observedAt": "2026-09-10",
-          "verifiedAt": "2026-09-13T12:00:57.301Z",
+          "verifiedAt": "2026-09-14T12:02:00.508Z",
           "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
           "evidence": "accepted official-source refresh"
         },
         "supply.quarry": {
           "observedAt": "2026-09-10",
-          "verifiedAt": "2026-09-13T12:00:57.301Z",
+          "verifiedAt": "2026-09-14T12:02:00.508Z",
           "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
           "evidence": "accepted official-source refresh"
         },
         "supply.total": {
           "observedAt": "2026-09-10",
-          "verifiedAt": "2026-09-13T12:00:57.301Z",
+          "verifiedAt": "2026-09-14T12:02:00.508Z",
           "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
           "evidence": "accepted official-source refresh"
         },
         "reservoirs.michie": {
           "observedAt": "2026-09-10",
-          "verifiedAt": "2026-09-13T12:00:57.301Z",
+          "verifiedAt": "2026-09-14T12:02:00.508Z",
           "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
           "evidence": "accepted official-source refresh"
         },
         "reservoirs.little": {
           "observedAt": "2026-09-10",
-          "verifiedAt": "2026-09-13T12:00:57.301Z",
+          "verifiedAt": "2026-09-14T12:02:00.508Z",
           "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
           "evidence": "accepted official-source refresh"
         }
@@ -8451,15 +8451,13 @@
         },
         "drought": "D1 · Moderate Drought",
         "streamflow": {
-          "flat": null,
-          "little": null
+          "flat": 1.07,
+          "little": 0.3
         }
       },
       "retainedFields": [],
       "quarantinedFields": [],
       "unavailableFields": [
-        "streamflow.flat",
-        "streamflow.little",
         "supply.accessible",
         "supply.belowIntakes",
         "supply.quarry",
@@ -8490,8 +8488,8 @@
         },
         "drought": "D1 · Moderate Drought",
         "streamflow": {
-          "flat": null,
-          "little": null
+          "flat": 194,
+          "little": 31.8
         }
       },
       "retainedFields": [
@@ -8502,6 +8500,43 @@
         "streamflow.flat",
         "streamflow.little"
       ],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-09-14",
+      "capturedAt": "2026-09-14T12:02:00.508Z",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D1 · Moderate Drought",
+        "streamflow": {
+          "flat": null,
+          "little": null
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
       "unavailableFields": [
         "streamflow.flat",
         "streamflow.little",
@@ -8521,7 +8556,7 @@
   ],
   "coverage": {
     "startsOn": "2026-03-01",
-    "through": "2026-09-13",
+    "through": "2026-09-14",
     "note": "Permanent daily archive. USGS daily means and weekly USDM county categories fill the historical record. City supply and reservoir values appear only on their official observation dates; unavailable dates remain null and are not forward-filled.",
     "sources": [
       {
