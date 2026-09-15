@@ -8520,6 +8520,74 @@
       "values": {
         "stage": 2,
         "supply": {
+          "accessible": 104,
+          "belowIntakes": 44,
+          "quarry": 22,
+          "total": 170
+        },
+        "reservoirs": {
+          "michie": 332.34,
+          "little": 340.96
+        },
+        "drought": "D1 · Moderate Drought",
+        "streamflow": {
+          "flat": 85.4,
+          "little": 31.9
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [],
+      "measurementKinds": {
+        "streamflow": "USGS daily mean",
+        "supply": "exact City reading",
+        "reservoirs": "exact City reading"
+      },
+      "observations": {
+        "supply.accessible": {
+          "observedAt": "2026-09-14",
+          "verifiedAt": "2026-09-15T21:23:43.717Z",
+          "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
+          "evidence": "accepted official-source refresh"
+        },
+        "supply.belowIntakes": {
+          "observedAt": "2026-09-14",
+          "verifiedAt": "2026-09-15T21:23:43.717Z",
+          "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
+          "evidence": "accepted official-source refresh"
+        },
+        "supply.quarry": {
+          "observedAt": "2026-09-14",
+          "verifiedAt": "2026-09-15T21:23:43.717Z",
+          "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
+          "evidence": "accepted official-source refresh"
+        },
+        "supply.total": {
+          "observedAt": "2026-09-14",
+          "verifiedAt": "2026-09-15T21:23:43.717Z",
+          "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
+          "evidence": "accepted official-source refresh"
+        },
+        "reservoirs.michie": {
+          "observedAt": "2026-09-14",
+          "verifiedAt": "2026-09-15T21:23:43.717Z",
+          "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
+          "evidence": "accepted official-source refresh"
+        },
+        "reservoirs.little": {
+          "observedAt": "2026-09-14",
+          "verifiedAt": "2026-09-15T21:23:43.717Z",
+          "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
+          "evidence": "accepted official-source refresh"
+        }
+      }
+    },
+    {
+      "date": "2026-09-15",
+      "capturedAt": "2026-09-15T21:23:43.717Z",
+      "values": {
+        "stage": 2,
+        "supply": {
           "accessible": null,
           "belowIntakes": null,
           "quarry": null,
@@ -8556,7 +8624,7 @@
   ],
   "coverage": {
     "startsOn": "2026-03-01",
-    "through": "2026-09-14",
+    "through": "2026-09-15",
     "note": "Permanent daily archive. USGS daily means and weekly USDM county categories fill the historical record. City supply and reservoir values appear only on their official observation dates; unavailable dates remain null and are not forward-filled.",
     "sources": [
       {
