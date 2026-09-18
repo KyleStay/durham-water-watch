@@ -10,19 +10,19 @@
     "file": "_next/static/chunks/rolldown-runtime-hePW80VL.js",
     "name": "rolldown-runtime"
   },
-  "_vinext-q1YRjs-z.js": {
-    "file": "_next/static/chunks/vinext-q1YRjs-z.js",
+  "_vinext-DQ-UYru1.js": {
+    "file": "_next/static/chunks/vinext-DQ-UYru1.js",
     "name": "vinext",
     "imports": [
       "_rolldown-runtime-hePW80VL.js",
       "_framework-DTZGTDtF.js"
     ],
     "dynamicImports": [
-      "_vinext-q1YRjs-z.js"
+      "_vinext-DQ-UYru1.js"
     ]
   },
   "app/water-watch.tsx": {
-    "file": "_next/static/chunks/water-watch-6NkID4r1.js",
+    "file": "_next/static/chunks/water-watch-byx6kmTM.js",
     "name": "water-watch",
     "src": "app/water-watch.tsx",
     "isDynamicEntry": true,
@@ -32,28 +32,28 @@
     ]
   },
   "node_modules/vinext/dist/shims/layout-segment-context.js": {
-    "file": "_next/static/chunks/layout-segment-context-RAGVx44f.js",
+    "file": "_next/static/chunks/layout-segment-context-DsYQRx-n.js",
     "name": "layout-segment-context",
     "src": "node_modules/vinext/dist/shims/layout-segment-context.js",
     "isDynamicEntry": true,
     "imports": [
       "_rolldown-runtime-hePW80VL.js",
       "_framework-DTZGTDtF.js",
-      "_vinext-q1YRjs-z.js"
+      "_vinext-DQ-UYru1.js"
     ]
   },
   "virtual:vinext-app-browser-entry": {
-    "file": "_next/static/chunks/index-DCjQhHpS.js",
+    "file": "_next/static/chunks/index-DbndXWfc.js",
     "name": "index",
     "src": "virtual:vinext-app-browser-entry",
     "isEntry": true,
     "imports": [
       "_rolldown-runtime-hePW80VL.js",
       "_framework-DTZGTDtF.js",
-      "_vinext-q1YRjs-z.js"
+      "_vinext-DQ-UYru1.js"
     ],
     "dynamicImports": [
-      "_vinext-q1YRjs-z.js",
+      "_vinext-DQ-UYru1.js",
       "node_modules/vinext/dist/shims/layout-segment-context.js",
       "app/water-watch.tsx"
     ]
