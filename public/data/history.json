@@ -8682,37 +8682,37 @@
       "observations": {
         "supply.accessible": {
           "observedAt": "2026-09-16",
-          "verifiedAt": "2026-09-18T13:54:00.671Z",
+          "verifiedAt": "2026-09-18T14:16:49.398Z",
           "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
           "evidence": "accepted official-source refresh"
         },
         "supply.belowIntakes": {
           "observedAt": "2026-09-16",
-          "verifiedAt": "2026-09-18T13:54:00.671Z",
+          "verifiedAt": "2026-09-18T14:16:49.398Z",
           "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
           "evidence": "accepted official-source refresh"
         },
         "supply.quarry": {
           "observedAt": "2026-09-16",
-          "verifiedAt": "2026-09-18T13:54:00.671Z",
+          "verifiedAt": "2026-09-18T14:16:49.398Z",
           "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
           "evidence": "accepted official-source refresh"
         },
         "supply.total": {
           "observedAt": "2026-09-16",
-          "verifiedAt": "2026-09-18T13:54:00.671Z",
+          "verifiedAt": "2026-09-18T14:16:49.398Z",
           "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
           "evidence": "accepted official-source refresh"
         },
         "reservoirs.michie": {
           "observedAt": "2026-09-16",
-          "verifiedAt": "2026-09-18T13:54:00.671Z",
+          "verifiedAt": "2026-09-18T14:16:49.398Z",
           "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
           "evidence": "accepted official-source refresh"
         },
         "reservoirs.little": {
           "observedAt": "2026-09-16",
-          "verifiedAt": "2026-09-18T13:54:00.671Z",
+          "verifiedAt": "2026-09-18T14:16:49.398Z",
           "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
           "evidence": "accepted official-source refresh"
         }
@@ -8757,7 +8757,7 @@
     },
     {
       "date": "2026-09-18",
-      "capturedAt": "2026-09-18T13:54:00.671Z",
+      "capturedAt": "2026-09-18T14:16:49.398Z",
       "values": {
         "stage": 2,
         "supply": {
