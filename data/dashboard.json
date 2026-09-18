@@ -5,7 +5,7 @@
     "sourceUrl": "https://www.durhamnc.gov/1061/Durham-Saves-Water",
     "observedAt": "2026-06-15",
     "effectiveDate": "2026-06-15",
-    "verifiedAt": "2026-09-17T13:00:20.018Z",
+    "verifiedAt": "2026-09-18T13:54:00.671Z",
     "status": "fresh",
     "retrievalStatus": "verified",
     "validationResult": "accepted",
@@ -13,82 +13,82 @@
   },
   "supply": {
     "accessible": {
-      "value": 103,
+      "value": 102,
       "units": "days",
       "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
-      "observedAt": "2026-09-15",
-      "verifiedAt": "2026-09-17T13:00:20.018Z",
+      "observedAt": "2026-09-16",
+      "verifiedAt": "2026-09-18T13:54:00.671Z",
       "status": "fresh",
       "retrievalStatus": "verified",
       "validationResult": "accepted",
-      "previousValue": 104
+      "previousValue": 103
     },
     "belowIntakes": {
       "value": 43,
       "units": "days",
       "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
-      "observedAt": "2026-09-15",
-      "verifiedAt": "2026-09-17T13:00:20.018Z",
+      "observedAt": "2026-09-16",
+      "verifiedAt": "2026-09-18T13:54:00.671Z",
       "status": "fresh",
       "retrievalStatus": "verified",
       "validationResult": "accepted",
-      "previousValue": 44
+      "previousValue": 43
     },
     "quarry": {
       "value": 21,
       "units": "days",
       "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
-      "observedAt": "2026-09-15",
-      "verifiedAt": "2026-09-17T13:00:20.018Z",
+      "observedAt": "2026-09-16",
+      "verifiedAt": "2026-09-18T13:54:00.671Z",
       "status": "fresh",
       "retrievalStatus": "verified",
       "validationResult": "accepted",
-      "previousValue": 22
+      "previousValue": 21
     },
     "total": {
-      "value": 167,
+      "value": 166,
       "units": "days",
       "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
-      "observedAt": "2026-09-15",
-      "verifiedAt": "2026-09-17T13:00:20.018Z",
+      "observedAt": "2026-09-16",
+      "verifiedAt": "2026-09-18T13:54:00.671Z",
       "status": "fresh",
       "retrievalStatus": "verified",
       "validationResult": "accepted",
-      "previousValue": 170
+      "previousValue": 167
     }
   },
   "reservoirs": {
     "michie": {
-      "value": 332.27,
+      "value": 332.22,
       "fullPool": 341,
       "units": "ft msl",
       "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
-      "observedAt": "2026-09-15",
-      "verifiedAt": "2026-09-17T13:00:20.018Z",
+      "observedAt": "2026-09-16",
+      "verifiedAt": "2026-09-18T13:54:00.671Z",
       "status": "fresh",
       "retrievalStatus": "verified",
       "validationResult": "accepted",
-      "previousValue": 332.34
+      "previousValue": 332.27
     },
     "little": {
-      "value": 340.98,
+      "value": 340.86,
       "fullPool": 355,
       "units": "ft msl",
       "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
-      "observedAt": "2026-09-15",
-      "verifiedAt": "2026-09-17T13:00:20.018Z",
+      "observedAt": "2026-09-16",
+      "verifiedAt": "2026-09-18T13:54:00.671Z",
       "status": "fresh",
       "retrievalStatus": "verified",
       "validationResult": "accepted",
-      "previousValue": 340.96
+      "previousValue": 340.98
     }
   },
   "drought": {
     "value": "D1 · Moderate Drought",
     "units": "category",
     "sourceUrl": "https://www.ncdrought.org/",
-    "observedAt": "2026-09-08T08:00:00-04:00",
-    "verifiedAt": "2026-09-17T13:00:20.018Z",
+    "observedAt": "2026-09-15T08:00:00-04:00",
+    "verifiedAt": "2026-09-18T13:54:00.671Z",
     "status": "fresh",
     "retrievalStatus": "verified",
     "validationResult": "accepted",
@@ -96,31 +96,31 @@
   },
   "streamflow": {
     "flat": {
-      "value": 7.07,
+      "value": 4.8,
       "units": "ft³/s",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
-      "observedAt": "2026-09-17T07:45:00.000-04:00",
-      "verifiedAt": "2026-09-17T13:00:20.018Z",
+      "observedAt": "2026-09-18T08:45:00.000-04:00",
+      "verifiedAt": "2026-09-18T13:54:00.671Z",
       "status": "fresh",
       "retrievalStatus": "verified",
       "validationResult": "accepted",
-      "previousValue": 12.4,
+      "previousValue": 7.07,
       "note": "USGS provisional data; subject to revision."
     },
     "little": {
-      "value": 2.61,
+      "value": 1.57,
       "units": "ft³/s",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/0208521324/",
-      "observedAt": "2026-09-17T08:15:00.000-04:00",
-      "verifiedAt": "2026-09-17T13:00:20.018Z",
+      "observedAt": "2026-09-18T09:15:00.000-04:00",
+      "verifiedAt": "2026-09-18T13:54:00.671Z",
       "status": "fresh",
       "retrievalStatus": "verified",
       "validationResult": "accepted",
-      "previousValue": 4.16,
+      "previousValue": 2.61,
       "note": "USGS provisional data; subject to revision."
     }
   },
   "historyStarts": "2026-03-01",
-  "generatedAt": "2026-09-17T13:00:20.018Z",
-  "lastRefreshResult": "verified: reservoirs; verified: drought; verified: streamflow; verified: supply; verified: stage; verified: flat historical streamflow; verified: little historical streamflow"
+  "generatedAt": "2026-09-18T13:54:00.671Z",
+  "lastRefreshResult": "verified: streamflow; verified: flat historical streamflow; verified: drought; verified: reservoirs; verified: supply; verified: stage; verified: little historical streamflow"
 }
