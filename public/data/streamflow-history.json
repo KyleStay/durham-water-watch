@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "year": 2026,
-  "updatedAt": "2026-09-20T16:06:23.502Z",
+  "updatedAt": "2026-09-21T12:02:50.855Z",
   "stations": {
     "flat": {
       "site": "02085500",
@@ -9,7 +9,7 @@
       "status": "fresh",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
       "historicalPeriod": "1926–2026",
-      "verifiedAt": "2026-09-20T16:06:23.502Z",
+      "verifiedAt": "2026-09-21T12:02:50.855Z",
       "days": [
         {
           "date": "2026-01-01",
@@ -1585,7 +1585,7 @@
         },
         {
           "date": "2026-09-20",
-          "currentYear": null,
+          "currentYear": 2.2,
           "historicalMean": 59,
           "historicalSampleYears": 101
         },
@@ -2209,7 +2209,7 @@
       "status": "fresh",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/0208521324/",
       "historicalPeriod": "1988–2025",
-      "verifiedAt": "2026-09-20T16:06:23.502Z",
+      "verifiedAt": "2026-09-21T12:02:50.855Z",
       "days": [
         {
           "date": "2026-01-01",
@@ -3785,7 +3785,7 @@
         },
         {
           "date": "2026-09-20",
-          "currentYear": null,
+          "currentYear": 0.89,
           "historicalMean": 23,
           "historicalSampleYears": 37
         },

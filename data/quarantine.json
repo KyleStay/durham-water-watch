@@ -556,5 +556,36 @@
     "reason": "Unexpected official response (403)",
     "receivedAt": "2026-09-20T16:06:23.502Z",
     "disposition": "rejected; last-known-good value preserved"
+  },
+  {
+    "metrics": [
+      "reservoirs.michie",
+      "reservoirs.little"
+    ],
+    "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
+    "reason": "Unexpected official response (403)",
+    "receivedAt": "2026-09-21T12:02:50.855Z",
+    "disposition": "rejected; last-known-good value preserved"
+  },
+  {
+    "metrics": [
+      "supply.accessible",
+      "supply.belowIntakes",
+      "supply.quarry",
+      "supply.total"
+    ],
+    "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
+    "reason": "Unexpected official response (403)",
+    "receivedAt": "2026-09-21T12:02:50.855Z",
+    "disposition": "rejected; last-known-good value preserved"
+  },
+  {
+    "metrics": [
+      "stage"
+    ],
+    "sourceUrl": "https://www.durhamnc.gov/1061/Durham-Saves-Water",
+    "reason": "Unexpected official response (403)",
+    "receivedAt": "2026-09-21T12:02:50.855Z",
+    "disposition": "rejected; last-known-good value preserved"
   }
 ]

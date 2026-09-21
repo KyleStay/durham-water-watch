@@ -95,7 +95,7 @@
     "units": "category",
     "sourceUrl": "https://www.ncdrought.org/",
     "observedAt": "2026-09-15T08:00:00-04:00",
-    "verifiedAt": "2026-09-20T16:06:23.502Z",
+    "verifiedAt": "2026-09-21T12:02:50.855Z",
     "status": "fresh",
     "retrievalStatus": "verified",
     "validationResult": "accepted",
@@ -103,31 +103,31 @@
   },
   "streamflow": {
     "flat": {
-      "value": 2.25,
+      "value": 1.89,
       "units": "ft³/s",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
-      "observedAt": "2026-09-20T11:45:00.000-04:00",
-      "verifiedAt": "2026-09-20T16:06:23.502Z",
+      "observedAt": "2026-09-21T07:45:00.000-04:00",
+      "verifiedAt": "2026-09-21T12:02:50.855Z",
       "status": "fresh",
       "retrievalStatus": "verified",
       "validationResult": "accepted",
-      "previousValue": 3.11,
+      "previousValue": 2.25,
       "note": "USGS provisional data; subject to revision."
     },
     "little": {
-      "value": 0.93,
+      "value": 0.78,
       "units": "ft³/s",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/0208521324/",
-      "observedAt": "2026-09-20T11:15:00.000-04:00",
-      "verifiedAt": "2026-09-20T16:06:23.502Z",
+      "observedAt": "2026-09-21T07:15:00.000-04:00",
+      "verifiedAt": "2026-09-21T12:02:50.855Z",
       "status": "fresh",
       "retrievalStatus": "verified",
       "validationResult": "accepted",
-      "previousValue": 1.47,
+      "previousValue": 0.93,
       "note": "USGS provisional data; subject to revision."
     }
   },
   "historyStarts": "2026-03-01",
-  "generatedAt": "2026-09-20T16:06:23.502Z",
-  "lastRefreshResult": "failed: stage; failed: supply.accessible, supply.belowIntakes, supply.quarry, supply.total; failed: reservoirs.michie, reservoirs.little; verified: streamflow; verified: flat historical streamflow; verified: little historical streamflow; verified: drought"
+  "generatedAt": "2026-09-21T12:02:50.855Z",
+  "lastRefreshResult": "failed: reservoirs.michie, reservoirs.little; failed: supply.accessible, supply.belowIntakes, supply.quarry, supply.total; failed: stage; verified: streamflow; verified: drought; verified: flat historical streamflow; verified: little historical streamflow"
 }
