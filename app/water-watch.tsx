@@ -299,7 +299,13 @@ function Status({ metric, lang }: { metric: Metric; lang: Lang }) {
   const t = copy[lang];
   if (metric.status === "unavailable" || metric.value === null) return <span className="status unavailable">× {t.unavailable}</span>;
   if (metric.status === "stale") {
-    return <span className="status stale">! {t.stale}—{t.lastVerified} {fmtDate(metric.verifiedAt, lang, true)}</span>;
+    return (
+      <span className="status stale">
+        <span>! {t.stale}</span>
+        <small>{t.observed}: {fmtDate(metric.observedAt, lang)}</small>
+        <small>{t.lastVerified}: {fmtDate(metric.verifiedAt, lang, true)}</small>
+      </span>
+    );
   }
   return <span className="status fresh">✓ {t.fresh}</span>;
 }

@@ -191,7 +191,8 @@ h1 {
   text-transform: uppercase;
 }
 .status.fresh { color: var(--teal); }
-.status.stale { color: var(--amber); }
+.status.stale { flex-direction: column; align-items: flex-start; gap: 2px; color: var(--amber); }
+.status.stale small { font-size: .64rem; font-weight: 650; line-height: 1.3; text-transform: none; }
 .status.unavailable { color: var(--red); }
 .stage-lockup {
   display: flex;
