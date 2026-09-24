@@ -99,8 +99,37 @@ const urls = {
   little: "https://waterdata.usgs.gov/monitoring-location/0208521324/",
   alerts: "https://www.durhamnc.gov/AlertCenter.aspx",
   daupler: "https://www.durhamnc.gov/formcenter/wm-cbs-encrypted-39/daupler-notification-373",
-  watershed: "https://www.durhamnc.gov/DocumentCenter/View/25818/DurhamWatershedSummary2019_0307_Letter",
+  watershed: "https://www.durhamnc.gov/5493/Watershed",
+  watershedGis: "https://webgis.durhamnc.gov/server/rest/services/PublicServices/Planning/MapServer/3",
 };
+
+const watershedMapParams = new URLSearchParams({
+  bbox: "2006000,853000,2060000,908000",
+  bboxSR: "2264",
+  size: "1200,720",
+  imageSR: "2264",
+  format: "png32",
+  transparent: "false",
+  layers: "show:3",
+  dynamicLayers: JSON.stringify([{
+    id: 3,
+    source: { type: "mapLayer", mapLayerId: 3 },
+    definitionExpression: "WATERSHED IN ('M/LR-A','M/LR-B')",
+    drawingInfo: {
+      renderer: {
+        type: "simple",
+        symbol: {
+          type: "esriSFS",
+          style: "esriSFSSolid",
+          color: [36, 147, 177, 90],
+          outline: { type: "esriSLS", style: "esriSLSSolid", color: [8, 104, 132, 255], width: 2 },
+        },
+      },
+    },
+  }]),
+  f: "image",
+});
+const watershedMapUrl = `${urls.watershedGis.replace(/\/3$/, "")}/export?${watershedMapParams}`;
 
 const seed = verifiedSnapshot as DashboardData;
 const historySeed = verifiedHistory as HistoryData;
@@ -171,7 +200,11 @@ const copy = {
     flowExplain: "Streamflow is context about water moving through the feeding rivers. It is not a direct measure of reservoir storage, days of supply, refill, or future shortage stages.",
     provisional: "Provisional",
     contextMap: "How the watershed connects",
-    mapNote: "Schematic geographic context based on the City watershed summary—not a property, regulatory-boundary, or service-area map.",
+    mapTitle: "Where rain can feed Durham’s reservoirs",
+    mapAlt: "City of Durham GIS map with the Lake Michie and Little River source-water drainage area highlighted in blue-green and labeled M/LR-A and M/LR-B.",
+    mapNote: "The highlighted M/LR area drains to Lake Michie (Flat River) and Little River Reservoir. Rain outside these upstream basins does not directly refill them; this is drainage geography, not a rainfall forecast.",
+    mapSource: "City watershed information",
+    mapBoundary: "City GIS boundary layer",
     alerts: "Stay connected to official alerts",
     alertCenter: "City of Durham Alert Center",
     alertText: "Review active alerts and the City’s available Notify Me / RSS options.",
@@ -259,7 +292,11 @@ const copy = {
     flowExplain: "El caudal aporta contexto sobre el agua que circula por los ríos. No mide directamente el almacenamiento, los días de suministro, la recarga ni futuras etapas.",
     provisional: "Provisional",
     contextMap: "Cómo se conecta la cuenca",
-    mapNote: "Contexto geográfico esquemático basado en el resumen de la Ciudad; no es un mapa de propiedades, límites regulatorios ni área de servicio.",
+    mapTitle: "Dónde la lluvia puede alimentar los embalses de Durham",
+    mapAlt: "Mapa GIS de la Ciudad de Durham con el área de drenaje de Lake Michie y Little River resaltada en azul verdoso y marcada M/LR-A y M/LR-B.",
+    mapNote: "El área M/LR resaltada drena hacia Lake Michie (Flat River) y el embalse Little River. La lluvia fuera de estas cuencas aguas arriba no los llena directamente; este mapa muestra el drenaje, no un pronóstico de lluvia.",
+    mapSource: "Información de cuencas de la Ciudad",
+    mapBoundary: "Capa de límites GIS de la Ciudad",
     alerts: "Manténgase conectado con alertas oficiales",
     alertCenter: "Centro de Alertas de la Ciudad",
     alertText: "Consulte alertas activas y las opciones Notify Me / RSS disponibles.",
@@ -929,15 +966,16 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
               </div>
             </div>
             <aside className="map-panel">
-              <div className="section-heading compact"><p className="kicker">{t.contextMap}</p><h2>{lang === "en" ? "Two rivers. Two reservoirs. One city." : "Dos ríos. Dos embalses. Una ciudad."}</h2></div>
-              <div className="schematic" role="img" aria-label={lang === "en" ? "Schematic showing Flat River feeding Lake Michie and Little River feeding Little River Reservoir, both northwest of Durham." : "Esquema que muestra Flat River alimentando Lake Michie y Little River alimentando Little River Reservoir, ambos al noroeste de Durham."}>
-                <div className="river river-one">Flat River <span>↓</span></div>
-                <div className="lake lake-one">Lake Michie</div>
-                <div className="river river-two">Little River <span>↓</span></div>
-                <div className="lake lake-two">Little River Reservoir</div>
-                <div className="city-dot"><span aria-hidden="true">●</span> Durham</div>
-              </div>
-              <p className="map-note">{t.mapNote} <a href={urls.watershed} target="_blank" rel="noreferrer">{t.source} ↗</a></p>
+              <div className="section-heading compact"><p className="kicker">{t.contextMap}</p><h2>{t.mapTitle}</h2></div>
+              <figure className="watershed-map">
+                <img src={watershedMapUrl} alt={t.mapAlt} width="1200" height="720" loading="lazy" />
+                <figcaption className="map-note">{t.mapNote}</figcaption>
+              </figure>
+              <p className="map-source">
+                <a href={urls.watershed} target="_blank" rel="noreferrer">{t.mapSource} ↗</a>
+                <span aria-hidden="true"> · </span>
+                <a href={urls.watershedGis} target="_blank" rel="noreferrer">{t.mapBoundary} ↗</a>
+              </p>
             </aside>
           </div>
         </section>

@@ -839,29 +839,16 @@ thead th { color: var(--muted); font-size: .66rem; text-transform: uppercase; }
   border: 1px solid var(--border);
   border-radius: var(--radius);
 }
-.schematic {
-  position: relative;
-  min-height: 280px;
-  margin: 16px 0;
+.watershed-map { margin: 16px 0 0; }
+.watershed-map img {
+  display: block;
+  width: 100%;
+  height: auto;
   border: 1px solid var(--border);
-  background: #f8fafb;
+  background: var(--blue-light);
 }
-.river, .lake, .city-dot {
-  position: absolute;
-  padding: 6px 8px;
-  font-size: .7rem;
-  font-weight: 700;
-}
-.river { color: var(--teal); border-bottom: 2px dashed #7aa39f; }
-.river span { display: block; text-align: center; }
-.lake { background: var(--blue-light); border: 1px solid #9ebfc9; border-radius: 4px; color: var(--blue-dark); }
-.river-one { top: 28px; left: 28px; }
-.lake-one { top: 90px; left: 42px; }
-.river-two { top: 60px; right: 28px; }
-.lake-two { top: 132px; right: 26px; }
-.city-dot { right: 75px; bottom: 26px; }
-.city-dot span { color: var(--amber); }
-.map-note { margin: 0; color: var(--muted); font-size: .72rem; }
+.map-note { margin: 10px 0 0; color: var(--muted); font-size: .78rem; }
+.map-source { margin: 9px 0 0; font-size: .72rem; }
 .alert-section { background: var(--blue-light); }
 .alert-card {
   min-height: 150px;
