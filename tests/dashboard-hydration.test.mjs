@@ -55,6 +55,16 @@ test('server markup hydrates without errors, ages readings, and switches to Span
     assert.deepEqual(errors, []);
     assert.ok(document.querySelector('svg title').textContent.includes('Flat River'));
     assert.ok(document.querySelector('.flow-card').querySelector('.status.stale'), 'A reading older than three hours must display stale after hydration');
+    const mapImage = document.querySelector('.watershed-map img');
+    const initialBounds = new URL(mapImage.src).searchParams.get('bbox');
+    await act(async () => { document.querySelector('button[aria-label="Zoom in on the watershed map"]').click(); });
+    assert.notEqual(new URL(document.querySelector('.watershed-map img').src).searchParams.get('bbox'), initialBounds);
+    await act(async () => { document.querySelector('.map-controls button:last-child').click(); });
+    assert.equal(new URL(document.querySelector('.watershed-map img').src).searchParams.get('bbox'), initialBounds);
+    await act(async () => { document.querySelector('.watershed-map img').dispatchEvent(new dom.window.Event('error')); });
+    assert.match(document.querySelector('.map-error').textContent, /map image could not load/i);
+    await act(async () => { document.querySelector('.map-error button').click(); });
+    assert.ok(document.querySelector('.watershed-map img'), 'The map retry control should restore the GIS image');
     await act(async () => { document.querySelector('button[aria-label="Cambiar a español"]').click(); });
     assert.equal(document.documentElement.lang, 'es');
     assert.match(container.textContent, /Instantánea publicada/);

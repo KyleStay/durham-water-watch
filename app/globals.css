@@ -840,6 +840,22 @@ thead th { color: var(--muted); font-size: .66rem; text-transform: uppercase; }
   border-radius: var(--radius);
 }
 .watershed-map { margin: 16px 0 0; }
+.map-controls { display: flex; justify-content: flex-end; gap: 6px; margin: 0 0 8px; }
+.map-controls button {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--blue-dark);
+  font: inherit;
+  font-size: .9rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.map-controls button:hover:not(:disabled) { background: var(--blue-light); }
+.map-controls button:disabled { color: var(--muted); cursor: default; opacity: .65; }
 .watershed-map img {
   display: block;
   width: 100%;
@@ -847,6 +863,8 @@ thead th { color: var(--muted); font-size: .66rem; text-transform: uppercase; }
   border: 1px solid var(--border);
   background: var(--blue-light);
 }
+.map-error { min-height: 140px; margin: 0; padding: 24px; background: var(--blue-light); color: var(--text); }
+.map-error button { min-height: 44px; margin-left: 10px; padding: 6px 10px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); color: var(--blue-dark); font: inherit; font-weight: 700; cursor: pointer; }
 .map-note { margin: 10px 0 0; color: var(--muted); font-size: .78rem; }
 .map-source { margin: 9px 0 0; font-size: .72rem; }
 .alert-section { background: var(--blue-light); }

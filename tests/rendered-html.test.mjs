@@ -46,5 +46,8 @@ test("renders authoritative direct links and no reservoir percentages", async ()
   assert.match(html, /Where rain can feed Durham’s reservoirs/);
   assert.match(html, /webgis\.durhamnc\.gov\/server\/rest\/services\/PublicServices\/Planning\/MapServer\/export/);
   assert.match(html, /The highlighted M\/LR area drains to Lake Michie/);
+  assert.match(html, /Zoom in on the watershed map/);
+  assert.match(html, /Zoom out on the watershed map/);
+  assert.match(html, /Reset view/);
   assert.doesNotMatch(html, /percent full|% full/i);
 });
