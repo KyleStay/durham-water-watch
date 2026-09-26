@@ -57,9 +57,33 @@ test('server markup hydrates without errors, ages readings, and switches to Span
     assert.ok(document.querySelector('.flow-card').querySelector('.status.stale'), 'A reading older than three hours must display stale after hydration');
     const mapImage = document.querySelector('.watershed-map img');
     const initialBounds = new URL(mapImage.src).searchParams.get('bbox');
+    const map = document.querySelector('.geographic-map');
+    const layers = document.querySelector('.map-layers');
+    const frame = () => [layers.style.left, layers.style.top, layers.style.width, layers.style.height];
+    const initialFrame = frame();
+    const initialMarker = document.querySelector('.map-place').getAttribute('style');
+    assert.equal(new URL(document.querySelector('.map-outline').src).searchParams.get('bbox'), initialBounds);
+    for (const name of ['map-base', 'map-rain', 'map-outline']) {
+      assert.equal(document.querySelector(`.${name}`).parentElement, layers, `${name} must share the geographic zoom frame`);
+    }
     await act(async () => { document.querySelector('button[aria-label="Zoom in on the watershed map"]').click(); });
-    assert.notEqual(new URL(document.querySelector('.watershed-map img').src).searchParams.get('bbox'), initialBounds);
+    assert.equal(layers.style.width, '300%');
+    assert.notEqual(document.querySelector('.map-place').getAttribute('style'), initialMarker);
+    assert.equal(new URL(mapImage.src).searchParams.get('bbox'), initialBounds, 'Zoom must move all loaded images immediately instead of requesting separate extents');
+    await act(async () => { document.querySelector('button[aria-label="Zoom out on the watershed map"]').click(); });
+    assert.deepEqual(frame(), initialFrame);
+    map.getBoundingClientRect = () => ({ left: 0, top: 0, width: 1000, height: 600 });
+    const scroll = new dom.window.WheelEvent('wheel', { deltaY: -100, clientX: 750, clientY: 300, bubbles: true, cancelable: true });
+    await act(async () => { map.dispatchEvent(scroll); });
+    assert.equal(scroll.defaultPrevented, true, 'Wheel zoom must not also scroll the page');
+    assert.ok(parseFloat(layers.style.width) > 200);
+    const wheelWidth = parseFloat(layers.style.width);
+    const anchoredX = (750 / 1000 * 100 - parseFloat(layers.style.left)) / wheelWidth;
+    assert.ok(Math.abs(anchoredX - 0.625) < 1e-10, 'The geographic point under the pointer must remain fixed');
+    await act(async () => { map.dispatchEvent(new dom.window.WheelEvent('wheel', { deltaY: 100, clientX: 750, clientY: 300, bubbles: true, cancelable: true })); });
+    assert.ok(Math.abs(parseFloat(layers.style.width) - 200) < 1e-10);
     await act(async () => { document.querySelector('.map-controls button:last-child').click(); });
+    assert.deepEqual(frame(), initialFrame);
     assert.equal(new URL(document.querySelector('.watershed-map img').src).searchParams.get('bbox'), initialBounds);
     await act(async () => { document.querySelector('.watershed-map img').dispatchEvent(new dom.window.Event('error')); });
     assert.match(document.querySelector('.map-error').textContent, /labeled map could not load/i);
