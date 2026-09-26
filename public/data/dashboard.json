@@ -5,7 +5,7 @@
     "sourceUrl": "https://www.durhamnc.gov/1061/Durham-Saves-Water",
     "observedAt": "2026-06-15",
     "effectiveDate": "2026-06-15",
-    "verifiedAt": "2026-09-26T12:01:01.203Z",
+    "verifiedAt": "2026-09-26T19:30:22.120Z",
     "status": "fresh",
     "retrievalStatus": "verified",
     "validationResult": "accepted",
@@ -17,7 +17,7 @@
       "units": "days",
       "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
       "observedAt": "2026-09-24",
-      "verifiedAt": "2026-09-26T12:01:01.203Z",
+      "verifiedAt": "2026-09-26T19:30:22.120Z",
       "status": "fresh",
       "retrievalStatus": "verified",
       "validationResult": "accepted",
@@ -28,7 +28,7 @@
       "units": "days",
       "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
       "observedAt": "2026-09-24",
-      "verifiedAt": "2026-09-26T12:01:01.203Z",
+      "verifiedAt": "2026-09-26T19:30:22.120Z",
       "status": "fresh",
       "retrievalStatus": "verified",
       "validationResult": "accepted",
@@ -39,7 +39,7 @@
       "units": "days",
       "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
       "observedAt": "2026-09-24",
-      "verifiedAt": "2026-09-26T12:01:01.203Z",
+      "verifiedAt": "2026-09-26T19:30:22.120Z",
       "status": "fresh",
       "retrievalStatus": "verified",
       "validationResult": "accepted",
@@ -50,7 +50,7 @@
       "units": "days",
       "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
       "observedAt": "2026-09-24",
-      "verifiedAt": "2026-09-26T12:01:01.203Z",
+      "verifiedAt": "2026-09-26T19:30:22.120Z",
       "status": "fresh",
       "retrievalStatus": "verified",
       "validationResult": "accepted",
@@ -64,7 +64,7 @@
       "units": "ft msl",
       "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
       "observedAt": "2026-09-24",
-      "verifiedAt": "2026-09-26T12:01:01.203Z",
+      "verifiedAt": "2026-09-26T19:30:22.120Z",
       "status": "fresh",
       "retrievalStatus": "verified",
       "validationResult": "accepted",
@@ -76,7 +76,7 @@
       "units": "ft msl",
       "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
       "observedAt": "2026-09-24",
-      "verifiedAt": "2026-09-26T12:01:01.203Z",
+      "verifiedAt": "2026-09-26T19:30:22.120Z",
       "status": "fresh",
       "retrievalStatus": "verified",
       "validationResult": "accepted",
@@ -88,7 +88,7 @@
     "units": "category",
     "sourceUrl": "https://www.ncdrought.org/",
     "observedAt": "2026-09-22T08:00:00-04:00",
-    "verifiedAt": "2026-09-26T12:01:01.203Z",
+    "verifiedAt": "2026-09-26T19:30:22.120Z",
     "status": "fresh",
     "retrievalStatus": "verified",
     "validationResult": "accepted",
@@ -96,31 +96,177 @@
   },
   "streamflow": {
     "flat": {
-      "value": 13,
+      "value": 10,
       "units": "ft³/s",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
-      "observedAt": "2026-09-26T06:45:00.000-04:00",
-      "verifiedAt": "2026-09-26T12:01:01.203Z",
+      "observedAt": "2026-09-26T14:45:00.000-04:00",
+      "verifiedAt": "2026-09-26T19:30:22.120Z",
       "status": "fresh",
       "retrievalStatus": "verified",
       "validationResult": "accepted",
-      "previousValue": 23.9,
+      "previousValue": 13,
       "note": "USGS provisional data; subject to revision."
     },
     "little": {
-      "value": 2.73,
+      "value": 2.38,
       "units": "ft³/s",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/0208521324/",
-      "observedAt": "2026-09-26T07:15:00.000-04:00",
-      "verifiedAt": "2026-09-26T12:01:01.203Z",
+      "observedAt": "2026-09-26T14:15:00.000-04:00",
+      "verifiedAt": "2026-09-26T19:30:22.120Z",
       "status": "fresh",
       "retrievalStatus": "verified",
       "validationResult": "accepted",
-      "previousValue": 5.05,
+      "previousValue": 2.73,
       "note": "USGS provisional data; subject to revision."
     }
   },
   "historyStarts": "2026-03-01",
-  "generatedAt": "2026-09-26T12:01:01.203Z",
-  "lastRefreshResult": "verified: drought; verified: reservoirs; verified: supply; verified: stage; verified: streamflow; verified: flat historical streamflow; verified: little historical streamflow"
+  "generatedAt": "2026-09-26T19:30:22.120Z",
+  "lastRefreshResult": "verified: flat historical streamflow; verified: streamflow; verified: little historical streamflow; verified: stage; verified: drought; verified: supply; verified: reservoirs; verified: NOAA seven-day rainfall forecast",
+  "rainfallForecast": {
+    "sourceUrl": "https://www.wpc.ncep.noaa.gov/qpf/day1-7.shtml",
+    "issuedAt": "2026-09-26T17:55:35.000Z",
+    "startsAt": "2026-09-27T00:00:00.000Z",
+    "endsAt": "2026-10-04T00:00:00.000Z",
+    "verifiedAt": "2026-09-26T19:30:22.120Z",
+    "checkedAt": "2026-09-26T19:30:22.120Z",
+    "retrievalStatus": "verified",
+    "status": "fresh",
+    "imagePath": "data/rainfall-forecast.png",
+    "imageBounds": [
+      -8888107.823589286,
+      4265176.075298277,
+      -8678107.823589286,
+      4391176.075298277
+    ],
+    "legend": [
+      {
+        "lowerInches": 0,
+        "color": "rgb(255,255,255)"
+      },
+      {
+        "lowerInches": 0.01,
+        "color": "rgb(127,255,0)"
+      },
+      {
+        "lowerInches": 0.1,
+        "color": "rgb(0,255,0)"
+      },
+      {
+        "lowerInches": 0.25,
+        "color": "rgb(8,139,0)"
+      },
+      {
+        "lowerInches": 0.5,
+        "color": "rgb(16,78,139)"
+      },
+      {
+        "lowerInches": 0.75,
+        "color": "rgb(30,144,255)"
+      },
+      {
+        "lowerInches": 1,
+        "color": "rgb(0,178,238)"
+      },
+      {
+        "lowerInches": 1.25,
+        "color": "rgb(0,238,238)"
+      },
+      {
+        "lowerInches": 1.5,
+        "color": "rgb(137,104,205)"
+      },
+      {
+        "lowerInches": 1.75,
+        "color": "rgb(145,44,238)"
+      },
+      {
+        "lowerInches": 2,
+        "color": "rgb(139,0,139)"
+      },
+      {
+        "lowerInches": 2.5,
+        "color": "rgb(139,0,0)"
+      },
+      {
+        "lowerInches": 3,
+        "color": "rgb(255,0,0)"
+      },
+      {
+        "lowerInches": 4,
+        "color": "rgb(238,64,0)"
+      },
+      {
+        "lowerInches": 5,
+        "color": "rgb(255,127,0)"
+      },
+      {
+        "lowerInches": 7,
+        "color": "rgb(206,133,0)"
+      },
+      {
+        "lowerInches": 10,
+        "color": "rgb(255,215,0)"
+      },
+      {
+        "lowerInches": 15,
+        "color": "rgb(255,255,0)"
+      },
+      {
+        "lowerInches": 20,
+        "color": "rgb(255,192,183)"
+      }
+    ],
+    "locations": [
+      {
+        "name": "Roxboro",
+        "longitude": -78.9828,
+        "latitude": 36.3938,
+        "lowerInches": 0.1,
+        "upperInches": 0.25
+      },
+      {
+        "name": "Rougemont",
+        "longitude": -78.922,
+        "latitude": 36.2196,
+        "lowerInches": 0.1,
+        "upperInches": 0.25
+      },
+      {
+        "name": "Lake Michie",
+        "longitude": -78.83,
+        "latitude": 36.1508333333333,
+        "lowerInches": 0.01,
+        "upperInches": 0.1
+      },
+      {
+        "name": "Little River Reservoir",
+        "longitude": -78.8691666666667,
+        "latitude": 36.115,
+        "lowerInches": 0.1,
+        "upperInches": 0.25
+      },
+      {
+        "name": "Hillsborough",
+        "longitude": -79.0997,
+        "latitude": 36.0754,
+        "lowerInches": 0.1,
+        "upperInches": 0.25
+      },
+      {
+        "name": "Butner",
+        "longitude": -78.7567,
+        "latitude": 36.1321,
+        "lowerInches": 0.01,
+        "upperInches": 0.1
+      },
+      {
+        "name": "Durham",
+        "longitude": -78.8986,
+        "latitude": 35.994,
+        "lowerInches": 0.1,
+        "upperInches": 0.25
+      }
+    ]
+  }
 }

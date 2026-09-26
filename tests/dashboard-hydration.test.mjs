@@ -62,7 +62,7 @@ test('server markup hydrates without errors, ages readings, and switches to Span
     await act(async () => { document.querySelector('.map-controls button:last-child').click(); });
     assert.equal(new URL(document.querySelector('.watershed-map img').src).searchParams.get('bbox'), initialBounds);
     await act(async () => { document.querySelector('.watershed-map img').dispatchEvent(new dom.window.Event('error')); });
-    assert.match(document.querySelector('.map-error').textContent, /map image could not load/i);
+    assert.match(document.querySelector('.map-error').textContent, /labeled map could not load/i);
     await act(async () => { document.querySelector('.map-error button').click(); });
     assert.ok(document.querySelector('.watershed-map img'), 'The map retry control should restore the GIS image');
     await act(async () => { document.querySelector('button[aria-label="Cambiar a español"]').click(); });

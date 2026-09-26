@@ -11,6 +11,7 @@ export const snapshotPaths = [
   "public/data/dashboard.json",
   "public/data/history.json",
   "public/data/streamflow-history.json",
+  "public/data/rainfall-forecast.png",
 ];
 
 function defaultRun(command, args, options = {}) {

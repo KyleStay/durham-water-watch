@@ -43,3 +43,7 @@ export function fetchTextWithRetry(url, options = {}, policy = {}) {
 export function fetchJsonWithRetry(url, options = {}, policy = {}) {
   return fetchAndRead(url, options, policy, (response) => response.json());
 }
+
+export function fetchBytesWithRetry(url, options = {}, policy = {}) {
+  return fetchAndRead(url, options, policy, async (response) => Buffer.from(await response.arrayBuffer()));
+}

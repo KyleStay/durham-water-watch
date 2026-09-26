@@ -8,6 +8,7 @@ import { acceptMetrics } from "./metric-acceptance.mjs";
 import { sourceIsDue } from "./refresh-policy.mjs";
 import { fetchJsonWithRetry, fetchTextWithRetry } from "./source-fetch.mjs";
 import { parseSupplyValues } from "./supply-parser.mjs";
+import { fetchRainfallForecast, rainfallPage, retainRainfallForecast } from "./rainfall-forecast.mjs";
 
 const snapshotPath = resolve(import.meta.dirname, "../public/data/dashboard.json");
 const temporaryPath = `${snapshotPath}.next`;
@@ -36,6 +37,22 @@ const SOURCES = {
 };
 
 const results = [];
+
+async function refreshRainfall() {
+  try {
+    const { forecast, image } = await fetchRainfallForecast({ now });
+    const imagePath = resolve(import.meta.dirname, "../public/data/rainfall-forecast.png");
+    await writeFile(`${imagePath}.next`, image);
+    await rename(`${imagePath}.next`, imagePath);
+    snapshot.rainfallForecast = forecast;
+    results.push("verified: NOAA seven-day rainfall forecast");
+  } catch (error) {
+    const reason = error instanceof Error ? error.message : "NOAA forecast could not be refreshed";
+    snapshot.rainfallForecast = retainRainfallForecast(snapshot.rainfallForecast, now, reason);
+    quarantine.push({ metrics: ["rainfallForecast"], sourceUrl: rainfallPage, reason, receivedAt: nowIso, disposition: "rejected; last-known-good forecast preserved" });
+    results.push(`failed: NOAA rainfall forecast (${reason})`);
+  }
+}
 
 function metricAt(path) {
   return path.reduce((value, key) => value[key], snapshot);
@@ -414,7 +431,7 @@ function updateStatus(metric, kind) {
   metric.status = metricStatus(metric, kind, now);
 }
 
-const jobs = [refreshStreamflow(), refreshStreamflowHistory()];
+const jobs = [refreshStreamflow(), refreshStreamflowHistory(), refreshRainfall()];
 if (sourceIsDue({
   forceAll,
   metrics: [snapshot.stage],

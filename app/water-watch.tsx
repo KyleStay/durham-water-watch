@@ -6,6 +6,7 @@ import verifiedHistory from "../public/data/history.json";
 import verifiedStreamflowHistory from "../public/data/streamflow-history.json";
 import { dashboardAt, metricStatus } from "../scripts/freshness.mjs";
 import { annualReservoirHeading, showsStageTwoGuidance } from "../scripts/stage-guidance.mjs";
+import WatershedMap, { type RainfallForecast } from "./watershed-map";
 
 type Lang = "en" | "es";
 type Freshness = "fresh" | "stale" | "unavailable";
@@ -35,6 +36,7 @@ type DashboardData = {
   };
   drought: Metric;
   streamflow: { flat: Metric; little: Metric };
+  rainfallForecast?: RainfallForecast;
   historyStarts: string;
   generatedAt?: string;
   lastRefreshResult?: string;
@@ -102,79 +104,6 @@ const urls = {
   watershed: "https://www.durhamnc.gov/5493/Watershed",
   watershedGis: "https://webgis.durhamnc.gov/server/rest/services/PublicServices/Planning/MapServer/3",
 };
-
-const watershedMapLayer = JSON.stringify([{
-  id: 3,
-  source: { type: "mapLayer", mapLayerId: 3 },
-  definitionExpression: "WATERSHED IN ('M/LR-A','M/LR-B')",
-  drawingInfo: {
-    renderer: {
-      type: "simple",
-      symbol: {
-        type: "esriSFS",
-        style: "esriSFSSolid",
-        color: [36, 147, 177, 90],
-        outline: { type: "esriSLS", style: "esriSLSSolid", color: [8, 104, 132, 255], width: 2 },
-      },
-    },
-  },
-}]);
-const watershedMapCenter = { x: 2033000, y: 880500 };
-const watershedMapSize = { width: 91667, height: 55000 };
-const watershedMapUrl = (zoom: number) => {
-  const width = watershedMapSize.width / zoom;
-  const height = watershedMapSize.height / zoom;
-  const params = new URLSearchParams({
-    bbox: [
-      watershedMapCenter.x - width / 2,
-      watershedMapCenter.y - height / 2,
-      watershedMapCenter.x + width / 2,
-      watershedMapCenter.y + height / 2,
-    ].join(","),
-    bboxSR: "2264",
-    size: "1200,720",
-    imageSR: "2264",
-    format: "png32",
-    transparent: "false",
-    layers: "show:3",
-    dynamicLayers: watershedMapLayer,
-    f: "image",
-  });
-  return `${urls.watershedGis.replace(/\/3$/, "")}/export?${params}`;
-};
-
-function WatershedMap({ lang }: { lang: Lang }) {
-  const [zoom, setZoom] = useState(1);
-  const [unavailable, setUnavailable] = useState(false);
-  const t = copy[lang];
-
-  return (
-    <>
-      <div className="map-controls" role="group" aria-label={t.mapControls}>
-        <button type="button" onClick={() => setZoom((value) => Math.min(4, value * 1.5))} disabled={zoom >= 4} aria-label={t.mapZoomIn} title={t.mapZoomIn}>+</button>
-        <button type="button" onClick={() => setZoom((value) => Math.max(0.5, value / 1.5))} disabled={zoom <= 0.5} aria-label={t.mapZoomOut} title={t.mapZoomOut}>−</button>
-        <button type="button" onClick={() => setZoom(1)} disabled={zoom === 1}>{t.mapReset}</button>
-      </div>
-      {unavailable ? (
-        <p className="map-error" role="status">
-          {t.mapUnavailable} <a href={urls.watershedGis} target="_blank" rel="noreferrer">{t.mapBoundary} ↗</a>
-          <button type="button" onClick={() => setUnavailable(false)}>{t.mapRetry}</button>
-        </p>
-      ) : (
-        <img
-          src={watershedMapUrl(zoom)}
-          alt={t.mapAlt}
-          width="1200"
-          height="720"
-          loading="lazy"
-          decoding="async"
-          onError={() => setUnavailable(true)}
-          onLoad={() => setUnavailable(false)}
-        />
-      )}
-    </>
-  );
-}
 
 const seed = verifiedSnapshot as DashboardData;
 const historySeed = verifiedHistory as HistoryData;
@@ -247,7 +176,7 @@ const copy = {
     contextMap: "How the watershed connects",
     mapTitle: "Where rain can feed Durham’s reservoirs",
     mapAlt: "City of Durham GIS map with the Lake Michie and Little River source-water drainage area highlighted in blue-green and labeled M/LR-A and M/LR-B.",
-    mapNote: "The highlighted M/LR area drains to Lake Michie (Flat River) and Little River Reservoir. Rain outside these upstream basins does not directly refill them; this is drainage geography, not a rainfall forecast.",
+    mapNote: "The purple M/LR protection areas cover land draining toward Lake Michie (Flat River) and Little River Reservoir. Rain in the upstream drainage basins can contribute to their supply.",
     mapControls: "Watershed map controls",
     mapZoomIn: "Zoom in on the watershed map",
     mapZoomOut: "Zoom out on the watershed map",
@@ -345,7 +274,7 @@ const copy = {
     contextMap: "Cómo se conecta la cuenca",
     mapTitle: "Dónde la lluvia puede alimentar los embalses de Durham",
     mapAlt: "Mapa GIS de la Ciudad de Durham con el área de drenaje de Lake Michie y Little River resaltada en azul verdoso y marcada M/LR-A y M/LR-B.",
-    mapNote: "El área M/LR resaltada drena hacia Lake Michie (Flat River) y el embalse Little River. La lluvia fuera de estas cuencas aguas arriba no los llena directamente; este mapa muestra el drenaje, no un pronóstico de lluvia.",
+    mapNote: "Las áreas de protección M/LR en morado cubren terrenos que drenan hacia Lake Michie (Flat River) y el embalse Little River. La lluvia en las cuencas aguas arriba puede contribuir al suministro.",
     mapControls: "Controles del mapa de la cuenca",
     mapZoomIn: "Acercar el mapa de la cuenca",
     mapZoomOut: "Alejar el mapa de la cuenca",
@@ -1025,7 +954,7 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
             <aside className="map-panel">
               <div className="section-heading compact"><p className="kicker">{t.contextMap}</p><h2>{t.mapTitle}</h2></div>
               <figure className="watershed-map">
-                <WatershedMap lang={lang} />
+                <WatershedMap lang={lang} forecast={data.rainfallForecast} now={now} />
                 <figcaption className="map-note">{t.mapNote}</figcaption>
               </figure>
               <p className="map-source">

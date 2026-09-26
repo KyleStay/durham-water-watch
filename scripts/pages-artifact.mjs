@@ -9,6 +9,7 @@ export const requiredPublishedFiles = [
   "data/dashboard.json",
   "data/history.json",
   "data/streamflow-history.json",
+  "data/rainfall-forecast.png",
 ];
 
 export function sha256(content) {
