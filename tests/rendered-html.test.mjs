@@ -44,9 +44,12 @@ test("renders authoritative direct links and no reservoir percentages", async ()
   assert.match(html, /02085500/);
   assert.match(html, /0208521324/);
   assert.match(html, /Where rain can feed Durham’s reservoirs/);
-  assert.match(html, /webgis\.durhamnc\.gov\/server\/rest\/services\/PublicServices\/Planning\/MapServer\/export/);
+  assert.match(html, /webgis\.durhamnc\.gov\/server\/rest\/services\/PublicServices\/Planning\/MapServer\/3/);
   assert.match(html, /The purple M\/LR protection areas/);
-  assert.match(html, /World_Topo_Map\/MapServer\/export/);
+  assert.match(html, /World_Topo_Map\/MapServer/);
+  assert.match(html, /Interactive watershed and rainfall map/);
+  assert.match(html, /Full screen/);
+  assert.match(html, /Drag to explore/);
   assert.match(html, /Forecast rainfall for the next 7 days/);
   assert.match(html, /NOAA 7-day rainfall forecast/);
   assert.match(html, /forecast bands, not measured rainfall/);
