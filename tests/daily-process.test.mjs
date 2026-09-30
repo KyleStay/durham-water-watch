@@ -117,30 +117,29 @@ test("publisher rejects an artifact after a tracked build input changes", async 
   }
 });
 
-test("remote verification retries propagation and compares exact bytes", async () => {
+test("remote verification outlasts the Pages cache and compares exact bytes", async () => {
   const { root, pagesRoot } = await fixture();
   const expected = Object.fromEntries(await Promise.all(requiredPublishedFiles.map(async (path) => [
     path,
     await readFile(resolve(pagesRoot, path)),
   ])));
+  const staleAttempts = 121; // More than 10 minutes at the default five-second retry interval.
   let requestCount = 0;
   let sleeps = 0;
   const fetchImpl = async (url) => {
     requestCount += 1;
     const path = new URL(url).pathname.replace("/durham-water-watch/", "");
-    const body = requestCount === 1 ? Buffer.from("old deployment\n") : expected[path];
+    const body = requestCount <= staleAttempts ? Buffer.from("old deployment\n") : expected[path];
     return new Response(body, { status: 200 });
   };
   try {
     await verifyPublishedPages({
       root,
       fetchImpl,
-      attempts: 2,
-      retryDelayMs: 1,
       sleep: async () => { sleeps += 1; },
     });
-    assert.equal(sleeps, 1);
-    assert.equal(requestCount, requiredPublishedFiles.length + 1);
+    assert.equal(sleeps, staleAttempts);
+    assert.equal(requestCount, requiredPublishedFiles.length + staleAttempts);
   } finally {
     await rm(root, { recursive: true, force: true });
   }

@@ -8,7 +8,8 @@ export async function verifyPublishedPages({
   root = resolve(import.meta.dirname, ".."),
   baseUrl = defaultPagesUrl,
   fetchImpl = fetch,
-  attempts = 24,
+  // GitHub Pages caches HTML for 10 minutes; allow time for that cache to expire.
+  attempts = 180,
   requestTimeoutMs = 10_000,
   retryDelayMs = 5_000,
   sleep = (ms) => new Promise((resolveSleep) => setTimeout(resolveSleep, ms)),
