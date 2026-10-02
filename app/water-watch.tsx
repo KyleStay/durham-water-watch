@@ -6,6 +6,7 @@ import verifiedHistory from "../public/data/history.json";
 import verifiedStreamflowHistory from "../public/data/streamflow-history.json";
 import { dashboardAt, metricStatus } from "../scripts/freshness.mjs";
 import { annualReservoirHeading, showsStageTwoGuidance } from "../scripts/stage-guidance.mjs";
+import TrendContext from "./trend-charts";
 import WatershedMap, { type RainfallForecast } from "./watershed-map";
 
 type Lang = "en" | "es";
@@ -116,7 +117,7 @@ const copy = {
     title: "Durham Water Watch",
     deck: "Current water status for Durham",
     official: "Official City guidance always takes precedence.",
-    nav: ["Overview", "What to do", "Reservoirs", "Drought explained", "Daily trends", "Sources & methodology"],
+    nav: ["Trends", "Reservoirs", "Supply", "River flow", "Water-use rules", "Sources & data"],
     serious: "How serious is this?",
     stage: "Durham Water Shortage Response Stage",
     inEffect: "in effect",
@@ -214,7 +215,7 @@ const copy = {
     title: "Durham Water Watch",
     deck: "Estado actual del agua en Durham",
     official: "La orientación oficial de la Ciudad siempre tiene prioridad.",
-    nav: ["Resumen", "Qué hacer", "Embalses", "La sequía explicada", "Tendencias diarias", "Fuentes y metodología"],
+    nav: ["Tendencias", "Embalses", "Suministro", "Caudal", "Reglas de uso", "Fuentes y datos"],
     serious: "¿Qué tan grave es?",
     stage: "Etapa de Respuesta a la Escasez de Agua de Durham",
     inEffect: "vigente",
@@ -379,93 +380,6 @@ function fmtDailyDate(value: string, lang: Lang) {
   }).format(new Date(`${value}T12:00:00-04:00`));
 }
 
-type BarSeries = {
-  label: string;
-  color: string;
-  values: Array<number | null>;
-  format: (value: number) => string;
-};
-type ChartReference = {
-  label: string;
-  value: number;
-  color: string;
-  format: (value: number) => string;
-};
-
-function DailyBarChart({
-  title,
-  description,
-  days,
-  series,
-  references = [],
-  lang,
-}: {
-  title: string;
-  description: string;
-  days: DailyEntry[];
-  series: BarSeries[];
-  references?: ChartReference[];
-  lang: Lang;
-}) {
-  const dense = days.length > 60;
-  const allValues = [
-    ...series.flatMap((item) => item.values).filter((value): value is number => typeof value === "number"),
-    ...references.map((reference) => reference.value),
-  ];
-  const maximum = Math.max(1, ...allValues);
-  return (
-    <figure className="daily-chart">
-      <figcaption>
-        <h3>{title}</h3>
-        <p>{description}</p>
-      </figcaption>
-      <div className="daily-chart-legend" aria-hidden="true">
-        {series.map((item) => <span key={item.label}><i style={{ backgroundColor: item.color }} />{item.label}</span>)}
-        {references.map((item) => <span key={item.label}><i className="reference-key" style={{ borderColor: item.color }} />{item.label}</span>)}
-      </div>
-      <div className="daily-chart-scroll">
-        <div className={`daily-chart-plot${dense ? " dense" : ""}`} role="img" aria-label={`${title}. ${description}`}>
-          {references.map((reference) => (
-            <div
-              className="daily-chart-reference"
-              key={reference.label}
-              style={{
-                bottom: `${28 + (reference.value / maximum) * 228}px`,
-                borderColor: reference.color,
-                color: reference.color,
-              }}
-            >
-              <span>{reference.label}: {reference.format(reference.value)}</span>
-            </div>
-          ))}
-          {days.map((day, dayIndex) => {
-            const isMonthStart = day.date.endsWith("-01");
-            return (
-            <div className={`daily-chart-day${isMonthStart ? " month-start" : ""}`} key={day.date}>
-              <div className="daily-chart-bars">
-                {series.map((item) => {
-                  const value = item.values[dayIndex];
-                  const height = typeof value === "number" ? Math.max(7, (value / maximum) * 100) : 0;
-                  return (
-                    <div className="daily-chart-bar-wrap" key={item.label}>
-                      <span>{typeof value === "number" ? item.format(value) : "—"}</span>
-                      <i
-                        style={{ height: `${height}%`, backgroundColor: item.color }}
-                        title={`${item.label}: ${typeof value === "number" ? item.format(value) : "unavailable"}`}
-                      />
-                    </div>
-                  );
-                })}
-              </div>
-              <time dateTime={day.date}>{fmtDailyDate(day.date, lang)}</time>
-            </div>
-          )})}
-        </div>
-      </div>
-    </figure>
-  );
-}
-
 function dailyQuality(day: DailyEntry, lang: Lang) {
   const retained = day.retainedFields?.length ?? 0;
   const quarantined = day.quarantinedFields?.length ?? 0;
@@ -475,124 +389,6 @@ function dailyQuality(day: DailyEntry, lang: Lang) {
   if (unavailable) return lang === "en" ? `${unavailable} unavailable · historical` : `${unavailable} no disponibles · histórico`;
   if (day.entryKind === "historical-backfill") return lang === "en" ? "Historical sources" : "Fuentes históricas";
   return lang === "en" ? "All current" : "Todo vigente";
-}
-
-function numericAverage(values: Array<number | null>) {
-  const available = values.filter((value): value is number => typeof value === "number");
-  return available.length ? available.reduce((sum, value) => sum + value, 0) / available.length : null;
-}
-
-function weeklyStreamflow(days: StreamflowHistoryDay[]) {
-  if (!days.length) return [];
-  const year = Number(days[0].date.slice(0, 4));
-  const yearStart = Date.UTC(year, 0, 1);
-  const groups = new Map<number, StreamflowHistoryDay[]>();
-  for (const day of days) {
-    const week = Math.floor((Date.parse(`${day.date}T00:00:00Z`) - yearStart) / 604_800_000);
-    groups.set(week, [...(groups.get(week) ?? []), day]);
-  }
-  return [...groups.entries()].map(([week, values]) => ({
-    week,
-    date: values.at(-1)?.date ?? values[0].date,
-    current: numericAverage(values.map((value) => value.currentYear)),
-    historical: values.reduce((sum, value) => sum + value.historicalMean, 0) / values.length,
-    count: values.length,
-  }));
-}
-
-function YearComparisonChart({ station, year, lang }: {
-  station: StreamflowHistoryStation;
-  year: number;
-  lang: Lang;
-}) {
-  const weekly = weeklyStreamflow(station.days);
-  const width = 1000;
-  const height = 360;
-  const plot = { left: 72, top: 24, right: 24, bottom: 52 };
-  const plotWidth = width - plot.left - plot.right;
-  const plotHeight = height - plot.top - plot.bottom;
-  const maximum = Math.max(1, ...weekly.flatMap((point) => (
-    point.current === null ? [point.historical] : [point.current, point.historical]
-  )));
-  const niceMaximum = Math.ceil(maximum / 50) * 50;
-  const x = (week: number) => plot.left + (week / 52) * plotWidth;
-  const y = (value: number) => plot.top + plotHeight - (value / niceMaximum) * plotHeight;
-  const pathFor = (key: "current" | "historical") => weekly
-    .filter((point) => point[key] !== null)
-    .map((point, index) => `${index === 0 ? "M" : "L"} ${x(point.week).toFixed(1)} ${y(point[key]!).toFixed(1)}`)
-    .join(" ");
-  const recent = weekly.findLast((point) => point.current !== null);
-  const recentDifference = recent && recent.current !== null && recent.historical
-    ? Math.round(((recent.current - recent.historical) / recent.historical) * 100)
-    : null;
-  const monthTicks = [
-    [0, lang === "en" ? "Jan" : "Ene"],
-    [9, lang === "en" ? "Mar" : "Mar"],
-    [17, lang === "en" ? "May" : "May"],
-    [26, lang === "en" ? "Jul" : "Jul"],
-    [35, lang === "en" ? "Sep" : "Sep"],
-    [43, lang === "en" ? "Nov" : "Nov"],
-    [52, lang === "en" ? "Dec" : "Dic"],
-  ] as const;
-
-  return (
-    <figure className="year-comparison-chart">
-      <figcaption>
-        <div>
-          <p className="eyebrow">USGS {station.site}</p>
-          <h3>{station.name}: {year} {lang === "en" ? "vs historical daily mean" : "frente al promedio diario histórico"}</h3>
-          <p>
-            {lang === "en"
-              ? `Weekly averages of USGS daily-mean flow. The historical mean continues through the full calendar year so you can see what is typically expected. Historical comparison period: ${station.historicalPeriod ?? "unavailable"}.`
-              : `Promedios semanales del caudal medio diario del USGS. El promedio histórico continúa durante todo el año calendario para mostrar lo que normalmente se espera. Período histórico: ${station.historicalPeriod ?? "no disponible"}.`}
-          </p>
-        </div>
-        <div className="year-comparison-summary">
-          <strong>{recentDifference === null ? "—" : `${Math.abs(recentDifference)}%`}</strong>
-          <span>
-            {recentDifference === null
-              ? (lang === "en" ? "comparison unavailable" : "comparación no disponible")
-              : lang === "en"
-                ? `${recentDifference >= 0 ? "above" : "below"} the historical mean in the latest plotted week`
-                : `${recentDifference >= 0 ? "por encima" : "por debajo"} del promedio histórico en la última semana graficada`}
-          </span>
-        </div>
-      </figcaption>
-      <div className="year-chart-legend">
-        <span><i className="current-year-key" />{year}</span>
-        <span><i className="historical-key" />{lang === "en" ? "Historical daily mean" : "Promedio diario histórico"}</span>
-        <span className={`history-source-status ${station.status}`}>{copy[lang][station.status]}</span>
-      </div>
-      {station.status !== "fresh" && <p className="stale-note">{lang === "en" ? "This comparison retains the last verified record. Check the official station for newer data." : "Esta comparación conserva el último registro verificado. Consulte la estación oficial para datos más recientes."}</p>}
-      {weekly.length ? (
-        <div className="year-chart-scroll">
-          <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-labelledby={`${station.site}-title ${station.site}-desc`}>
-            <title id={`${station.site}-title`}>{`${station.name} ${year} ${lang === "en" ? "streamflow compared with the historical daily mean" : "caudal comparado con el promedio diario histórico"}`}</title>
-            <desc id={`${station.site}-desc`}>{lang === "en" ? `Weekly averages in cubic feet per second. The solid blue line is ${year}; the dashed orange line is the USGS historical daily mean.` : `Promedios semanales en pies cúbicos por segundo. La línea azul es ${year}; la línea naranja discontinua es el promedio diario histórico del USGS.`}</desc>
-            {[0, niceMaximum / 2, niceMaximum].map((tick) => (
-              <g key={tick}>
-                <line className="year-grid-line" x1={plot.left} x2={width - plot.right} y1={y(tick)} y2={y(tick)} />
-                <text className="year-axis-label" x={plot.left - 10} y={y(tick) + 4} textAnchor="end">{Math.round(tick)}</text>
-              </g>
-            ))}
-            {monthTicks.map(([week, label]) => (
-              <text className="year-axis-label" key={week} x={x(week)} y={height - 18} textAnchor={week === 0 ? "start" : week === 52 ? "end" : "middle"}>{label}</text>
-            ))}
-            <text className="year-axis-title" transform={`translate(17 ${plot.top + plotHeight / 2}) rotate(-90)`} textAnchor="middle">ft³/s</text>
-            <path className="historical-flow-line" d={pathFor("historical")} />
-            <path className="current-flow-line" d={pathFor("current")} />
-            {recent && recent.current !== null && <circle className="current-flow-point" cx={x(recent.week)} cy={y(recent.current)} r="5" />}
-          </svg>
-        </div>
-      ) : <p className="stale-note">{station.note ?? (lang === "en" ? "Year comparison unavailable." : "Comparación anual no disponible.")}</p>}
-      <p className="year-chart-source">
-        {lang === "en"
-          ? "Current-year daily means can be provisional. Historical means are USGS day-of-year statistics based on approved daily-mean records."
-          : "Los promedios diarios del año actual pueden ser provisionales. Los promedios históricos son estadísticas del USGS basadas en registros diarios aprobados."}
-        {" "}<a href={station.sourceUrl} target="_blank" rel="noreferrer">{lang === "en" ? "Official station" : "Estación oficial"} ↗</a>
-      </p>
-    </figure>
-  );
 }
 
 function StageExitExplorer({ lang }: { lang: Lang }) {
@@ -734,16 +530,6 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
     && typeof previousDay.values.supply.total === "number"
     ? latestDay.values.supply.total - previousDay.values.supply.total
     : null;
-  const trackedSupplyAverage = numericAverage(historyDays.map((day) => day.values.supply.total));
-  const trackedMichieDistanceAverage = numericAverage(historyDays.map((day) => (
-    typeof day.values.reservoirs.michie === "number" ? 341 - day.values.reservoirs.michie : null
-  )));
-  const trackedLittleDistanceAverage = numericAverage(historyDays.map((day) => (
-    typeof day.values.reservoirs.little === "number" ? 355 - day.values.reservoirs.little : null
-  )));
-  const trackedAverageLabel = lang === "en"
-    ? `${currentHistoryYear} avg of available verified readings`
-    : `Promedio de lecturas verificadas disponibles de ${currentHistoryYear}`;
 
   useEffect(() => {
     const update = () => setNow(Date.now());
@@ -778,7 +564,7 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
         <div className="masthead wrap">
           <div>
             <p className="unofficial">{t.unofficial}</p>
-            <a className="brand" href="#overview" aria-label={`${t.title} — ${t.nav[0]}`}>
+            <a className="brand" href="#overview" aria-label={t.title}>
               <span className="drop" aria-hidden="true" />
               <span>{t.title}</span>
             </a>
@@ -788,83 +574,53 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
           </button>
         </div>
         <nav className="nav wrap" aria-label={lang === "en" ? "Primary navigation" : "Navegación principal"}>
-          {["overview", "actions", "reservoirs", "drought", "trends", "methodology"].map((id, index) => (
+          {["trends", "reservoirs", "supply", "rivers", "actions", "methodology"].map((id, index) => (
             <a key={id} href={`#${id}`}>{t.nav[index]}</a>
           ))}
         </nav>
       </header>
 
       <main id="main">
-        <section id="overview" className="hero">
-          <div className="contour contour-a" aria-hidden="true" />
-          <div className="contour contour-b" aria-hidden="true" />
-          <div className="wrap hero-inner">
-            <div className="hero-copy">
-              <p className="kicker">{t.serious}</p>
-              <h1>{t.deck}</h1>
-              <p className="official-priority">{t.official}</p>
+        <section id="overview" className="briefing-hero">
+          <div className="wrap">
+            <p className="kicker">{lang === "en" ? "Durham’s water, in context" : "El agua de Durham, en contexto"}</p>
+            <h1>{lang === "en" ? "Durham’s water over time" : "El agua de Durham a lo largo del tiempo"}</h1>
+            <p className="checked" data-publication-time={snapshot.generatedAt}>{lang === "en" ? "Published snapshot: " : "Instantánea publicada: "}{fmtDate(snapshot.generatedAt ?? null, lang, true)}. {lang === "en" ? "Sources checked daily; readings keep their observation dates." : "Fuentes verificadas a diario; las lecturas mantienen sus fechas de observación."}</p>
+            <div className="restriction-brief">
+              <div><p className="eyebrow">{t.stage}</p><div className="stage-brief-value"><strong>Stage / Etapa {data.stage.value ?? "—"}</strong><Status metric={data.stage} lang={lang} /></div><p>{t.effective} {fmtDate(data.stage.effectiveDate, lang)}</p></div>
+              <div><p>{isStageTwo ? t.action : lang === "en" ? "Check the current City water-use rules." : "Consulte las reglas actuales de uso del agua de la Ciudad."}</p><a href="#actions">{lang === "en" ? "What to do now" : "Qué hacer ahora"} ↓</a><span aria-hidden="true"> · </span><a href={urls.stage} target="_blank" rel="noreferrer">{t.allRules} ↗</a></div>
             </div>
-            <p className="checked" data-publication-time={snapshot.generatedAt}>
-              {lang === "en" ? "Published snapshot: " : "Instantánea publicada: "}{fmtDate(snapshot.generatedAt ?? null, lang, true)}.
-              {" "}{lang === "en" ? "Sources are checked daily. Labels update as readings age." : "Las fuentes se verifican a diario. Los avisos cambian según la antigüedad."}
-            </p>
-            <noscript><p>Freshness labels reflect the published snapshot time. Check the observation dates and official sources for current conditions.</p></noscript>
-            <div className="hero-grid">
-              <article className="stage-card">
-                <div className="card-top">
-                  <p className="eyebrow">{t.stage}</p>
-                  <Status metric={data.stage} lang={lang} />
-                </div>
-                <div className="stage-lockup"><span>{data.stage.value ?? "—"}</span><div><strong>Stage / Etapa</strong><small>{t.inEffect}</small></div></div>
-                <p className="effective">{t.effective} <time dateTime={data.stage.effectiveDate || ""}>{fmtDate(data.stage.effectiveDate, lang)}</time></p>
-                <p className="checked">{t.checked}: {fmtDate(data.stage.verifiedAt, lang, true)}</p>
-                <div className="risk-callout"><span aria-hidden="true">!</span><p>{isStageTwo ? t.risk : lang === "en" ? "Water-use guidance depends on the current City stage. Check the official rules before using City water outdoors." : "La orientación sobre el uso del agua depende de la etapa actual de la Ciudad. Consulte las reglas oficiales antes de usar agua de la Ciudad al aire libre."}</p></div>
-              </article>
-
-              <article className="supply-card">
-                <div className="card-top">
-                  <p className="eyebrow">{t.supply}</p>
-                  <Status metric={data.supply.total} lang={lang} />
-                </div>
-                <div className="supply-number"><span>{data.supply.total.value ?? "—"}</span><small>{lang === "en" ? "days" : "días"}</small></div>
-                <p className="not-countdown">{t.notCountdown}</p>
-                <SourceLine metric={data.supply.total} lang={lang} />
-              </article>
-
-              <article className="action-card">
-                <p className="eyebrow">{t.actionEyebrow}</p>
-                <h2>{isStageTwo ? t.action : lang === "en" ? "Check the current City water-use rules." : "Consulte las reglas actuales de uso del agua de la Ciudad."}</h2>
-                <p>{isStageTwo ? (lang === "en" ? "Hand watering, drip irrigation, and tree or shrub watering bags are allowed." : "Se permiten el riego manual, por goteo y las bolsas de riego para árboles o arbustos.") : (lang === "en" ? "This dashboard only summarizes Stage 2 restrictions. Requirements differ at other stages." : "Este panel solo resume las restricciones de la Etapa 2. Los requisitos varían en otras etapas.")}</p>
-                <a className="button light" href={urls.stage} target="_blank" rel="noreferrer">{t.allRules} <span aria-hidden="true">↗</span></a>
-              </article>
-            </div>
-
-            <div className="composition">
-              <div className="composition-head"><h2>{t.composed}</h2><a href={urls.data} target="_blank" rel="noreferrer">{t.source} ↗</a></div>
-              <div className="parts">
-                {supplyParts.map(([label, metric], index) => (
-                  <div className={index === 3 ? "part total-part" : "part"} key={label}>
-                    <span className="part-index" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
-                    <p>{label}</p><strong>{metric.value ?? "—"} <small>{lang === "en" ? "days" : "días"}</small></strong>
-                  </div>
-                ))}
-              </div>
-              <div className="trend-row">
-                <strong>{t.trend}</strong>
-                <span>{supplyChange === null || supplyChange === 0 ? "→" : supplyChange > 0 ? "↑" : "↓"}</span>
-                <p>
-                  {supplyChange === null
-                    ? t.trendMissing
-                    : supplyChange === 0
-                      ? (lang === "en" ? "No change from the previous dated City observation." : "Sin cambios frente a la observación fechada anterior de la Ciudad.")
-                      : lang === "en"
-                        ? `${Math.abs(supplyChange)} ${Math.abs(supplyChange) === 1 ? "day" : "days"} ${supplyChange > 0 ? "higher" : "lower"} than the previous dated City observation.`
-                        : `${Math.abs(supplyChange)} ${Math.abs(supplyChange) === 1 ? "día" : "días"} ${supplyChange > 0 ? "más" : "menos"} que la observación fechada anterior de la Ciudad.`}
-                </p>
-              </div>
-            </div>
+            <p className="briefing-priority">{t.official}</p>
+            <noscript><p>Freshness labels reflect the published snapshot time. Check observation dates and official sources for current conditions.</p></noscript>
           </div>
         </section>
+
+        <TrendContext days={history.days} end={historyDays.at(-1)?.date ?? data.historyStarts} lang={lang}
+          reservoirs={[
+            { key: "michie", name: "Lake Michie", fullPool: data.reservoirs.michie.fullPool, status: <Status metric={data.reservoirs.michie} lang={lang} /> },
+            { key: "little", name: "Little River Reservoir", fullPool: data.reservoirs.little.fullPool, status: <Status metric={data.reservoirs.little} lang={lang} /> },
+          ]}
+          supplyStatus={<Status metric={data.supply.total} lang={lang} />}
+          stations={[ageStation(comparison.stations.flat), ageStation(comparison.stations.little)]}
+          reservoirContext={<details id="prior-years" className="prior-year-disclosure"><summary>{lang === "en" ? "How do these levels compare with earlier years?" : "¿Cómo se comparan estos niveles con años anteriores?"}</summary>            <div className="charts-block">
+              <div className="section-heading compact"><p className="kicker">{t.officialCharts}</p><h2>{annualReservoirHeading(currentHistoryYear, lang)}</h2><p>{lang === "en" ? "The City publishes individual prior-year reservoir traces rather than an average series. These full-width official charts preserve that distinction without estimating values from the image." : "La Ciudad publica trazos de años anteriores, no una serie promedio. Estas gráficas oficiales a todo lo ancho conservan esa distinción sin estimar valores a partir de la imagen."}</p></div>
+              <div className="chart-grid">
+                {[
+                  [t.recentChart, `https://www.durhamnc.gov/ImageRepository/Document?documentID=4123&refresh=${chartVersion}`, "https://www.durhamnc.gov/DocumentCenter/View/4123", lang === "en" ? "City chart of recent daily reservoir elevations, with date on the horizontal axis and elevation in feet mean sea level on the vertical axis." : "Gráfica de la Ciudad con elevaciones diarias recientes; fecha en el eje horizontal y elevación en pies sobre el nivel medio del mar en el eje vertical."],
+                  [t.michieAnnual, `https://www.durhamnc.gov/ImageRepository/Document?documentID=4124&refresh=${chartVersion}`, "https://www.durhamnc.gov/DocumentCenter/View/4124", lang === "en" ? "City historical and annual elevation chart for Lake Michie, including the full-pool reference." : "Gráfica histórica y anual de la Ciudad para Lake Michie, incluida la referencia de capacidad."],
+                  [t.littleAnnual, `https://www.durhamnc.gov/ImageRepository/Document?documentID=4125&refresh=${chartVersion}`, "https://www.durhamnc.gov/DocumentCenter/View/4125", lang === "en" ? "City historical and annual elevation chart for Little River Reservoir, including the full-pool reference." : "Gráfica histórica y anual de la Ciudad para Little River Reservoir, incluida la referencia de capacidad."],
+                ].map(([label, src, href, alt]) => (
+                  <figure className="chart-card" key={label}>
+                    <figcaption><strong>{label}</strong><span>{lang === "en" ? "City-published image" : "Imagen publicada por la Ciudad"}</span></figcaption>
+                    {/* Keep the City image unchanged; there is no image-optimization server on GitHub Pages. */}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={src} alt={alt} width="720" height="430" loading="lazy" />
+                    <a href={href} target="_blank" rel="noreferrer">{t.openChart} ↗</a>
+                  </figure>
+                ))}
+              </div>
+            </div></details>}
+        />
 
         <section id="actions" className="section actions-section">
           <div className="wrap">
@@ -923,7 +679,7 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
           </div>
         </section>
 
-        <section id="reservoirs" className="section reservoirs-section">
+        <section id="reservoir-readings" className="section reservoirs-section">
           <div className="wrap">
             <div className="section-heading split"><div><p className="kicker">{t.reservoirs}</p><h2>{lang === "en" ? "Where today’s water line sits." : "Dónde se encuentra hoy el nivel del agua."}</h2></div><p>{t.reservoirIntro}</p></div>
             <div className="reservoir-grid">
@@ -989,137 +745,33 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
           </div>
         </section>
 
-        <section id="trends" className="section daily-trends-section">
+        <section id="daily-data" className="section daily-trends-section">
           <div className="wrap">
-            <div className="section-heading split">
-              <div>
-                <p className="kicker">{lang === "en" ? "Daily snapshot record" : "Registro diario de instantáneas"}</p>
-                <h2>{lang === "en" ? `${currentHistoryYear} history, across the full page.` : `Historial de ${currentHistoryYear}, a todo lo ancho.`}</h2>
-              </div>
-              <p>
-                {lang === "en"
-                  ? `The daily record now begins ${fmtDailyDate(historyDays[0]?.date ?? data.historyStarts, lang)}. USGS daily means appear where available; City supply and reservoir values appear only where an exact archived reading exists, with no interpolation.`
-                  : `El registro diario ahora comienza el ${fmtDailyDate(historyDays[0]?.date ?? data.historyStarts, lang)}. Los promedios diarios del USGS aparecen donde están disponibles; los valores de suministro y embalses solo aparecen cuando existe una lectura archivada exacta, sin interpolación.`}
-              </p>
-            </div>
-
-            <div className="daily-chart-grid">
-              <DailyBarChart
-                title={lang === "en" ? "Estimated total supply" : "Suministro total estimado"}
-                description={lang === "en" ? "Days of supply. Bars begin at zero." : "Días de suministro. Las barras comienzan en cero."}
-                days={historyDays}
-                lang={lang}
-                series={[{
-                  label: lang === "en" ? "Total supply" : "Suministro total",
-                  color: "#0d5c8f",
-                  values: historyDays.map((day) => day.values.supply.total),
-                  format: (value) => `${value}d`,
-                }]}
-                references={trackedSupplyAverage === null ? [] : [{
-                  label: trackedAverageLabel,
-                  value: trackedSupplyAverage,
-                  color: "#a94f0b",
-                  format: (value) => `${value.toFixed(1)}d`,
-                }]}
-              />
-              <DailyBarChart
-                title={lang === "en" ? "Distance below full pool" : "Distancia bajo la cota máxima"}
-                description={lang === "en" ? "Fewer feet below full means a higher reservoir level." : "Menos pies por debajo de capacidad significa un nivel más alto."}
-                days={historyDays}
-                lang={lang}
-                series={[
-                  {
-                    label: "Lake Michie",
-                    color: "#148f88",
-                    values: historyDays.map((day) => typeof day.values.reservoirs.michie === "number" ? 341 - day.values.reservoirs.michie : null),
-                    format: (value) => `${value.toFixed(1)}ft`,
-                  },
-                  {
-                    label: "Little River",
-                    color: "#d77a23",
-                    values: historyDays.map((day) => typeof day.values.reservoirs.little === "number" ? 355 - day.values.reservoirs.little : null),
-                    format: (value) => `${value.toFixed(1)}ft`,
-                  },
-                ]}
-                references={[
-                  ...(trackedMichieDistanceAverage === null ? [] : [{
-                    label: `Lake Michie · ${trackedAverageLabel}`,
-                    value: trackedMichieDistanceAverage,
-                    color: "#7a3e9d",
-                    format: (value: number) => `${value.toFixed(1)}ft`,
-                  }]),
-                  ...(trackedLittleDistanceAverage === null ? [] : [{
-                    label: `Little River · ${trackedAverageLabel}`,
-                    value: trackedLittleDistanceAverage,
-                    color: "#a94f0b",
-                    format: (value: number) => `${value.toFixed(1)}ft`,
-                  }]),
-                ]}
-              />
-              <DailyBarChart
-                title={lang === "en" ? "Feeder-river streamflow" : "Caudal de los ríos alimentadores"}
-                description={lang === "en" ? "USGS provisional cubic feet per second; short-term changes can be large." : "Pies cúbicos por segundo provisionales del USGS; los cambios diarios pueden ser grandes."}
-                days={historyDays}
-                lang={lang}
-                series={[
-                  {
-                    label: "Flat River",
-                    color: "#5d6ec7",
-                    values: historyDays.map((day) => day.values.streamflow.flat),
-                    format: (value) => value.toLocaleString(undefined, { maximumFractionDigits: 1 }),
-                  },
-                  {
-                    label: "Little River",
-                    color: "#8a5a44",
-                    values: historyDays.map((day) => day.values.streamflow.little),
-                    format: (value) => value.toLocaleString(undefined, { maximumFractionDigits: 1 }),
-                  },
-                ]}
-              />
-            </div>
-            <aside className="comparison-limit-note">
-              <strong>{lang === "en" ? "What the dashed averages mean" : "Qué significan los promedios discontinuos"}</strong>
-              <p>
-                {lang === "en"
-                  ? `Durham does not publish raw historical-average series for total supply or distance below full pool. The dashed lines average only the exact verified City readings available since ${fmtDailyDate(historyDays[0]?.date ?? data.historyStarts, lang)}—not missing dates and not a long-term average. The City’s annual reservoir charts below provide the longer comparison as individual prior years.`
-                  : `Durham no publica series de promedios históricos para el suministro total ni la distancia bajo la cota máxima. Las líneas discontinuas promedian solo las lecturas exactas verificadas disponibles desde el ${fmtDailyDate(historyDays[0]?.date ?? data.historyStarts, lang)}; no incluyen fechas faltantes ni son promedios a largo plazo. Las gráficas anuales de la Ciudad muestran la comparación más larga como años anteriores individuales.`}
-              </p>
-              <a href={urls.lakes} target="_blank" rel="noreferrer">{lang === "en" ? "Official City lake history" : "Historial oficial de los embalses"} ↗</a>
-            </aside>
-
-            <div className="year-comparison-heading">
-              <p className="kicker">{lang === "en" ? "Year to date vs historical average" : "Año hasta la fecha frente al promedio histórico"}</p>
-              <h2>{lang === "en" ? "Is feeder-river flow typical for this time of year?" : "¿Es normal el caudal para esta época del año?"}</h2>
-              <p>
-                {lang === "en"
-                  ? "These comparisons use USGS daily-mean records—not the single latest provisional readings shown above. Weekly grouping makes the full-year pattern easier to follow."
-                  : "Estas comparaciones usan registros de caudal medio diario del USGS, no la lectura provisional más reciente mostrada arriba. La agrupación semanal facilita seguir el patrón anual."}
-              </p>
-            </div>
-            <div className="year-comparison-grid">
-              <YearComparisonChart station={ageStation(comparison.stations.flat)} year={comparison.year} lang={lang} />
-              <YearComparisonChart station={ageStation(comparison.stations.little)} year={comparison.year} lang={lang} />
-            </div>
-
-            <div className="charts-block">
-              <div className="section-heading compact"><p className="kicker">{t.officialCharts}</p><h2>{annualReservoirHeading(currentHistoryYear, lang)}</h2><p>{lang === "en" ? "The City publishes individual prior-year reservoir traces rather than an average series. These full-width official charts preserve that distinction without estimating values from the image." : "La Ciudad publica trazos de años anteriores, no una serie promedio. Estas gráficas oficiales a todo lo ancho conservan esa distinción sin estimar valores a partir de la imagen."}</p></div>
-              <div className="chart-grid">
-                {[
-                  [t.recentChart, `https://www.durhamnc.gov/ImageRepository/Document?documentID=4123&refresh=${chartVersion}`, "https://www.durhamnc.gov/DocumentCenter/View/4123", lang === "en" ? "City chart of recent daily reservoir elevations, with date on the horizontal axis and elevation in feet mean sea level on the vertical axis." : "Gráfica de la Ciudad con elevaciones diarias recientes; fecha en el eje horizontal y elevación en pies sobre el nivel medio del mar en el eje vertical."],
-                  [t.michieAnnual, `https://www.durhamnc.gov/ImageRepository/Document?documentID=4124&refresh=${chartVersion}`, "https://www.durhamnc.gov/DocumentCenter/View/4124", lang === "en" ? "City historical and annual elevation chart for Lake Michie, including the full-pool reference." : "Gráfica histórica y anual de la Ciudad para Lake Michie, incluida la referencia de capacidad."],
-                  [t.littleAnnual, `https://www.durhamnc.gov/ImageRepository/Document?documentID=4125&refresh=${chartVersion}`, "https://www.durhamnc.gov/DocumentCenter/View/4125", lang === "en" ? "City historical and annual elevation chart for Little River Reservoir, including the full-pool reference." : "Gráfica histórica y anual de la Ciudad para Little River Reservoir, incluida la referencia de capacidad."],
-                ].map(([label, src, href, alt]) => (
-                  <figure className="chart-card" key={label}>
-                    <figcaption><strong>{label}</strong><span>{lang === "en" ? "City-published image" : "Imagen publicada por la Ciudad"}</span></figcaption>
-                    {/* Keep the City image unchanged; there is no image-optimization server on GitHub Pages. */}
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={src} alt={alt} width="720" height="430" loading="lazy" />
-                    <a href={href} target="_blank" rel="noreferrer">{t.openChart} ↗</a>
-                  </figure>
+            <div className="section-heading compact"><p className="kicker">{lang === "en" ? "Daily snapshot record" : "Registro diario de instantáneas"}</p><h2>{lang === "en" ? "Explore the exact readings" : "Explore las lecturas exactas"}</h2><p>{lang === "en" ? "USGS daily means appear where available; City supply and reservoir values appear only on their official observation dates, with no interpolation." : "Los promedios diarios del USGS aparecen donde están disponibles; los datos de suministro y embalses aparecen solo en las fechas oficiales de observación, sin interpolación."}</p></div>
+            <details id="supply-breakdown" className="supply-breakdown"><summary>{t.composed}</summary>            <div className="composition">
+              <div className="composition-head"><h2>{t.composed}</h2><a href={urls.data} target="_blank" rel="noreferrer">{t.source} ↗</a></div>
+              <div className="parts">
+                {supplyParts.map(([label, metric], index) => (
+                  <div className={index === 3 ? "part total-part" : "part"} key={label}>
+                    <span className="part-index" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+                    <p>{label}</p><strong>{metric.value ?? "—"} <small>{lang === "en" ? "days" : "días"}</small></strong>
+                  </div>
                 ))}
               </div>
-            </div>
-
+              <div className="trend-row">
+                <strong>{t.trend}</strong>
+                <span>{supplyChange === null || supplyChange === 0 ? "→" : supplyChange > 0 ? "↑" : "↓"}</span>
+                <p>
+                  {supplyChange === null
+                    ? t.trendMissing
+                    : supplyChange === 0
+                      ? (lang === "en" ? "No change from the previous dated City observation." : "Sin cambios frente a la observación fechada anterior de la Ciudad.")
+                      : lang === "en"
+                        ? `${Math.abs(supplyChange)} days ${supplyChange > 0 ? "higher" : "lower"} between ${fmtDailyDate(previousDay!.date, lang)} and ${fmtDailyDate(latestDay!.date, lang)}.`
+                        : `${Math.abs(supplyChange)} días ${supplyChange > 0 ? "más" : "menos"} entre el ${fmtDailyDate(previousDay!.date, lang)} y el ${fmtDailyDate(latestDay!.date, lang)}.`}
+                </p>
+              </div>
+            </div></details>
             <details className="daily-data-disclosure">
               <summary>
                 <span className="data-disclosure-label">
@@ -1290,7 +942,7 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
             <div className="method-grid">
               {[
                 [lang === "en" ? "Meaning, not mystery" : "Significado claro", lang === "en" ? "Days of supply combines accessible reservoir water, less-accessible water below the intakes, and Teer Quarry emergency storage. Elevation is never presented as percent storage." : "Los días combinan agua accesible, agua debajo de las tomas y reserva de Teer Quarry. La elevación nunca se presenta como porcentaje."],
-                [lang === "en" ? "Refresh rhythm" : "Ritmo de actualización", lang === "en" ? "A daily publication checks Durham, USGS, and NC drought sources at about 8 AM Eastern. Source observation dates can be older than the publication. Freshness labels age in your browser; the readings change at the next publication." : "Una publicación diaria verifica Durham, USGS y la sequía de NC alrededor de las 8 a. m., hora del Este. Las observaciones pueden ser anteriores. Los avisos de antigüedad cambian en su navegador; los valores cambian en la próxima publicación."],
+                [lang === "en" ? "Refresh rhythm" : "Ritmo de actualización", lang === "en" ? "A daily publication checks Durham, USGS, and NC drought sources at about 6 AM Eastern. Source observation dates can be older than the publication. Freshness labels age in your browser; the readings change at the next publication." : "Una publicación diaria verifica Durham, USGS y la sequía de NC alrededor de las 6 a. m., hora del Este. Las observaciones pueden ser anteriores. Los avisos de antigüedad cambian en su navegador; los valores cambian en la próxima publicación."],
                 [lang === "en" ? "Stale thresholds" : "Umbrales de desactualización", lang === "en" ? "Durham daily metrics: two calendar days. USGS: about three hours. NC drought: after the expected weekly update window." : "Métricas diarias de Durham: dos días calendario. USGS: unas tres horas. Sequía de NC: tras la ventana semanal esperada."],
                 [lang === "en" ? "Validation before publication" : "Validación antes de publicar", lang === "en" ? "Expected URL and units, a recognizable date, nonnegative components, internally consistent totals, intended reservoir fields, newer observations, and plausible changes." : "URL y unidades esperadas, fecha reconocible, componentes no negativos, total coherente, campos correctos, observaciones más nuevas y cambios plausibles."],
                 [lang === "en" ? "Failure is visible" : "Las fallas son visibles", lang === "en" ? "Malformed, older, null, or implausible readings never replace the repository’s last-known-good snapshot. The next static build keeps the verified value with a stale label; without one, it says reading unavailable." : "Lecturas malformadas, antiguas, nulas o improbables nunca reemplazan la última instantánea verificada del repositorio. La compilación estática conserva el valor con aviso; sin uno, indica no disponible."],

@@ -39,7 +39,7 @@ branch but does not run the refresh or build.
 
 ## Daily publication
 
-The scheduled Codex task runs at 8:00 AM America/New_York time. This Mac must be
+The scheduled Codex task runs at 6:00 AM America/New_York time. This Mac must be
 on and Codex must be running. GitHub Actions and Sites do not refresh or publish
 this dashboard.
 

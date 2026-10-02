@@ -21,11 +21,11 @@ test("produces a complete GitHub Pages artifact", async () => {
 
   assert.match(html, /Daily snapshot record/);
   assert.match(html, /Exact daily values/);
-  assert.match(html, /Year to date vs historical average/);
+  assert.match(html, /River flow: is this typical for the season/);
   assert.match(html, /vs historical daily mean/);
-  assert.match(html, /What the dashed averages mean/);
-  assert.match(html, /avg of available verified readings/);
-  assert.match(html, /not a long-term average/);
+  assert.match(html, /gaps mean no observation/);
+  assert.match(html, /Both graphs use the same scale/);
+  assert.match(html, /no long-term supply average/);
   assert.match(html, /USGS daily means appear where available/);
 
   assert.match(html, /documentID=4123(?:&amp;|&)refresh=/);

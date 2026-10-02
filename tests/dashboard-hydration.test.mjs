@@ -53,7 +53,12 @@ test('server markup hydrates without errors, ages readings, and switches to Span
     await act(async () => { hydrated = hydrateRoot(container, element, { onRecoverableError: error => errors.push(error.message) }); });
     await act(async () => { await new Promise(resolve => setTimeout(resolve, 30)); });
     assert.deepEqual(errors, []);
-    assert.ok(document.querySelector('svg title').textContent.includes('Flat River'));
+    assert.ok(document.querySelector('svg title').textContent.includes('Lake Michie'));
+    await act(async () => { [...document.querySelectorAll('.period-controls button')].find(b => b.textContent === '30 days').click(); });
+    assert.match(document.querySelector('.period-note').textContent, /Sep 3/);
+    assert.equal(document.querySelector('.period-controls button').getAttribute('aria-pressed'), 'true');
+    await act(async () => { [...document.querySelectorAll('.period-controls button')].find(b => b.textContent === '2026').click(); });
+    assert.match(document.querySelector('.period-note').textContent, /Jan 1.*Dec 31/);
     assert.ok(document.querySelector('.flow-card').querySelector('.status.stale'), 'A reading older than three hours must display stale after hydration');
     assert.ok(document.querySelector('.geographic-map[role="region"]'), 'The map must remain an accessible interactive region');
     await act(async () => { document.querySelector('button[aria-expanded="false"]').click(); });
