@@ -1,10 +1,12 @@
-import { mkdir, rm } from "node:fs/promises";
-import { isAbsolute, resolve } from "node:path";
-import { spawnSync } from "node:child_process";
+import { randomUUID } from "node:crypto";
+import { access, mkdir, readFile, symlink, writeFile } from "node:fs/promises";
+import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { publishPages } from "./publish-pages.mjs";
 import { validatePagesManifest } from "./pages-artifact.mjs";
 import { verifyPublishedPages } from "./verify-pages.mjs";
+import { acquireDailyLock, gitDirectory, recoverAbandonedLock, writeJson } from "./daily-lock.mjs";
+import { runCommand, runGitWithRetry } from "./run-command.mjs";
 
 export const snapshotPaths = [
   "data/quarantine.json",
@@ -13,19 +15,6 @@ export const snapshotPaths = [
   "public/data/streamflow-history.json",
   "public/data/rainfall-forecast.png",
 ];
-
-function defaultRun(command, args, options = {}) {
-  const result = spawnSync(command, args, {
-    cwd: options.cwd,
-    encoding: "utf8",
-    stdio: options.capture ? "pipe" : "inherit",
-  });
-  if (result.status !== 0 && !options.allowFailure) {
-    const detail = options.capture ? `: ${(result.stderr || result.stdout).trim()}` : "";
-    throw new Error(`${command} ${args.join(" ")} failed${detail}`);
-  }
-  return result;
-}
 
 export function parseNullPaths(output) {
   return output.split("\0").filter(Boolean);
@@ -52,82 +41,174 @@ export function assertOnlySnapshotChanges(paths) {
   }
 }
 
-async function acquireDailyLock(root, run) {
-  const gitDirectoryValue = run("git", ["rev-parse", "--git-common-dir"], { cwd: root, capture: true }).stdout.trim();
-  const gitDirectory = isAbsolute(gitDirectoryValue) ? gitDirectoryValue : resolve(root, gitDirectoryValue);
-  const lockPath = resolve(gitDirectory, "durham-water-daily.lock");
-  try {
-    await mkdir(lockPath);
-  } catch (error) {
-    if (error.code === "EEXIST") throw new Error(`Another daily update holds ${lockPath}`);
-    throw error;
-  }
-  return async () => rm(lockPath, { recursive: true });
+export function easternDate(date) {
+  return date.toLocaleDateString("en-CA", { timeZone: "America/New_York" });
 }
 
-function output(run, root, args) {
-  return run("git", args, { cwd: root, capture: true }).stdout.trim();
+async function output(run, root, args) {
+  return (await run("git", args, { cwd: root, capture: true })).stdout.trim();
+}
+
+async function assertCleanMain(root, run, expectedHead) {
+  const branch = await output(run, root, ["branch", "--show-current"]);
+  if (branch !== "main") throw new Error(`Daily update requires main, found ${branch || "detached HEAD"}`);
+  const status = await run("git", ["status", "--porcelain=v1", "-z", "--untracked-files=all"], { cwd: root, capture: true });
+  if (status.stdout) throw new Error(`Daily update requires a clean worktree; preserve or finish existing work first: ${parsePorcelainPaths(status.stdout).join(", ")}`);
+  const workingGitDirectory = await output(run, root, ["rev-parse", "--absolute-git-dir"]);
+  const commonDirectory = gitDirectory(root);
+  for (const path of [resolve(workingGitDirectory, "index.lock"), resolve(workingGitDirectory, "HEAD.lock"),
+    ...["packed-refs.lock", "shallow.lock", "config.lock", "refs/heads/main.lock"].map((name) => resolve(commonDirectory, name))]) {
+    try { await access(path); }
+    catch (error) { if (error.code === "ENOENT") continue; throw error; }
+    throw new Error(`Repository lock requires owner inspection; preserve ${path}`);
+  }
+  const head = await output(run, root, ["rev-parse", "HEAD"]);
+  if (expectedHead && head !== expectedHead) throw new Error("Main changed during the update; preserving the candidate without advancing main");
+  return head;
+}
+
+function attemptPath(directory, date) {
+  return resolve(directory, "durham-water-daily-attempts", `${date}.json`);
+}
+
+async function assertNotAttempted(directory, date) {
+  try { await access(attemptPath(directory, date)); }
+  catch (error) { if (error.code === "ENOENT") return; throw error; }
+  throw new Error(`A daily update was already attempted for ${date}; next attempt belongs to the next Eastern calendar date. See ${attemptPath(directory, date)}`);
+}
+
+export async function dailyPreflight({ root = resolve(import.meta.dirname, ".."), date = new Date() } = {}) {
+  const directory = gitDirectory(root);
+  await assertNotAttempted(directory, easternDate(date));
+  const abandoned = await recoverAbandonedLock(directory, { checkOnly: true });
+  const head = await assertCleanMain(root, runCommand);
+  await access(resolve(root, "node_modules"));
+  console.log(`Preflight passed: clean main at ${head}, no active owned lock, no command attempt for ${easternDate(date)}.`);
+  if (abandoned) console.log(`Verified abandoned owned lock; the permitted updater will archive ${abandoned.path} during acquisition.`);
 }
 
 export async function dailyUpdate({
   root = resolve(import.meta.dirname, ".."),
-  run = defaultRun,
-  lock = () => acquireDailyLock(root, run),
-  validate = () => validatePagesManifest({ root, pagesRoot: resolve(root, "pages-dist") }),
-  publish = () => publishPages({ root, run }),
-  verify = () => verifyPublishedPages({ root }),
+  run: suppliedRun,
+  validate = (candidate) => validatePagesManifest({ root: candidate, pagesRoot: resolve(candidate, "pages-dist") }),
+  publish = (candidate, run) => publishPages({ root: candidate, run }),
+  verify = (candidate) => verifyPublishedPages({ root: candidate, signal }),
   date = () => new Date(),
+  signal,
 } = {}) {
-  const unlock = await lock();
+  const directory = gitDirectory(root);
+  const lock = await acquireDailyLock(directory);
+  const run = suppliedRun ?? ((command, args, options) => runGitWithRetry(command, args, { ...options, signal, beforeSpawn: lock.beforeSpawn, childGroup: lock.childGroup }));
+  const localDate = easternDate(date());
+  const path = attemptPath(directory, localDate);
+  const state = { schemaVersion: 1, localDate, startedAt: date().toISOString(), phase: "preflight", outcome: "running" };
+  let reserved = false, candidate;
+  const phase = async (name) => { signal?.throwIfAborted(); state.phase = name; await writeJson(path, state); };
   try {
-    const branch = output(run, root, ["branch", "--show-current"]);
-    if (branch !== "main") throw new Error(`Daily update requires main, found ${branch || "detached HEAD"}`);
-
-    const initialStatus = output(run, root, ["status", "--porcelain=v1", "--untracked-files=all"]);
-    if (initialStatus) throw new Error("Daily update requires a clean worktree; preserve or finish existing work first");
-
-    run("git", ["fetch", "origin", "main"], { cwd: root });
-    run("git", ["merge", "--ff-only", "origin/main"], { cwd: root });
-    if (output(run, root, ["status", "--porcelain=v1", "--untracked-files=all"])) {
-      throw new Error("Worktree is not clean after synchronizing main");
+    await mkdir(resolve(path, ".."), { recursive: true });
+    try { await writeFile(path, `${JSON.stringify(state, null, 2)}\n`, { flag: "wx" }); reserved = true; }
+    catch (error) {
+      if (error.code === "EEXIST") throw new Error(`A daily update was already attempted for ${localDate}; see ${path}`);
+      throw error;
     }
+    await assertCleanMain(root, run);
+    await access(resolve(root, "node_modules"));
+    await phase("synchronize");
+    await run("git", ["fetch", "origin", "main"], { cwd: root });
+    await run("git", ["merge", "--ff-only", "origin/main"], { cwd: root });
+    const base = await assertCleanMain(root, run);
+    state.baseCommit = base;
+    candidate = resolve(directory, "durham-water-runs", `${localDate}-${randomUUID()}`, "worktree");
+    state.candidate = candidate;
+    await phase("prepare candidate");
+    await mkdir(resolve(candidate, ".."), { recursive: true });
+    await run("git", ["worktree", "add", "--detach", candidate, base], { cwd: root });
+    await symlink(resolve(root, "node_modules"), resolve(candidate, "node_modules"), "dir");
 
-    run("npm", ["run", "refresh:data", "--", "--all"], { cwd: root });
-    const refreshedPaths = parsePorcelainPaths(run("git", [
+    await phase("refresh sources");
+    await run("npm", ["run", "refresh:data", "--", "--all"], { cwd: candidate });
+    const refreshedPaths = parsePorcelainPaths((await run("git", [
       "status", "--porcelain=v1", "-z", "--untracked-files=all",
-    ], { cwd: root, capture: true }).stdout);
+    ], { cwd: candidate, capture: true })).stdout);
     assertOnlySnapshotChanges(refreshedPaths);
+    const snapshot = JSON.parse(await readFile(resolve(candidate, "public/data/dashboard.json"), "utf8"));
+    state.sourceResult = snapshot.lastRefreshResult;
+    state.snapshotGeneratedAt = snapshot.generatedAt;
 
-    run("npm", ["test"], { cwd: root });
-    run("npm", ["run", "lint"], { cwd: root });
-    run("npm", ["run", "typecheck"], { cwd: root });
-    await validate();
+    await phase("validate");
+    await run("npm", ["test"], { cwd: candidate });
+    await run("npm", ["run", "lint"], { cwd: candidate });
+    await run("npm", ["run", "typecheck"], { cwd: candidate });
+    await validate(candidate);
 
-    const validatedPaths = parsePorcelainPaths(run("git", [
+    const validatedPaths = parsePorcelainPaths((await run("git", [
       "status", "--porcelain=v1", "-z", "--untracked-files=all",
-    ], { cwd: root, capture: true }).stdout);
+    ], { cwd: candidate, capture: true })).stdout);
     assertOnlySnapshotChanges(validatedPaths);
+    await phase("commit candidate");
     if (validatedPaths.length > 0) {
-      run("git", ["add", "--", ...snapshotPaths], { cwd: root });
-      const staged = parseNullPaths(run("git", ["diff", "--cached", "--name-only", "-z"], {
-        cwd: root,
+      await run("git", ["add", "--", ...snapshotPaths], { cwd: candidate });
+      const staged = parseNullPaths((await run("git", ["diff", "--cached", "--name-only", "-z"], {
+        cwd: candidate,
         capture: true,
-      }).stdout);
+      })).stdout);
       assertOnlySnapshotChanges(staged);
-      const sourceDate = date().toLocaleDateString("en-CA", { timeZone: "America/New_York" });
-      run("git", ["commit", "-m", `Refresh Durham water data for ${sourceDate}`], { cwd: root });
+      await validate(candidate);
+      if (await output(run, candidate, ["diff", "--name-only"])) throw new Error("Candidate inputs changed while staging; refusing to commit");
+      await run("git", ["commit", "-m", `Refresh Durham water data for ${localDate}`], { cwd: candidate });
     }
-
-    if (output(run, root, ["status", "--porcelain=v1", "--untracked-files=all"])) {
-      throw new Error("Daily update will not push while the worktree has uncommitted files");
+    if (await output(run, candidate, ["status", "--porcelain=v1", "--untracked-files=all"])) {
+      throw new Error("Daily update will not advance main while its candidate has uncommitted files");
     }
-    run("git", ["push", "origin", "main"], { cwd: root });
-    await publish();
-    await verify();
+    await validate(candidate);
+    state.sourceCommit = await output(run, candidate, ["rev-parse", "HEAD"]);
+    await phase("advance main");
+    await assertCleanMain(root, run, base);
+    await run("git", ["merge", "--ff-only", state.sourceCommit], { cwd: root });
+    await assertCleanMain(root, run, state.sourceCommit);
+    await phase("push source");
+    await run("git", ["push", "origin", "main"], { cwd: root });
+    await phase("publish Pages");
+    await publish(candidate, run);
+    await phase("verify live content");
+    await verify(candidate);
+    state.liveContentVerified = true;
+    state.outcome = "verified";
+    state.completedAt = date().toISOString();
+    await writeJson(path, state);
+    // Git refuses to remove a dirty candidate. Never force cleanup or discard
+    // user changes, even if someone edited it while verification was running.
+    try { await run("git", ["worktree", "remove", candidate], { cwd: root }); }
+    catch (error) {
+      state.cleanupWarning = error.message;
+      await writeJson(path, state);
+      console.warn(`Publication verified; candidate cleanup deferred at ${candidate}: ${error.message}`);
+    }
     console.log("Daily refresh, source push, Pages publish, and remote content verification succeeded.");
+    return state;
+  } catch (error) {
+    if (reserved) {
+      state.outcome = "failed";
+      state.error = error.message;
+      state.completedAt = date().toISOString();
+      await writeJson(path, state);
+      console.error(`Daily update failed during ${state.phase}. Record: ${path}${candidate ? `; candidate preserved at ${candidate}` : ""}`);
+    }
+    throw error;
   } finally {
-    await unlock();
+    await lock.release();
   }
 }
 
-if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) await dailyUpdate();
+if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
+  if (process.argv.includes("--preflight")) await dailyPreflight();
+  else {
+    const controller = new AbortController();
+    const interrupt = () => controller.abort(new Error("Daily update interrupted by SIGINT"));
+    const terminate = () => controller.abort(new Error("Daily update interrupted by SIGTERM"));
+    process.once("SIGINT", interrupt);
+    process.once("SIGTERM", terminate);
+    try { await dailyUpdate({ signal: controller.signal }); }
+    finally { process.removeListener("SIGINT", interrupt); process.removeListener("SIGTERM", terminate); }
+  }
+}

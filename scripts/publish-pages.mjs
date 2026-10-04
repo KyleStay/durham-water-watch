@@ -1,46 +1,34 @@
 import { cp, mkdtemp, mkdir, readdir, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { spawnSync } from "node:child_process";
 import { pathToFileURL } from "node:url";
 import { validatePagesManifest } from "./pages-artifact.mjs";
-
-function defaultRun(command, args, options = {}) {
-  const result = spawnSync(command, args, {
-    cwd: options.cwd,
-    encoding: "utf8",
-    stdio: options.capture ? "pipe" : "inherit",
-  });
-  if (result.status !== 0 && !options.allowFailure) {
-    throw new Error(`${command} ${args.join(" ")} failed`);
-  }
-  return result;
-}
+import { runGitWithRetry } from "./run-command.mjs";
 
 export async function publishPages({
   root = resolve(import.meta.dirname, ".."),
-  run = defaultRun,
+  run = runGitWithRetry,
   makeTemp = () => mkdtemp(join(tmpdir(), "durham-water-pages-")),
 } = {}) {
   const pagesRoot = resolve(root, "pages-dist");
   const manifest = await validatePagesManifest({ root, pagesRoot });
   const deployRoot = await makeTemp();
   try {
-    const remote = run("git", ["remote", "get-url", "origin"], { cwd: root, capture: true }).stdout.trim();
+    const remote = (await run("git", ["remote", "get-url", "origin"], { cwd: root, capture: true })).stdout.trim();
     if (!remote) throw new Error("The GitHub origin remote is not configured");
 
-    const probe = run("git", ["ls-remote", "--exit-code", "--heads", remote, "gh-pages"], {
+    const probe = await run("git", ["ls-remote", "--exit-code", "--heads", remote, "gh-pages"], {
       cwd: root,
       capture: true,
       allowFailure: true,
     });
     if (probe.status === 0) {
-      run("git", ["clone", "--depth", "1", "--branch", "gh-pages", remote, deployRoot], { cwd: root });
+      await run("git", ["clone", "--depth", "1", "--branch", "gh-pages", remote, deployRoot], { cwd: root });
     } else if (probe.status === 2) {
       await rm(deployRoot, { recursive: true, force: true });
       await mkdir(deployRoot, { recursive: true });
-      run("git", ["init", "--initial-branch=gh-pages"], { cwd: deployRoot });
-      run("git", ["remote", "add", "origin", remote], { cwd: deployRoot });
+      await run("git", ["init", "--initial-branch=gh-pages"], { cwd: deployRoot });
+      await run("git", ["remote", "add", "origin", remote], { cwd: deployRoot });
     } else {
       throw new Error(`Cannot determine whether origin/gh-pages exists (git ls-remote exited ${probe.status})`);
     }
@@ -49,25 +37,28 @@ export async function publishPages({
       if (entry !== ".git") await rm(resolve(deployRoot, entry), { recursive: true, force: true });
     }
     await cp(pagesRoot, deployRoot, { recursive: true });
+    await validatePagesManifest({ root, pagesRoot: deployRoot, deploymentCheckout: true });
 
-    const name = run("git", ["config", "user.name"], { cwd: root, capture: true, allowFailure: true }).stdout.trim() || "KyleStay";
-    const email = run("git", ["config", "user.email"], { cwd: root, capture: true, allowFailure: true }).stdout.trim()
+    const name = (await run("git", ["config", "user.name"], { cwd: root, capture: true, allowFailure: true })).stdout.trim() || "KyleStay";
+    const email = (await run("git", ["config", "user.email"], { cwd: root, capture: true, allowFailure: true })).stdout.trim()
       || "KyleStay@users.noreply.github.com";
-    run("git", ["config", "user.name", name], { cwd: deployRoot });
-    run("git", ["config", "user.email", email], { cwd: deployRoot });
-    run("git", ["add", "--all"], { cwd: deployRoot });
+    await run("git", ["config", "user.name", name], { cwd: deployRoot });
+    await run("git", ["config", "user.email", email], { cwd: deployRoot });
+    await run("git", ["add", "--all"], { cwd: deployRoot });
 
-    const unchanged = run("git", ["diff", "--cached", "--quiet"], {
+    const diff = await run("git", ["diff", "--cached", "--quiet"], {
       cwd: deployRoot,
       allowFailure: true,
-    }).status === 0;
-    if (unchanged) {
+    });
+    if (diff.status !== 0 && diff.status !== 1) throw new Error(`Cannot compare the Pages artifact (git diff exited ${diff.status})`);
+    if (diff.status === 0) {
       console.log("GitHub Pages already matches the validated artifact.");
       return { changed: false, manifest };
     }
 
-    run("git", ["commit", "-m", "Deploy Durham Water Watch"], { cwd: deployRoot });
-    run("git", [
+    await run("git", ["commit", "-m", "Deploy Durham Water Watch"], { cwd: deployRoot });
+    await validatePagesManifest({ root, pagesRoot: deployRoot, deploymentCheckout: true });
+    await run("git", [
       "-c", "http.version=HTTP/1.1",
       "-c", "http.postBuffer=524288000",
       "push", "origin", "gh-pages",

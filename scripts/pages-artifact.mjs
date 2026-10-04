@@ -16,12 +16,13 @@ export function sha256(content) {
   return createHash("sha256").update(content).digest("hex");
 }
 
-async function listFiles(directory, base = directory) {
+async function listFiles(directory, base = directory, deploymentCheckout = false) {
   const entries = await readdir(directory, { withFileTypes: true });
   const files = [];
   for (const entry of entries) {
+    if (deploymentCheckout && directory === base && entry.name === ".git") continue;
     const path = resolve(directory, entry.name);
-    if (entry.isDirectory()) files.push(...await listFiles(path, base));
+    if (entry.isDirectory()) files.push(...await listFiles(path, base, deploymentCheckout));
     else if (entry.isFile()) files.push(relative(base, path).split("\\").join("/"));
   }
   return files.sort();
@@ -42,6 +43,7 @@ export function trackedFiles(root) {
 
 export async function createPagesManifest({ root, pagesRoot }) {
   const artifactPaths = (await listFiles(pagesRoot)).filter((path) => path !== manifestName);
+  if (artifactPaths.some((path) => path === ".git" || path.startsWith(".git/"))) throw new Error("Pages artifact must not contain a Git repository");
   for (const path of requiredPublishedFiles) {
     if (!artifactPaths.includes(path)) throw new Error(`Pages artifact is missing ${path}`);
   }
@@ -57,7 +59,7 @@ export async function createPagesManifest({ root, pagesRoot }) {
   return manifest;
 }
 
-export async function validatePagesManifest({ root, pagesRoot }) {
+export async function validatePagesManifest({ root, pagesRoot, deploymentCheckout = false }) {
   let manifest;
   try {
     manifest = JSON.parse(await readFile(resolve(pagesRoot, manifestName), "utf8"));
@@ -68,7 +70,8 @@ export async function validatePagesManifest({ root, pagesRoot }) {
     throw new Error("Pages artifact manifest was not produced by the supported validation workflow");
   }
 
-  const artifactPaths = (await listFiles(pagesRoot)).filter((path) => path !== manifestName);
+  const artifactPaths = (await listFiles(pagesRoot, pagesRoot, deploymentCheckout)).filter((path) => path !== manifestName);
+  if (artifactPaths.some((path) => path === ".git" || path.startsWith(".git/"))) throw new Error("Pages artifact must not contain a Git repository");
   if (JSON.stringify(artifactPaths) !== JSON.stringify(Object.keys(manifest.files).sort())) {
     throw new Error("Pages artifact files differ from the validated manifest");
   }

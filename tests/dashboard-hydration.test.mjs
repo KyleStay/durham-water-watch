@@ -34,14 +34,28 @@ test('stage changes render appropriate guidance without requiring Stage 2 conten
   }
 });
 
-test('server markup hydrates without errors, ages readings, and switches to Spanish', async (t) => {
+for (const [endDate, startLabel, endLabel] of [
+  ['2026-10-02', 'Sep 3', 'Oct 2'],
+  ['2027-01-01', 'Dec 3', 'Jan 1'],
+  ['2028-02-29', 'Jan 31', 'Feb 29'],
+]) test(`hydration, period controls and Spanish work for ${endDate}`, async (t) => {
   const data = structuredClone(snapshot);
-  data.generatedAt = '2026-09-08T12:00:00Z';
+  data.generatedAt = `${endDate}T12:00:00Z`;
   data.streamflow.flat.observedAt = data.generatedAt;
   data.streamflow.flat.retrievalStatus = 'verified';
   data.streamflow.flat.validationResult = 'accepted';
-  t.mock.timers.enable({ apis: ['Date'], now: Date.parse('2026-09-08T16:00:00Z') });
-  const element = createElement(WaterWatch, { snapshot: data });
+  t.mock.timers.enable({ apis: ['Date'], now: Date.parse(`${endDate}T16:00:00Z`) });
+  // Pass dated fixtures explicitly. The checked-in ledger grows every day and
+  // must not move the window (or year button) expected by this interaction test.
+  const history = { schemaVersion: 3, days: [{ date: endDate, capturedAt: data.generatedAt, values: {
+    stage: 2, drought: 'D1', supply: { accessible: null, belowIntakes: null, quarry: null, total: null },
+    reservoirs: { michie: null, little: null }, streamflow: { flat: null, little: null },
+  } }] };
+  const comparison = { schemaVersion: 1, year: Number(endDate.slice(0, 4)), updatedAt: data.generatedAt,
+    stations: Object.fromEntries(['flat', 'little'].map(key => [key, {
+      site: key, name: key, status: 'unavailable', sourceUrl: 'https://example.test/', historicalPeriod: null, days: [],
+    }])) };
+  const element = createElement(WaterWatch, { snapshot: data, history, comparison });
   const dom = new JSDOM(`<div id="root">${renderToString(element)}</div>`, { url: 'https://example.test/durham-water-watch/' });
   const globals = ['window', 'document', 'navigator', 'HTMLElement', 'Node', 'IS_REACT_ACT_ENVIRONMENT'];
   const previous = globals.map(key => [key, Object.getOwnPropertyDescriptor(globalThis, key)]);
@@ -55,9 +69,9 @@ test('server markup hydrates without errors, ages readings, and switches to Span
     assert.deepEqual(errors, []);
     assert.ok(document.querySelector('svg title').textContent.includes('Lake Michie'));
     await act(async () => { [...document.querySelectorAll('.period-controls button')].find(b => b.textContent === '30 days').click(); });
-    assert.match(document.querySelector('.period-note').textContent, /Sep 3/);
+    assert.ok(document.querySelector('.period-note').textContent.includes(`${startLabel} – ${endLabel}`));
     assert.equal(document.querySelector('.period-controls button').getAttribute('aria-pressed'), 'true');
-    await act(async () => { [...document.querySelectorAll('.period-controls button')].find(b => b.textContent === '2026').click(); });
+    await act(async () => { [...document.querySelectorAll('.period-controls button')].find(b => b.textContent === endDate.slice(0, 4)).click(); });
     assert.match(document.querySelector('.period-note').textContent, /Jan 1.*Dec 31/);
     assert.ok(document.querySelector('.flow-card').querySelector('.status.stale'), 'A reading older than three hours must display stale after hydration');
     assert.ok(document.querySelector('.geographic-map[role="region"]'), 'The map must remain an accessible interactive region');

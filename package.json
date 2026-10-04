@@ -17,6 +17,7 @@
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next --ignore-pattern pages-dist",
     "typecheck": "tsc --noEmit --incremental false",
     "daily:update": "node scripts/daily-update.mjs",
+    "daily:preflight": "node scripts/daily-update.mjs --preflight",
     "verify:pages": "node scripts/verify-pages.mjs",
     "migrate:history": "node scripts/migrate-history-ledger.mjs"
   },

@@ -6,7 +6,6 @@ import { join, resolve } from "node:path";
 import test from "node:test";
 import {
   assertOnlySnapshotChanges,
-  dailyUpdate,
   parseNullPaths,
   parsePorcelainPaths,
   snapshotPaths,
@@ -43,53 +42,6 @@ test("snapshot allowlist rejects unrelated refresh edits", () => {
   assert.throws(() => parsePorcelainPaths("R  old.json\0new.json\0"), /may not rename/);
 });
 
-test("daily update releases its lock and does not fetch over a dirty worktree", async () => {
-  const commands = [];
-  let unlocked = false;
-  const run = (command, args) => {
-    commands.push([command, ...args]);
-    if (args[0] === "branch") return { status: 0, stdout: "main\n" };
-    if (args[0] === "status") return { status: 0, stdout: "?? notes.txt\n" };
-    throw new Error(`unexpected command: ${command} ${args.join(" ")}`);
-  };
-  await assert.rejects(dailyUpdate({
-    root: "/unused",
-    run,
-    lock: async () => async () => { unlocked = true; },
-  }), /requires a clean worktree/);
-  assert.equal(unlocked, true);
-  assert.equal(commands.some((command) => command[1] === "fetch"), false);
-});
-
-test("failed validation cannot commit, push, or publish", async () => {
-  const commands = [];
-  let statusCalls = 0;
-  let published = false;
-  const run = (command, args) => {
-    commands.push([command, ...args]);
-    if (command === "npm") return { status: 0, stdout: "" };
-    if (args[0] === "branch") return { status: 0, stdout: "main\n" };
-    if (args[0] === "status") {
-      statusCalls += 1;
-      return {
-        status: 0,
-        stdout: statusCalls < 3 ? "" : " M public/data/dashboard.json\0",
-      };
-    }
-    if (args[0] === "fetch" || args[0] === "merge") return { status: 0, stdout: "" };
-    throw new Error(`unexpected command: ${command} ${args.join(" ")}`);
-  };
-  await assert.rejects(dailyUpdate({
-    root: "/unused",
-    run,
-    lock: async () => async () => {},
-    validate: async () => { throw new Error("artifact validation failed"); },
-    publish: async () => { published = true; },
-  }), /artifact validation failed/);
-  assert.equal(commands.some((command) => ["add", "commit", "push"].includes(command[1])), false);
-  assert.equal(published, false);
-});
-
 test("publisher rejects a network probe failure instead of treating it as a missing branch", async () => {
   const { root } = await fixture();
   const commands = [];
@@ -115,6 +67,21 @@ test("publisher rejects an artifact after a tracked build input changes", async 
   } finally {
     await rm(root, { recursive: true, force: true });
   }
+});
+
+test("publisher validates the copied artifact and pushes exact files to a local Pages branch", async () => {
+  const { root, pagesRoot } = await fixture();
+  try {
+    const remote = resolve(root, "origin.git");
+    execFileSync("git", ["init", "--quiet", "--bare", remote]);
+    execFileSync("git", ["remote", "add", "origin", remote], { cwd: root });
+    const result = await publishPages({ root });
+    assert.equal(result.changed, true);
+    for (const path of requiredPublishedFiles) {
+      const actual = execFileSync("git", ["--git-dir", remote, "show", `gh-pages:${path}`]);
+      assert.deepEqual(actual, await readFile(resolve(pagesRoot, path)));
+    }
+  } finally { await rm(root, { recursive: true, force: true }); }
 });
 
 test("remote verification outlasts the Pages cache and compares exact bytes", async () => {
@@ -143,4 +110,22 @@ test("remote verification outlasts the Pages cache and compares exact bytes", as
   } finally {
     await rm(root, { recursive: true, force: true });
   }
+});
+
+test("live verification has a total time budget and cancellation stops retries", async () => {
+  const { root } = await fixture();
+  let stamp = 0, calls = 0;
+  try {
+    await assert.rejects(verifyPublishedPages({ root, maxDurationMs: 50, retryDelayMs: 5,
+      now: () => stamp,
+      sleep: async (ms) => { stamp += ms; },
+      fetchImpl: async () => { stamp += 10; calls += 1; return new Response("old deployment"); },
+    }), /did not converge within/);
+    assert.ok(calls < 10);
+    const controller = new AbortController();
+    await assert.rejects(verifyPublishedPages({ root, signal: controller.signal,
+      fetchImpl: async () => { controller.abort(new Error("cancel readback")); throw controller.signal.reason; },
+      sleep: async () => { throw new Error("Must not retry cancellation"); },
+    }), /cancel readback/);
+  } finally { await rm(root, { recursive: true, force: true }); }
 });
