@@ -41,6 +41,7 @@ for (const [endDate, startLabel, endLabel] of [
 ]) test(`hydration, period controls and Spanish work for ${endDate}`, async (t) => {
   const data = structuredClone(snapshot);
   data.generatedAt = `${endDate}T12:00:00Z`;
+  data.streamflow.flat.value = 12.5;
   data.streamflow.flat.observedAt = data.generatedAt;
   data.streamflow.flat.retrievalStatus = 'verified';
   data.streamflow.flat.validationResult = 'accepted';

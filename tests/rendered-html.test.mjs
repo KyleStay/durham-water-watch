@@ -1,5 +1,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { readFile } from "node:fs/promises";
+
+const snapshot = JSON.parse(await readFile(new URL("../public/data/dashboard.json", import.meta.url), "utf8"));
 
 async function render(path = "/") {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
@@ -26,7 +29,13 @@ test("server-renders the resident-facing dashboard without JavaScript", async ()
   assert.match(html, /How have conditions changed/);
   assert.ok(html.indexOf("Reservoirs: how far below full?") < html.indexOf("Supply: is the estimate rising or falling?"));
   assert.ok(html.indexOf("Supply: is the estimate rising or falling?") < html.indexOf("River flow: is this typical for the season?"));
-  assert.ok(html.indexOf("River flow: is this typical for the season?") < html.indexOf("No landscape spray irrigation"));
+  if (snapshot.stage.value === 2) {
+    assert.match(html, /No landscape spray irrigation/);
+    assert.ok(html.indexOf("River flow: is this typical for the season?") < html.indexOf("No landscape spray irrigation"));
+  } else {
+    assert.doesNotMatch(html, /No landscape spray irrigation|Illustrative scenario explorer/);
+    assert.match(html, /complete official rules control/);
+  }
   assert.match(html, /Historical daily mean/);
   assert.match(html, /usual seasonal pattern through December/);
   assert.match(html, /gaps mean no observation/);
