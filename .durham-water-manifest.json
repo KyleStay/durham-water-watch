@@ -83,20 +83,20 @@
       "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde"
     },
     "public/data/dashboard.json": {
-      "bytes": 7327,
-      "sha256": "b99dd0685da8fd03e5c339fa6062f6d5c946e7e95a1713a4dabdd510ad41d788"
+      "bytes": 7313,
+      "sha256": "abdd60a6a4a5e23e5806b3c9243b39e6e6095cc63b8f0fb01564a035d296b601"
     },
     "public/data/history.json": {
-      "bytes": 269997,
-      "sha256": "8b829194b8234b6213b035081cf1cae774861639eb98fbddb4c586296a0164a6"
+      "bytes": 271839,
+      "sha256": "f990550582e279babdba72f3ca26ccdb8b225a981d4fd34de4a88b239d627c35"
     },
     "public/data/rainfall-forecast.png": {
-      "bytes": 30708,
-      "sha256": "7399dc8fcaafe1a8219c66d8a929c50133ab0ef3b856058cebc4afd816789201"
+      "bytes": 23098,
+      "sha256": "1928da1c46899c1c8404944f67dcbae1b519df915f84afb915e3e6e3aa884a22"
     },
     "public/data/streamflow-history.json": {
       "bytes": 113673,
-      "sha256": "4cbf5b286eacea734d5e9d083a304ad8f46f565de5316d6d50460bbc57923827"
+      "sha256": "4459d1c51ab8cc423fea343afe79c08fdcd125de008daf6ef3d35466186660cb"
     },
     "public/og.png": {
       "bytes": 1751932,
@@ -301,80 +301,36 @@
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     ".vite/manifest.json": {
-      "bytes": 2503,
-      "sha256": "ba89f0adbd5ce666ad74033c1c3442406c99ee100ada75681aa3aa6980028f28"
+      "bytes": 2575,
+      "sha256": "1cf120396c04d6910d349af9a406add6c4e5eb37aaf5b46558e0ab181960dd53"
     },
     "404.html": {
-      "bytes": 139866,
-      "sha256": "55d9eb00347dac00f9085700d49f23e14c75b49b2bc025eac466674922bbcb3f"
+      "bytes": 141280,
+      "sha256": "42d6823d08b0b70d1d0592bc13209fdbf21ad03af854490a4f61a992fbd858f2"
     },
     "_headers": {
       "bytes": 131,
       "sha256": "2148fb62669525f5091532d36d4a48a8da95b08a5a797bacde75d2fe981351bb"
     },
-    "_next/static/3404eacc-534e-4517-815a-96066b4f13f5/_buildManifest.js": {
+    "_next/static/781bd60a-596c-4cdd-bc2a-9f251f4b181d/_buildManifest.js": {
       "bytes": 159,
       "sha256": "47f02b34be6dc481257b6efce4c19e19111f37ef5c437f8ffed44f0da97fa9bb"
     },
-    "_next/static/3404eacc-534e-4517-815a-96066b4f13f5/_ssgManifest.js": {
+    "_next/static/781bd60a-596c-4cdd-bc2a-9f251f4b181d/_ssgManifest.js": {
       "bytes": 76,
       "sha256": "653f3e53e89b4f8548ff86c19e92bb3c6b84b6be7485a320b1e00893ed877479"
-    },
-    "_next/static/_vinext_fonts/geist-8ac0455e797f/geist-001175b1.woff2": {
-      "bytes": 16540,
-      "sha256": "58a6b173d5ca1dec92166ea3c6cb1a84a4144556d10928ac14e8e6b40e4787bd"
-    },
-    "_next/static/_vinext_fonts/geist-8ac0455e797f/geist-52306abf.woff2": {
-      "bytes": 7968,
-      "sha256": "f689f638f29fff460a2d5749edb5d5c38d7bef0389f32032d871f23fc6ebb008"
-    },
-    "_next/static/_vinext_fonts/geist-8ac0455e797f/geist-875ccdd4.woff2": {
-      "bytes": 14900,
-      "sha256": "6129fc8571c3e0cb0a4c41f5160c974a843b055009dc4ad8858bd808e18a2d86"
-    },
-    "_next/static/_vinext_fonts/geist-8ac0455e797f/geist-98bbbccb.woff2": {
-      "bytes": 29288,
-      "sha256": "9b6f5ff45b278c744b5f379a2c4ecbaf858a842b8eaf82ac8d21b699ca16c608"
-    },
-    "_next/static/_vinext_fonts/geist-8ac0455e797f/geist-ff2310f5.woff2": {
-      "bytes": 7252,
-      "sha256": "b7a545bbb08256bd809f11cfe66d88da3e22d169ea4407737b1ef0ec1ed3d791"
-    },
-    "_next/static/_vinext_fonts/geist-mono-00e989178794/geist-mono-013b2f2f.woff2": {
-      "bytes": 23108,
-      "sha256": "5f3d6ad60f29d6cb708414ec6887163d63bf197377ef5417d2483ff31ace6c3b"
-    },
-    "_next/static/_vinext_fonts/geist-mono-00e989178794/geist-mono-0638449e.woff2": {
-      "bytes": 5892,
-      "sha256": "d67e4a94ba498635f764ddca7d1ec4271f5642f032eb24b426764480f66f8497"
-    },
-    "_next/static/_vinext_fonts/geist-mono-00e989178794/geist-mono-44745446.woff2": {
-      "bytes": 14712,
-      "sha256": "745994b5cd950ec201b66526375f057d540847cccfc70f4f24f5f571d26d3923"
-    },
-    "_next/static/_vinext_fonts/geist-mono-00e989178794/geist-mono-44e03052.woff2": {
-      "bytes": 12872,
-      "sha256": "75b3bedbebc35f347c0ae3b416aa871941555357e7b0f83767eb5987875589ed"
-    },
-    "_next/static/_vinext_fonts/geist-mono-00e989178794/geist-mono-971fb274.woff2": {
-      "bytes": 7728,
-      "sha256": "16e1d48b6dd29eb240aec5db36184eb182933c082cd43de7f35af686d58087d2"
-    },
-    "_next/static/_vinext_fonts/geist-mono-00e989178794/geist-mono-f6b33328.woff2": {
-      "bytes": 6204,
-      "sha256": "e27f657e38d52887baa3b6b2f812bef93dfdd356f0810e40edd4ee284cc7e9f6"
     },
     "_next/static/chunks/framework-DTZGTDtF.js": {
       "bytes": 190109,
       "sha256": "2a1edf81f32a49b1eacafc3546b371bca024c82a9191836e274d90890212e9df"
     },
-    "_next/static/chunks/index-D4e3c5v8.js": {
+    "_next/static/chunks/index-Bqfc36aG.js": {
       "bytes": 108785,
-      "sha256": "1feca69c49f5bacf1f0938fe13d1e35ecb2c1ae75de4ad214303d2a7db9cedac"
+      "sha256": "bb99035fb6879ab4fb5c4156463db82bc86dae42fc0576136fc3759753328fe7"
     },
-    "_next/static/chunks/layout-segment-context-C9ww53lD.js": {
+    "_next/static/chunks/layout-segment-context-xKNm6OJ5.js": {
       "bytes": 496,
-      "sha256": "7d9fc77f2106a0a60c2dfd6485e3866a75f3230c973ceff8fe8d690e4ba6cb41"
+      "sha256": "951a1a57c388a1f24b5e38c5030d4706e143c5d3497ee36501b1417feb04f8b6"
     },
     "_next/static/chunks/leaflet-src-CglwsnG5.js": {
       "bytes": 148747,
@@ -384,41 +340,41 @@
       "bytes": 716,
       "sha256": "580ad8c58061a4dde99bde0a56905e382f0568516ee2f5b84dbfb52085709021"
     },
-    "_next/static/chunks/vinext-Bo5Tj83R.js": {
+    "_next/static/chunks/vinext-guwktQCg.js": {
       "bytes": 111758,
-      "sha256": "d550c39536232183c14f7cd216850fbc88186fe9c8c3b0ae2dcd6d536726d6f1"
+      "sha256": "f967f313507503daf8489ea5637793608650abd8aae3a8d2184d958b7df8dc47"
     },
-    "_next/static/chunks/water-watch-CjnWOrAO.js": {
-      "bytes": 315727,
-      "sha256": "486953cceef95f18ee12c191a5ece6050c6ff4805dcbbc73f0df732b98352662"
+    "_next/static/chunks/water-watch-DuYAxGEd.js": {
+      "bytes": 316775,
+      "sha256": "676e3420fcd2a1f960bb7ed033f0d40f36fc2bf1909808e89c1511e4e47764d7"
     },
-    "_next/static/chunks/watershed-map-engine-ClnNClWx.js": {
+    "_next/static/chunks/watershed-map-engine-DPY6c5E8.js": {
       "bytes": 3737,
-      "sha256": "a00cbe69ebefacb49e87b6cf03a0e45f6eaf847d0853cc6385ceb3f603432189"
+      "sha256": "fd08bc0db84c5b7f58d1e9b377c5714ee2c23740c0ca2317e3a2aa866bb74bee"
     },
-    "_next/static/css/index.DBAU8okD.css": {
-      "bytes": 45616,
-      "sha256": "057150c4542238e17902c678aca56d66914f5f6e9fb0caa35416f6577621172f"
+    "_next/static/css/index.Cp8NyqEP.css": {
+      "bytes": 160790,
+      "sha256": "9b23a5924a4506918ab3c866abb3675278e6b0ceb103f6b67ff1a9e7633b1720"
     },
     "data/dashboard.json": {
-      "bytes": 7327,
-      "sha256": "b99dd0685da8fd03e5c339fa6062f6d5c946e7e95a1713a4dabdd510ad41d788"
+      "bytes": 7313,
+      "sha256": "abdd60a6a4a5e23e5806b3c9243b39e6e6095cc63b8f0fb01564a035d296b601"
     },
     "data/history.json": {
-      "bytes": 269997,
-      "sha256": "8b829194b8234b6213b035081cf1cae774861639eb98fbddb4c586296a0164a6"
+      "bytes": 271839,
+      "sha256": "f990550582e279babdba72f3ca26ccdb8b225a981d4fd34de4a88b239d627c35"
     },
     "data/rainfall-forecast.png": {
-      "bytes": 30708,
-      "sha256": "7399dc8fcaafe1a8219c66d8a929c50133ab0ef3b856058cebc4afd816789201"
+      "bytes": 23098,
+      "sha256": "1928da1c46899c1c8404944f67dcbae1b519df915f84afb915e3e6e3aa884a22"
     },
     "data/streamflow-history.json": {
       "bytes": 113673,
-      "sha256": "4cbf5b286eacea734d5e9d083a304ad8f46f565de5316d6d50460bbc57923827"
+      "sha256": "4459d1c51ab8cc423fea343afe79c08fdcd125de008daf6ef3d35466186660cb"
     },
     "index.html": {
-      "bytes": 139866,
-      "sha256": "55d9eb00347dac00f9085700d49f23e14c75b49b2bc025eac466674922bbcb3f"
+      "bytes": 141280,
+      "sha256": "42d6823d08b0b70d1d0592bc13209fdbf21ad03af854490a4f61a992fbd858f2"
     },
     "og.png": {
       "bytes": 1751932,
@@ -426,7 +382,7 @@
     },
     "vinext-client-entry-manifest.json": {
       "bytes": 65,
-      "sha256": "4872c47f9e81c0d6f34a0e88422bd1b23d3461c2dacddab980ab68bcfe72acac"
+      "sha256": "dde65da2e9d780cabeb47011882b6680e46ffb3d67d2df1bdeaecab3a6fcaee1"
     }
   }
 }
