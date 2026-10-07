@@ -20,7 +20,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 71.6,
-          "little": 42
+          "little": 41.3
         }
       },
       "retainedFields": [],
@@ -60,7 +60,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 54.4,
-          "little": 31.1
+          "little": 30.9
         }
       },
       "retainedFields": [],
@@ -140,7 +140,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 37.3,
-          "little": 20.7
+          "little": 20.8
         }
       },
       "retainedFields": [],
@@ -180,7 +180,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 34.6,
-          "little": 18.7
+          "little": 18.8
         }
       },
       "retainedFields": [],
@@ -220,7 +220,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 32.1,
-          "little": 16.9
+          "little": 17.1
         }
       },
       "retainedFields": [],
@@ -260,7 +260,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 29.5,
-          "little": 15.9
+          "little": 16.1
         }
       },
       "retainedFields": [],
@@ -300,7 +300,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 28.4,
-          "little": 15.7
+          "little": 15.8
         }
       },
       "retainedFields": [],
@@ -340,7 +340,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 27,
-          "little": 15.2
+          "little": 15.3
         }
       },
       "retainedFields": [],
@@ -380,7 +380,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 27.4,
-          "little": 14.7
+          "little": 14.8
         }
       },
       "retainedFields": [],
@@ -420,7 +420,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 25.5,
-          "little": 13.5
+          "little": 13.7
         }
       },
       "retainedFields": [],
@@ -460,7 +460,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 28.7,
-          "little": 19.6
+          "little": 19.7
         }
       },
       "retainedFields": [],
@@ -500,7 +500,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 84.4,
-          "little": 48.5
+          "little": 47.5
         }
       },
       "retainedFields": [],
@@ -540,7 +540,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 68.6,
-          "little": 35.5
+          "little": 35.2
         }
       },
       "retainedFields": [],
@@ -580,7 +580,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 46.6,
-          "little": 24.5
+          "little": 24.7
         }
       },
       "retainedFields": [],
@@ -620,7 +620,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 277,
-          "little": 140
+          "little": 184
         }
       },
       "retainedFields": [],
@@ -660,7 +660,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 378,
-          "little": 153
+          "little": 161
         }
       },
       "retainedFields": [],
@@ -700,7 +700,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 144,
-          "little": 68.9
+          "little": 66.3
         }
       },
       "retainedFields": [],
@@ -740,7 +740,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 83,
-          "little": 42.1
+          "little": 41.6
         }
       },
       "retainedFields": [],
@@ -820,7 +820,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 60.9,
-          "little": 26.9
+          "little": 27.1
         }
       },
       "retainedFields": [],
@@ -860,7 +860,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 51.3,
-          "little": 23.3
+          "little": 23.6
         }
       },
       "retainedFields": [],
@@ -900,7 +900,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 44.1,
-          "little": 21
+          "little": 21.3
         }
       },
       "retainedFields": [],
@@ -940,7 +940,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 37.7,
-          "little": 17.8
+          "little": 18.1
         }
       },
       "retainedFields": [],
@@ -980,7 +980,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 33.6,
-          "little": 16.1
+          "little": 16.4
         }
       },
       "retainedFields": [],
@@ -1020,7 +1020,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 31.2,
-          "little": 15.2
+          "little": 15.5
         }
       },
       "retainedFields": [],
@@ -1060,7 +1060,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 31.7,
-          "little": 15.5
+          "little": 15.9
         }
       },
       "retainedFields": [],
@@ -1100,7 +1100,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 38.6,
-          "little": 18.2
+          "little": 18.6
         }
       },
       "retainedFields": [],
@@ -1140,7 +1140,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 48.3,
-          "little": 19.2
+          "little": 19.6
         }
       },
       "retainedFields": [],
@@ -1180,7 +1180,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 37.5,
-          "little": 16.7
+          "little": 17.1
         }
       },
       "retainedFields": [],
@@ -1220,7 +1220,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 33.5,
-          "little": 15.1
+          "little": 15.4
         }
       },
       "retainedFields": [],
@@ -1260,7 +1260,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 31.3,
-          "little": 14.7
+          "little": 15
         }
       },
       "retainedFields": [],
@@ -1300,7 +1300,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 29.9,
-          "little": 13.9
+          "little": 14.3
         }
       },
       "retainedFields": [],
@@ -1340,7 +1340,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 28.6,
-          "little": 12.9
+          "little": 13.2
         }
       },
       "retainedFields": [],
@@ -1380,7 +1380,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 27.2,
-          "little": 12.3
+          "little": 12.7
         }
       },
       "retainedFields": [],
@@ -1420,7 +1420,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 27,
-          "little": 12.7
+          "little": 13
         }
       },
       "retainedFields": [],
@@ -1460,7 +1460,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 25.5,
-          "little": 12.1
+          "little": 12.5
         }
       },
       "retainedFields": [],
@@ -1500,7 +1500,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 31.1,
-          "little": 11.4
+          "little": 11.7
         }
       },
       "retainedFields": [],
@@ -1540,7 +1540,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 27,
-          "little": 10.3
+          "little": 10.6
         }
       },
       "retainedFields": [],
@@ -1580,7 +1580,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 23.7,
-          "little": 9.79
+          "little": 10.1
         }
       },
       "retainedFields": [],
@@ -1620,7 +1620,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 23.2,
-          "little": 9.14
+          "little": 9.43
         }
       },
       "retainedFields": [],
@@ -1660,7 +1660,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 23.3,
-          "little": 9.45
+          "little": 9.76
         }
       },
       "retainedFields": [],
@@ -1700,7 +1700,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 23.4,
-          "little": 8.71
+          "little": 9
         }
       },
       "retainedFields": [],
@@ -1752,7 +1752,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 23,
-          "little": 8.85
+          "little": 9.15
         }
       },
       "retainedFields": [],
@@ -1792,7 +1792,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 22.8,
-          "little": 8.05
+          "little": 8.32
         }
       },
       "retainedFields": [],
@@ -1832,7 +1832,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 21.9,
-          "little": 7.55
+          "little": 7.79
         }
       },
       "retainedFields": [],
@@ -1872,7 +1872,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 21,
-          "little": 7.24
+          "little": 7.46
         }
       },
       "retainedFields": [],
@@ -1912,7 +1912,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 21.1,
-          "little": 6.64
+          "little": 6.83
         }
       },
       "retainedFields": [],
@@ -1952,7 +1952,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 19.8,
-          "little": 6.17
+          "little": 6.35
         }
       },
       "retainedFields": [],
@@ -1992,7 +1992,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 20,
-          "little": 5.7
+          "little": 5.85
         }
       },
       "retainedFields": [],
@@ -2032,7 +2032,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 18.1,
-          "little": 5
+          "little": 5.13
         }
       },
       "retainedFields": [],
@@ -2072,7 +2072,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 17.3,
-          "little": 4.83
+          "little": 4.95
         }
       },
       "retainedFields": [],
@@ -2112,7 +2112,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 16.6,
-          "little": 4.73
+          "little": 4.85
         }
       },
       "retainedFields": [],
@@ -2152,7 +2152,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 16,
-          "little": 4.53
+          "little": 4.64
         }
       },
       "retainedFields": [],
@@ -2192,7 +2192,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 15.5,
-          "little": 4.61
+          "little": 4.71
         }
       },
       "retainedFields": [],
@@ -2232,7 +2232,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 15.1,
-          "little": 4.85
+          "little": 4.95
         }
       },
       "retainedFields": [],
@@ -2272,7 +2272,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 14.9,
-          "little": 4.48
+          "little": 4.56
         }
       },
       "retainedFields": [],
@@ -2312,7 +2312,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 15.1,
-          "little": 4.39
+          "little": 4.46
         }
       },
       "retainedFields": [],
@@ -2352,7 +2352,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 15.1,
-          "little": 4.56
+          "little": 4.64
         }
       },
       "retainedFields": [],
@@ -2392,7 +2392,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 15.3,
-          "little": 4.8
+          "little": 4.88
         }
       },
       "retainedFields": [],
@@ -2432,7 +2432,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 15.7,
-          "little": 6.28
+          "little": 6.39
         }
       },
       "retainedFields": [],
@@ -2472,7 +2472,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 15.8,
-          "little": 7.25
+          "little": 7.38
         }
       },
       "retainedFields": [],
@@ -2512,7 +2512,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 14.9,
-          "little": 6.25
+          "little": 6.34
         }
       },
       "retainedFields": [],
@@ -2552,7 +2552,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 12.6,
-          "little": 5.47
+          "little": 5.55
         }
       },
       "retainedFields": [],
@@ -2592,7 +2592,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 11,
-          "little": 4.63
+          "little": 4.68
         }
       },
       "retainedFields": [],
@@ -2632,7 +2632,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 10.4,
-          "little": 4.12
+          "little": 4.16
         }
       },
       "retainedFields": [],
@@ -2672,7 +2672,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 10,
-          "little": 3.75
+          "little": 3.77
         }
       },
       "retainedFields": [],
@@ -2712,7 +2712,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 9.93,
-          "little": 4.02
+          "little": 4.04
         }
       },
       "retainedFields": [],
@@ -2752,7 +2752,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 10.3,
-          "little": 5.26
+          "little": 5.31
         }
       },
       "retainedFields": [],
@@ -2792,7 +2792,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 10.6,
-          "little": 6.09
+          "little": 6.15
         }
       },
       "retainedFields": [],
@@ -2832,7 +2832,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 10.6,
-          "little": 5.39
+          "little": 5.44
         }
       },
       "retainedFields": [],
@@ -2872,7 +2872,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 9.45,
-          "little": 4.49
+          "little": 4.51
         }
       },
       "retainedFields": [],
@@ -2912,7 +2912,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 8.23,
-          "little": 4.1
+          "little": 4.11
         }
       },
       "retainedFields": [],
@@ -2952,7 +2952,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 7.15,
-          "little": 3.4
+          "little": 3.38
         }
       },
       "retainedFields": [],
@@ -2992,7 +2992,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 6.52,
-          "little": 2.96
+          "little": 2.94
         }
       },
       "retainedFields": [],
@@ -3032,7 +3032,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 5.84,
-          "little": 2.84
+          "little": 2.82
         }
       },
       "retainedFields": [],
@@ -3072,7 +3072,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 5.24,
-          "little": 2.49
+          "little": 2.48
         }
       },
       "retainedFields": [],
@@ -3214,7 +3214,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 3.88,
-          "little": 1.91
+          "little": 1.9
         }
       },
       "retainedFields": [],
@@ -3254,7 +3254,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 3.64,
-          "little": 1.71
+          "little": 1.69
         }
       },
       "retainedFields": [],
@@ -3294,7 +3294,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 3.44,
-          "little": 1.53
+          "little": 1.5
         }
       },
       "retainedFields": [],
@@ -3334,7 +3334,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 3.29,
-          "little": 1.59
+          "little": 1.55
         }
       },
       "retainedFields": [],
@@ -3374,7 +3374,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 3.23,
-          "little": 1.5
+          "little": 1.45
         }
       },
       "retainedFields": [],
@@ -3414,7 +3414,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 3.28,
-          "little": 1.36
+          "little": 1.3
         }
       },
       "retainedFields": [],
@@ -3454,7 +3454,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 3.77,
-          "little": 1.53
+          "little": 1.47
         }
       },
       "retainedFields": [],
@@ -3494,7 +3494,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 4.26,
-          "little": 1.8
+          "little": 1.72
         }
       },
       "retainedFields": [],
@@ -3534,7 +3534,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 4.17,
-          "little": 1.79
+          "little": 1.7
         }
       },
       "retainedFields": [],
@@ -3574,7 +3574,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 3.75,
-          "little": 2.08
+          "little": 2
         }
       },
       "retainedFields": [],
@@ -3614,7 +3614,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 3.38,
-          "little": 2
+          "little": 1.9
         }
       },
       "retainedFields": [],
@@ -3654,7 +3654,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 3.09,
-          "little": 1.63
+          "little": 1.51
         }
       },
       "retainedFields": [],
@@ -3694,7 +3694,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 2.79,
-          "little": 1.24
+          "little": 1.14
         }
       },
       "retainedFields": [],
@@ -3734,7 +3734,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 2.58,
-          "little": 1.19
+          "little": 1.08
         }
       },
       "retainedFields": [],
@@ -3774,7 +3774,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 2.35,
-          "little": 0.92
+          "little": 0.86
         }
       },
       "retainedFields": [],
@@ -3814,7 +3814,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 2.08,
-          "little": 0.68
+          "little": 0.66
         }
       },
       "retainedFields": [],
@@ -3854,7 +3854,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 1.94,
-          "little": 0.7
+          "little": 0.68
         }
       },
       "retainedFields": [],
@@ -3894,7 +3894,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 1.94,
-          "little": 0.65
+          "little": 0.63
         }
       },
       "retainedFields": [],
@@ -3974,7 +3974,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 2.34,
-          "little": 0.33
+          "little": 0.34
         }
       },
       "retainedFields": [],
@@ -4014,7 +4014,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 2.49,
-          "little": 0.2
+          "little": 0.23
         }
       },
       "retainedFields": [],
@@ -4053,8 +4053,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 2.58,
-          "little": 0.13
+          "flat": 2.59,
+          "little": 0.15
         }
       },
       "retainedFields": [],
@@ -4093,8 +4093,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 2.93,
-          "little": 0.1
+          "flat": 2.95,
+          "little": 0.12
         }
       },
       "retainedFields": [],
@@ -4133,8 +4133,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 3.42,
-          "little": 0.09
+          "flat": 3.44,
+          "little": 0.1
         }
       },
       "retainedFields": [],
@@ -4173,7 +4173,7 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 3.18,
+          "flat": 3.21,
           "little": 0.07
         }
       },
@@ -4213,7 +4213,7 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 2.73,
+          "flat": 2.76,
           "little": 0.06
         }
       },
@@ -4253,8 +4253,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 2.6,
-          "little": 0.12
+          "flat": 2.64,
+          "little": 0.13
         }
       },
       "retainedFields": [],
@@ -4293,8 +4293,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 2.36,
-          "little": 0.11
+          "flat": 2.4,
+          "little": 0.12
         }
       },
       "retainedFields": [],
@@ -4332,8 +4332,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 2.4,
-          "little": 0.09
+          "flat": 2.44,
+          "little": 0.1
         }
       },
       "retainedFields": [],
@@ -4371,7 +4371,7 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 2.31,
+          "flat": 2.36,
           "little": 0.1
         }
       },
@@ -4410,8 +4410,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 3.11,
-          "little": 0.26
+          "flat": 3.18,
+          "little": 0.25
         }
       },
       "retainedFields": [],
@@ -4449,8 +4449,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 5.01,
-          "little": 0.78
+          "flat": 5.11,
+          "little": 0.7
         }
       },
       "retainedFields": [],
@@ -4488,8 +4488,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 3.65,
-          "little": 0.77
+          "flat": 3.74,
+          "little": 0.68
         }
       },
       "retainedFields": [],
@@ -4527,8 +4527,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 3.06,
-          "little": 0.86
+          "flat": 3.14,
+          "little": 0.75
         }
       },
       "retainedFields": [],
@@ -4566,8 +4566,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 2.89,
-          "little": 0.59
+          "flat": 2.98,
+          "little": 0.53
         }
       },
       "retainedFields": [],
@@ -4605,8 +4605,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 3.18,
-          "little": 0.7
+          "flat": 3.28,
+          "little": 0.61
         }
       },
       "retainedFields": [],
@@ -4644,8 +4644,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 3.72,
-          "little": 0.57
+          "flat": 3.83,
+          "little": 0.5
         }
       },
       "retainedFields": [],
@@ -4683,8 +4683,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 3.69,
-          "little": 0.43
+          "flat": 3.82,
+          "little": 0.38
         }
       },
       "retainedFields": [],
@@ -4722,8 +4722,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 2.85,
-          "little": 0.44
+          "flat": 2.96,
+          "little": 0.39
         }
       },
       "retainedFields": [],
@@ -4761,8 +4761,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 2.56,
-          "little": 0.36
+          "flat": 2.67,
+          "little": 0.32
         }
       },
       "retainedFields": [],
@@ -4800,8 +4800,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 2.64,
-          "little": 0.26
+          "flat": 2.76,
+          "little": 0.23
         }
       },
       "retainedFields": [],
@@ -4839,8 +4839,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 4.37,
-          "little": 0.32
+          "flat": 4.54,
+          "little": 0.28
         }
       },
       "retainedFields": [],
@@ -4878,8 +4878,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 3.76,
-          "little": 0.25
+          "flat": 3.92,
+          "little": 0.22
         }
       },
       "retainedFields": [],
@@ -4917,8 +4917,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 3.11,
-          "little": 0.19
+          "flat": 3.26,
+          "little": 0.17
         }
       },
       "retainedFields": [],
@@ -4978,8 +4978,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 2.84,
-          "little": 0.13
+          "flat": 2.99,
+          "little": 0.12
         }
       },
       "retainedFields": [],
@@ -5017,8 +5017,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 2.38,
-          "little": 0.1
+          "flat": 2.52,
+          "little": 0.09
         }
       },
       "retainedFields": [],
@@ -5056,8 +5056,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 2.11,
-          "little": 0.1
+          "flat": 2.24,
+          "little": 0.08
         }
       },
       "retainedFields": [],
@@ -5095,8 +5095,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 1.83,
-          "little": 0.08
+          "flat": 1.95,
+          "little": 0.06
         }
       },
       "retainedFields": [],
@@ -5134,8 +5134,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 1.63,
-          "little": 0.08
+          "flat": 1.75,
+          "little": 0.06
         }
       },
       "retainedFields": [],
@@ -5173,8 +5173,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 2.55,
-          "little": 0.14
+          "flat": 2.72,
+          "little": 0.11
         }
       },
       "retainedFields": [],
@@ -5212,8 +5212,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 2.11,
-          "little": 0.28
+          "flat": 2.26,
+          "little": 0.23
         }
       },
       "retainedFields": [],
@@ -5251,8 +5251,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 2,
-          "little": 0.21
+          "flat": 2.15,
+          "little": 0.17
         }
       },
       "retainedFields": [],
@@ -5290,8 +5290,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 2.07,
-          "little": 0.21
+          "flat": 2.22,
+          "little": 0.17
         }
       },
       "retainedFields": [],
@@ -5329,8 +5329,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 2.43,
-          "little": 0.57
+          "flat": 2.61,
+          "little": 0.44
         }
       },
       "retainedFields": [],
@@ -5368,8 +5368,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 2.29,
-          "little": 0.59
+          "flat": 2.47,
+          "little": 0.45
         }
       },
       "retainedFields": [],
@@ -5407,8 +5407,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 2.33,
-          "little": 0.79
+          "flat": 2.51,
+          "little": 0.59
         }
       },
       "retainedFields": [],
@@ -5446,8 +5446,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 1.79,
-          "little": 0.52
+          "flat": 1.95,
+          "little": 0.39
         }
       },
       "retainedFields": [],
@@ -5485,14 +5485,13 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 1.34,
-          "little": null
+          "flat": 1.47,
+          "little": 0.21
         }
       },
       "retainedFields": [],
       "quarantinedFields": [],
       "unavailableFields": [
-        "streamflow.little",
         "supply.accessible",
         "supply.belowIntakes",
         "supply.quarry",
@@ -5525,14 +5524,13 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 0.86,
-          "little": null
+          "flat": 0.97,
+          "little": 0.16
         }
       },
       "retainedFields": [],
       "quarantinedFields": [],
       "unavailableFields": [
-        "streamflow.little",
         "supply.accessible",
         "supply.belowIntakes",
         "supply.quarry",
@@ -5565,8 +5563,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 0.62,
-          "little": 0.15
+          "flat": 0.71,
+          "little": 0.11
         }
       },
       "retainedFields": [],
@@ -5604,8 +5602,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 0.49,
-          "little": 0.13
+          "flat": 0.57,
+          "little": 0.09
         }
       },
       "retainedFields": [],
@@ -5643,8 +5641,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 0.64,
-          "little": 0.32
+          "flat": 0.73,
+          "little": 0.23
         }
       },
       "retainedFields": [],
@@ -5682,8 +5680,8 @@
         },
         "drought": "D4 · Exceptional Drought",
         "streamflow": {
-          "flat": 1.15,
-          "little": 0.56
+          "flat": 1.27,
+          "little": 0.4
         }
       },
       "retainedFields": [],
@@ -5721,8 +5719,8 @@
         },
         "drought": "D3 · Extreme Drought",
         "streamflow": {
-          "flat": 79,
-          "little": 1.18
+          "flat": 80.9,
+          "little": 0.81
         }
       },
       "retainedFields": [],
@@ -5760,8 +5758,8 @@
         },
         "drought": "D3 · Extreme Drought",
         "streamflow": {
-          "flat": 11.2,
-          "little": 1.76
+          "flat": 11.8,
+          "little": 1.22
         }
       },
       "retainedFields": [],
@@ -5800,7 +5798,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 270,
-          "little": 145
+          "little": 161
         }
       },
       "retainedFields": [],
@@ -5851,7 +5849,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 109,
-          "little": 47.5
+          "little": 46.6
         }
       },
       "retainedFields": [],
@@ -5890,7 +5888,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 35.5,
-          "little": 18.4
+          "little": 19.3
         }
       },
       "retainedFields": [],
@@ -5929,7 +5927,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 23,
-          "little": 11.3
+          "little": 12.1
         }
       },
       "retainedFields": [],
@@ -5989,7 +5987,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 16.4,
-          "little": 14.5
+          "little": 15.2
         }
       },
       "retainedFields": [],
@@ -6057,7 +6055,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 10.9,
-          "little": 11.8
+          "little": 12.4
         }
       },
       "retainedFields": [],
@@ -6125,7 +6123,7 @@
         "drought": "D3 · Extreme Drought",
         "streamflow": {
           "flat": 126,
-          "little": 41.4
+          "little": 40.9
         }
       },
       "retainedFields": [],
@@ -6193,7 +6191,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 50.2,
-          "little": 16
+          "little": 16.6
         }
       },
       "retainedFields": [],
@@ -6261,7 +6259,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 20.5,
-          "little": 6.75
+          "little": 7.19
         }
       },
       "retainedFields": [],
@@ -6298,7 +6296,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 11.2,
-          "little": 4.07
+          "little": 4.32
         }
       },
       "retainedFields": [],
@@ -6336,7 +6334,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 9.9,
-          "little": 3.6
+          "little": 3.78
         }
       },
       "retainedFields": [],
@@ -6374,7 +6372,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 11.6,
-          "little": 6.91
+          "little": 7.28
         }
       },
       "retainedFields": [],
@@ -6412,7 +6410,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 21.7,
-          "little": 10.7
+          "little": 11.1
         }
       },
       "retainedFields": [],
@@ -6451,7 +6449,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 42,
-          "little": 15.1
+          "little": 15.5
         }
       },
       "retainedFields": [],
@@ -6490,7 +6488,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 19.1,
-          "little": 11.2
+          "little": 11.5
         }
       },
       "retainedFields": [],
@@ -6541,7 +6539,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 11.2,
-          "little": 9.32
+          "little": 9.62
         }
       },
       "retainedFields": [],
@@ -6579,7 +6577,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 7.34,
-          "little": 6.22
+          "little": 6.43
         }
       },
       "retainedFields": [],
@@ -6616,7 +6614,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 5.31,
-          "little": 3.95
+          "little": 4.02
         }
       },
       "retainedFields": [],
@@ -6684,7 +6682,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 4.3,
-          "little": 2.9
+          "little": 2.88
         }
       },
       "retainedFields": [],
@@ -6752,7 +6750,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 3.47,
-          "little": 2.11
+          "little": 2.05
         }
       },
       "retainedFields": [],
@@ -6820,7 +6818,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 2.51,
-          "little": 1.87
+          "little": 1.8
         }
       },
       "retainedFields": [],
@@ -6888,7 +6886,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 2.05,
-          "little": 1.77
+          "little": 1.72
         }
       },
       "retainedFields": [],
@@ -6994,7 +6992,7 @@
         "drought": null,
         "streamflow": {
           "flat": 1.73,
-          "little": 1.55
+          "little": 1.54
         }
       },
       "retainedFields": [],
@@ -7033,7 +7031,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 1.91,
-          "little": 1.41
+          "little": 1.42
         }
       },
       "retainedFields": [],
@@ -7070,7 +7068,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 2.05,
-          "little": 1.29
+          "little": 1.31
         }
       },
       "retainedFields": [],
@@ -7138,7 +7136,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 1.8,
-          "little": 1.16
+          "little": 1.21
         }
       },
       "retainedFields": [],
@@ -7175,7 +7173,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 1.59,
-          "little": 1.24
+          "little": 1.27
         }
       },
       "retainedFields": [],
@@ -7243,7 +7241,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 1.48,
-          "little": 1.28
+          "little": 1.31
         }
       },
       "retainedFields": [],
@@ -7292,7 +7290,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 2.95,
-          "little": 5.08
+          "little": 5.06
         }
       },
       "retainedFields": [],
@@ -7329,7 +7327,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 4.18,
-          "little": 7.45
+          "little": 7.47
         }
       },
       "retainedFields": [],
@@ -7366,7 +7364,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 11.7,
-          "little": 2.89
+          "little": 2.82
         }
       },
       "retainedFields": [],
@@ -7434,7 +7432,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 10.3,
-          "little": 2.21
+          "little": 2.1
         }
       },
       "retainedFields": [],
@@ -7502,7 +7500,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 7.91,
-          "little": 1.78
+          "little": 1.71
         }
       },
       "retainedFields": [],
@@ -7570,7 +7568,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 6.06,
-          "little": 1.41
+          "little": 1.42
         }
       },
       "retainedFields": [],
@@ -7638,7 +7636,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 4.22,
-          "little": 1.14
+          "little": 1.18
         }
       },
       "retainedFields": [],
@@ -7706,7 +7704,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 3.08,
-          "little": 1.01
+          "little": 1.07
         }
       },
       "retainedFields": [],
@@ -7743,7 +7741,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 2.51,
-          "little": 0.98
+          "little": 1.04
         }
       },
       "retainedFields": [],
@@ -7780,7 +7778,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 2.13,
-          "little": 0.99
+          "little": 1.06
         }
       },
       "retainedFields": [],
@@ -7848,7 +7846,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 1.75,
-          "little": 0.8
+          "little": 0.88
         }
       },
       "retainedFields": [],
@@ -7885,7 +7883,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 1.44,
-          "little": 0.64
+          "little": 0.73
         }
       },
       "retainedFields": [],
@@ -7953,7 +7951,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 1.41,
-          "little": 0.64
+          "little": 0.73
         }
       },
       "retainedFields": [],
@@ -8021,7 +8019,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 1.3,
-          "little": 0.62
+          "little": 0.72
         }
       },
       "retainedFields": [],
@@ -8059,7 +8057,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 1.2,
-          "little": 0.57
+          "little": 0.67
         }
       },
       "retainedFields": [],
@@ -8096,7 +8094,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 1.72,
-          "little": 0.85
+          "little": 0.91
         }
       },
       "retainedFields": [],
@@ -8133,7 +8131,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 4.9,
-          "little": 1.09
+          "little": 1.14
         }
       },
       "retainedFields": [],
@@ -8170,7 +8168,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 4.53,
-          "little": 0.79
+          "little": 0.87
         }
       },
       "retainedFields": [],
@@ -8238,7 +8236,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 3.01,
-          "little": 0.66
+          "little": 0.75
         }
       },
       "retainedFields": [],
@@ -8275,7 +8273,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 2.2,
-          "little": 0.56
+          "little": 0.65
         }
       },
       "retainedFields": [],
@@ -8343,7 +8341,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 1.77,
-          "little": 0.43
+          "little": 0.53
         }
       },
       "retainedFields": [
@@ -8415,7 +8413,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 1.36,
-          "little": 0.35
+          "little": 0.44
         }
       },
       "retainedFields": [],
@@ -8452,7 +8450,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 1.07,
-          "little": 0.3
+          "little": 0.39
         }
       },
       "retainedFields": [],
@@ -8489,7 +8487,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 194,
-          "little": 31.8
+          "little": 29.5
         }
       },
       "retainedFields": [
@@ -8532,7 +8530,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 85.4,
-          "little": 31.9
+          "little": 30.9
         }
       },
       "retainedFields": [],
@@ -8600,7 +8598,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 25.1,
-          "little": 8.27
+          "little": 8.37
         }
       },
       "retainedFields": [],
@@ -8668,7 +8666,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 11.5,
-          "little": 3.8
+          "little": 3.78
         }
       },
       "retainedFields": [],
@@ -8736,7 +8734,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 6.52,
-          "little": 2.47
+          "little": 2.37
         }
       },
       "retainedFields": [],
@@ -8804,7 +8802,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 4.38,
-          "little": 1.7
+          "little": 1.65
         }
       },
       "retainedFields": [],
@@ -8841,7 +8839,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 2.93,
-          "little": 1.33
+          "little": 1.35
         }
       },
       "retainedFields": [],
@@ -8878,7 +8876,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 2.2,
-          "little": 0.89
+          "little": 0.97
         }
       },
       "retainedFields": [
@@ -8950,7 +8948,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 3.43,
-          "little": 0.9
+          "little": 0.97
         }
       },
       "retainedFields": [
@@ -8991,7 +8989,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 37.9,
-          "little": 56.1
+          "little": 55.4
         }
       },
       "retainedFields": [
@@ -9063,7 +9061,7 @@
         "drought": "D1 · Moderate Drought",
         "streamflow": {
           "flat": 22.8,
-          "little": 8.52
+          "little": 8.63
         }
       },
       "retainedFields": [],
@@ -9131,7 +9129,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 29.4,
-          "little": 6.66
+          "little": 6.75
         }
       },
       "retainedFields": [],
@@ -9199,7 +9197,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 20.2,
-          "little": 4.3
+          "little": 4.31
         }
       },
       "retainedFields": [],
@@ -9236,7 +9234,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 11,
-          "little": 2.41
+          "little": 2.32
         }
       },
       "retainedFields": [],
@@ -9273,7 +9271,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 6.62,
-          "little": 2.03
+          "little": 1.93
         }
       },
       "retainedFields": [
@@ -9348,7 +9346,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 4.32,
-          "little": 1.59
+          "little": 1.56
         }
       },
       "retainedFields": [],
@@ -9386,7 +9384,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 2.99,
-          "little": 1.04
+          "little": 1.1
         }
       },
       "retainedFields": [],
@@ -9454,7 +9452,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 2.11,
-          "little": 0.79
+          "little": 0.87
         }
       },
       "retainedFields": [],
@@ -9491,7 +9489,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 1.82,
-          "little": 0.62
+          "little": 0.71
         }
       },
       "retainedFields": [],
@@ -9559,7 +9557,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 1.59,
-          "little": 0.44
+          "little": 0.54
         }
       },
       "retainedFields": [
@@ -9602,7 +9600,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 1.43,
-          "little": 0.41
+          "little": 0.5
         }
       },
       "retainedFields": [],
@@ -9640,7 +9638,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 1.59,
-          "little": 0.44
+          "little": 0.53
         }
       },
       "retainedFields": [],
@@ -9677,7 +9675,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 1.46,
-          "little": 0.5
+          "little": 0.59
         }
       },
       "retainedFields": [],
@@ -9699,6 +9697,48 @@
     {
       "date": "2026-10-06",
       "capturedAt": "2026-10-06T10:02:51.310Z",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 1.24,
+          "little": null
+        }
+      },
+      "retainedFields": [
+        "stage"
+      ],
+      "quarantinedFields": [
+        "stage"
+      ],
+      "unavailableFields": [
+        "streamflow.little",
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-10-07",
+      "capturedAt": "2026-10-07T10:03:20.239Z",
       "values": {
         "stage": 2,
         "supply": {
@@ -9742,7 +9782,7 @@
   ],
   "coverage": {
     "startsOn": "2026-03-01",
-    "through": "2026-10-06",
+    "through": "2026-10-07",
     "note": "Permanent daily archive. USGS daily means and weekly USDM county categories fill the historical record. City supply and reservoir values appear only on their official observation dates; unavailable dates remain null and are not forward-filled.",
     "sources": [
       {
