@@ -95,7 +95,7 @@
     "units": "category",
     "sourceUrl": "https://www.ncdrought.org/",
     "observedAt": "2026-09-29T08:00:00-04:00",
-    "verifiedAt": "2026-10-07T10:03:20.239Z",
+    "verifiedAt": "2026-10-08T10:02:20.438Z",
     "status": "fresh",
     "retrievalStatus": "verified",
     "validationResult": "accepted",
@@ -103,40 +103,40 @@
   },
   "streamflow": {
     "flat": {
-      "value": 1.16,
+      "value": 0.92,
       "units": "ft³/s",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
-      "observedAt": "2026-10-07T05:45:00.000-04:00",
-      "verifiedAt": "2026-10-07T10:03:20.239Z",
+      "observedAt": "2026-10-08T05:45:00.000-04:00",
+      "verifiedAt": "2026-10-08T10:02:20.438Z",
       "status": "fresh",
       "retrievalStatus": "verified",
       "validationResult": "accepted",
-      "previousValue": 1.3,
+      "previousValue": 1.16,
       "note": "USGS provisional data; subject to revision."
     },
     "little": {
       "value": 0.64,
       "units": "ft³/s",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/0208521324/",
-      "observedAt": "2026-10-07T05:15:00.000-04:00",
-      "verifiedAt": "2026-10-07T10:03:20.239Z",
+      "observedAt": "2026-10-08T05:15:00.000-04:00",
+      "verifiedAt": "2026-10-08T10:02:20.438Z",
       "status": "fresh",
       "retrievalStatus": "verified",
       "validationResult": "accepted",
-      "previousValue": 0.55,
+      "previousValue": 0.64,
       "note": "USGS provisional data; subject to revision."
     }
   },
   "historyStarts": "2026-03-01",
-  "generatedAt": "2026-10-07T10:03:20.239Z",
-  "lastRefreshResult": "failed: stage; failed: supply.accessible, supply.belowIntakes, supply.quarry, supply.total; failed: reservoirs.michie, reservoirs.little; verified: flat historical streamflow; verified: streamflow; verified: little historical streamflow; verified: drought; verified: NOAA seven-day rainfall forecast",
+  "generatedAt": "2026-10-08T10:02:20.438Z",
+  "lastRefreshResult": "failed: stage; failed: reservoirs.michie, reservoirs.little; failed: supply.accessible, supply.belowIntakes, supply.quarry, supply.total; verified: streamflow; verified: flat historical streamflow; verified: drought; verified: little historical streamflow; verified: NOAA seven-day rainfall forecast",
   "rainfallForecast": {
     "sourceUrl": "https://www.wpc.ncep.noaa.gov/qpf/day1-7.shtml",
-    "issuedAt": "2026-10-07T09:01:06.000Z",
-    "startsAt": "2026-10-07T12:00:00.000Z",
-    "endsAt": "2026-10-14T12:00:00.000Z",
-    "verifiedAt": "2026-10-07T10:03:20.239Z",
-    "checkedAt": "2026-10-07T10:03:20.239Z",
+    "issuedAt": "2026-10-08T09:00:22.000Z",
+    "startsAt": "2026-10-08T12:00:00.000Z",
+    "endsAt": "2026-10-15T12:00:00.000Z",
+    "verifiedAt": "2026-10-08T10:02:20.438Z",
+    "checkedAt": "2026-10-08T10:02:20.438Z",
     "retrievalStatus": "verified",
     "status": "fresh",
     "imagePath": "data/rainfall-forecast.png",
@@ -229,8 +229,8 @@
         "name": "Roxboro",
         "longitude": -78.9828,
         "latitude": 36.3938,
-        "lowerInches": 1,
-        "upperInches": 1.25
+        "lowerInches": 0.75,
+        "upperInches": 1
       },
       {
         "name": "Rougemont",
@@ -271,8 +271,8 @@
         "name": "Durham",
         "longitude": -78.8986,
         "latitude": 35.994,
-        "lowerInches": 0.75,
-        "upperInches": 1
+        "lowerInches": 1,
+        "upperInches": 1.25
       }
     ]
   }
