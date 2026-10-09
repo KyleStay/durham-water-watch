@@ -602,7 +602,7 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
           ]}
           supplyStatus={<Status metric={data.supply.total} lang={lang} />}
           stations={[ageStation(comparison.stations.flat), ageStation(comparison.stations.little)]}
-          reservoirContext={<details id="prior-years" className="prior-year-disclosure"><summary>{lang === "en" ? "How do these levels compare with earlier years?" : "¿Cómo se comparan estos niveles con años anteriores?"}</summary>            <div className="charts-block">
+          reservoirContext={<details id="prior-years" className="prior-year-disclosure" open><summary>{lang === "en" ? "How do these levels compare with earlier years?" : "¿Cómo se comparan estos niveles con años anteriores?"}</summary>            <div className="charts-block">
               <div className="section-heading compact"><p className="kicker">{t.officialCharts}</p><h2>{annualReservoirHeading(currentHistoryYear, lang)}</h2><p>{lang === "en" ? "The City publishes individual prior-year reservoir traces rather than an average series. These full-width official charts preserve that distinction without estimating values from the image." : "La Ciudad publica trazos de años anteriores, no una serie promedio. Estas gráficas oficiales a todo lo ancho conservan esa distinción sin estimar valores a partir de la imagen."}</p></div>
               <div className="chart-grid">
                 {[
