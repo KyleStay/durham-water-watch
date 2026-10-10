@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "year": 2026,
-  "updatedAt": "2026-10-08T10:02:20.438Z",
+  "updatedAt": "2026-10-10T10:00:25.359Z",
   "stations": {
     "flat": {
       "site": "02085500",
@@ -9,7 +9,7 @@
       "status": "fresh",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
       "historicalPeriod": "1926–2026",
-      "verifiedAt": "2026-10-08T10:02:20.438Z",
+      "verifiedAt": "2026-10-10T10:00:25.359Z",
       "days": [
         {
           "date": "2026-01-01",
@@ -1693,13 +1693,13 @@
         },
         {
           "date": "2026-10-08",
-          "currentYear": null,
+          "currentYear": 0.9,
           "historicalMean": 77,
           "historicalSampleYears": 101
         },
         {
           "date": "2026-10-09",
-          "currentYear": null,
+          "currentYear": 0.86,
           "historicalMean": 92,
           "historicalSampleYears": 101
         },
@@ -2209,7 +2209,7 @@
       "status": "fresh",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/0208521324/",
       "historicalPeriod": "1988–2025",
-      "verifiedAt": "2026-10-08T10:02:20.438Z",
+      "verifiedAt": "2026-10-10T10:00:25.359Z",
       "days": [
         {
           "date": "2026-01-01",
@@ -2525,31 +2525,31 @@
         },
         {
           "date": "2026-02-22",
-          "currentYear": 18.1,
+          "currentYear": 18,
           "historicalMean": 138,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-02-23",
-          "currentYear": 24,
+          "currentYear": 23.9,
           "historicalMean": 165,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-02-24",
-          "currentYear": 25,
+          "currentYear": 24.9,
           "historicalMean": 145,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-02-25",
-          "currentYear": 18.6,
+          "currentYear": 18.5,
           "historicalMean": 95,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-02-26",
-          "currentYear": 31.6,
+          "currentYear": 31.5,
           "historicalMean": 93,
           "historicalSampleYears": 38
         },
@@ -2561,559 +2561,559 @@
         },
         {
           "date": "2026-02-28",
-          "currentYear": 57.7,
+          "currentYear": 57.3,
           "historicalMean": 135,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-03-01",
-          "currentYear": 41.3,
+          "currentYear": 40.9,
           "historicalMean": 131,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-03-02",
-          "currentYear": 30.9,
+          "currentYear": 30.6,
           "historicalMean": 225,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-03-03",
-          "currentYear": 24.4,
+          "currentYear": 24.2,
           "historicalMean": 145,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-03-04",
-          "currentYear": 20.8,
+          "currentYear": 20.6,
           "historicalMean": 273,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-03-05",
-          "currentYear": 18.8,
+          "currentYear": 18.6,
           "historicalMean": 132,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-03-06",
-          "currentYear": 17.1,
+          "currentYear": 16.8,
           "historicalMean": 109,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-03-07",
-          "currentYear": 16.1,
+          "currentYear": 15.8,
           "historicalMean": 163,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-03-08",
-          "currentYear": 15.8,
+          "currentYear": 15.6,
           "historicalMean": 130,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-03-09",
-          "currentYear": 15.3,
+          "currentYear": 15.1,
           "historicalMean": 152,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-03-10",
-          "currentYear": 14.8,
+          "currentYear": 14.6,
           "historicalMean": 92,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-03-11",
-          "currentYear": 13.7,
+          "currentYear": 13.4,
           "historicalMean": 78,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-03-12",
-          "currentYear": 19.7,
+          "currentYear": 19.3,
           "historicalMean": 71,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-03-13",
-          "currentYear": 47.5,
+          "currentYear": 46.8,
           "historicalMean": 97,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-03-14",
-          "currentYear": 35.2,
+          "currentYear": 34.6,
           "historicalMean": 86,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-03-15",
-          "currentYear": 24.7,
+          "currentYear": 24.2,
           "historicalMean": 91,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-03-16",
-          "currentYear": 184,
+          "currentYear": 182,
           "historicalMean": 108,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-03-17",
-          "currentYear": 161,
+          "currentYear": 159,
           "historicalMean": 186,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-03-18",
-          "currentYear": 66.3,
+          "currentYear": 65.2,
           "historicalMean": 123,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-03-19",
-          "currentYear": 41.6,
+          "currentYear": 40.7,
           "historicalMean": 240,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-03-20",
-          "currentYear": 32.5,
+          "currentYear": 31.8,
           "historicalMean": 203,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-03-21",
-          "currentYear": 27.1,
+          "currentYear": 26.4,
           "historicalMean": 220,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-03-22",
-          "currentYear": 23.6,
+          "currentYear": 22.9,
           "historicalMean": 97,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-03-23",
-          "currentYear": 21.3,
+          "currentYear": 20.7,
           "historicalMean": 87,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-03-24",
-          "currentYear": 18.1,
+          "currentYear": 17.5,
           "historicalMean": 129,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-03-25",
-          "currentYear": 16.4,
+          "currentYear": 15.9,
           "historicalMean": 129,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-03-26",
-          "currentYear": 15.5,
+          "currentYear": 15,
           "historicalMean": 94,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-03-27",
-          "currentYear": 15.9,
+          "currentYear": 15.3,
           "historicalMean": 107,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-03-28",
-          "currentYear": 18.6,
+          "currentYear": 17.9,
           "historicalMean": 171,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-03-29",
-          "currentYear": 19.6,
+          "currentYear": 18.9,
           "historicalMean": 173,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-03-30",
-          "currentYear": 17.1,
+          "currentYear": 16.4,
           "historicalMean": 197,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-03-31",
-          "currentYear": 15.4,
+          "currentYear": 14.8,
           "historicalMean": 115,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-04-01",
-          "currentYear": 15,
+          "currentYear": 14.4,
           "historicalMean": 140,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-04-02",
-          "currentYear": 14.3,
+          "currentYear": 13.7,
           "historicalMean": 105,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-04-03",
-          "currentYear": 13.2,
+          "currentYear": 12.6,
           "historicalMean": 105,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-04-04",
-          "currentYear": 12.7,
+          "currentYear": 12.1,
           "historicalMean": 72,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-04-05",
-          "currentYear": 13,
+          "currentYear": 12.4,
           "historicalMean": 89,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-04-06",
-          "currentYear": 12.5,
+          "currentYear": 11.9,
           "historicalMean": 104,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-04-07",
-          "currentYear": 11.7,
+          "currentYear": 11.1,
           "historicalMean": 168,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-04-08",
-          "currentYear": 10.6,
+          "currentYear": 10,
           "historicalMean": 134,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-04-09",
-          "currentYear": 10.1,
+          "currentYear": 9.52,
           "historicalMean": 173,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-04-10",
-          "currentYear": 9.43,
+          "currentYear": 8.87,
           "historicalMean": 149,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-04-11",
-          "currentYear": 9.76,
+          "currentYear": 9.17,
           "historicalMean": 92,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-04-12",
-          "currentYear": 9,
+          "currentYear": 8.43,
           "historicalMean": 93,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-04-13",
-          "currentYear": 9.15,
+          "currentYear": 8.57,
           "historicalMean": 172,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-04-14",
-          "currentYear": 8.32,
+          "currentYear": 7.76,
           "historicalMean": 75,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-04-15",
-          "currentYear": 7.79,
+          "currentYear": 7.26,
           "historicalMean": 108,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-04-16",
-          "currentYear": 7.46,
+          "currentYear": 6.95,
           "historicalMean": 145,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-04-17",
-          "currentYear": 6.83,
+          "currentYear": 6.37,
           "historicalMean": 90,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-04-18",
-          "currentYear": 6.35,
+          "currentYear": 5.92,
           "historicalMean": 80,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-04-19",
-          "currentYear": 5.85,
+          "currentYear": 5.46,
           "historicalMean": 71,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-04-20",
-          "currentYear": 5.13,
+          "currentYear": 4.78,
           "historicalMean": 87,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-04-21",
-          "currentYear": 4.95,
+          "currentYear": 4.61,
           "historicalMean": 66,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-04-22",
-          "currentYear": 4.85,
+          "currentYear": 4.52,
           "historicalMean": 77,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-04-23",
-          "currentYear": 4.64,
+          "currentYear": 4.33,
           "historicalMean": 66,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-04-24",
-          "currentYear": 4.71,
+          "currentYear": 4.41,
           "historicalMean": 74,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-04-25",
-          "currentYear": 4.95,
+          "currentYear": 4.65,
           "historicalMean": 184,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-04-26",
-          "currentYear": 4.56,
+          "currentYear": 4.28,
           "historicalMean": 61,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-04-27",
-          "currentYear": 4.46,
+          "currentYear": 4.2,
           "historicalMean": 61,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-04-28",
-          "currentYear": 4.64,
+          "currentYear": 4.38,
           "historicalMean": 93,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-04-29",
-          "currentYear": 4.88,
+          "currentYear": 4.61,
           "historicalMean": 110,
           "historicalSampleYears": 37
         },
         {
           "date": "2026-04-30",
-          "currentYear": 6.39,
+          "currentYear": 6.08,
           "historicalMean": 105,
           "historicalSampleYears": 37
         },
         {
           "date": "2026-05-01",
-          "currentYear": 7.38,
+          "currentYear": 7.03,
           "historicalMean": 76,
           "historicalSampleYears": 37
         },
         {
           "date": "2026-05-02",
-          "currentYear": 6.34,
+          "currentYear": 6.05,
           "historicalMean": 114,
           "historicalSampleYears": 37
         },
         {
           "date": "2026-05-03",
-          "currentYear": 5.55,
+          "currentYear": 5.29,
           "historicalMean": 67,
           "historicalSampleYears": 37
         },
         {
           "date": "2026-05-04",
-          "currentYear": 4.68,
+          "currentYear": 4.46,
           "historicalMean": 55,
           "historicalSampleYears": 37
         },
         {
           "date": "2026-05-05",
-          "currentYear": 4.16,
+          "currentYear": 3.96,
           "historicalMean": 65,
           "historicalSampleYears": 37
         },
         {
           "date": "2026-05-06",
-          "currentYear": 3.77,
+          "currentYear": 3.59,
           "historicalMean": 102,
           "historicalSampleYears": 37
         },
         {
           "date": "2026-05-07",
-          "currentYear": 4.04,
+          "currentYear": 3.86,
           "historicalMean": 68,
           "historicalSampleYears": 37
         },
         {
           "date": "2026-05-08",
-          "currentYear": 5.31,
+          "currentYear": 5.1,
           "historicalMean": 44,
           "historicalSampleYears": 37
         },
         {
           "date": "2026-05-09",
-          "currentYear": 6.15,
+          "currentYear": 5.92,
           "historicalMean": 35,
           "historicalSampleYears": 37
         },
         {
           "date": "2026-05-10",
-          "currentYear": 5.44,
+          "currentYear": 5.24,
           "historicalMean": 40,
           "historicalSampleYears": 37
         },
         {
           "date": "2026-05-11",
-          "currentYear": 4.51,
+          "currentYear": 4.35,
           "historicalMean": 37,
           "historicalSampleYears": 37
         },
         {
           "date": "2026-05-12",
-          "currentYear": 4.11,
+          "currentYear": 3.96,
           "historicalMean": 37,
           "historicalSampleYears": 37
         },
         {
           "date": "2026-05-13",
-          "currentYear": 3.38,
+          "currentYear": 3.26,
           "historicalMean": 32,
           "historicalSampleYears": 37
         },
         {
           "date": "2026-05-14",
-          "currentYear": 2.94,
+          "currentYear": 2.83,
           "historicalMean": 43,
           "historicalSampleYears": 37
         },
         {
           "date": "2026-05-15",
-          "currentYear": 2.82,
+          "currentYear": 2.72,
           "historicalMean": 85,
           "historicalSampleYears": 37
         },
         {
           "date": "2026-05-16",
-          "currentYear": 2.48,
+          "currentYear": 2.39,
           "historicalMean": 99,
           "historicalSampleYears": 37
         },
         {
           "date": "2026-05-17",
-          "currentYear": 2.12,
+          "currentYear": 2.04,
           "historicalMean": 80,
           "historicalSampleYears": 37
         },
         {
           "date": "2026-05-18",
-          "currentYear": 1.88,
+          "currentYear": 1.81,
           "historicalMean": 87,
           "historicalSampleYears": 37
         },
         {
           "date": "2026-05-19",
-          "currentYear": 1.9,
+          "currentYear": 1.84,
           "historicalMean": 80,
           "historicalSampleYears": 37
         },
         {
           "date": "2026-05-20",
-          "currentYear": 1.69,
+          "currentYear": 1.64,
           "historicalMean": 69,
           "historicalSampleYears": 37
         },
         {
           "date": "2026-05-21",
-          "currentYear": 1.5,
+          "currentYear": 1.46,
           "historicalMean": 104,
           "historicalSampleYears": 37
         },
         {
           "date": "2026-05-22",
-          "currentYear": 1.55,
+          "currentYear": 1.51,
           "historicalMean": 99,
           "historicalSampleYears": 37
         },
         {
           "date": "2026-05-23",
-          "currentYear": 1.45,
+          "currentYear": 1.42,
           "historicalMean": 104,
           "historicalSampleYears": 37
         },
         {
           "date": "2026-05-24",
-          "currentYear": 1.3,
+          "currentYear": 1.27,
           "historicalMean": 82,
           "historicalSampleYears": 37
         },
         {
           "date": "2026-05-25",
-          "currentYear": 1.47,
+          "currentYear": 1.44,
           "historicalMean": 89,
           "historicalSampleYears": 37
         },
         {
           "date": "2026-05-26",
-          "currentYear": 1.72,
+          "currentYear": 1.69,
           "historicalMean": 75,
           "historicalSampleYears": 37
         },
         {
           "date": "2026-05-27",
-          "currentYear": 1.7,
+          "currentYear": 1.68,
           "historicalMean": 43,
           "historicalSampleYears": 37
         },
         {
           "date": "2026-05-28",
-          "currentYear": 2,
+          "currentYear": 1.97,
           "historicalMean": 45,
           "historicalSampleYears": 37
         },
         {
           "date": "2026-05-29",
-          "currentYear": 1.9,
+          "currentYear": 1.88,
           "historicalMean": 70,
           "historicalSampleYears": 37
         },
         {
           "date": "2026-05-30",
-          "currentYear": 1.51,
+          "currentYear": 1.5,
           "historicalMean": 47,
           "historicalSampleYears": 37
         },
         {
           "date": "2026-05-31",
-          "currentYear": 1.14,
+          "currentYear": 1.13,
           "historicalMean": 29,
           "historicalSampleYears": 37
         },
@@ -3893,13 +3893,13 @@
         },
         {
           "date": "2026-10-08",
-          "currentYear": null,
+          "currentYear": 0.59,
           "historicalMean": 86,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-10-09",
-          "currentYear": null,
+          "currentYear": 0.53,
           "historicalMean": 78,
           "historicalSampleYears": 38
         },

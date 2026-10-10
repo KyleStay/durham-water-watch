@@ -94,8 +94,8 @@
     "value": "D2 · Severe Drought",
     "units": "category",
     "sourceUrl": "https://www.ncdrought.org/",
-    "observedAt": "2026-09-29T08:00:00-04:00",
-    "verifiedAt": "2026-10-08T10:02:20.438Z",
+    "observedAt": "2026-10-06T08:00:00-04:00",
+    "verifiedAt": "2026-10-10T10:00:25.359Z",
     "status": "fresh",
     "retrievalStatus": "verified",
     "validationResult": "accepted",
@@ -103,23 +103,23 @@
   },
   "streamflow": {
     "flat": {
-      "value": 0.92,
+      "value": 0.71,
       "units": "ft³/s",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
-      "observedAt": "2026-10-08T05:45:00.000-04:00",
-      "verifiedAt": "2026-10-08T10:02:20.438Z",
+      "observedAt": "2026-10-10T04:45:00.000-04:00",
+      "verifiedAt": "2026-10-10T10:00:25.359Z",
       "status": "fresh",
       "retrievalStatus": "verified",
       "validationResult": "accepted",
-      "previousValue": 1.16,
+      "previousValue": 0.92,
       "note": "USGS provisional data; subject to revision."
     },
     "little": {
-      "value": 0.64,
+      "value": 0.5,
       "units": "ft³/s",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/0208521324/",
-      "observedAt": "2026-10-08T05:15:00.000-04:00",
-      "verifiedAt": "2026-10-08T10:02:20.438Z",
+      "observedAt": "2026-10-10T05:15:00.000-04:00",
+      "verifiedAt": "2026-10-10T10:00:25.359Z",
       "status": "fresh",
       "retrievalStatus": "verified",
       "validationResult": "accepted",
@@ -128,15 +128,15 @@
     }
   },
   "historyStarts": "2026-03-01",
-  "generatedAt": "2026-10-08T10:02:20.438Z",
-  "lastRefreshResult": "failed: stage; failed: reservoirs.michie, reservoirs.little; failed: supply.accessible, supply.belowIntakes, supply.quarry, supply.total; verified: streamflow; verified: flat historical streamflow; verified: drought; verified: little historical streamflow; verified: NOAA seven-day rainfall forecast",
+  "generatedAt": "2026-10-10T10:00:25.359Z",
+  "lastRefreshResult": "verified: flat historical streamflow; verified: streamflow; failed: stage; failed: reservoirs.michie, reservoirs.little; failed: supply.accessible, supply.belowIntakes, supply.quarry, supply.total; verified: little historical streamflow; verified: drought; verified: NOAA seven-day rainfall forecast",
   "rainfallForecast": {
     "sourceUrl": "https://www.wpc.ncep.noaa.gov/qpf/day1-7.shtml",
-    "issuedAt": "2026-10-08T09:00:22.000Z",
-    "startsAt": "2026-10-08T12:00:00.000Z",
-    "endsAt": "2026-10-15T12:00:00.000Z",
-    "verifiedAt": "2026-10-08T10:02:20.438Z",
-    "checkedAt": "2026-10-08T10:02:20.438Z",
+    "issuedAt": "2026-10-10T09:05:21.000Z",
+    "startsAt": "2026-10-10T12:00:00.000Z",
+    "endsAt": "2026-10-17T12:00:00.000Z",
+    "verifiedAt": "2026-10-10T10:00:25.359Z",
+    "checkedAt": "2026-10-10T10:00:25.359Z",
     "retrievalStatus": "verified",
     "status": "fresh",
     "imagePath": "data/rainfall-forecast.png",
@@ -229,43 +229,43 @@
         "name": "Roxboro",
         "longitude": -78.9828,
         "latitude": 36.3938,
-        "lowerInches": 0.75,
-        "upperInches": 1
+        "lowerInches": 1.25,
+        "upperInches": 1.5
       },
       {
         "name": "Rougemont",
         "longitude": -78.922,
         "latitude": 36.2196,
-        "lowerInches": 0.75,
-        "upperInches": 1
+        "lowerInches": 1.25,
+        "upperInches": 1.5
       },
       {
         "name": "Lake Michie",
         "longitude": -78.83,
         "latitude": 36.1508333333333,
-        "lowerInches": 0.75,
-        "upperInches": 1
+        "lowerInches": 1.25,
+        "upperInches": 1.5
       },
       {
         "name": "Little River Reservoir",
         "longitude": -78.8691666666667,
         "latitude": 36.115,
-        "lowerInches": 0.75,
-        "upperInches": 1
+        "lowerInches": 1.25,
+        "upperInches": 1.5
       },
       {
         "name": "Hillsborough",
         "longitude": -79.0997,
         "latitude": 36.0754,
-        "lowerInches": 0.75,
-        "upperInches": 1
+        "lowerInches": 1.25,
+        "upperInches": 1.5
       },
       {
         "name": "Butner",
         "longitude": -78.7567,
         "latitude": 36.1321,
-        "lowerInches": 0.75,
-        "upperInches": 1
+        "lowerInches": 1,
+        "upperInches": 1.25
       },
       {
         "name": "Durham",
