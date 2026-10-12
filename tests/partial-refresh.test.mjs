@@ -26,7 +26,14 @@ test('all-source refresh retains independent successful stations and lakes, and 
     metric.observedAt = '2020-01-01';
     metric.verifiedAt = '2020-01-01T12:00:00Z';
   }
+  Object.assign(original.supply.accessible, {value:96}); Object.assign(original.supply.belowIntakes, {value:44});
+  Object.assign(original.supply.quarry, {value:20}); Object.assign(original.supply.total, {value:160});
+  original.reservoirs.michie.value=331.57; original.reservoirs.little.value=339.66;
+  original.streamflow.flat.value=1.58; original.streamflow.little.value=0.81;
   await writeFile(resolve(fixture, 'public/data/dashboard.json'), JSON.stringify(original));
+  const initialComparison=JSON.parse(await readFile(resolve(fixture,'public/data/streamflow-history.json')));
+  for(const station of Object.values(initialComparison.stations)) delete station.tenYearAverage;
+  await writeFile(resolve(fixture,'public/data/streamflow-history.json'),JSON.stringify(initialComparison));
   execFileSync('git', ['init', '--quiet'], { cwd: fixture });
   await cachePageEvidence(resolve(fixture, '.git'), { pages: [
     { url: cityPages.stage, retrievedAt: '2026-10-12T09:59:00Z', text: 'Durham Saves Water. Stage 2 in Effect Effective June 15, 2026. Durham is under a Stage 2 Water Shortage Response.' },
@@ -39,6 +46,20 @@ globalThis.Date = class extends NativeDate { constructor(...args) { super(...(ar
 globalThis.fetch = async (url) => {
   let body = '{}', status = 403;
   if (url.includes('/nwis/iv/')) { status = 200; body = JSON.stringify({value:{timeSeries:[{ sourceInfo:{siteCode:[{value:'02085500'}]}, variable:{variableCode:[{value:'00060'}],unit:{unitCode:'ft3/s'}}, values:[{value:[{value:'2.5',dateTime:'2026-10-12T05:45:00-04:00'}]}] }]}}); }
+  if (url.includes('/nwis/dv/') && url.includes('sites=02085500')) {
+    const decade=url.includes('startDT=2016-01-01');
+    const values=decade ? Array.from({length:10},(_,i)=>({value:'10',dateTime:(2016+i)+'-01-01T00:00:00',qualifiers:['A']})) : [{value:'1',dateTime:'2026-10-11T00:00:00',qualifiers:['P']}];
+    status=200; body=JSON.stringify({value:{timeSeries:[{name:'USGS:02085500:00060:00003',sourceInfo:{siteCode:[{value:'02085500'}]},variable:{variableCode:[{value:'00060'}],unit:{unitCode:'ft3/s'}},values:[{value:values}]}]}});
+  }
+  if (url.includes('/nwis/stat/') && url.includes('sites=02085500')) {
+    // Make the main comparison finish after the independently fetched decade.
+    await new Promise(resolve=>setTimeout(resolve,50));
+    status=200;
+    const tab=String.fromCharCode(9), newline=String.fromCharCode(10);
+    const lines=[['agency_cd','site_no','month_nu','day_nu','mean_va','count_nu','begin_yr','end_yr'].join(tab),'5s'+tab+'15s'];
+    for(let i=0;i<366;i++) {const date=new NativeDate(Date.UTC(2000,0,1+i));lines.push(['USGS','02085500',date.getUTCMonth()+1,date.getUTCDate(),10,36,1990,2025].join(tab));}
+    body=lines.join(newline);
+  }
   if (url.includes('/1225/Lake-Levels')) { status = 200; body = 'Current Conditions October 8, 2026. Lake Michie Elevation: 330.96 feet. Lake Michie is full at 341.00 feet.'; }
   const response = new Response(body, {status});
   Object.defineProperty(response, 'url', {value: url});
@@ -57,7 +78,12 @@ globalThis.fetch = async (url) => {
   assert.equal(after.supply.total.value, 156);
   assert.equal(after.supply.total.retrievalMethod, 'official-page-text');
   assert.equal(after.stage.retrievalStatus, 'verified');
-  assert.equal(after.refreshReport.length, 13);
+  assert.equal(after.refreshReport.length, 15);
+  const refreshedComparison=JSON.parse(await readFile(resolve(fixture,'public/data/streamflow-history.json')));
+  assert.equal(refreshedComparison.stations.flat.days.length,365);
+  assert.equal(refreshedComparison.stations.flat.tenYearAverage.status,'fresh');
+  assert.equal(refreshedComparison.stations.flat.tenYearAverage.days.find(day=>day.monthDay==='01-01').value,10);
+  assert.equal(refreshedComparison.stations.little.tenYearAverage.status,'unavailable');
   assert.equal(after.refreshReport.find(row => row.key === 'supply.total').previousValue, original.supply.total.value);
   assert.match(after.refreshReport.find(row => row.key === 'streamflow.little').reason, /0208521324/);
   const history = JSON.parse(await readFile(resolve(fixture, 'public/data/history.json')));

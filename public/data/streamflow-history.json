@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "year": 2026,
-  "updatedAt": "2026-10-12T10:00:19.627Z",
+  "updatedAt": "2026-10-12T14:35:23.263Z",
   "stations": {
     "flat": {
       "site": "02085500",
@@ -2201,7 +2201,2585 @@
           "historicalMean": 148,
           "historicalSampleYears": 101
         }
-      ]
+      ],
+      "tenYearAverage": {
+        "startYear": 2016,
+        "endYear": 2025,
+        "startsOn": "2016-01-01",
+        "endsOn": "2025-12-31",
+        "site": "02085500",
+        "units": "ft³/s",
+        "status": "fresh",
+        "sourceUrl": "https://waterservices.usgs.gov/nwis/dv/?format=json&sites=02085500&startDT=2016-01-01&endDT=2025-12-31&parameterCd=00060&statCd=00003&siteStatus=all",
+        "verifiedAt": "2026-10-12T14:27:18.613Z",
+        "checkedAt": "2026-10-12T14:27:18.613Z",
+        "observationCount": 3651,
+        "provisionalCount": 0,
+        "days": [
+          {
+            "monthDay": "01-01",
+            "value": 135.288,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-02",
+            "value": 136.697,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-03",
+            "value": 515.174,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-04",
+            "value": 332.884,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-05",
+            "value": 241.361,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-06",
+            "value": 148.307,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-07",
+            "value": 146.208,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-08",
+            "value": 108.069,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-09",
+            "value": 313.696,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-10",
+            "value": 506.233,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-11",
+            "value": 130.619,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-12",
+            "value": 133.93,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-13",
+            "value": 378.8,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-14",
+            "value": 234.79,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-15",
+            "value": 157.4,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-16",
+            "value": 129.34,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-17",
+            "value": 118.76,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-18",
+            "value": 109.58,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-19",
+            "value": 92.22,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-20",
+            "value": 125.11,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-21",
+            "value": 126.1,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-22",
+            "value": 121.2,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-23",
+            "value": 281.22,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-24",
+            "value": 247.24,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-25",
+            "value": 444.47,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-26",
+            "value": 324.99,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-27",
+            "value": 232.15,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-28",
+            "value": 328.24,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-29",
+            "value": 228.71,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-30",
+            "value": 179.09,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-31",
+            "value": 247.73,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-01",
+            "value": 281.62,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-02",
+            "value": 189.08,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-03",
+            "value": 178.52,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-04",
+            "value": 224.51,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-05",
+            "value": 164.49,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-06",
+            "value": 358.29,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-07",
+            "value": 558.38,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-08",
+            "value": 195.08,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-09",
+            "value": 134.43,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-10",
+            "value": 108.81,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-11",
+            "value": 232.34,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-12",
+            "value": 585.5,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-13",
+            "value": 721.32,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-14",
+            "value": 404.49,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-15",
+            "value": 293.95,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-16",
+            "value": 585.31,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-17",
+            "value": 298.58,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-18",
+            "value": 485.81,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-19",
+            "value": 301.33,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-20",
+            "value": 208.47,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-21",
+            "value": 220.56,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-22",
+            "value": 255.6,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-23",
+            "value": 587.08,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-24",
+            "value": 689.53,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-25",
+            "value": 490.71,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-26",
+            "value": 279.53,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-27",
+            "value": 226.23,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-28",
+            "value": 153.25,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-29",
+            "value": 146,
+            "count": 3,
+            "expectedCount": 3,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-01",
+            "value": 145.72,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-02",
+            "value": 437.8,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-03",
+            "value": 217.25,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-04",
+            "value": 256.32,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-05",
+            "value": 169.68,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-06",
+            "value": 166.45,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-07",
+            "value": 136.79,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-08",
+            "value": 116.73,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-09",
+            "value": 337.41,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-10",
+            "value": 234.24,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-11",
+            "value": 129.02,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-12",
+            "value": 184.91,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-13",
+            "value": 151.3,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-14",
+            "value": 113.97,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-15",
+            "value": 100.33,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-16",
+            "value": 99.37,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-17",
+            "value": 262.59,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-18",
+            "value": 171.36,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-19",
+            "value": 190.23,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-20",
+            "value": 152.08,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-21",
+            "value": 319.95,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-22",
+            "value": 169.91,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-23",
+            "value": 137.2,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-24",
+            "value": 119.94,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-25",
+            "value": 283.01,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-26",
+            "value": 296.67,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-27",
+            "value": 177.77,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-28",
+            "value": 427.62,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-29",
+            "value": 205.7,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-30",
+            "value": 136.73,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-31",
+            "value": 136.91,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-01",
+            "value": 184.57,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-02",
+            "value": 115.67,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-03",
+            "value": 98.43,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-04",
+            "value": 99.42,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-05",
+            "value": 86.55,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-06",
+            "value": 119.16,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-07",
+            "value": 319.58,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-08",
+            "value": 316.72,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-09",
+            "value": 302.15,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-10",
+            "value": 186.26,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-11",
+            "value": 133.05,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-12",
+            "value": 229.96,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-13",
+            "value": 625.79,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-14",
+            "value": 233.71,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-15",
+            "value": 176.79,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-16",
+            "value": 363.98,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-17",
+            "value": 128.63,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-18",
+            "value": 138.64,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-19",
+            "value": 175.54,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-20",
+            "value": 232.75,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-21",
+            "value": 112.3,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-22",
+            "value": 90.8,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-23",
+            "value": 95.62,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-24",
+            "value": 326.47,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-25",
+            "value": 1090.3,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-26",
+            "value": 237.88,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-27",
+            "value": 190.92,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-28",
+            "value": 145.92,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-29",
+            "value": 115.17,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-30",
+            "value": 195.08,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "05-01",
+            "value": 146.82,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "05-02",
+            "value": 91.41,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "05-03",
+            "value": 124.5,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "05-04",
+            "value": 102.59,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "05-05",
+            "value": 247.43,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "05-06",
+            "value": 498.54,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "05-07",
+            "value": 162.4,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "05-08",
+            "value": 98.64,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "05-09",
+            "value": 73.4,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "05-10",
+            "value": 65.96,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "05-11",
+            "value": 60.09,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "05-12",
+            "value": 76.06,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "05-13",
+            "value": 90.46,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "05-14",
+            "value": 146.02,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "05-15",
+            "value": 367.44,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "05-16",
+            "value": 98.36,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "05-17",
+            "value": 176.87,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "05-18",
+            "value": 237.72,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "05-19",
+            "value": 465.46,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "05-20",
+            "value": 360.63,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "05-21",
+            "value": 486.34,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "05-22",
+            "value": 419.75,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "05-23",
+            "value": 237.81,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "05-24",
+            "value": 353,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "05-25",
+            "value": 468.52,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "05-26",
+            "value": 152.88,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "05-27",
+            "value": 145.15,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "05-28",
+            "value": 213.66,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "05-29",
+            "value": 141.34,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "05-30",
+            "value": 256.25,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "05-31",
+            "value": 108.75,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "06-01",
+            "value": 76.82,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "06-02",
+            "value": 59.37,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "06-03",
+            "value": 54.75,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "06-04",
+            "value": 50.84,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "06-05",
+            "value": 88.65,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "06-06",
+            "value": 55.85,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "06-07",
+            "value": 82.81,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "06-08",
+            "value": 137.65,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "06-09",
+            "value": 64.68,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "06-10",
+            "value": 89.07,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "06-11",
+            "value": 122.63,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "06-12",
+            "value": 75.76,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "06-13",
+            "value": 61.51,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "06-14",
+            "value": 49.37,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "06-15",
+            "value": 37.53,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "06-16",
+            "value": 106.34,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "06-17",
+            "value": 161.67,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "06-18",
+            "value": 96.79,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "06-19",
+            "value": 127.44,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "06-20",
+            "value": 507.31,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "06-21",
+            "value": 94.31,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "06-22",
+            "value": 63,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "06-23",
+            "value": 62.82,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "06-24",
+            "value": 86.35,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "06-25",
+            "value": 44.94,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "06-26",
+            "value": 48.91,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "06-27",
+            "value": 56.37,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "06-28",
+            "value": 47.478,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "06-29",
+            "value": 33.656,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "06-30",
+            "value": 29.265,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "07-01",
+            "value": 38.87,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "07-02",
+            "value": 48.07,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "07-03",
+            "value": 95.896,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "07-04",
+            "value": 48.386,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "07-05",
+            "value": 47.599,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "07-06",
+            "value": 48.551,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "07-07",
+            "value": 979.698,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "07-08",
+            "value": 116.043,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "07-09",
+            "value": 74.71,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "07-10",
+            "value": 236.35,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "07-11",
+            "value": 99.34,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "07-12",
+            "value": 107.87,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "07-13",
+            "value": 94.52,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "07-14",
+            "value": 118.27,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "07-15",
+            "value": 117.667,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "07-16",
+            "value": 151.436,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "07-17",
+            "value": 53.38,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "07-18",
+            "value": 60.92,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "07-19",
+            "value": 75.18,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "07-20",
+            "value": 117.392,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "07-21",
+            "value": 40.168,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "07-22",
+            "value": 45.748,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "07-23",
+            "value": 39.094,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "07-24",
+            "value": 41.341,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "07-25",
+            "value": 71.98,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "07-26",
+            "value": 67.298,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "07-27",
+            "value": 46.411,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "07-28",
+            "value": 33.088,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "07-29",
+            "value": 25.794,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "07-30",
+            "value": 28.814,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "07-31",
+            "value": 21.374,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "08-01",
+            "value": 85.538,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "08-02",
+            "value": 87.057,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "08-03",
+            "value": 84.465,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "08-04",
+            "value": 61.361,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "08-05",
+            "value": 40.426,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "08-06",
+            "value": 155.965,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "08-07",
+            "value": 125.082,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "08-08",
+            "value": 346,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "08-09",
+            "value": 282.76,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "08-10",
+            "value": 140.879,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "08-11",
+            "value": 57.137,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "08-12",
+            "value": 62.488,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "08-13",
+            "value": 86.656,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "08-14",
+            "value": 62.234,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "08-15",
+            "value": 42.103,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "08-16",
+            "value": 32.222,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "08-17",
+            "value": 28.873,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "08-18",
+            "value": 39.043,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "08-19",
+            "value": 29.532,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "08-20",
+            "value": 50.804,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "08-21",
+            "value": 28.039,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "08-22",
+            "value": 43.994,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "08-23",
+            "value": 34.425,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "08-24",
+            "value": 21.996,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "08-25",
+            "value": 18.522,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "08-26",
+            "value": 15.615,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "08-27",
+            "value": 13.313,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "08-28",
+            "value": 12.133,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "08-29",
+            "value": 11.127,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "08-30",
+            "value": 10.502,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "08-31",
+            "value": 13.014,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "09-01",
+            "value": 35.123,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "09-02",
+            "value": 46.444,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "09-03",
+            "value": 22.428,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "09-04",
+            "value": 14.775,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "09-05",
+            "value": 13.082,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "09-06",
+            "value": 13.043,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "09-07",
+            "value": 13.729,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "09-08",
+            "value": 11.24,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "09-09",
+            "value": 22.285,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "09-10",
+            "value": 14.137,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "09-11",
+            "value": 14.879,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "09-12",
+            "value": 23.67,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "09-13",
+            "value": 20.113,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "09-14",
+            "value": 12.751,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "09-15",
+            "value": 43.711,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "09-16",
+            "value": 100.891,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "09-17",
+            "value": 975.545,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "09-18",
+            "value": 352.123,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "09-19",
+            "value": 209.636,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "09-20",
+            "value": 75.081,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "09-21",
+            "value": 36.271,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "09-22",
+            "value": 64.322,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "09-23",
+            "value": 79.55,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "09-24",
+            "value": 87.306,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "09-25",
+            "value": 410.547,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "09-26",
+            "value": 107.512,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "09-27",
+            "value": 304.918,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "09-28",
+            "value": 147.929,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "09-29",
+            "value": 366.239,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "09-30",
+            "value": 98.881,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "10-01",
+            "value": 88.115,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "10-02",
+            "value": 54.94,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "10-03",
+            "value": 33.949,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "10-04",
+            "value": 25.642,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "10-05",
+            "value": 21.315,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "10-06",
+            "value": 18.928,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "10-07",
+            "value": 17.847,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "10-08",
+            "value": 456.484,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "10-09",
+            "value": 613.885,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "10-10",
+            "value": 66.024,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "10-11",
+            "value": 183.352,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "10-12",
+            "value": 304.465,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "10-13",
+            "value": 79.533,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "10-14",
+            "value": 48.423,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "10-15",
+            "value": 38.636,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "10-16",
+            "value": 45.103,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "10-17",
+            "value": 46.18,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "10-18",
+            "value": 30.222,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "10-19",
+            "value": 24.936,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "10-20",
+            "value": 34.469,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "10-21",
+            "value": 32.949,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "10-22",
+            "value": 22.371,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "10-23",
+            "value": 19.589,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "10-24",
+            "value": 18.556,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "10-25",
+            "value": 18.107,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "10-26",
+            "value": 44.744,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "10-27",
+            "value": 183.377,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "10-28",
+            "value": 53.063,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "10-29",
+            "value": 36.121,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "10-30",
+            "value": 51.008,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "10-31",
+            "value": 36.747,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "11-01",
+            "value": 46.417,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "11-02",
+            "value": 52.817,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "11-03",
+            "value": 31.485,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "11-04",
+            "value": 25.928,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "11-05",
+            "value": 208.468,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "11-06",
+            "value": 80.052,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "11-07",
+            "value": 53.824,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "11-08",
+            "value": 37.98,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "11-09",
+            "value": 38.825,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "11-10",
+            "value": 87.32,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "11-11",
+            "value": 45.138,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "11-12",
+            "value": 400.701,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "11-13",
+            "value": 943.501,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "11-14",
+            "value": 142.877,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "11-15",
+            "value": 218.36,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "11-16",
+            "value": 173.5011,
+            "count": 9,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "11-17",
+            "value": 90.18,
+            "count": 9,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "11-18",
+            "value": 57.054,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "11-19",
+            "value": 45.706,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "11-20",
+            "value": 40.04,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "11-21",
+            "value": 36.43,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "11-22",
+            "value": 41.143,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "11-23",
+            "value": 38.36,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "11-24",
+            "value": 95.261,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "11-25",
+            "value": 103.178,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "11-26",
+            "value": 63.399,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "11-27",
+            "value": 83.25,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "11-28",
+            "value": 89.08,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "11-29",
+            "value": 43.619,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "11-30",
+            "value": 202.691,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "12-01",
+            "value": 132.918,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "12-02",
+            "value": 98.456,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "12-03",
+            "value": 67.717,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "12-04",
+            "value": 50.352,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "12-05",
+            "value": 146.654,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "12-06",
+            "value": 73.84,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "12-07",
+            "value": 58.376,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "12-08",
+            "value": 50.816,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "12-09",
+            "value": 48.195,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "12-10",
+            "value": 74.97,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "12-11",
+            "value": 124.392,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "12-12",
+            "value": 117.49,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "12-13",
+            "value": 79.76,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "12-14",
+            "value": 362.74,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "12-15",
+            "value": 506.462,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "12-16",
+            "value": 360.579,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "12-17",
+            "value": 261.16,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "12-18",
+            "value": 299.176,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "12-19",
+            "value": 115.699,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "12-20",
+            "value": 106.764,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "12-21",
+            "value": 244.307,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "12-22",
+            "value": 137.733,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "12-23",
+            "value": 158.848,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "12-24",
+            "value": 318.551,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "12-25",
+            "value": 331.404,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "12-26",
+            "value": 104.396,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "12-27",
+            "value": 207.295,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "12-28",
+            "value": 231.675,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "12-29",
+            "value": 223.235,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "12-30",
+            "value": 98.675,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "12-31",
+            "value": 88.868,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          }
+        ]
+      }
     },
     "little": {
       "site": "0208521324",
@@ -4401,7 +6979,2585 @@
           "historicalMean": 71,
           "historicalSampleYears": 38
         }
-      ]
+      ],
+      "tenYearAverage": {
+        "startYear": 2016,
+        "endYear": 2025,
+        "startsOn": "2016-01-01",
+        "endsOn": "2025-12-31",
+        "site": "0208521324",
+        "units": "ft³/s",
+        "status": "fresh",
+        "sourceUrl": "https://waterservices.usgs.gov/nwis/dv/?format=json&sites=0208521324&startDT=2016-01-01&endDT=2025-12-31&parameterCd=00060&statCd=00003&siteStatus=all",
+        "verifiedAt": "2026-10-12T14:27:18.792Z",
+        "checkedAt": "2026-10-12T14:27:18.792Z",
+        "observationCount": 3651,
+        "provisionalCount": 247,
+        "days": [
+          {
+            "monthDay": "01-01",
+            "value": 77.348,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-02",
+            "value": 76.293,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-03",
+            "value": 290.609,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-04",
+            "value": 179.309,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-05",
+            "value": 124.55,
+            "count": 9,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-06",
+            "value": 80.87,
+            "count": 9,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-07",
+            "value": 72.387,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-08",
+            "value": 55.142,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-09",
+            "value": 210.136,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-10",
+            "value": 213.034,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-11",
+            "value": 60.732,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-12",
+            "value": 73.733,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-13",
+            "value": 218.67,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-14",
+            "value": 123.25,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-15",
+            "value": 84.13,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-16",
+            "value": 68.175,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-17",
+            "value": 63.494,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-18",
+            "value": 58.904,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-19",
+            "value": 51.402,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-20",
+            "value": 76.735,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-21",
+            "value": 65.052,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-22",
+            "value": 59.53,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-23",
+            "value": 148.1,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-24",
+            "value": 122.34,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-25",
+            "value": 266.15,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-26",
+            "value": 147.03,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-27",
+            "value": 116.32,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-28",
+            "value": 151.21,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-29",
+            "value": 122.87,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-30",
+            "value": 85.79,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "01-31",
+            "value": 134.69,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-01",
+            "value": 126,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-02",
+            "value": 89.29,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-03",
+            "value": 76.58,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-04",
+            "value": 87.99,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-05",
+            "value": 79.83,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-06",
+            "value": 221.54,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-07",
+            "value": 296.01,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-08",
+            "value": 91.12,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-09",
+            "value": 65.36,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-10",
+            "value": 55.29,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-11",
+            "value": 92.71,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-12",
+            "value": 267.88,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-13",
+            "value": 342,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-14",
+            "value": 183.91,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-15",
+            "value": 133.54,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-16",
+            "value": 294.6,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-17",
+            "value": 139.16,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-18",
+            "value": 244.07,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-19",
+            "value": 145.28,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-20",
+            "value": 103,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-21",
+            "value": 110.81,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-22",
+            "value": 144.43,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-23",
+            "value": 316.35,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-24",
+            "value": 280.46,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-25",
+            "value": 154.9,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-26",
+            "value": 90.22,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-27",
+            "value": 103.91,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-28",
+            "value": 76.24,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "02-29",
+            "value": 58.8,
+            "count": 3,
+            "expectedCount": 3,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-01",
+            "value": 73.11,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-02",
+            "value": 191.98,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-03",
+            "value": 105.42,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-04",
+            "value": 125.51,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-05",
+            "value": 87.28,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-06",
+            "value": 77.03,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-07",
+            "value": 71.35,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-08",
+            "value": 58.06,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-09",
+            "value": 183.42,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-10",
+            "value": 109.05,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-11",
+            "value": 65.15,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-12",
+            "value": 92.55,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-13",
+            "value": 78.43,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-14",
+            "value": 65.46,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-15",
+            "value": 54.69,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-16",
+            "value": 52.24,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-17",
+            "value": 160.53,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-18",
+            "value": 80.74,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-19",
+            "value": 83.49,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-20",
+            "value": 66.95,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-21",
+            "value": 151.45,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-22",
+            "value": 79.78,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-23",
+            "value": 70.08,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-24",
+            "value": 59.16,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-25",
+            "value": 149.36,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-26",
+            "value": 129.07,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-27",
+            "value": 101.91,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-28",
+            "value": 241.2,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-29",
+            "value": 105.28,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-30",
+            "value": 68.76,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "03-31",
+            "value": 73.77,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-01",
+            "value": 84.56,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-02",
+            "value": 56.96,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-03",
+            "value": 49.63,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-04",
+            "value": 48.91,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-05",
+            "value": 44.37,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-06",
+            "value": 64.53,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-07",
+            "value": 171.6,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-08",
+            "value": 154.16,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-09",
+            "value": 169.48,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-10",
+            "value": 95.66,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-11",
+            "value": 66.1,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-12",
+            "value": 140.93,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-13",
+            "value": 455.71,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-14",
+            "value": 111.69,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-15",
+            "value": 94.55,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-16",
+            "value": 181.11,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-17",
+            "value": 56.63,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-18",
+            "value": 70.33,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-19",
+            "value": 87.38,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-20",
+            "value": 106.563,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-21",
+            "value": 47.872,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-22",
+            "value": 40.42,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-23",
+            "value": 44.513,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-24",
+            "value": 140.152,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-25",
+            "value": 585.001,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-26",
+            "value": 93.78,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-27",
+            "value": 81.654,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-28",
+            "value": 54.071,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 0
+          },
+          {
+            "monthDay": "04-29",
+            "value": 50.778,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "04-30",
+            "value": 95.625,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "05-01",
+            "value": 70.947,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "05-02",
+            "value": 44.907,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "05-03",
+            "value": 64.049,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "05-04",
+            "value": 51.917,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "05-05",
+            "value": 107.33,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "05-06",
+            "value": 143.47,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "05-07",
+            "value": 64.97,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "05-08",
+            "value": 41.04,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "05-09",
+            "value": 30.99,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "05-10",
+            "value": 30.37,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "05-11",
+            "value": 33.118,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "05-12",
+            "value": 47.472,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "05-13",
+            "value": 71.528,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "05-14",
+            "value": 104.58,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "05-15",
+            "value": 159.26,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "05-16",
+            "value": 49.28,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "05-17",
+            "value": 179.07,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "05-18",
+            "value": 192.36,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "05-19",
+            "value": 197.02,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "05-20",
+            "value": 158.792,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "05-21",
+            "value": 300.99,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "05-22",
+            "value": 194.49,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "05-23",
+            "value": 115.86,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "05-24",
+            "value": 170.909,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "05-25",
+            "value": 230.735,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "05-26",
+            "value": 67.095,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "05-27",
+            "value": 72.3,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "05-28",
+            "value": 76.45,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "05-29",
+            "value": 76.35,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "05-30",
+            "value": 164.485,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "05-31",
+            "value": 58.7,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "06-01",
+            "value": 37.99,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "06-02",
+            "value": 31.72,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "06-03",
+            "value": 27.691,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "06-04",
+            "value": 35.624,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "06-05",
+            "value": 47.439,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "06-06",
+            "value": 33.196,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "06-07",
+            "value": 68.337,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "06-08",
+            "value": 44.635,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "06-09",
+            "value": 33.697,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "06-10",
+            "value": 22.272,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "06-11",
+            "value": 30.308,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "06-12",
+            "value": 76.818,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "06-13",
+            "value": 26.843,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "06-14",
+            "value": 19.876,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "06-15",
+            "value": 16.124,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "06-16",
+            "value": 38.166,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "06-17",
+            "value": 58.359,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "06-18",
+            "value": 46.75,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "06-19",
+            "value": 123.059,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "06-20",
+            "value": 299.473,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "06-21",
+            "value": 41.637,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "06-22",
+            "value": 27.535,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "06-23",
+            "value": 25.097,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "06-24",
+            "value": 35.019,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "06-25",
+            "value": 30.803,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "06-26",
+            "value": 20.228,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "06-27",
+            "value": 19.589,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "06-28",
+            "value": 28.829,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "06-29",
+            "value": 25.686,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "06-30",
+            "value": 36.325,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "07-01",
+            "value": 17.94,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "07-02",
+            "value": 21.176,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "07-03",
+            "value": 100.427,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "07-04",
+            "value": 41.659,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "07-05",
+            "value": 28.043,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "07-06",
+            "value": 123.087,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "07-07",
+            "value": 717.257,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "07-08",
+            "value": 47,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "07-09",
+            "value": 47.65,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "07-10",
+            "value": 121.629,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "07-11",
+            "value": 45.701,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "07-12",
+            "value": 36.733,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "07-13",
+            "value": 44.059,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "07-14",
+            "value": 37.159,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "07-15",
+            "value": 44.463,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "07-16",
+            "value": 100.249,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "07-17",
+            "value": 25.333,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "07-18",
+            "value": 20.827,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "07-19",
+            "value": 28.403,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "07-20",
+            "value": 29.079,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "07-21",
+            "value": 16.891,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "07-22",
+            "value": 44.182,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "07-23",
+            "value": 35.858,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "07-24",
+            "value": 34.831,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "07-25",
+            "value": 33.765,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "07-26",
+            "value": 26.649,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "07-27",
+            "value": 18.25,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "07-28",
+            "value": 13.053,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "07-29",
+            "value": 15.155,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "07-30",
+            "value": 10.731,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "07-31",
+            "value": 10.318,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "08-01",
+            "value": 34.185,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "08-02",
+            "value": 36.21,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "08-03",
+            "value": 33.359,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "08-04",
+            "value": 32.46,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "08-05",
+            "value": 20.633,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "08-06",
+            "value": 94.733,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "08-07",
+            "value": 122.393,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "08-08",
+            "value": 253.047,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "08-09",
+            "value": 216.836,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "08-10",
+            "value": 96.764,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "08-11",
+            "value": 37.19,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "08-12",
+            "value": 30.54,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "08-13",
+            "value": 27.82,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "08-14",
+            "value": 23.58,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "08-15",
+            "value": 16.853,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "08-16",
+            "value": 14.224,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "08-17",
+            "value": 12.82,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "08-18",
+            "value": 15.908,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "08-19",
+            "value": 11.393,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "08-20",
+            "value": 15.703,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "08-21",
+            "value": 12.842,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "08-22",
+            "value": 17.442,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "08-23",
+            "value": 15.43,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "08-24",
+            "value": 10.401,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "08-25",
+            "value": 8.757,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "08-26",
+            "value": 7.734,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "08-27",
+            "value": 6.997,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "08-28",
+            "value": 6.3,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "08-29",
+            "value": 5.938,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "08-30",
+            "value": 6.075,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "08-31",
+            "value": 6.748,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "09-01",
+            "value": 75.107,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "09-02",
+            "value": 42.487,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "09-03",
+            "value": 13.934,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "09-04",
+            "value": 8.963,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "09-05",
+            "value": 7.824,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "09-06",
+            "value": 7.046,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "09-07",
+            "value": 6.3,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "09-08",
+            "value": 5.898,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "09-09",
+            "value": 5.464,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "09-10",
+            "value": 5.271,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "09-11",
+            "value": 7.478,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "09-12",
+            "value": 7.566,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "09-13",
+            "value": 7.053,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "09-14",
+            "value": 6.618,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "09-15",
+            "value": 7.154,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "09-16",
+            "value": 24.88,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "09-17",
+            "value": 478.937,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "09-18",
+            "value": 189.76,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "09-19",
+            "value": 111.775,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "09-20",
+            "value": 39.659,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "09-21",
+            "value": 18.929,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "09-22",
+            "value": 49.098,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "09-23",
+            "value": 29.285,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "09-24",
+            "value": 41.397,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "09-25",
+            "value": 178.281,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "09-26",
+            "value": 55.452,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "09-27",
+            "value": 163.178,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "09-28",
+            "value": 53.136,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "09-29",
+            "value": 150.024,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "09-30",
+            "value": 55.948,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "10-01",
+            "value": 44.454,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "10-02",
+            "value": 28.448,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "10-03",
+            "value": 18.521,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "10-04",
+            "value": 14.891,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "10-05",
+            "value": 12.639,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "10-06",
+            "value": 10.899,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "10-07",
+            "value": 10.408,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "10-08",
+            "value": 269.922,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "10-09",
+            "value": 251.593,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "10-10",
+            "value": 30.096,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "10-11",
+            "value": 94.513,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "10-12",
+            "value": 97.745,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "10-13",
+            "value": 31.915,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "10-14",
+            "value": 20.071,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "10-15",
+            "value": 15.952,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "10-16",
+            "value": 16.58,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "10-17",
+            "value": 18.313,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "10-18",
+            "value": 12.58,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "10-19",
+            "value": 10.755,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "10-20",
+            "value": 10.781,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "10-21",
+            "value": 10.39,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "10-22",
+            "value": 9.598,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "10-23",
+            "value": 9.36,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "10-24",
+            "value": 8.424,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "10-25",
+            "value": 7.783,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "10-26",
+            "value": 29.385,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "10-27",
+            "value": 70.996,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "10-28",
+            "value": 22.304,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "10-29",
+            "value": 16.374,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "10-30",
+            "value": 19.279,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "10-31",
+            "value": 14.636,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "11-01",
+            "value": 16.31,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "11-02",
+            "value": 21.764,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "11-03",
+            "value": 12.969,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "11-04",
+            "value": 10.528,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "11-05",
+            "value": 91.923,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "11-06",
+            "value": 33.31,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "11-07",
+            "value": 20.722,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "11-08",
+            "value": 15.958,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "11-09",
+            "value": 16.111,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "11-10",
+            "value": 26.812,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "11-11",
+            "value": 16.963,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "11-12",
+            "value": 247.26,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "11-13",
+            "value": 489.421,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "11-14",
+            "value": 62.221,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "11-15",
+            "value": 115.614,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "11-16",
+            "value": 65.519,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "11-17",
+            "value": 32.384,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "11-18",
+            "value": 23.544,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "11-19",
+            "value": 19.677,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "11-20",
+            "value": 17.449,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "11-21",
+            "value": 14.833,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "11-22",
+            "value": 13.419,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "11-23",
+            "value": 12.314,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "11-24",
+            "value": 43.423,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "11-25",
+            "value": 42.126,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "11-26",
+            "value": 24.402,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "11-27",
+            "value": 28.474,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "11-28",
+            "value": 29.324,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "11-29",
+            "value": 17.302,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "11-30",
+            "value": 89.584,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "12-01",
+            "value": 53.789,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "12-02",
+            "value": 41.544,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "12-03",
+            "value": 26.887,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "12-04",
+            "value": 19.879,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "12-05",
+            "value": 58.107,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "12-06",
+            "value": 29.542,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "12-07",
+            "value": 24.613,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "12-08",
+            "value": 21.455,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "12-09",
+            "value": 21.314,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "12-10",
+            "value": 38.231,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "12-11",
+            "value": 54.587,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "12-12",
+            "value": 50.779,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "12-13",
+            "value": 36.933,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "12-14",
+            "value": 192.266,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "12-15",
+            "value": 248.474,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "12-16",
+            "value": 170.333,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "12-17",
+            "value": 123.901,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "12-18",
+            "value": 140.031,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "12-19",
+            "value": 53.598,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "12-20",
+            "value": 59.575,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "12-21",
+            "value": 114.76,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "12-22",
+            "value": 70.614,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "12-23",
+            "value": 70.076,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "12-24",
+            "value": 197.546,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "12-25",
+            "value": 151.845,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "12-26",
+            "value": 47.009,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "12-27",
+            "value": 101.601,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "12-28",
+            "value": 115.602,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "12-29",
+            "value": 100.968,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "12-30",
+            "value": 48.854,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          },
+          {
+            "monthDay": "12-31",
+            "value": 45.888,
+            "count": 10,
+            "expectedCount": 10,
+            "provisionalCount": 1
+          }
+        ]
+      }
     }
   }
 }

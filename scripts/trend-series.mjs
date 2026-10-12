@@ -25,7 +25,7 @@ export function observedSegments(points, maxGapDays = 1) {
 }
 
 /** Calendar weeks anchored to Jan 1; partial weeks compare the same observed days.
- * @param {{date:string,currentYear:number|null,historicalMean:number}[]} days
+ * @param {{date:string,currentYear:number|null,historicalMean:number|null,tenYearMean?:number|null,tenYearCount?:number,tenYearExpectedCount?:number}[]} days
  * @param {{start:string,end:string}} window @param {string} observedThrough */
 export function weeklyFlow(days, window, observedThrough) {
   /** @type {Map<number, typeof days>} */
@@ -37,7 +37,7 @@ export function weeklyFlow(days, window, observedThrough) {
   }
   return [...groups.values()].map((values) => {
     const observed = values.filter((day) => day.date <= observedThrough && Number.isFinite(day.currentYear) && day.currentYear !== null);
-    const mean = (rows, key) => rows.length ? rows.reduce((sum, day) => sum + day[key], 0) / rows.length : null;
+    const mean = (rows, key) => rows.length && rows.every((day) => Number.isFinite(day[key]) && day[key] !== null) ? rows.reduce((sum, day) => sum + day[key], 0) / rows.length : null;
     return {
       date: values.at(-1).date,
       periodStart: values[0].date,
@@ -48,6 +48,10 @@ export function weeklyFlow(days, window, observedThrough) {
       current: mean(observed, 'currentYear'),
       historical: mean(values, 'historicalMean'),
       pairedHistorical: mean(observed, 'historicalMean'),
+      tenYear: mean(values, 'tenYearMean'),
+      pairedTenYear: mean(observed, 'tenYearMean'),
+      tenYearCountLow: Math.min(...values.map((day) => day.tenYearCount ?? 0)),
+      tenYearCountHigh: Math.max(...values.map((day) => day.tenYearCount ?? 0)),
     };
   });
 }

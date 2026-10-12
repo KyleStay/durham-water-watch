@@ -11,6 +11,7 @@ import { cityPages, cityStage, citySupply, cityReservoir, officialDate } from ".
 import { gitDirectory } from "./daily-lock.mjs";
 import { readPageEvidence } from "./official-page-evidence.mjs";
 import { refreshReport } from "./refresh-report.mjs";
+import { fetchTenYearAverage, retainTenYearAverage, tenYearSource } from "./ten-year-flow.mjs";
 import { fetchRainfallForecast, rainfallPage, retainRainfallForecast } from "./rainfall-forecast.mjs";
 
 const snapshotPath = resolve(import.meta.dirname, "../public/data/dashboard.json");
@@ -296,7 +297,7 @@ async function refreshStreamflowHistory() {
       });
       const firstStatistic = statistics[0];
       const lastStatistic = statistics.at(-1);
-      streamflowHistory.stations[key] = {
+      Object.assign(streamflowHistory.stations[key], {
         site,
         name,
         status: "fresh",
@@ -304,8 +305,9 @@ async function refreshStreamflowHistory() {
         historicalPeriod: `${firstStatistic.begin_yr}–${lastStatistic.end_yr}`,
         verifiedAt: nowIso,
         checkedAt: nowIso,
+        note: undefined,
         days,
-      };
+      });
       results.push(`verified: ${key} historical streamflow`);
     } catch (error) {
       const station = streamflowHistory.stations[key];
@@ -325,6 +327,22 @@ async function refreshStreamflowHistory() {
   streamflowHistory.schemaVersion = 1;
   streamflowHistory.year = year;
   streamflowHistory.updatedAt = nowIso;
+}
+
+async function refreshTenYearHistory() {
+  const year = Number(easternDateParts(now).year);
+  await Promise.all([['flat', '02085500'], ['little', '0208521324']].map(async ([key, site]) => {
+    const station = streamflowHistory.stations[key];
+    try {
+      station.tenYearAverage = await fetchTenYearAverage(site, year, { now });
+      results.push(`verified: ${key} ten-year streamflow average (${year - 10}–${year - 1})`);
+    } catch (error) {
+      const reason = error instanceof Error ? error.message : 'unknown error';
+      station.tenYearAverage = retainTenYearAverage(station.tenYearAverage, site, year, now, reason);
+      quarantine.push({ metrics: [`streamflowHistory.${key}.tenYearAverage`], sourceUrl: tenYearSource(site, year), reason, receivedAt: nowIso, disposition: 'rejected; last-known-good ten-year average preserved' });
+      results.push(`failed: ${key} ten-year streamflow average (${reason})`);
+    }
+  }));
 }
 
 function easternDateParts(date) {
@@ -351,7 +369,7 @@ function updateStatus(metric, kind) {
   metric.status = metricStatus(metric, kind, now);
 }
 
-const jobs = [refreshStreamflow(), refreshStreamflowHistory(), refreshRainfall()];
+const jobs = [refreshStreamflow(), refreshStreamflowHistory(), refreshTenYearHistory(), refreshRainfall()];
 if (sourceIsDue({
   forceAll,
   metrics: [snapshot.stage],

@@ -25,7 +25,7 @@ test("produces a complete GitHub Pages artifact", async () => {
   assert.match(html, /vs historical daily mean/);
   assert.match(html, /gaps mean no observation/);
   assert.match(html, /Both graphs use the same scale/);
-  assert.match(html, /no long-term supply average/);
+  assert.match(html, /verified ten-year numeric series is not available.*City reservoir levels or supply/);
   assert.match(html, /USGS daily means appear where available/);
 
   assert.match(html, /documentID=4123(?:&amp;|&)refresh=/);
@@ -40,6 +40,11 @@ test("produces a complete GitHub Pages artifact", async () => {
 test("publishes USGS year-to-date flow against historical daily means", async () => {
   const comparison = JSON.parse(await readFile(new URL("data/streamflow-history.json", pagesRoot), "utf8"));
   validateComparison(comparison);
+  const html = await readFile(new URL("index.html", pagesRoot), "utf8");
+  for (const station of Object.values(comparison.stations)) {
+    const average = station.tenYearAverage;
+    if (average?.days.length) assert.ok(html.includes("10-year average (" + average.startYear + "–" + average.endYear + ")"));
+  }
 });
 
 test("publishes a complete, ordered daily values ledger", async () => {

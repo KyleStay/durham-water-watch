@@ -105,7 +105,7 @@ test('chart inspection exposes hover, tap, missing dates, keyboard values and hi
       reservoirs: { michie: [330.96, 331.5, null][index], little: null }, streamflow: { flat: null, little: null },
     },
   }));
-  const station = { site: 'flat', name: 'Flat River', status: 'fresh', sourceUrl: 'https://example.test/', historicalPeriod: '2000–2025', verifiedAt: data.generatedAt,
+  const station = { tenYearAverage: { startYear: 2016, endYear: 2025, status: 'fresh', sourceUrl: 'https://example.test/', verifiedAt: data.generatedAt, days: ['10-01', '10-02', '10-03'].map((monthDay,index) => ({ monthDay, value: [20,30,40][index], count: [10,9,10][index], expectedCount: 10 })) }, site: 'flat', name: 'Flat River', status: 'fresh', sourceUrl: 'https://example.test/', historicalPeriod: '2000–2025', verifiedAt: data.generatedAt,
     days: days.map((day, index) => ({ date: day.date, currentYear: [10, null, 20][index], historicalMean: [100, 110, 120][index], historicalSampleYears: 25 })) };
   const element = createElement(WaterWatch, { snapshot: data, history: { schemaVersion: 3, days }, comparison: { schemaVersion: 1, year: 2026, updatedAt: data.generatedAt, stations: { flat: station, little: { ...station, site: 'little', name: 'Little River' } } } });
   const dom = new JSDOM(`<div id="root">${renderToString(element)}</div>`, { url: 'https://example.test/' });
@@ -127,7 +127,8 @@ test('chart inspection exposes hover, tap, missing dates, keyboard values and hi
     await act(async () => { lake.dispatchEvent(new dom.window.KeyboardEvent('keydown', { bubbles: true, key: 'Escape' })); });
     assert.equal(document.querySelector('.chart-tooltip'), null);
     await act(async () => { river.dispatchEvent(new dom.window.MouseEvent('pointermove', { bubbles: true, clientX: 627 })); });
-    assert.match(document.querySelector('.chart-tooltip').textContent, /15\.00 ft³\/s.*2 observed daily means.*Historical daily mean.*110\.00 ft³\/s/);
+    assert.match(document.querySelector('.chart-tooltip').textContent, /15\.00 ft³\/s.*2 observed daily means.*10-year average \(2016–2025\).*30\.00 ft³\/s.*9–10 years per calendar date.*Historical daily mean.*110\.00 ft³\/s/);
+    assert.match(river.closest('.trend-card').textContent, /50% below 10-year average/);
     await act(async () => { river.dispatchEvent(new dom.window.MouseEvent('pointerout', { bubbles: true })); });
     await act(async () => { supply.dispatchEvent(new dom.window.KeyboardEvent('keydown', { bubbles: true, key: 'Home' })); });
     assert.match(supply.closest('.context-chart').textContent, /Oct 1, 2026.*156 days/);

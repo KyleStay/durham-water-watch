@@ -28,6 +28,14 @@ export function refreshReport(before, after, comparisons, checkedAt) {
       outcome: station.verifiedAt === checkedAt ? "updated" : station.checkedAt === checkedAt ? "retained" : "not checked",
       historicalPeriod: station.historicalPeriod, historicalDays: station.days.length, reason: station.note,
     });
+    const average = station.tenYearAverage;
+    if (average) entries.push({
+      key: "streamflowHistory." + key + ".tenYearAverage", label: station.name + " ten-year average",
+      value: average.days.filter((day) => day.value !== null).length, units: "calendar-day averages",
+      startYear: average.startYear, endYear: average.endYear, observationCount: average.observationCount,
+      provisionalCount: average.provisionalCount, checkedAt: average.checkedAt, sourceUrl: average.sourceUrl,
+      status: average.status, outcome: average.verifiedAt === checkedAt ? "updated" : average.checkedAt === checkedAt ? "retained" : "not checked", reason: average.note,
+    });
   }
   const forecast = after.rainfallForecast;
   entries.push({

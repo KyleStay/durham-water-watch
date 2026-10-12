@@ -6,7 +6,7 @@ import verifiedHistory from "../public/data/history.json";
 import verifiedStreamflowHistory from "../public/data/streamflow-history.json";
 import { dashboardAt, metricStatus } from "../scripts/freshness.mjs";
 import { annualReservoirHeading, showsStageTwoGuidance } from "../scripts/stage-guidance.mjs";
-import TrendContext from "./trend-charts";
+import TrendContext, { type TenYearAverage } from "./trend-charts";
 import WatershedMap, { type RainfallForecast } from "./watershed-map";
 
 type Lang = "en" | "es";
@@ -76,6 +76,7 @@ type StreamflowHistoryDay = {
   historicalSampleYears: number;
 };
 type StreamflowHistoryStation = {
+  tenYearAverage?: TenYearAverage;
   site: string;
   name: string;
   status: Freshness;
@@ -516,6 +517,12 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
   const currentHistoryYear = history.days.at(-1)?.date.slice(0, 4) ?? String(comparison.year);
   const ageStation = (station: StreamflowHistoryStation): StreamflowHistoryStation => ({
     ...station,
+    tenYearAverage: station.tenYearAverage ? {
+      ...station.tenYearAverage,
+      status: station.tenYearAverage.status === "fresh"
+        ? metricStatus({ value: 1, verifiedAt: station.tenYearAverage.verifiedAt }, "stage", now)
+        : station.tenYearAverage.status,
+    } : undefined,
     status: station.status === "fresh"
       ? metricStatus({ value: 1, verifiedAt: station.verifiedAt ?? comparison.updatedAt }, "stage", now)
       : station.status,

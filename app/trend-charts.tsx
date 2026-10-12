@@ -2,12 +2,14 @@
 
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { observedSegments, trendWindow, weeklyFlow } from "../scripts/trend-series.mjs";
+import { withTenYearAverage } from "../scripts/ten-year-flow.mjs";
 
 type Lang = "en" | "es";
 type Point = { date: string; value: number | null; start?: string; end?: string; detail?: string };
-type Series = { label: string; color: string; points: Point[]; dashed?: boolean };
+type Series = { label: string; color: string; points: Point[]; dashed?: boolean; dashPattern?: string };
 type HistoryDay = { date: string; values: { supply: { total: number | null }; reservoirs: { michie: number | null; little: number | null } } };
-type Station = { name: string; site: string; sourceUrl: string; historicalPeriod: string | null; status: "fresh" | "stale" | "unavailable"; days: { date: string; currentYear: number | null; historicalMean: number }[] };
+export type TenYearAverage = { startYear: number; endYear: number; status: "fresh" | "stale" | "unavailable"; sourceUrl: string; verifiedAt?: string; note?: string; provisionalCount?: number; days: { monthDay: string; value: number | null; count: number; expectedCount: number }[] };
+type Station = { tenYearAverage?: TenYearAverage; name: string; site: string; sourceUrl: string; historicalPeriod: string | null; status: "fresh" | "stale" | "unavailable"; days: { date: string; currentYear: number | null; historicalMean: number }[] };
 
 function dateLabel(date: string, lang: Lang) {
   return new Intl.DateTimeFormat(lang === "en" ? "en-US" : "es-US", { month: "short", day: "numeric", timeZone: "UTC" }).format(new Date(`${date}T12:00:00Z`));
@@ -77,7 +79,7 @@ function Chart({ title, description, series, window, unit, lang, zeroReference =
       {zeroReference && <text x={width - right} y={y(0) - 7} textAnchor="end" className="context-axis">{lang === "en" ? "Full pool" : "Cota máxima"}</text>}
       {dates.map((date, i) => <text key={date} x={x(date)} y={height - 9} textAnchor={i === 0 ? "start" : i === 2 ? "end" : "middle"} className="context-axis">{dateLabel(date, lang)}</text>)}
       {series.map((s) => <g key={s.label}>
-        {observedSegments(s.points, gapDays).map((segment, i) => <path key={i} d={segment.map((p, index) => `${index ? "L" : "M"}${x(p.date)},${y(p.value)}`).join(" ")} fill="none" stroke={s.color} strokeWidth="2.5" strokeDasharray={s.dashed ? "6 5" : undefined} />)}
+        {observedSegments(s.points, gapDays).map((segment, i) => <path key={i} d={segment.map((p, index) => `${index ? "L" : "M"}${x(p.date)},${y(p.value)}`).join(" ")} fill="none" stroke={s.color} strokeWidth="2.5" strokeDasharray={s.dashed ? s.dashPattern ?? "6 5" : undefined} />)}
         {!s.dashed && s.points.map((p) => p.value === null ? null : <circle key={p.date} cx={x(p.date)} cy={y(p.value)} r={gapDays === 1 ? 3 : 2.5} fill={s.color}>
           <title>{`${s.label} · ${fullDate(p.date, lang)}: ${p.value.toFixed(2)} ${unit}`}</title>
         </circle>)}
@@ -109,7 +111,7 @@ function Chart({ title, description, series, window, unit, lang, zeroReference =
       {rows.map((row) => <div key={row.label}><span className="chart-tooltip-series"><i style={{ background: row.color }} />{row.label}</span><b>{row.reading}</b>{row.period && <span>{row.period}</span>}{row.detail && <span>{row.detail}</span>}</div>)}
     </div>}
     <p className="chart-help">{lang === "en" ? "Hover, tap, or use arrow keys for values and dates." : "Pase el cursor, toque o use las flechas para consultar valores y fechas."}</p>
-    <div className="context-legend">{series.map((s) => <span key={s.label}><i style={{ borderColor: s.color, borderStyle: s.dashed ? "dashed" : "solid" }} />{s.label}</span>)}</div>
+    <div className="context-legend">{series.map((s) => <span key={s.label}><i style={{ borderColor: s.color, borderStyle: s.dashPattern === "2 4" ? "dotted" : s.dashed ? "dashed" : "solid" }} />{s.label}</span>)}</div>
     {!values.length && <p>{lang === "en" ? "No observations in this period." : "No hay observaciones en este período."}</p>}
   </div>;
 }
@@ -171,23 +173,35 @@ export default function TrendContext({ days, end, lang, reservoirs, supplyStatus
         <p className="trend-change">{observationSummary(supply, lang, lang === "en" ? "days" : "días")}</p>
         <p className="trend-source"><a href="https://www.durhamnc.gov/1214/Current-Data" target="_blank" rel="noreferrer">{lang === "en" ? "Official City supply estimate" : "Estimación oficial del suministro"} ↗</a> · <a href="#supply-breakdown">{lang === "en" ? "What makes up this estimate?" : "¿Cómo se calcula esta estimación?"}</a></p>
       </article>
-      <div id="rivers" className="trend-section-heading"><span>03</span><div><h3>{lang === "en" ? "River flow: is this typical for the season?" : "Caudal: ¿es normal para la temporada?"}</h3><p>{lang === "en" ? "Weekly averages of USGS daily means compared with the historical daily mean for the same time of year. The year view shows the usual seasonal pattern through December." : "Promedios semanales del caudal medio diario del USGS comparados con el promedio histórico de la misma época. La vista anual muestra el patrón estacional hasta diciembre."}</p></div></div>
+      <div id="rivers" className="trend-section-heading"><span>03</span><div><h3>{lang === "en" ? "River flow: is this typical for the season?" : "Caudal: ¿es normal para la temporada?"}</h3><p>{lang === "en" ? "Weekly averages of USGS daily means compared with the 10-year average and full-record historical mean for the same calendar dates. The 10-year window uses the ten completed years before this year; the year view shows the usual seasonal pattern through December." : "Promedios semanales del caudal medio diario del USGS comparados con el promedio de 10 años y el histórico completo para las mismas fechas. El período usa los diez años completos anteriores; la vista anual muestra el patrón estacional hasta diciembre."}</p></div></div>
       <div className="context-card-grid">
         {stations.map((station) => {
-          const weekly = weeklyFlow(station.days, window, end);
+          const average = station.tenYearAverage;
+          const averageLabel = `${lang === "en" ? "10-year average" : "Promedio de 10 años"} (${average?.startYear}–${average?.endYear})`;
+          const weekly = weeklyFlow(withTenYearAverage(station.days, average, Number(year)), window, end);
           const recent = weekly.filter((p) => p.current !== null).at(-1);
-          const difference = recent?.pairedHistorical ? Math.round((recent.current! / recent.pairedHistorical - 1) * 100) : null;
+          const useTenYear = recent?.pairedTenYear !== null && recent?.pairedTenYear !== undefined;
+          const reference = useTenYear ? recent?.pairedTenYear : recent?.pairedHistorical;
+          const difference = reference ? Math.round((recent!.current! / reference - 1) * 1000) / 10 : null;
+          const referenceLabel = lang === "en" ? (useTenYear ? "10-year average" : "historical mean") : (useTenYear ? "promedio de 10 años" : "promedio histórico");
+          const chartSeries: Series[] = [
+            { label: year, color: "#07516e", points: weekly.map((p) => ({ date: p.date, value: p.current, start: p.start, end: p.through ?? undefined, detail: `${p.count} ${lang === "en" ? "observed daily means" : "promedios diarios observados"}` })) },
+            ...(average?.days.length ? [{ label: averageLabel, color: "#137772", dashed: true, dashPattern: "2 4", points: weekly.map((p) => ({ date: p.date, value: p.tenYear, detail: `${dateLabel(p.periodStart, lang)} – ${dateLabel(p.periodEnd, lang)} · ${p.tenYearCountLow === p.tenYearCountHigh ? p.tenYearCountLow : `${p.tenYearCountLow}–${p.tenYearCountHigh}`} ${lang === "en" ? "years per calendar date; available USGS daily means" : "años por fecha; promedios diarios disponibles del USGS"}` })) }] : []),
+            { label: lang === "en" ? "Historical daily mean" : "Promedio diario histórico", color: "#a85e20", dashed: true, points: weekly.map((p) => ({ date: p.date, value: p.historical, start: p.periodStart, end: p.periodEnd, detail: lang === "en" ? "Average of historical daily means" : "Promedio de los promedios diarios históricos" })) },
+          ];
           return <article className="trend-card" key={station.site}>
             <div className="trend-card-heading"><h4>{station.name}</h4><span className={`status ${station.status}`}>{lang === "en" ? { fresh: "Verified", stale: "Stale · retained", unavailable: "Unavailable" }[station.status] : { fresh: "Verificado", stale: "Antiguo · conservado", unavailable: "No disponible" }[station.status]}</span></div>
-            <p className="trend-reading"><strong>{difference === null ? "—" : `${Math.abs(difference)}%`}</strong> {difference === null ? "" : lang === "en" ? `${difference > 0 ? "above" : "below"} historical mean` : `${difference > 0 ? "sobre" : "bajo"} el promedio histórico`}</p>
+            <p className="trend-reading"><strong>{difference === null ? "—" : `${Math.abs(difference).toLocaleString(lang === "en" ? "en-US" : "es-US", { maximumFractionDigits: 1 })}%`}</strong> {difference === null ? "" : lang === "en" ? `${difference > 0 ? "above" : difference < 0 ? "below" : "at"} ${referenceLabel}` : `${difference > 0 ? "sobre" : difference < 0 ? "bajo" : "en"} el ${referenceLabel}`}</p>
             <p className="observation-date">{recent?.through ? `${dateLabel(recent.start, lang)} – ${dateLabel(recent.through, lang)} · ${recent.count}/7 ${lang === "en" ? "daily readings" : "lecturas diarias"}` : lang === "en" ? "Comparison unavailable" : "Comparación no disponible"}</p>
-            <Chart title={`${station.name}: ${year} ${lang === "en" ? "vs historical daily mean" : "frente al promedio diario histórico"}`} description={lang === "en" ? "Weekly averages in cubic feet per second. The dashed line is the historical mean. Missing weeks are gaps." : "Promedios semanales en pies cúbicos por segundo. La línea discontinua es el promedio histórico. Las semanas faltantes son huecos."} series={[{ label: year, color: "#07516e", points: weekly.map((p) => ({ date: p.date, value: p.current, start: p.start, end: p.through ?? undefined, detail: `${p.count} ${lang === "en" ? "observed daily means" : "promedios diarios observados"}` })) }, { label: lang === "en" ? "Historical daily mean" : "Promedio diario histórico", color: "#a85e20", dashed: true, points: weekly.map((p) => ({ date: p.date, value: p.historical, start: p.periodStart, end: p.periodEnd, detail: lang === "en" ? "Average of historical daily means" : "Promedio de los promedios diarios históricos" })) }]} window={window} unit="ft³/s" lang={lang} gapDays={7} />
+            <Chart title={`${station.name}: ${year} ${lang === "en" ? "vs historical daily mean" : "frente al promedio diario histórico"}`} description={lang === "en" ? "Weekly averages in cubic feet per second. The dotted green line is the 10-year average; the dashed amber line is the full-record mean. Missing weeks are gaps." : "Promedios semanales en pies cúbicos por segundo. La línea verde de puntos es el promedio de 10 años; la ámbar discontinua es el histórico completo. Las semanas faltantes son huecos."} series={chartSeries} window={window} unit="ft³/s" lang={lang} gapDays={7} />
+            {average?.days.length ? <p className="trend-source">{averageLabel}. {lang === "en" ? "Each calendar date averages available daily means; hover for sample years. Leap days use only leap years." : "Cada fecha promedia los datos disponibles; consulte los años de muestra. El 29 de febrero usa solo años bisiestos."} {average.provisionalCount ? (lang === "en" ? "Some historical readings remain provisional." : "Algunas lecturas históricas son provisionales.") : ""} <a href={average.sourceUrl} target="_blank" rel="noreferrer">USGS ↗</a></p> : <p className="stale-note">{lang === "en" ? "10-year average unavailable for this station." : "Promedio de 10 años no disponible para esta estación."}</p>}
+            {average && average.status !== "fresh" && average.days.length > 0 && <p className="stale-note">{lang === "en" ? "Last verified 10-year average retained; the latest check failed or has aged." : "Se conserva el último promedio de 10 años verificado; la consulta falló o ha envejecido."}</p>}
             {station.status !== "fresh" && <p className="stale-note">{lang === "en" ? "Latest retrieval failed or this record has aged. Last verified daily means are retained; newer flow is unknown." : "La última consulta falló o el registro ha envejecido. Se conservan los promedios verificados; el caudal más reciente se desconoce."}</p>}
             <p className="trend-source">{lang === "en" ? "Historical period" : "Período histórico"}: {station.historicalPeriod ?? "—"}. <a href={station.sourceUrl} target="_blank" rel="noreferrer">USGS {station.site} ↗</a></p>
           </article>;
         })}
       </div>
-      <p className="period-note">{lang === "en" ? "Current-year USGS means can be provisional. Partial weeks use available observations; the percentage compares historical means for those same dates. Full weeks give a steadier comparison. City prior-year charts above provide reservoir context; this page has no long-term supply average." : "Los promedios del año actual pueden ser provisionales. Las semanas parciales usan observaciones disponibles; el porcentaje compara promedios históricos de esas mismas fechas. Las semanas completas dan una comparación más estable. Las gráficas anteriores de la Ciudad ofrecen contexto para los embalses; no hay promedio a largo plazo del suministro."}</p>
+      <p className="period-note">{lang === "en" ? "Current-year USGS means can be provisional. Partial weeks use available observations; the percentage uses the 10-year average for those exact observed dates when available, otherwise the historical mean. Full weeks give a steadier comparison. City prior-year charts above provide reservoir context; a verified ten-year numeric series is not available here for City reservoir levels or supply." : "Los promedios del año actual pueden ser provisionales. Las semanas parciales usan observaciones disponibles; el porcentaje usa el promedio de 10 años para esas fechas exactas cuando está disponible; si no, usa el histórico. Las semanas completas dan una comparación más estable. Las gráficas anteriores de la Ciudad ofrecen contexto para los embalses; no hay aquí una serie numérica verificada de diez años para niveles de embalses o suministro."}</p>
     </div>
   </section>;
 }

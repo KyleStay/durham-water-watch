@@ -133,3 +133,27 @@ full pool, supply days, and both current and historical weekly flows with their
 actual observation ranges and sample counts. Gaps remain missing observations.
 The City's prior-year chart images remain images; exact values are available
 only where the project holds verified numeric readings.
+
+## Ten-year river-flow average
+
+River charts show a seasonal ten-year average alongside current-year flow and
+the full-record USGS historical mean. For 2026 the window is January 1, 2016
+through December 31, 2025: the current year is excluded. Each calendar date
+averages available official USGS daily means across that window. The chart then
+averages those calendar-date means into its displayed weeks. Hover labels name
+the actual decade and contributing sample-year range; leap days use only leap
+years. Missing observations are excluded rather than treated as zero or filled
+in. Provisional historical values are disclosed and may be revised by USGS.
+
+The percentage comparison uses the ten-year means for the exact dates with
+current-year observations, so a partial week does not compare against unobserved
+dates. If a verified decade is unavailable, it uses the labeled full-record
+historical mean. Each station's decade refresh runs independently of current
+and full-record retrievals, preserving a labeled last-known-good decade after a
+failure without relabeling its year range. Daily reports include this source's
+window, coverage, provisional count and retrieval outcome.
+
+The current verified City supply archive and reservoir image charts do not
+provide a ten-year numeric series for those plots. Their displayed readings and
+official prior-year traces remain available without estimating an average from
+image pixels.
