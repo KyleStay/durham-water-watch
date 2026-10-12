@@ -829,5 +829,45 @@
     "reason": "Unexpected official response (403)",
     "receivedAt": "2026-10-11T10:01:05.125Z",
     "disposition": "rejected; last-known-good value preserved"
+  },
+  {
+    "metrics": [
+      "supply.accessible",
+      "supply.belowIntakes",
+      "supply.quarry",
+      "supply.total"
+    ],
+    "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
+    "reason": "Unexpected official response (403)",
+    "receivedAt": "2026-10-12T10:00:19.627Z",
+    "disposition": "rejected; last-known-good value preserved"
+  },
+  {
+    "metrics": [
+      "reservoirs.michie",
+      "reservoirs.little"
+    ],
+    "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
+    "reason": "Unexpected official response (403)",
+    "receivedAt": "2026-10-12T10:00:19.627Z",
+    "disposition": "rejected; last-known-good value preserved"
+  },
+  {
+    "metrics": [
+      "stage"
+    ],
+    "sourceUrl": "https://www.durhamnc.gov/1061/Durham-Saves-Water",
+    "reason": "Unexpected official response (403)",
+    "receivedAt": "2026-10-12T10:00:19.627Z",
+    "disposition": "rejected; last-known-good value preserved"
+  },
+  {
+    "metrics": [
+      "rainfallForecast"
+    ],
+    "sourceUrl": "https://www.wpc.ncep.noaa.gov/qpf/day1-7.shtml",
+    "reason": "NOAA forecast coverage is unavailable",
+    "receivedAt": "2026-10-12T10:00:19.627Z",
+    "disposition": "rejected; last-known-good forecast preserved"
   }
 ]
