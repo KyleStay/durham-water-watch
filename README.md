@@ -97,3 +97,39 @@ for the run date. The version 3 migration rebuilt known City observations from
 archived City pages and earlier dashboard commits. Each migrated value records
 its source URL, verification time, and evidence note. Corrections can be filed
 through the dashboard's GitHub Issues link.
+
+## Source coverage and chart inspection
+
+The daily command always passes `--all`: stage, all four supply components,
+both reservoir elevations, both instantaneous USGS flows, drought, both USGS
+daily-mean comparisons, and NOAA's seven-day forecast are checked each day.
+Each station and reservoir validates independently. Supply components and total
+remain a consistent batch, and NOAA's locations and image must share one cycle.
+The snapshot's `refreshReport` and durable daily record's `sourceChecks` list
+each value, previous value, observation date, check outcome and error reason,
+plus daily-mean coverage and each named NOAA location's rainfall band.
+
+If direct City requests are blocked, Codex can retrieve the actual three public
+City pages with its web tool before the permitted update. Save verbatim relevant
+page sections (including official dates, supply components/total and both lake
+full-pool references) as an input JSON file with `pages` entries containing
+`url`, `retrievedAt` (ISO UTC retrieval time), and `text`, then run:
+
+```bash
+node scripts/cache-city-sources.mjs /absolute/path/to/official-page-evidence.json
+```
+
+This creates an immutable, hashed evidence record under the Git common directory
+at `durham-water-source-evidence/YYYY-MM-DD.json`. The fallback accepts only
+those exact official City URLs, the current Eastern date, and retrievals less
+than two hours old. Normal parsers, observation-date checks, change limits and
+publication validation still apply. It does not turn an older City observation
+into today's reading. Missing, expired or rejected evidence retains labeled
+last-known-good data. Earlier evidence records remain for diagnosis.
+
+Native trend charts support hover, tap and keyboard arrow keys, Home/End and
+Escape. Tooltips include the full date/year, exact elevation and distance from
+full pool, supply days, and both current and historical weekly flows with their
+actual observation ranges and sample counts. Gaps remain missing observations.
+The City's prior-year chart images remain images; exact values are available
+only where the project holds verified numeric readings.

@@ -4,7 +4,7 @@ import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { observedSegments, trendWindow, weeklyFlow } from "../scripts/trend-series.mjs";
 
 type Lang = "en" | "es";
-type Point = { date: string; value: number | null };
+type Point = { date: string; value: number | null; start?: string; end?: string; detail?: string };
 type Series = { label: string; color: string; points: Point[]; dashed?: boolean };
 type HistoryDay = { date: string; values: { supply: { total: number | null }; reservoirs: { michie: number | null; little: number | null } } };
 type Station = { name: string; site: string; sourceUrl: string; historicalPeriod: string | null; status: "fresh" | "stale" | "unavailable"; days: { date: string; currentYear: number | null; historicalMean: number }[] };
@@ -13,12 +13,17 @@ function dateLabel(date: string, lang: Lang) {
   return new Intl.DateTimeFormat(lang === "en" ? "en-US" : "es-US", { month: "short", day: "numeric", timeZone: "UTC" }).format(new Date(`${date}T12:00:00Z`));
 }
 
+function fullDate(date: string, lang: Lang) {
+  return new Intl.DateTimeFormat(lang === "en" ? "en-US" : "es-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }).format(new Date(`${date}T12:00:00Z`));
+}
+
 function Chart({ title, description, series, window, unit, lang, zeroReference = false, gapDays = 1, domain }: {
   title: string; description: string; series: Series[]; window: { start: string; end: string }; unit: string; lang: Lang; zeroReference?: boolean; gapDays?: number; domain?: [number, number];
 }) {
   const id = useId();
   const container = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(640);
+  const [activeDate, setActiveDate] = useState<string | null>(null);
   useEffect(() => {
     if (!container.current || typeof ResizeObserver === "undefined") return;
     const observer = new ResizeObserver(([entry]) => setWidth(Math.max(240, entry.contentRect.width)));
@@ -38,10 +43,32 @@ function Chart({ title, description, series, window, unit, lang, zeroReference =
   const y = (value: number) => top + (high - value) / (high - low) * (height - top - bottom);
   const ticks = Array.from({ length: Math.round((high - low) / step) + 1 }, (_, i) => low + i * step);
   const dates = [window.start, new Date(start + (end - start) / 2).toISOString().slice(0, 10), window.end];
+  const entries = [...new Set(series.flatMap((s) => s.points.map((p) => p.date)))].sort();
+  const activeIndex = activeDate ? entries.indexOf(activeDate) : -1;
+  const selected = activeIndex < 0 ? null : entries[activeIndex];
+  const rows = selected ? series.map((s) => {
+    const point = s.points.find((p) => p.date === selected);
+    const value = point?.value;
+    const reading = value === null || value === undefined
+      ? lang === "en" ? "No observation" : "Sin observación"
+      : zeroReference
+        ? `${Math.abs(value).toFixed(2)} ${lang === "en" ? (value > 0 ? "ft above full pool" : "ft below full pool") : (value > 0 ? "pies sobre la cota máxima" : "pies bajo la cota máxima")}`
+        : `${value.toLocaleString(lang === "en" ? "en-US" : "es-US", { minimumFractionDigits: unit === "ft³/s" ? 2 : 0, maximumFractionDigits: 2 })} ${unit}`;
+    const period = point?.start && point?.end ? `${fullDate(point.start, lang)} – ${fullDate(point.end, lang)}` : "";
+    return { label: s.label, color: s.color, value, reading, period, detail: point?.detail };
+  }) : [];
+  const inspectPointer = (clientX: number, svg: SVGSVGElement | null) => {
+    const rect = svg?.getBoundingClientRect();
+    if (!rect?.width) return;
+    const cursor = (clientX - rect.left) / rect.width * width;
+    setActiveDate(entries.reduce((nearest, date) => Math.abs(x(date) - cursor) < Math.abs(x(nearest) - cursor) ? date : nearest));
+  };
+  const help = lang === "en" ? "Hover or tap to inspect. Focus the chart and use arrow keys to browse dates; Home/End jump, Escape clears." : "Pase el cursor o toque para consultar. Use las flechas para recorrer fechas; Inicio/Fin saltan y Escape cierra.";
+  const valueText = selected ? `${fullDate(selected, lang)}. ${rows.map((row) => `${row.label}: ${row.reading}. ${row.period} ${row.detail ?? ""}`).join(" ")}` : help;
   return <div ref={container} className="context-chart">
-    <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-labelledby={`${id}-title ${id}-desc`}>
+    <svg viewBox={`0 0 ${width} ${height}`} role="group" aria-labelledby={`${id}-title`} aria-describedby={`${id}-desc`}>
       <title id={`${id}-title`}>{title}</title>
-      <desc id={`${id}-desc`}>{description}</desc>
+      <desc id={`${id}-desc`}>{description} {help}</desc>
       <text className="context-axis" x={left} y={14}>{unit}</text>
       {ticks.map((tick) => <g key={tick}>
         <line x1={left} x2={width - right} y1={y(tick)} y2={y(tick)} className={zeroReference && tick === 0 ? "full-pool-line" : "context-grid-line"} />
@@ -52,10 +79,36 @@ function Chart({ title, description, series, window, unit, lang, zeroReference =
       {series.map((s) => <g key={s.label}>
         {observedSegments(s.points, gapDays).map((segment, i) => <path key={i} d={segment.map((p, index) => `${index ? "L" : "M"}${x(p.date)},${y(p.value)}`).join(" ")} fill="none" stroke={s.color} strokeWidth="2.5" strokeDasharray={s.dashed ? "6 5" : undefined} />)}
         {!s.dashed && s.points.map((p) => p.value === null ? null : <circle key={p.date} cx={x(p.date)} cy={y(p.value)} r={gapDays === 1 ? 3 : 2.5} fill={s.color}>
-          <title>{`${s.label} · ${dateLabel(p.date, lang)}: ${p.value.toFixed(2)} ${unit}`}</title>
+          <title>{`${s.label} · ${fullDate(p.date, lang)}: ${p.value.toFixed(2)} ${unit}`}</title>
         </circle>)}
       </g>)}
+      {selected && <g className="chart-selection" pointerEvents="none">
+        <line x1={x(selected)} x2={x(selected)} y1={top} y2={height - bottom} />
+        {rows.map((row) => row.value === null || row.value === undefined ? null : <circle key={row.label} cx={x(selected)} cy={y(row.value)} r={5} fill={row.color} />)}
+      </g>}
+      {entries.length > 0 && <rect className="chart-hit-area" x={left} y={top} width={width - left - right} height={height - top - bottom}
+        fill="transparent" tabIndex={0} role="slider" aria-label={title} aria-orientation="horizontal"
+        aria-valuemin={0} aria-valuemax={entries.length - 1} aria-valuenow={Math.max(0, activeIndex)} aria-valuetext={valueText}
+        aria-describedby={`${id}-desc`}
+        onPointerMove={(event) => inspectPointer(event.clientX, event.currentTarget.ownerSVGElement)}
+        onPointerDown={(event) => inspectPointer(event.clientX, event.currentTarget.ownerSVGElement)}
+        onPointerLeave={(event) => { if (document.activeElement !== event.currentTarget) setActiveDate(null); }}
+        onFocus={() => setActiveDate((date) => date && entries.includes(date) ? date : entries.findLast((date) => series.some((s) => s.points.some((p) => p.date === date && p.value !== null))) ?? entries[0])}
+        onBlur={() => setActiveDate(null)}
+        onKeyDown={(event) => {
+          const key = event.key;
+          if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End", "Escape"].includes(key)) return;
+          event.preventDefault();
+          if (key === "Escape") { setActiveDate(null); return; }
+          const next = key === "Home" ? 0 : key === "End" ? entries.length - 1 : Math.max(0, Math.min(entries.length - 1, Math.max(0, activeIndex) + (["ArrowLeft", "ArrowDown"].includes(key) ? -1 : 1)));
+          setActiveDate(entries[next]);
+        }} />}
     </svg>
+    {selected && <div className="chart-tooltip" id={`${id}-tooltip`} role="tooltip" style={{ left: `clamp(0px, calc(${x(selected) / width * 100}% - 145px), max(0px, calc(100% - 290px)))` }}>
+      <strong>{gapDays > 1 ? (lang === "en" ? "Week ending " : "Semana hasta ") : ""}{fullDate(selected, lang)}</strong>
+      {rows.map((row) => <div key={row.label}><span className="chart-tooltip-series"><i style={{ background: row.color }} />{row.label}</span><b>{row.reading}</b>{row.period && <span>{row.period}</span>}{row.detail && <span>{row.detail}</span>}</div>)}
+    </div>}
+    <p className="chart-help">{lang === "en" ? "Hover, tap, or use arrow keys for values and dates." : "Pase el cursor, toque o use las flechas para consultar valores y fechas."}</p>
     <div className="context-legend">{series.map((s) => <span key={s.label}><i style={{ borderColor: s.color, borderStyle: s.dashed ? "dashed" : "solid" }} />{s.label}</span>)}</div>
     {!values.length && <p>{lang === "en" ? "No observations in this period." : "No hay observaciones en este período."}</p>}
   </div>;
@@ -97,7 +150,7 @@ export default function TrendContext({ days, end, lang, reservoirs, supplyStatus
       <div id="reservoirs" className="trend-section-heading"><span>01</span><div><h3>{lang === "en" ? "Reservoirs: how far below full?" : "Embalses: ¿cuánto falta para llenarse?"}</h3><p>{lang === "en" ? "Both graphs use the same scale. Higher means closer to full pool. Feet below full pool are not a percentage of usable storage." : "Ambas gráficas usan la misma escala. Más alto significa más cerca de la cota máxima. Los pies bajo la cota máxima no representan un porcentaje del agua utilizable."}</p></div></div>
       <div className="context-card-grid">
         {reservoirs.map((lake) => {
-          const points = selected.map((day) => ({ date: day.date, value: day.values.reservoirs[lake.key] === null ? null : day.values.reservoirs[lake.key]! - lake.fullPool }));
+          const points = selected.map((day) => ({ date: day.date, value: day.values.reservoirs[lake.key] === null ? null : day.values.reservoirs[lake.key]! - lake.fullPool, detail: day.values.reservoirs[lake.key] === null ? undefined : `${lang === "en" ? "Elevation" : "Elevación"}: ${day.values.reservoirs[lake.key]!.toFixed(2)} ft msl · ${lang === "en" ? "Full pool" : "Cota máxima"}: ${lake.fullPool.toFixed(2)} ft msl` }));
           const latest = points.filter((p) => p.value !== null).at(-1);
           return <article className="trend-card" key={lake.key}>
             <div className="trend-card-heading"><h4>{lake.name}</h4>{lake.status}</div>
@@ -128,7 +181,7 @@ export default function TrendContext({ days, end, lang, reservoirs, supplyStatus
             <div className="trend-card-heading"><h4>{station.name}</h4><span className={`status ${station.status}`}>{lang === "en" ? { fresh: "Verified", stale: "Stale · retained", unavailable: "Unavailable" }[station.status] : { fresh: "Verificado", stale: "Antiguo · conservado", unavailable: "No disponible" }[station.status]}</span></div>
             <p className="trend-reading"><strong>{difference === null ? "—" : `${Math.abs(difference)}%`}</strong> {difference === null ? "" : lang === "en" ? `${difference > 0 ? "above" : "below"} historical mean` : `${difference > 0 ? "sobre" : "bajo"} el promedio histórico`}</p>
             <p className="observation-date">{recent?.through ? `${dateLabel(recent.start, lang)} – ${dateLabel(recent.through, lang)} · ${recent.count}/7 ${lang === "en" ? "daily readings" : "lecturas diarias"}` : lang === "en" ? "Comparison unavailable" : "Comparación no disponible"}</p>
-            <Chart title={`${station.name}: ${year} ${lang === "en" ? "vs historical daily mean" : "frente al promedio diario histórico"}`} description={lang === "en" ? "Weekly averages in cubic feet per second. The dashed line is the historical mean. Missing weeks are gaps." : "Promedios semanales en pies cúbicos por segundo. La línea discontinua es el promedio histórico. Las semanas faltantes son huecos."} series={[{ label: year, color: "#07516e", points: weekly.map((p) => ({ date: p.date, value: p.current })) }, { label: lang === "en" ? "Historical daily mean" : "Promedio diario histórico", color: "#a85e20", dashed: true, points: weekly.map((p) => ({ date: p.date, value: p.historical })) }]} window={window} unit="ft³/s" lang={lang} gapDays={7} />
+            <Chart title={`${station.name}: ${year} ${lang === "en" ? "vs historical daily mean" : "frente al promedio diario histórico"}`} description={lang === "en" ? "Weekly averages in cubic feet per second. The dashed line is the historical mean. Missing weeks are gaps." : "Promedios semanales en pies cúbicos por segundo. La línea discontinua es el promedio histórico. Las semanas faltantes son huecos."} series={[{ label: year, color: "#07516e", points: weekly.map((p) => ({ date: p.date, value: p.current, start: p.start, end: p.through ?? undefined, detail: `${p.count} ${lang === "en" ? "observed daily means" : "promedios diarios observados"}` })) }, { label: lang === "en" ? "Historical daily mean" : "Promedio diario histórico", color: "#a85e20", dashed: true, points: weekly.map((p) => ({ date: p.date, value: p.historical, start: p.periodStart, end: p.periodEnd, detail: lang === "en" ? "Average of historical daily means" : "Promedio de los promedios diarios históricos" })) }]} window={window} unit="ft³/s" lang={lang} gapDays={7} />
             {station.status !== "fresh" && <p className="stale-note">{lang === "en" ? "Latest retrieval failed or this record has aged. Last verified daily means are retained; newer flow is unknown." : "La última consulta falló o el registro ha envejecido. Se conservan los promedios verificados; el caudal más reciente se desconoce."}</p>}
             <p className="trend-source">{lang === "en" ? "Historical period" : "Período histórico"}: {station.historicalPeriod ?? "—"}. <a href={station.sourceUrl} target="_blank" rel="noreferrer">USGS {station.site} ↗</a></p>
           </article>;

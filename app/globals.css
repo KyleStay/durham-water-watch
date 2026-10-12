@@ -884,7 +884,7 @@ footer a { color: #fff; font-size: .78rem; font-weight: 700; }
 .trend-reading { margin: 14px 0 2px; color: var(--muted); font-size: .9rem; line-height: 1.4; }
 .trend-reading strong { font-size: 2rem; color: var(--blue-dark); letter-spacing: -.025em; }
 .observation-date { margin: 0 0 12px; color: var(--muted); font-size: .78rem; }
-.context-chart { width: 100%; min-width: 0; }
+.context-chart { width: 100%; min-width: 0; position: relative; }
 .context-chart svg { display: block; width: 100%; height: auto; overflow: visible; }
 .context-axis { fill: var(--muted); font: 11px system-ui, sans-serif; }
 .context-grid-line { stroke: #dee5e8; stroke-width: 1; }
@@ -912,3 +912,15 @@ footer a { color: #fff; font-size: .78rem; font-weight: 700; }
   .trend-reading strong { font-size: 1.8rem; }
 }
 .stage-brief-value { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; }
+
+.chart-hit-area { cursor: crosshair; touch-action: pan-y; }
+.chart-hit-area:focus-visible { outline: none; stroke: var(--blue); stroke-width: 2; }
+.chart-selection line { stroke: #526f7f; stroke-width: 1; stroke-dasharray: 3 3; }
+.chart-selection circle { stroke: white; stroke-width: 2; }
+.chart-tooltip { position: absolute; top: 22px; z-index: 2; width: min(290px, 90%); padding: 10px 12px; border: 1px solid var(--border); border-radius: 7px; background: #fffffff5; color: var(--blue-dark); box-shadow: 0 3px 14px #17262d26; pointer-events: none; font-size: .76rem; line-height: 1.45; }
+.chart-tooltip > strong { display: block; padding-bottom: 5px; }
+.chart-tooltip > div { display: grid; gap: 2px; padding-top: 6px; }
+.chart-tooltip > div > span:not(.chart-tooltip-series) { color: var(--muted); font-size: .7rem; }
+.chart-tooltip-series { display: flex; align-items: center; gap: 6px; }
+.chart-tooltip-series i { width: 7px; height: 7px; border-radius: 50%; }
+.chart-help { margin: 4px 0 9px; font-size: .7rem; color: var(--muted); }

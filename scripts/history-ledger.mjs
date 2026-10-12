@@ -83,7 +83,9 @@ export function recordCitySnapshot(history, snapshot) {
     if (!observation) continue;
     if (setCityObservation(history, field, {
       ...observation,
-      evidence: "accepted official-source refresh",
+      evidence: metric.retrievalMethod === "official-page-text"
+        ? "official-page-text sha256:" + metric.sourceEvidence.sha256 + " retrieved " + metric.sourceEvidence.retrievedAt
+        : "accepted official-source refresh",
     })) recorded.push(field);
   }
   return recorded;

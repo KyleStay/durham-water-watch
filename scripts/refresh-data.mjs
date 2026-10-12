@@ -7,7 +7,10 @@ import { backfillStreamflowDailyMeans, dailyMeanFor, retainComparisonYear } from
 import { acceptMetrics } from "./metric-acceptance.mjs";
 import { sourceIsDue } from "./refresh-policy.mjs";
 import { fetchJsonWithRetry, fetchTextWithRetry } from "./source-fetch.mjs";
-import { parseSupplyValues } from "./supply-parser.mjs";
+import { cityPages, cityStage, citySupply, cityReservoir, officialDate } from "./city-readings.mjs";
+import { gitDirectory } from "./daily-lock.mjs";
+import { readPageEvidence } from "./official-page-evidence.mjs";
+import { refreshReport } from "./refresh-report.mjs";
 import { fetchRainfallForecast, rainfallPage, retainRainfallForecast } from "./rainfall-forecast.mjs";
 
 const snapshotPath = resolve(import.meta.dirname, "../public/data/dashboard.json");
@@ -19,6 +22,8 @@ const historyTemporaryPath = `${historyPath}.next`;
 const streamflowHistoryPath = resolve(import.meta.dirname, "../public/data/streamflow-history.json");
 const streamflowHistoryTemporaryPath = `${streamflowHistoryPath}.next`;
 const snapshot = JSON.parse(await readFile(snapshotPath, "utf8"));
+const before = structuredClone(snapshot);
+const evidenceByUrl = new Map();
 const quarantine = JSON.parse(await readFile(quarantinePath, "utf8"));
 const history = JSON.parse(await readFile(historyPath, "utf8"));
 const streamflowHistory = JSON.parse(await readFile(streamflowHistoryPath, "utf8"));
@@ -58,54 +63,27 @@ function metricAt(path) {
   return path.reduce((value, key) => value[key], snapshot);
 }
 
-function parseDate(text) {
-  const match = text.match(
-    /(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2}),\s+(\d{4})/i,
-  );
-  if (!match) throw new Error("No recognizable official date was present");
-  const parsed = new Date(`${match[1]} ${match[2]}, ${match[3]} 12:00:00 GMT-0400`);
-  if (Number.isNaN(parsed.getTime())) throw new Error("The official date did not parse");
-  return parsed.toISOString().slice(0, 10);
-}
-
-function numberFrom(text, expression, label) {
-  const match = text.match(expression);
-  if (!match) throw new Error(`${label} did not parse`);
-  const value = Number(match[1].replaceAll(",", ""));
-  if (!Number.isFinite(value)) throw new Error(`${label} was not numeric`);
-  return value;
-}
-
-function htmlToPlainText(text) {
-  return text
-    .replace(/<script[\s\S]*?<\/script>/gi, " ")
-    .replace(/<style[\s\S]*?<\/style>/gi, " ")
-    .replace(/<[^>]+>/g, " ")
-    .replace(/&nbsp;|&#160;/gi, " ")
-    .replace(/&amp;/gi, "&")
-    .replace(/\s+/g, " ")
-    .trim();
-}
+const parseDate = officialDate;
 
 async function fetchOfficialText(url) {
-  const { response, body } = await fetchTextWithRetry(url, {
-    redirect: "follow",
-    headers: {
-      "user-agent": "Durham Water Watch/1.0 (independent community dashboard)",
-      accept: "text/html,application/xhtml+xml",
-    },
-  });
-  const expected = new URL(url);
-  const received = new URL(response.url);
-  if (
-    !response.ok
-    || received.protocol !== "https:"
-    || received.hostname !== expected.hostname
-    || received.pathname !== expected.pathname
-  ) {
-    throw new Error(`Unexpected official response (${response.status})`);
+  try {
+    const { response, body } = await fetchTextWithRetry(url, {
+      redirect: "follow",
+      headers: { "user-agent": "Durham Water Watch/1.0 (independent community dashboard)", accept: "text/html,application/xhtml+xml" },
+    });
+    const expected = new URL(url), received = new URL(response.url);
+    if (!response.ok || received.protocol !== "https:" || received.hostname !== expected.hostname || received.pathname !== expected.pathname) {
+      throw new Error(`Unexpected official response (${response.status})`);
+    }
+    return body;
+  } catch (error) {
+    if (!Object.values(cityPages).includes(url)) throw error;
+    const evidence = await readPageEvidence(gitDirectory(resolve(import.meta.dirname, "..")), url, now);
+    if (!evidence) throw error;
+    evidenceByUrl.set(url, evidence);
+    console.log(`Using freshly retrieved official page text: ${url}`);
+    return evidence.text;
   }
-  return body;
 }
 
 function hoursSince(value) {
@@ -116,7 +94,15 @@ function hoursSince(value) {
 function accept(entries) {
   acceptMetrics(entries.map(({ path, next, maxDelta }) => ({
     current: metricAt(path),
-    next,
+    next: {
+      ...next, checkedAt: nowIso,
+      retrievalMethod: evidenceByUrl.has(next.sourceUrl) ? "official-page-text" : "direct",
+      lastCheckMethod: evidenceByUrl.has(next.sourceUrl) ? "official-page-text" : "direct",
+      sourceEvidence: evidenceByUrl.has(next.sourceUrl) ? {
+        retrievedAt: evidenceByUrl.get(next.sourceUrl).retrievedAt,
+        sha256: evidenceByUrl.get(next.sourceUrl).sha256,
+      } : undefined,
+    },
     maxDelta,
   })), nowIso);
 }
@@ -125,6 +111,8 @@ function fail(paths, error) {
   const message = error instanceof Error ? error.message : "Official source could not be refreshed";
   for (const path of paths) {
     const metric = metricAt(path);
+    metric.checkedAt = nowIso;
+    metric.lastCheckMethod = evidenceByUrl.has(metric.sourceUrl) ? "official-page-text" : "direct";
     metric.retrievalStatus = "failed";
     metric.validationResult = "rejected";
     metric.note = `The official source could not be refreshed: ${message}`;
@@ -136,86 +124,37 @@ function fail(paths, error) {
     receivedAt: nowIso,
     disposition: "rejected; last-known-good value preserved",
   });
-  results.push(`failed: ${paths.map((path) => path.join(".")).join(", ")}`);
+  results.push(`failed: ${paths.map((path) => path.join(".")).join(", ")} (${message})`);
 }
 
 async function refreshStage() {
   const paths = [["stage"]];
   try {
-    const text = await fetchOfficialText(SOURCES.stage);
-    const match = text.match(
-      /Stage\s+([1-4])\s+in Effect[\s\S]{0,180}?Effective\s+([A-Za-z]+\s+\d{1,2},\s+\d{4})/i,
-    );
-    if (!match) throw new Error("Current stage and effective date did not parse together");
-    const stage = Number(match[1]);
-    accept([{
-      path: paths[0],
-      next: {
-        value: stage,
-        units: "stage",
-        sourceUrl: SOURCES.stage,
-        observedAt: parseDate(match[2]),
-        effectiveDate: parseDate(match[2]),
-      },
-    }]);
+    accept([{ path: paths[0], next: cityStage(await fetchOfficialText(SOURCES.stage)) }]);
     results.push("verified: stage");
-  } catch (error) {
-    fail(paths, error);
-  }
+  } catch (error) { fail(paths, error); }
 }
 
 async function refreshSupply() {
-  const paths = [
-    ["supply", "accessible"],
-    ["supply", "belowIntakes"],
-    ["supply", "quarry"],
-    ["supply", "total"],
-  ];
+  const paths = ["accessible", "belowIntakes", "quarry", "total"].map((key) => ["supply", key]);
   try {
-    const text = await fetchOfficialText(SOURCES.data);
-    const sectionStart = text.search(/Days of Supply/i);
-    if (sectionStart < 0) throw new Error("Days-of-supply section was missing");
-    const section = text.slice(sectionStart);
-    const observedAt = parseDate(section);
-    const { accessible, belowIntakes, quarry, total } = parseSupplyValues(section);
-
-    const common = { units: "days", sourceUrl: SOURCES.data, observedAt };
-    accept([
-      { path: paths[0], next: { ...common, value: accessible }, maxDelta: 50 },
-      { path: paths[1], next: { ...common, value: belowIntakes }, maxDelta: 50 },
-      { path: paths[2], next: { ...common, value: quarry }, maxDelta: 50 },
-      { path: paths[3], next: { ...common, value: total }, maxDelta: 75 },
-    ]);
+    const { values, observedAt } = citySupply(await fetchOfficialText(SOURCES.data));
+    // Supply components and their total must remain one consistent, dated batch.
+    accept(paths.map((path) => ({ path, next: { value: values[path[1]], observedAt, units: "days", sourceUrl: SOURCES.data }, maxDelta: path[1] === "total" ? 75 : 50 })));
     results.push("verified: supply");
-  } catch (error) {
-    fail(paths, error);
-  }
+  } catch (error) { fail(paths, error); }
 }
 
 async function refreshReservoirs() {
   const paths = [["reservoirs", "michie"], ["reservoirs", "little"]];
-  try {
-    const text = await fetchOfficialText(SOURCES.lakes);
-    const sectionStart = text.search(/Current Conditions/i);
-    if (sectionStart < 0) throw new Error("Current reservoir section was missing");
-    const section = htmlToPlainText(text.slice(sectionStart));
-    const observedAt = parseDate(section);
-    const michie = numberFrom(section, /Lake Michie Elevation:\s*(\d+(?:\.\d+)?)\s*feet/i, "Lake Michie elevation");
-    const little = numberFrom(section, /Little River Reservoir Elevation:\s*(\d+(?:\.\d+)?)\s*feet/i, "Little River elevation");
-    const michieFull = numberFrom(section, /Lake Michie is full at\s*(\d+(?:\.\d+)?)\s*feet/i, "Lake Michie full pool");
-    const littleFull = numberFrom(section, /Little River Reservoir is full at\s*(\d+(?:\.\d+)?)\s*feet/i, "Little River full pool");
-    if (michieFull !== 341 || littleFull !== 355) {
-      throw new Error("Reservoir names or full-pool fields did not match");
-    }
-
-    const common = { units: "ft msl", sourceUrl: SOURCES.lakes, observedAt };
-    accept([
-      { path: paths[0], next: { ...common, value: michie, fullPool: 341 }, maxDelta: 10 },
-      { path: paths[1], next: { ...common, value: little, fullPool: 355 }, maxDelta: 10 },
-    ]);
-    results.push("verified: reservoirs");
-  } catch (error) {
-    fail(paths, error);
+  let text;
+  try { text = await fetchOfficialText(SOURCES.lakes); }
+  catch (error) { fail(paths, error); return; }
+  for (const path of paths) {
+    try {
+      accept([{ path, next: cityReservoir(text, path[1]), maxDelta: 10 }]);
+      results.push(`verified: ${path.join(".")}`);
+    } catch (error) { fail([path], error); }
   }
 }
 
@@ -260,49 +199,28 @@ async function refreshDrought() {
 
 async function refreshStreamflow() {
   const paths = [["streamflow", "flat"], ["streamflow", "little"]];
+  let series;
   try {
     const { response, body: json } = await fetchJsonWithRetry(SOURCES.usgs, {
-      headers: {
-        "user-agent": "Durham Water Watch/1.0 (independent community dashboard)",
-        accept: "application/json",
-      },
+      headers: { "user-agent": "Durham Water Watch/1.0 (independent community dashboard)", accept: "application/json" },
     });
     if (!response.ok) throw new Error(`USGS service failed (${response.status})`);
-    const series = json?.value?.timeSeries;
+    series = json?.value?.timeSeries;
     if (!Array.isArray(series) || !series.length) throw new Error("USGS returned no time series");
+  } catch (error) { fail(paths, error); return; }
 
-    const accepted = [];
-    for (const [site, path, sourceUrl] of [
-      ["02085500", paths[0], SOURCES.flat],
-      ["0208521324", paths[1], SOURCES.little],
-    ]) {
+  for (const [site, path, sourceUrl] of [["02085500", paths[0], SOURCES.flat], ["0208521324", paths[1], SOURCES.little]]) {
+    try {
       const item = series.find((candidate) => candidate?.sourceInfo?.siteCode?.[0]?.value === site);
       const reading = item?.values?.[0]?.value?.[0];
-      const parameter = item?.variable?.variableCode?.[0]?.value;
-      const units = item?.variable?.unit?.unitCode;
       const value = Number(reading?.value);
-      if (parameter !== "00060" || units !== "ft3/s") {
+      if (item?.variable?.variableCode?.[0]?.value !== "00060" || item?.variable?.unit?.unitCode !== "ft3/s") {
         throw new Error(`USGS ${site} parameter or units did not match`);
       }
-      if (!Number.isFinite(value) || value < 0 || !reading?.dateTime) {
-        throw new Error(`USGS ${site} reading did not validate`);
-      }
-      accepted.push({
-        path,
-        next: {
-          value,
-          units: "ft³/s",
-          sourceUrl,
-          observedAt: reading.dateTime,
-          note: "USGS provisional data; subject to revision.",
-        },
-        maxDelta: 10_000,
-      });
-    }
-    accept(accepted);
-    results.push("verified: streamflow");
-  } catch (error) {
-    fail(paths, error);
+      if (!Number.isFinite(value) || value < 0 || !reading?.dateTime) throw new Error(`USGS ${site} reading did not validate`);
+      accept([{ path, next: { value, units: "ft³/s", sourceUrl, observedAt: reading.dateTime, note: "USGS provisional data; subject to revision." }, maxDelta: 10_000 }]);
+      results.push(`verified: ${path.join(".")}`);
+    } catch (error) { fail([path], error); }
   }
 }
 
@@ -385,12 +303,14 @@ async function refreshStreamflowHistory() {
         sourceUrl,
         historicalPeriod: `${firstStatistic.begin_yr}–${lastStatistic.end_yr}`,
         verifiedAt: nowIso,
+        checkedAt: nowIso,
         days,
       };
       results.push(`verified: ${key} historical streamflow`);
     } catch (error) {
       const station = streamflowHistory.stations[key];
       retainComparisonYear(station, year);
+      station.checkedAt = nowIso;
       station.note = `The USGS year comparison could not be refreshed: ${error instanceof Error ? error.message : "unknown error"}`;
       quarantine.push({
         metrics: [`streamflowHistory.${key}`],
@@ -459,7 +379,9 @@ if (sourceIsDue({
   elapsed: calendarDaysOld(snapshot.drought.observedAt),
   interval: 7,
 })) jobs.push(refreshDrought());
-await Promise.allSettled(jobs);
+const outcomes = await Promise.allSettled(jobs);
+const unexpectedFailures = outcomes.filter((result) => result.status === "rejected");
+if (unexpectedFailures.length) throw new AggregateError(unexpectedFailures.map((result) => result.reason), "Source checks did not complete");
 
 const todayParts = easternDateParts(now);
 const today = `${todayParts.year}-${todayParts.month}-${todayParts.day}`;
@@ -535,6 +457,7 @@ updateStatus(snapshot.streamflow.little, "usgs");
 
 snapshot.generatedAt = nowIso;
 snapshot.lastRefreshResult = results.join("; ") || "No source was due for refresh.";
+snapshot.refreshReport = refreshReport(before, snapshot, streamflowHistory, nowIso);
 
 const flatDailyMean = dailyMeanFor(streamflowHistory.stations.flat, today);
 const littleDailyMean = dailyMeanFor(streamflowHistory.stations.little, today);

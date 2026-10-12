@@ -95,3 +95,50 @@ for (const [endDate, startLabel, endLabel] of [
     }
   }
 });
+
+test('chart inspection exposes hover, tap, missing dates, keyboard values and historical series', async () => {
+  const data = structuredClone(snapshot);
+  data.generatedAt = '2026-10-03T12:00:00Z';
+  const days = ['2026-10-01', '2026-10-02', '2026-10-03'].map((date, index) => ({
+    date, capturedAt: data.generatedAt, values: { stage: 2, drought: 'D2',
+      supply: { accessible: null, belowIntakes: null, quarry: null, total: index === 2 ? null : 156 },
+      reservoirs: { michie: [330.96, 331.5, null][index], little: null }, streamflow: { flat: null, little: null },
+    },
+  }));
+  const station = { site: 'flat', name: 'Flat River', status: 'fresh', sourceUrl: 'https://example.test/', historicalPeriod: '2000–2025', verifiedAt: data.generatedAt,
+    days: days.map((day, index) => ({ date: day.date, currentYear: [10, null, 20][index], historicalMean: [100, 110, 120][index], historicalSampleYears: 25 })) };
+  const element = createElement(WaterWatch, { snapshot: data, history: { schemaVersion: 3, days }, comparison: { schemaVersion: 1, year: 2026, updatedAt: data.generatedAt, stations: { flat: station, little: { ...station, site: 'little', name: 'Little River' } } } });
+  const dom = new JSDOM(`<div id="root">${renderToString(element)}</div>`, { url: 'https://example.test/' });
+  const globals = ['window', 'document', 'navigator', 'HTMLElement', 'Node', 'IS_REACT_ACT_ENVIRONMENT'];
+  const previous = globals.map(key => [key, Object.getOwnPropertyDescriptor(globalThis, key)]);
+  for (const key of globals) Object.defineProperty(globalThis, key, { configurable: true, writable: true, value: key === 'IS_REACT_ACT_ENVIRONMENT' ? true : dom.window[key] });
+  let hydrated;
+  try {
+    await act(async () => { hydrated = hydrateRoot(document.getElementById('root'), element); });
+    const [lake, , supply, river] = [...document.querySelectorAll('.chart-hit-area')];
+    for (const slider of [lake, supply, river]) slider.ownerSVGElement.getBoundingClientRect = () => ({ left: 0, width: 640 });
+    await act(async () => { lake.dispatchEvent(new dom.window.MouseEvent('pointermove', { bubbles: true, clientX: 627 })); });
+    assert.match(lake.closest('.context-chart').textContent, /Oct 3, 2026.*No observation/);
+    await act(async () => { lake.dispatchEvent(new dom.window.MouseEvent('pointerdown', { bubbles: true, clientX: 614 })); });
+    assert.match(document.querySelector('.chart-tooltip').textContent, /Oct 1, 2026.*10\.04 ft below full pool.*330\.96 ft msl/);
+    await act(async () => { lake.dispatchEvent(new dom.window.KeyboardEvent('keydown', { bubbles: true, key: 'ArrowRight' })); });
+    assert.match(document.querySelector('.chart-tooltip').textContent, /Oct 2, 2026.*331\.50 ft msl/);
+    assert.match(lake.getAttribute('aria-valuetext'), /331\.50 ft msl/);
+    await act(async () => { lake.dispatchEvent(new dom.window.KeyboardEvent('keydown', { bubbles: true, key: 'Escape' })); });
+    assert.equal(document.querySelector('.chart-tooltip'), null);
+    await act(async () => { river.dispatchEvent(new dom.window.MouseEvent('pointermove', { bubbles: true, clientX: 627 })); });
+    assert.match(document.querySelector('.chart-tooltip').textContent, /15\.00 ft³\/s.*2 observed daily means.*Historical daily mean.*110\.00 ft³\/s/);
+    await act(async () => { river.dispatchEvent(new dom.window.MouseEvent('pointerout', { bubbles: true })); });
+    await act(async () => { supply.dispatchEvent(new dom.window.KeyboardEvent('keydown', { bubbles: true, key: 'Home' })); });
+    assert.match(supply.closest('.context-chart').textContent, /Oct 1, 2026.*156 days/);
+    await act(async () => { supply.dispatchEvent(new dom.window.KeyboardEvent('keydown', { bubbles: true, key: 'End' })); });
+    assert.match(supply.closest('.context-chart').textContent, /Oct 3, 2026.*No observation/);
+  } finally {
+    if (hydrated) await act(async () => hydrated.unmount());
+    dom.window.close();
+    for (const [key, descriptor] of previous) {
+      if (descriptor) Object.defineProperty(globalThis, key, descriptor);
+      else delete globalThis[key];
+    }
+  }
+});

@@ -40,6 +40,8 @@ export function weeklyFlow(days, window, observedThrough) {
     const mean = (rows, key) => rows.length ? rows.reduce((sum, day) => sum + day[key], 0) / rows.length : null;
     return {
       date: values.at(-1).date,
+      periodStart: values[0].date,
+      periodEnd: values.at(-1).date,
       start: observed[0]?.date ?? values[0].date,
       through: observed.at(-1)?.date ?? null,
       count: observed.length,

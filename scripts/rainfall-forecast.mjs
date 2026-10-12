@@ -68,7 +68,8 @@ export async function fetchRainfallForecast({ now = new Date(), json = fetchJson
     });
     const { response, body } = await json(`${rainfallSource}/11/query?${params}`, options);
     if (!response.ok) throw new Error(`NOAA forecast returned HTTP ${response.status}`);
-    return parseRainfallPoint(body, now);
+    try { return parseRainfallPoint(body, now); }
+    catch (error) { throw new Error(`${location.name}: ${error.message}`); }
   };
   const values = await Promise.all(rainfallLocations.map(query));
   const period = values[0];

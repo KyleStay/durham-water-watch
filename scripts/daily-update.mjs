@@ -133,6 +133,7 @@ export async function dailyUpdate({
     assertOnlySnapshotChanges(refreshedPaths);
     const snapshot = JSON.parse(await readFile(resolve(candidate, "public/data/dashboard.json"), "utf8"));
     state.sourceResult = snapshot.lastRefreshResult;
+    state.sourceChecks = snapshot.refreshReport;
     state.snapshotGeneratedAt = snapshot.generatedAt;
 
     await phase("validate");
