@@ -869,5 +869,26 @@
     "reason": "NOAA forecast coverage is unavailable",
     "receivedAt": "2026-10-12T10:00:19.627Z",
     "disposition": "rejected; last-known-good forecast preserved"
+  },
+  {
+    "metrics": [
+      "supply.accessible",
+      "supply.belowIntakes",
+      "supply.quarry",
+      "supply.total"
+    ],
+    "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
+    "reason": "No recognizable official date was present",
+    "receivedAt": "2026-10-13T10:00:07.521Z",
+    "disposition": "rejected; last-known-good value preserved"
+  },
+  {
+    "metrics": [
+      "rainfallForecast"
+    ],
+    "sourceUrl": "https://www.wpc.ncep.noaa.gov/qpf/day1-7.shtml",
+    "reason": "Lake Michie: NOAA forecast coverage is unavailable",
+    "receivedAt": "2026-10-13T10:00:07.521Z",
+    "disposition": "rejected; last-known-good forecast preserved"
   }
 ]

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "year": 2026,
-  "updatedAt": "2026-10-12T14:35:23.263Z",
+  "updatedAt": "2026-10-13T10:00:07.521Z",
   "stations": {
     "flat": {
       "site": "02085500",
@@ -9,7 +9,7 @@
       "status": "fresh",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
       "historicalPeriod": "1926–2026",
-      "verifiedAt": "2026-10-12T10:00:19.627Z",
+      "verifiedAt": "2026-10-13T10:00:07.521Z",
       "days": [
         {
           "date": "2026-01-01",
@@ -1717,7 +1717,7 @@
         },
         {
           "date": "2026-10-12",
-          "currentYear": null,
+          "currentYear": 1.56,
           "historicalMean": 74,
           "historicalSampleYears": 101
         },
@@ -2211,8 +2211,8 @@
         "units": "ft³/s",
         "status": "fresh",
         "sourceUrl": "https://waterservices.usgs.gov/nwis/dv/?format=json&sites=02085500&startDT=2016-01-01&endDT=2025-12-31&parameterCd=00060&statCd=00003&siteStatus=all",
-        "verifiedAt": "2026-10-12T14:27:18.613Z",
-        "checkedAt": "2026-10-12T14:27:18.613Z",
+        "verifiedAt": "2026-10-13T10:00:07.521Z",
+        "checkedAt": "2026-10-13T10:00:07.521Z",
         "observationCount": 3651,
         "provisionalCount": 0,
         "days": [
@@ -4779,7 +4779,8 @@
             "provisionalCount": 0
           }
         ]
-      }
+      },
+      "checkedAt": "2026-10-13T10:00:07.521Z"
     },
     "little": {
       "site": "0208521324",
@@ -4787,7 +4788,7 @@
       "status": "fresh",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/0208521324/",
       "historicalPeriod": "1988–2025",
-      "verifiedAt": "2026-10-12T10:00:19.627Z",
+      "verifiedAt": "2026-10-13T10:00:07.521Z",
       "days": [
         {
           "date": "2026-01-01",
@@ -6495,7 +6496,7 @@
         },
         {
           "date": "2026-10-12",
-          "currentYear": null,
+          "currentYear": 1.04,
           "historicalMean": 55,
           "historicalSampleYears": 38
         },
@@ -6989,8 +6990,8 @@
         "units": "ft³/s",
         "status": "fresh",
         "sourceUrl": "https://waterservices.usgs.gov/nwis/dv/?format=json&sites=0208521324&startDT=2016-01-01&endDT=2025-12-31&parameterCd=00060&statCd=00003&siteStatus=all",
-        "verifiedAt": "2026-10-12T14:27:18.792Z",
-        "checkedAt": "2026-10-12T14:27:18.792Z",
+        "verifiedAt": "2026-10-13T10:00:07.521Z",
+        "checkedAt": "2026-10-13T10:00:07.521Z",
         "observationCount": 3651,
         "provisionalCount": 247,
         "days": [
@@ -9557,7 +9558,8 @@
             "provisionalCount": 1
           }
         ]
-      }
+      },
+      "checkedAt": "2026-10-13T10:00:07.521Z"
     }
   }
 }
