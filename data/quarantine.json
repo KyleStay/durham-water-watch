@@ -890,5 +890,35 @@
     "reason": "Lake Michie: NOAA forecast coverage is unavailable",
     "receivedAt": "2026-10-13T10:00:07.521Z",
     "disposition": "rejected; last-known-good forecast preserved"
+  },
+  {
+    "metrics": [
+      "supply.accessible",
+      "supply.belowIntakes",
+      "supply.quarry",
+      "supply.total"
+    ],
+    "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
+    "reason": "No recognizable official date was present",
+    "receivedAt": "2026-10-17T10:00:13.057Z",
+    "disposition": "rejected; last-known-good value preserved"
+  },
+  {
+    "metrics": [
+      "reservoirs.michie"
+    ],
+    "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
+    "reason": "Current reservoir section was missing",
+    "receivedAt": "2026-10-17T10:00:13.057Z",
+    "disposition": "rejected; last-known-good value preserved"
+  },
+  {
+    "metrics": [
+      "reservoirs.little"
+    ],
+    "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
+    "reason": "Current reservoir section was missing",
+    "receivedAt": "2026-10-17T10:00:13.057Z",
+    "disposition": "rejected; last-known-good value preserved"
   }
 ]
