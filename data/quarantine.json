@@ -920,5 +920,14 @@
     "reason": "Current reservoir section was missing",
     "receivedAt": "2026-10-17T10:00:13.057Z",
     "disposition": "rejected; last-known-good value preserved"
+  },
+  {
+    "metrics": [
+      "rainfallForecast"
+    ],
+    "sourceUrl": "https://www.wpc.ncep.noaa.gov/qpf/day1-7.shtml",
+    "reason": "Little River Reservoir: NOAA forecast coverage is unavailable",
+    "receivedAt": "2026-10-18T10:06:48.607Z",
+    "disposition": "rejected; last-known-good forecast preserved"
   }
 ]
