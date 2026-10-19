@@ -929,5 +929,23 @@
     "reason": "Little River Reservoir: NOAA forecast coverage is unavailable",
     "receivedAt": "2026-10-18T10:06:48.607Z",
     "disposition": "rejected; last-known-good forecast preserved"
+  },
+  {
+    "metrics": [
+      "stage"
+    ],
+    "sourceUrl": "https://www.durhamnc.gov/1061/Durham-Saves-Water",
+    "reason": "Unexpected official response (403)",
+    "receivedAt": "2026-10-19T10:01:33.385Z",
+    "disposition": "rejected; last-known-good value preserved"
+  },
+  {
+    "metrics": [
+      "rainfallForecast"
+    ],
+    "sourceUrl": "https://www.wpc.ncep.noaa.gov/qpf/day1-7.shtml",
+    "reason": "Lake Michie: NOAA forecast coverage is unavailable",
+    "receivedAt": "2026-10-19T10:01:33.385Z",
+    "disposition": "rejected; last-known-good forecast preserved"
   }
 ]
