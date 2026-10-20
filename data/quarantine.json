@@ -947,5 +947,14 @@
     "reason": "Lake Michie: NOAA forecast coverage is unavailable",
     "receivedAt": "2026-10-19T10:01:33.385Z",
     "disposition": "rejected; last-known-good forecast preserved"
+  },
+  {
+    "metrics": [
+      "rainfallForecast"
+    ],
+    "sourceUrl": "https://www.wpc.ncep.noaa.gov/qpf/day1-7.shtml",
+    "reason": "Roxboro: NOAA forecast coverage is unavailable",
+    "receivedAt": "2026-10-20T10:04:31.941Z",
+    "disposition": "rejected; last-known-good forecast preserved"
   }
 ]
