@@ -1,34 +1,6 @@
 [
   {
     "metrics": [
-      "drought"
-    ],
-    "sourceUrl": "https://www.ncdrought.org/",
-    "reason": "Durham County drought category did not parse",
-    "receivedAt": "2026-07-28T14:18:33.428Z",
-    "disposition": "rejected; last-known-good value preserved"
-  },
-  {
-    "metrics": [
-      "reservoirs.michie",
-      "reservoirs.little"
-    ],
-    "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
-    "reason": "Little River elevation did not parse",
-    "receivedAt": "2026-07-28T14:18:33.428Z",
-    "disposition": "rejected; last-known-good value preserved"
-  },
-  {
-    "metrics": [
-      "drought"
-    ],
-    "sourceUrl": "https://www.ncdrought.org/",
-    "reason": "Durham County drought category did not parse",
-    "receivedAt": "2026-07-28T16:37:59.193Z",
-    "disposition": "rejected; last-known-good value preserved"
-  },
-  {
-    "metrics": [
       "supply.accessible",
       "supply.belowIntakes",
       "supply.quarry",
@@ -964,6 +936,45 @@
     "sourceUrl": "https://www.wpc.ncep.noaa.gov/qpf/day1-7.shtml",
     "reason": "Rougemont: NOAA forecast coverage is unavailable",
     "receivedAt": "2026-10-22T10:01:28.926Z",
+    "disposition": "rejected; last-known-good forecast preserved"
+  },
+  {
+    "metrics": [
+      "reservoirs.michie"
+    ],
+    "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
+    "reason": "Current reservoir section was missing",
+    "receivedAt": "2026-10-23T10:04:32.962Z",
+    "disposition": "rejected; last-known-good value preserved"
+  },
+  {
+    "metrics": [
+      "reservoirs.little"
+    ],
+    "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
+    "reason": "Current reservoir section was missing",
+    "receivedAt": "2026-10-23T10:04:32.962Z",
+    "disposition": "rejected; last-known-good value preserved"
+  },
+  {
+    "metrics": [
+      "supply.accessible",
+      "supply.belowIntakes",
+      "supply.quarry",
+      "supply.total"
+    ],
+    "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
+    "reason": "No recognizable official date was present",
+    "receivedAt": "2026-10-23T10:04:32.962Z",
+    "disposition": "rejected; last-known-good value preserved"
+  },
+  {
+    "metrics": [
+      "rainfallForecast"
+    ],
+    "sourceUrl": "https://www.wpc.ncep.noaa.gov/qpf/day1-7.shtml",
+    "reason": "Durham: NOAA forecast coverage is unavailable",
+    "receivedAt": "2026-10-23T10:04:32.962Z",
     "disposition": "rejected; last-known-good forecast preserved"
   }
 ]
