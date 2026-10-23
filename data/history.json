@@ -9945,7 +9945,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 1.26,
-          "little": 0.73
+          "little": 0.53
         }
       },
       "retainedFields": [
@@ -9998,7 +9998,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 1.56,
-          "little": 1.04
+          "little": 0.62
         }
       },
       "retainedFields": [
@@ -10039,7 +10039,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 1.11,
-          "little": 1.06
+          "little": 0.64
         }
       },
       "retainedFields": [],
@@ -10108,7 +10108,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 0.9,
-          "little": 0.86
+          "little": 0.5
         }
       },
       "retainedFields": [],
@@ -10145,7 +10145,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 0.82,
-          "little": 0.82
+          "little": 0.47
         }
       },
       "retainedFields": [],
@@ -10213,7 +10213,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 0.9,
-          "little": 0.67
+          "little": 0.37
         }
       },
       "retainedFields": [],
@@ -10250,7 +10250,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 1.55,
-          "little": 0.93
+          "little": 0.55
         }
       },
       "retainedFields": [],
@@ -10287,7 +10287,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 1.65,
-          "little": 0.72
+          "little": 0.4
         }
       },
       "retainedFields": [],
@@ -10355,7 +10355,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 1.35,
-          "little": 0.63
+          "little": 0.34
         }
       },
       "retainedFields": [
@@ -10418,7 +10418,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 1.27,
-          "little": 0.66
+          "little": 0.36
         }
       },
       "retainedFields": [],
@@ -10468,7 +10468,7 @@
         "drought": "D2 · Severe Drought",
         "streamflow": {
           "flat": 2.03,
-          "little": 0.62
+          "little": 0.34
         }
       },
       "retainedFields": [],
@@ -10490,6 +10490,43 @@
     {
       "date": "2026-10-22",
       "capturedAt": "2026-10-22T10:01:28.926Z",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 2.72,
+          "little": 0.3
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-10-23",
+      "capturedAt": "2026-10-23T10:04:32.962Z",
       "values": {
         "stage": 2,
         "supply": {
@@ -10529,7 +10566,7 @@
   ],
   "coverage": {
     "startsOn": "2026-03-01",
-    "through": "2026-10-22",
+    "through": "2026-10-23",
     "note": "Permanent daily archive. USGS daily means and weekly USDM county categories fill the historical record. City supply and reservoir values appear only on their official observation dates; unavailable dates remain null and are not forward-filled.",
     "sources": [
       {

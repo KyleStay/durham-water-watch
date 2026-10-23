@@ -59,8 +59,8 @@
       "sha256": "81b7cbfaeb970611572256aba0e313425beb3809f6426f63750696c15d9c756b"
     },
     "data/quarantine.json": {
-      "bytes": 32371,
-      "sha256": "fe984d460a5fed91597a7a3fd1fc96637ac9097c124ed9f543ea5916441ae780"
+      "bytes": 32760,
+      "sha256": "e5b40f9965f6f3fa27c6ccabb77ade62651afa4f72e324ab84d69ba453eb80ed"
     },
     "eslint.config.mjs": {
       "bytes": 465,
@@ -83,20 +83,20 @@
       "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde"
     },
     "public/data/dashboard.json": {
-      "bytes": 18436,
-      "sha256": "7a490d45d475f626845cb70f692e2c65038e49bdfd491699228c83466c2bbd06"
+      "bytes": 19824,
+      "sha256": "b2104d8a40660f206ad51d3a8b5640ff4204abdc4f978c3283233c34cf1ed397"
     },
     "public/data/history.json": {
-      "bytes": 297973,
-      "sha256": "b3df613d480aec6c49649b6e7cb8d6278e8740ba6a6e1bd8ea7af6733f2c14b9"
+      "bytes": 298870,
+      "sha256": "7dec4c909fc2a546cf8a2d43cd92b5cc762824b82b291fdae9dcb7d07b1176fe"
     },
     "public/data/rainfall-forecast.png": {
       "bytes": 23565,
       "sha256": "7ac90b15c0add2fc5ff9421ec9c855f84b7789a0442d27fc4cd24bb4cc8c1e8f"
     },
     "public/data/streamflow-history.json": {
-      "bytes": 245891,
-      "sha256": "274f37061367ad38b239d4d0eb6a9bd70e2a6736b6fd441d41418174345218f6"
+      "bytes": 245888,
+      "sha256": "475b307acad8228fd1652d89cb9ec7536c409294de84a59da83f98d5f80bab8e"
     },
     "public/og.png": {
       "bytes": 1751932,
@@ -334,21 +334,21 @@
     },
     ".vite/manifest.json": {
       "bytes": 2575,
-      "sha256": "b6e16c24c553c35c16154a344eee053f866e6d1890a08d5006c8caf72c41d015"
+      "sha256": "3438b70ce8833c2c254583a37e2578ffd8a1648be9f15bc6a204956346e15f8f"
     },
     "404.html": {
-      "bytes": 155430,
-      "sha256": "17860062a18015f6e2c95349ea0be0e5ad2c9b910358b6df6a47914d4df1f2d4"
+      "bytes": 156605,
+      "sha256": "7626c3a4e8b226b8cab1108ee05d53b17df72213fa61856bc1623a2f305ec5b8"
     },
     "_headers": {
       "bytes": 131,
       "sha256": "2148fb62669525f5091532d36d4a48a8da95b08a5a797bacde75d2fe981351bb"
     },
-    "_next/static/b3e99608-695e-4d4f-8509-21c4482720f7/_buildManifest.js": {
+    "_next/static/215df5fe-1e76-4cd0-89e2-c24a5d086325/_buildManifest.js": {
       "bytes": 159,
       "sha256": "47f02b34be6dc481257b6efce4c19e19111f37ef5c437f8ffed44f0da97fa9bb"
     },
-    "_next/static/b3e99608-695e-4d4f-8509-21c4482720f7/_ssgManifest.js": {
+    "_next/static/215df5fe-1e76-4cd0-89e2-c24a5d086325/_ssgManifest.js": {
       "bytes": 76,
       "sha256": "653f3e53e89b4f8548ff86c19e92bb3c6b84b6be7485a320b1e00893ed877479"
     },
@@ -356,13 +356,13 @@
       "bytes": 190109,
       "sha256": "2a1edf81f32a49b1eacafc3546b371bca024c82a9191836e274d90890212e9df"
     },
-    "_next/static/chunks/index-D0aBrGsW.js": {
+    "_next/static/chunks/index-DbEeKeaq.js": {
       "bytes": 108785,
-      "sha256": "d6d2cb4fa40ea98f8b502b520b8f4baece6468cbf5031f8aca18ef1225c07144"
+      "sha256": "cd8c5cd1d35f4075c346f3c6729a025358c382ea6bcf448e64f8de263418fcd3"
     },
-    "_next/static/chunks/layout-segment-context-Dk1-xt7d.js": {
+    "_next/static/chunks/layout-segment-context-DlLX1PSz.js": {
       "bytes": 496,
-      "sha256": "dc99ea11fc01d230a7a8f8d906ac5e055737f0402a2e162521be936c6b32202c"
+      "sha256": "9456ac49b3261e67b9a80d56960c5d2ccf74c647387e76c692b266927de2ad2e"
     },
     "_next/static/chunks/leaflet-src-CglwsnG5.js": {
       "bytes": 148747,
@@ -372,41 +372,41 @@
       "bytes": 716,
       "sha256": "580ad8c58061a4dde99bde0a56905e382f0568516ee2f5b84dbfb52085709021"
     },
-    "_next/static/chunks/vinext-CxcV9Jjq.js": {
+    "_next/static/chunks/vinext-D0XK_9tp.js": {
       "bytes": 111758,
-      "sha256": "da305e25dd3f0c1e54644e3fb359e486395e2517bcd5a9ff78b0cf43363cbbc5"
+      "sha256": "fa94b363d1aa2f118951972231f15c5fa3e76cddbbe1772ea587ec5dd892b62f"
     },
-    "_next/static/chunks/water-watch-BLcWOumH.js": {
-      "bytes": 413559,
-      "sha256": "14b183b45b6045c93e1d14b38241f584434ca423fb7637332d92334736f0463e"
+    "_next/static/chunks/water-watch-CmypV62t.js": {
+      "bytes": 415328,
+      "sha256": "75805c797799929bdadac04ae83b47ec542d9acd5b088eb0f1cff1c28008e186"
     },
-    "_next/static/chunks/watershed-map-engine-DuuYpX13.js": {
+    "_next/static/chunks/watershed-map-engine-DNTi8cue.js": {
       "bytes": 3737,
-      "sha256": "3bd44e1d8bde5a56df30f067512b57500f6bd6091e7aba9f9a47e4b557b443e0"
+      "sha256": "f4cc7bb37f3515518f3b80f3a413c7e09a9b84f9fca30bf5cf694c34c181f0d5"
     },
     "_next/static/css/index.B7a28hyy.css": {
       "bytes": 161723,
       "sha256": "1797634048e9fd0ede355a697cf2dec803187fd9ec21106dae2f63910a0a33f9"
     },
     "data/dashboard.json": {
-      "bytes": 18436,
-      "sha256": "7a490d45d475f626845cb70f692e2c65038e49bdfd491699228c83466c2bbd06"
+      "bytes": 19824,
+      "sha256": "b2104d8a40660f206ad51d3a8b5640ff4204abdc4f978c3283233c34cf1ed397"
     },
     "data/history.json": {
-      "bytes": 297973,
-      "sha256": "b3df613d480aec6c49649b6e7cb8d6278e8740ba6a6e1bd8ea7af6733f2c14b9"
+      "bytes": 298870,
+      "sha256": "7dec4c909fc2a546cf8a2d43cd92b5cc762824b82b291fdae9dcb7d07b1176fe"
     },
     "data/rainfall-forecast.png": {
       "bytes": 23565,
       "sha256": "7ac90b15c0add2fc5ff9421ec9c855f84b7789a0442d27fc4cd24bb4cc8c1e8f"
     },
     "data/streamflow-history.json": {
-      "bytes": 245891,
-      "sha256": "274f37061367ad38b239d4d0eb6a9bd70e2a6736b6fd441d41418174345218f6"
+      "bytes": 245888,
+      "sha256": "475b307acad8228fd1652d89cb9ec7536c409294de84a59da83f98d5f80bab8e"
     },
     "index.html": {
-      "bytes": 155430,
-      "sha256": "17860062a18015f6e2c95349ea0be0e5ad2c9b910358b6df6a47914d4df1f2d4"
+      "bytes": 156605,
+      "sha256": "7626c3a4e8b226b8cab1108ee05d53b17df72213fa61856bc1623a2f305ec5b8"
     },
     "og.png": {
       "bytes": 1751932,
@@ -414,7 +414,7 @@
     },
     "vinext-client-entry-manifest.json": {
       "bytes": 65,
-      "sha256": "f0932c8d35d37788e7caf164cbef85e8cff3a1e0dd4c4d02374a10b39926cd9e"
+      "sha256": "d76643c558cb8d512df5cdf7380eed845407fd7b938e4235288309e1419e5151"
     }
   }
 }
