@@ -8,18 +8,6 @@
     ],
     "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
     "reason": "Accessible supply did not parse",
-    "receivedAt": "2026-08-08T12:21:38.287Z",
-    "disposition": "rejected; last-known-good value preserved"
-  },
-  {
-    "metrics": [
-      "supply.accessible",
-      "supply.belowIntakes",
-      "supply.quarry",
-      "supply.total"
-    ],
-    "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
-    "reason": "Accessible supply did not parse",
     "receivedAt": "2026-08-09T20:02:42.191Z",
     "disposition": "rejected; last-known-good value preserved"
   },
@@ -975,6 +963,15 @@
     "sourceUrl": "https://www.wpc.ncep.noaa.gov/qpf/day1-7.shtml",
     "reason": "Durham: NOAA forecast coverage is unavailable",
     "receivedAt": "2026-10-23T10:04:32.962Z",
+    "disposition": "rejected; last-known-good forecast preserved"
+  },
+  {
+    "metrics": [
+      "rainfallForecast"
+    ],
+    "sourceUrl": "https://www.wpc.ncep.noaa.gov/qpf/day1-7.shtml",
+    "reason": "Rougemont: NOAA forecast coverage is unavailable",
+    "receivedAt": "2026-10-24T10:03:26.958Z",
     "disposition": "rejected; last-known-good forecast preserved"
   }
 ]
