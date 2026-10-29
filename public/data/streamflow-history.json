@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "year": 2026,
-  "updatedAt": "2026-10-27T10:00:26.964Z",
+  "updatedAt": "2026-10-29T12:03:32.148Z",
   "stations": {
     "flat": {
       "site": "02085500",
@@ -9,7 +9,7 @@
       "status": "fresh",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
       "historicalPeriod": "1926–2026",
-      "verifiedAt": "2026-10-27T10:00:26.964Z",
+      "verifiedAt": "2026-10-29T12:03:32.148Z",
       "days": [
         {
           "date": "2026-01-01",
@@ -1705,115 +1705,115 @@
         },
         {
           "date": "2026-10-10",
-          "currentYear": 0.78,
+          "currentYear": 0.76,
           "historicalMean": 69,
           "historicalSampleYears": 101
         },
         {
           "date": "2026-10-11",
-          "currentYear": 1.26,
+          "currentYear": 1.13,
           "historicalMean": 123,
           "historicalSampleYears": 101
         },
         {
           "date": "2026-10-12",
-          "currentYear": 1.56,
+          "currentYear": 1.27,
           "historicalMean": 74,
           "historicalSampleYears": 101
         },
         {
           "date": "2026-10-13",
-          "currentYear": 1.11,
+          "currentYear": 0.76,
           "historicalMean": 38,
           "historicalSampleYears": 101
         },
         {
           "date": "2026-10-14",
-          "currentYear": 0.9,
+          "currentYear": 0.52,
           "historicalMean": 46,
           "historicalSampleYears": 101
         },
         {
           "date": "2026-10-15",
-          "currentYear": 0.82,
+          "currentYear": 0.4,
           "historicalMean": 73,
           "historicalSampleYears": 101
         },
         {
           "date": "2026-10-16",
-          "currentYear": 0.9,
+          "currentYear": 0.38,
           "historicalMean": 47,
           "historicalSampleYears": 101
         },
         {
           "date": "2026-10-17",
-          "currentYear": 1.55,
+          "currentYear": 0.67,
           "historicalMean": 46,
           "historicalSampleYears": 101
         },
         {
           "date": "2026-10-18",
-          "currentYear": 1.65,
+          "currentYear": 0.63,
           "historicalMean": 40,
           "historicalSampleYears": 101
         },
         {
           "date": "2026-10-19",
-          "currentYear": 1.35,
+          "currentYear": 0.4,
           "historicalMean": 29,
           "historicalSampleYears": 101
         },
         {
           "date": "2026-10-20",
-          "currentYear": 1.27,
+          "currentYear": 0.31,
           "historicalMean": 47,
           "historicalSampleYears": 101
         },
         {
           "date": "2026-10-21",
-          "currentYear": 2.03,
+          "currentYear": 0.56,
           "historicalMean": 64,
           "historicalSampleYears": 101
         },
         {
           "date": "2026-10-22",
-          "currentYear": 2.72,
+          "currentYear": 0.82,
           "historicalMean": 33,
           "historicalSampleYears": 101
         },
         {
           "date": "2026-10-23",
-          "currentYear": 2.12,
+          "currentYear": 0.55,
           "historicalMean": 67,
           "historicalSampleYears": 101
         },
         {
           "date": "2026-10-24",
-          "currentYear": 1.94,
+          "currentYear": 0.48,
           "historicalMean": 44,
           "historicalSampleYears": 101
         },
         {
           "date": "2026-10-25",
-          "currentYear": 1.56,
+          "currentYear": 0.34,
           "historicalMean": 100,
           "historicalSampleYears": 101
         },
         {
           "date": "2026-10-26",
-          "currentYear": 1.51,
+          "currentYear": 0.32,
           "historicalMean": 51,
           "historicalSampleYears": 101
         },
         {
           "date": "2026-10-27",
-          "currentYear": null,
+          "currentYear": 0.51,
           "historicalMean": 61,
           "historicalSampleYears": 101
         },
         {
           "date": "2026-10-28",
-          "currentYear": null,
+          "currentYear": 0.34,
           "historicalMean": 56,
           "historicalSampleYears": 101
         },
@@ -2211,8 +2211,8 @@
         "units": "ft³/s",
         "status": "fresh",
         "sourceUrl": "https://waterservices.usgs.gov/nwis/dv/?format=json&sites=02085500&startDT=2016-01-01&endDT=2025-12-31&parameterCd=00060&statCd=00003&siteStatus=all",
-        "verifiedAt": "2026-10-27T10:00:26.964Z",
-        "checkedAt": "2026-10-27T10:00:26.964Z",
+        "verifiedAt": "2026-10-29T12:03:32.148Z",
+        "checkedAt": "2026-10-29T12:03:32.148Z",
         "observationCount": 3651,
         "provisionalCount": 0,
         "days": [
@@ -4780,7 +4780,7 @@
           }
         ]
       },
-      "checkedAt": "2026-10-27T10:00:26.964Z"
+      "checkedAt": "2026-10-29T12:03:32.148Z"
     },
     "little": {
       "site": "0208521324",
@@ -4788,7 +4788,7 @@
       "status": "fresh",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/0208521324/",
       "historicalPeriod": "1988–2025",
-      "verifiedAt": "2026-10-27T10:00:26.964Z",
+      "verifiedAt": "2026-10-29T12:03:32.148Z",
       "days": [
         {
           "date": "2026-01-01",
@@ -6586,13 +6586,13 @@
         },
         {
           "date": "2026-10-27",
-          "currentYear": null,
+          "currentYear": 0.31,
           "historicalMean": 30,
           "historicalSampleYears": 38
         },
         {
           "date": "2026-10-28",
-          "currentYear": null,
+          "currentYear": 0.25,
           "historicalMean": 39,
           "historicalSampleYears": 38
         },
@@ -6990,8 +6990,8 @@
         "units": "ft³/s",
         "status": "fresh",
         "sourceUrl": "https://waterservices.usgs.gov/nwis/dv/?format=json&sites=0208521324&startDT=2016-01-01&endDT=2025-12-31&parameterCd=00060&statCd=00003&siteStatus=all",
-        "verifiedAt": "2026-10-27T10:00:26.964Z",
-        "checkedAt": "2026-10-27T10:00:26.964Z",
+        "verifiedAt": "2026-10-29T12:03:32.148Z",
+        "checkedAt": "2026-10-29T12:03:32.148Z",
         "observationCount": 3651,
         "provisionalCount": 247,
         "days": [
@@ -9559,7 +9559,7 @@
           }
         ]
       },
-      "checkedAt": "2026-10-27T10:00:26.964Z"
+      "checkedAt": "2026-10-29T12:03:32.148Z"
     }
   }
 }
