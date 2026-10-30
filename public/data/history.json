@@ -10799,7 +10799,7 @@
         },
         "drought": "D2 · Severe Drought",
         "streamflow": {
-          "flat": 0.34,
+          "flat": 0.45,
           "little": 0.25
         }
       },
@@ -10822,6 +10822,43 @@
     {
       "date": "2026-10-29",
       "capturedAt": "2026-10-29T12:03:32.148Z",
+      "values": {
+        "stage": 2,
+        "supply": {
+          "accessible": null,
+          "belowIntakes": null,
+          "quarry": null,
+          "total": null
+        },
+        "reservoirs": {
+          "michie": null,
+          "little": null
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 0.38,
+          "little": 0.22
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [
+        "supply.accessible",
+        "supply.belowIntakes",
+        "supply.quarry",
+        "supply.total",
+        "reservoirs.michie",
+        "reservoirs.little"
+      ],
+      "measurementKinds": {
+        "streamflow": "USGS daily mean",
+        "supply": "unavailable",
+        "reservoirs": "unavailable"
+      }
+    },
+    {
+      "date": "2026-10-30",
+      "capturedAt": "2026-10-30T10:01:14.077Z",
       "values": {
         "stage": 2,
         "supply": {
@@ -10861,7 +10898,7 @@
   ],
   "coverage": {
     "startsOn": "2026-03-01",
-    "through": "2026-10-29",
+    "through": "2026-10-30",
     "note": "Permanent daily archive. USGS daily means and weekly USDM county categories fill the historical record. City supply and reservoir values appear only on their official observation dates; unavailable dates remain null and are not forward-filled.",
     "sources": [
       {
