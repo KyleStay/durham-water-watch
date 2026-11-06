@@ -24,6 +24,22 @@ test('stage changes render appropriate guidance without requiring Stage 2 conten
     const data = structuredClone(snapshot);
     data.stage.value = value;
     const html = renderToString(createElement(WaterWatch, { snapshot: data }));
+    const dom = new JSDOM(html);
+    const guide = dom.window.document.querySelector('#restriction-levels');
+    const rows = [...guide.querySelectorAll('.level-row')];
+    assert.equal(rows.length, 4, 'All stages remain available regardless of the current reading');
+    for (const [index, trigger] of [
+      '30% chance of 45% usable storage in 12 weeks',
+      '20% chance of 35% usable storage in 10 weeks',
+      '10% chance of 25% usable storage in 8 weeks',
+      '5% chance of 15% usable storage in 4 weeks',
+    ].entries()) {
+      assert.ok(rows[index].textContent.includes(trigger));
+    }
+    assert.match(rows[2].textContent, /Hand and drip landscape watering also stop.*container plants.*commercial plants for sale/);
+    assert.match(rows[3].textContent, /Vehicle washing stops.*minimum health and safety/);
+    assert.equal(dom.window.document.querySelectorAll('.drought-level-table tbody tr').length, 6);
+    dom.window.close();
     if (value === 2) {
       assert.match(html, /Illustrative scenario explorer/);
       assert.match(html, /No landscape spray irrigation/);
@@ -83,6 +99,9 @@ for (const [endDate, startLabel, endLabel] of [
     assert.equal(document.body.style.overflow, '');
     await act(async () => { document.querySelector('button[aria-label="Cambiar a español"]').click(); });
     assert.equal(document.documentElement.lang, 'es');
+    assert.match(document.querySelector('#restriction-levels').textContent, /Etapas de restricción.*20% de probabilidad de 35% de almacenamiento utilizable en 10 semanas/);
+    assert.match(document.querySelector('.drought-level-table').textContent, /D0 · Anormalmente seco.*D4 · Sequía excepcional/);
+    assert.match(document.querySelector('#drought').textContent, /al menos el 25%/);
     assert.match(container.textContent, /Instantánea publicada/);
     assert.doesNotMatch(container.textContent, /corrections@example.org|every 30 minutes/);
     assert.deepEqual(errors, []);

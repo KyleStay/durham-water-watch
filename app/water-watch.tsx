@@ -8,6 +8,7 @@ import { dashboardAt, metricStatus } from "../scripts/freshness.mjs";
 import { annualReservoirHeading, showsStageTwoGuidance } from "../scripts/stage-guidance.mjs";
 import TrendContext, { type TenYearAverage } from "./trend-charts";
 import WatershedMap, { type RainfallForecast } from "./watershed-map";
+import { DroughtLevels, RestrictionLevels } from "./water-level-guide";
 
 type Lang = "en" | "es";
 type Freshness = "fresh" | "stale" | "unavailable";
@@ -118,7 +119,7 @@ const copy = {
     title: "Durham Water Watch",
     deck: "Current water status for Durham",
     official: "Official City guidance always takes precedence.",
-    nav: ["Trends", "Reservoirs", "Supply", "River flow", "Water-use rules", "Sources & data"],
+    nav: ["Trends", "Reservoirs", "Supply", "River flow", "Water-use rules", "Drought levels", "Sources & data"],
     serious: "How serious is this?",
     stage: "Durham Water Shortage Response Stage",
     inEffect: "in effect",
@@ -216,7 +217,7 @@ const copy = {
     title: "Durham Water Watch",
     deck: "Estado actual del agua en Durham",
     official: "La orientación oficial de la Ciudad siempre tiene prioridad.",
-    nav: ["Tendencias", "Embalses", "Suministro", "Caudal", "Reglas de uso", "Fuentes y datos"],
+    nav: ["Tendencias", "Embalses", "Suministro", "Caudal", "Reglas de uso", "Niveles de sequía", "Fuentes y datos"],
     serious: "¿Qué tan grave es?",
     stage: "Etapa de Respuesta a la Escasez de Agua de Durham",
     inEffect: "vigente",
@@ -581,7 +582,7 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
           </button>
         </div>
         <nav className="nav wrap" aria-label={lang === "en" ? "Primary navigation" : "Navegación principal"}>
-          {["trends", "reservoirs", "supply", "rivers", "actions", "methodology"].map((id, index) => (
+          {["trends", "reservoirs", "supply", "rivers", "actions", "drought", "methodology"].map((id, index) => (
             <a key={id} href={`#${id}`}>{t.nav[index]}</a>
           ))}
         </nav>
@@ -668,11 +669,12 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
             </>
             ) : (
               <>
-                <div className="section-heading actions-heading"><p className="kicker">{t.whatNow}</p><h2>{lang === "en" ? "Follow the rules for the displayed City stage." : "Siga las reglas de la etapa mostrada por la Ciudad."}</h2><p>{lang === "en" ? "This dashboard does not summarize restrictions for this stage. The complete official rules control." : "Este panel no resume las restricciones de esta etapa. Las reglas oficiales completas tienen prioridad."}</p></div>
+                <div className="section-heading actions-heading"><p className="kicker">{t.whatNow}</p><h2>{lang === "en" ? "Follow the rules for the displayed City stage." : "Siga las reglas de la etapa mostrada por la Ciudad."}</h2><p>{lang === "en" ? "Compare the stages below and confirm the current City declaration. The complete official rules control." : "Compare las etapas siguientes y confirme la declaración municipal actual. Las reglas oficiales completas tienen prioridad."}</p></div>
                 {data.stage.status === "stale" && <p className="stale-banner">! {t.confirmRules}</p>}
                 <div className="rules-footer"><p>{lang === "en" ? "Confirm the current stage and requirements on the City website." : "Confirme la etapa y los requisitos actuales en el sitio web de la Ciudad."}</p><a className="button" href={urls.stage} target="_blank" rel="noreferrer">{t.readRules} ↗</a></div>
               </>
             )}
+            <RestrictionLevels lang={lang} />
           </div>
         </section>
 
@@ -748,7 +750,7 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
               </article>
               <aside className="why-card"><span aria-hidden="true">≠</span><div><h3>{t.whyDiffer}</h3><p>{t.whyText}</p></div></aside>
             </div>
-
+            <DroughtLevels lang={lang} />
           </div>
         </section>
 

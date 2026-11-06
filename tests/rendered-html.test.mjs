@@ -43,6 +43,11 @@ test("server-renders the resident-facing dashboard without JavaScript", async ()
   assert.match(html, /USGS daily means appear where available/);
   assert.match(html, /Official City guidance always takes precedence/);
   assert.match(html, /What to do now/);
+  assert.match(html, /Restriction stages and triggers/);
+  assert.match(html, /Drought categories: D0–D4/);
+  assert.match(html, /not today’s storage or days-of-supply cutoffs/);
+  assert.match(html, /href="#drought"/);
+  assert.match(html, /droughtmonitor\.unl\.edu\/About\/AbouttheData\/DroughtClassification\.aspx/);
   assert.match(html, /Español/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
 });

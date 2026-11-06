@@ -82,6 +82,26 @@ button, a { -webkit-tap-highlight-color: transparent; }
   text-decoration: none;
 }
 .drop { display: none; }
+
+.level-guide { margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); }
+.level-guide h3 { margin: 0 0 12px; color: var(--blue-dark); font-size: 1.25rem; }
+.level-guide > p, .level-help p { max-width: 85ch; }
+.level-list { margin-block: 20px; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--surface); }
+.level-row { display: grid; grid-template-columns: minmax(170px, 1fr) 2fr; gap: 24px; padding: 20px; }
+.level-row + .level-row { border-top: 1px solid var(--border); }
+.level-row h4 { margin: 0 0 8px; font-size: 1.05rem; color: var(--blue-dark); }
+.level-trigger { margin: 0; font-size: .9rem; }
+.level-row ul { margin: 0; padding-left: 20px; list-style: disc; }
+.level-row li + li { margin-top: 8px; }
+.level-help summary { width: fit-content; cursor: pointer; color: var(--blue); font-weight: 650; padding-block: 8px; }
+.level-sources { font-size: .88rem; }
+.drought-level-table { min-width: 530px; margin-block: 12px; background: var(--surface); font-size: .9rem; }
+.drought-level-table th, .drought-level-table td { padding: 12px; vertical-align: top; }
+.drought-level-table thead { background: var(--blue-light); }
+.drought-level-table tbody th { min-width: 175px; }
+@media (max-width: 600px) {
+  .level-row { grid-template-columns: 1fr; gap: 14px; padding: 16px; }
+}
 .language {
   min-width: 112px;
   min-height: 44px;
