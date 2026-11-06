@@ -27,8 +27,8 @@
       "sha256": "17a965f8948b21510cdf8ecbd70c5fdf58100e10970463f6a8fd2cc4795f8044"
     },
     "app/globals.css": {
-      "bytes": 36348,
-      "sha256": "fbe9efa7c1aa66ae8804fae611dce29c6cee591a8aebca338005554cfe96c3ff"
+      "bytes": 37694,
+      "sha256": "45ad578a72e7105dec191538c4c949c7155b61ad21a35d7405f535fa349ae92b"
     },
     "app/layout.tsx": {
       "bytes": 1161,
@@ -42,9 +42,13 @@
       "bytes": 24487,
       "sha256": "b75d0aab59739cd85a6471cce1d357326a1fa29c36db38b6dd02957dacc86340"
     },
+    "app/water-level-guide.tsx": {
+      "bytes": 11377,
+      "sha256": "a0dee2babe8cd0784606457a5df5f7fb979af0067100a9d17a31f94f99bb3857"
+    },
     "app/water-watch.tsx": {
-      "bytes": 67450,
-      "sha256": "5c777bdbe29940c29e3ec7a10008d794f9a425b4b203608e0e4d2ebf5e23c924"
+      "bytes": 67685,
+      "sha256": "c864ee75f4f9e7b7b6f0fe9ae196e0764b7cda6ae4d88c84a170398ed5081a10"
     },
     "app/watershed-map-engine.ts": {
       "bytes": 5593,
@@ -239,8 +243,8 @@
       "sha256": "8d52a219322d6af3c8374de3124f6f42592be8c63646ce820dec0480776b8b2f"
     },
     "tests/dashboard-hydration.test.mjs": {
-      "bytes": 10561,
-      "sha256": "0a759b3e54854eb9d823ae71268acf5c28553bc30d9279239e663ce2e094308e"
+      "bytes": 11900,
+      "sha256": "a5eb5a2ff937ea9bca47968ea8bef65945d5c68e27ea3288ed630181d8c3cf8a"
     },
     "tests/freshness.test.mjs": {
       "bytes": 1436,
@@ -283,8 +287,8 @@
       "sha256": "7a109346ed463cb4c07a7513b4a002178ff8887bcf860bec52463fdb5e772de3"
     },
     "tests/rendered-html.test.mjs": {
-      "bytes": 3800,
-      "sha256": "3ae5f2b2003cf93cbcf439a225bcf47081714d8ab242bca1cbdff2671c39f092"
+      "bytes": 4124,
+      "sha256": "b6a2715f45a59c89ea6b873c802b1a46a20e37a2317449bba23703acce3ed77c"
     },
     "tests/source-fetch.test.mjs": {
       "bytes": 1432,
@@ -333,28 +337,80 @@
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     ".vite/manifest.json": {
-      "bytes": 2575,
-      "sha256": "8923bd8faa9bd1489f3a4e85d6e8abe5a9dbb1aaf886ca61bc677561c40ba50a"
+      "bytes": 2503,
+      "sha256": "33276fb07e37c1effe5dea0d99ef481a01da87cd2356668eb375659447e9dff4"
     },
     "404.html": {
-      "bytes": 158917,
-      "sha256": "f18e5aab494750c34f5a52a9d48ecdd0b73dcc45896af7ae9381f679fb879dc9"
+      "bytes": 165178,
+      "sha256": "72b3f8a138f65e9df609c4bf7406b2ad68e9f91c7c8457f079c98267b30357da"
     },
     "_headers": {
       "bytes": 131,
       "sha256": "2148fb62669525f5091532d36d4a48a8da95b08a5a797bacde75d2fe981351bb"
     },
+    "_next/static/65cc9be3-d908-4748-a515-3584e30cd41e/_buildManifest.js": {
+      "bytes": 159,
+      "sha256": "47f02b34be6dc481257b6efce4c19e19111f37ef5c437f8ffed44f0da97fa9bb"
+    },
+    "_next/static/65cc9be3-d908-4748-a515-3584e30cd41e/_ssgManifest.js": {
+      "bytes": 76,
+      "sha256": "653f3e53e89b4f8548ff86c19e92bb3c6b84b6be7485a320b1e00893ed877479"
+    },
+    "_next/static/_vinext_fonts/geist-8ac0455e797f/geist-001175b1.woff2": {
+      "bytes": 16540,
+      "sha256": "58a6b173d5ca1dec92166ea3c6cb1a84a4144556d10928ac14e8e6b40e4787bd"
+    },
+    "_next/static/_vinext_fonts/geist-8ac0455e797f/geist-52306abf.woff2": {
+      "bytes": 7968,
+      "sha256": "f689f638f29fff460a2d5749edb5d5c38d7bef0389f32032d871f23fc6ebb008"
+    },
+    "_next/static/_vinext_fonts/geist-8ac0455e797f/geist-875ccdd4.woff2": {
+      "bytes": 14900,
+      "sha256": "6129fc8571c3e0cb0a4c41f5160c974a843b055009dc4ad8858bd808e18a2d86"
+    },
+    "_next/static/_vinext_fonts/geist-8ac0455e797f/geist-98bbbccb.woff2": {
+      "bytes": 29288,
+      "sha256": "9b6f5ff45b278c744b5f379a2c4ecbaf858a842b8eaf82ac8d21b699ca16c608"
+    },
+    "_next/static/_vinext_fonts/geist-8ac0455e797f/geist-ff2310f5.woff2": {
+      "bytes": 7252,
+      "sha256": "b7a545bbb08256bd809f11cfe66d88da3e22d169ea4407737b1ef0ec1ed3d791"
+    },
+    "_next/static/_vinext_fonts/geist-mono-00e989178794/geist-mono-013b2f2f.woff2": {
+      "bytes": 23108,
+      "sha256": "5f3d6ad60f29d6cb708414ec6887163d63bf197377ef5417d2483ff31ace6c3b"
+    },
+    "_next/static/_vinext_fonts/geist-mono-00e989178794/geist-mono-0638449e.woff2": {
+      "bytes": 5892,
+      "sha256": "d67e4a94ba498635f764ddca7d1ec4271f5642f032eb24b426764480f66f8497"
+    },
+    "_next/static/_vinext_fonts/geist-mono-00e989178794/geist-mono-44745446.woff2": {
+      "bytes": 14712,
+      "sha256": "745994b5cd950ec201b66526375f057d540847cccfc70f4f24f5f571d26d3923"
+    },
+    "_next/static/_vinext_fonts/geist-mono-00e989178794/geist-mono-44e03052.woff2": {
+      "bytes": 12872,
+      "sha256": "75b3bedbebc35f347c0ae3b416aa871941555357e7b0f83767eb5987875589ed"
+    },
+    "_next/static/_vinext_fonts/geist-mono-00e989178794/geist-mono-971fb274.woff2": {
+      "bytes": 7728,
+      "sha256": "16e1d48b6dd29eb240aec5db36184eb182933c082cd43de7f35af686d58087d2"
+    },
+    "_next/static/_vinext_fonts/geist-mono-00e989178794/geist-mono-f6b33328.woff2": {
+      "bytes": 6204,
+      "sha256": "e27f657e38d52887baa3b6b2f812bef93dfdd356f0810e40edd4ee284cc7e9f6"
+    },
     "_next/static/chunks/framework-DTZGTDtF.js": {
       "bytes": 190109,
       "sha256": "2a1edf81f32a49b1eacafc3546b371bca024c82a9191836e274d90890212e9df"
     },
-    "_next/static/chunks/index-XjIuvKio.js": {
+    "_next/static/chunks/index-D4OSM5fG.js": {
       "bytes": 108785,
-      "sha256": "e046b82529902d22388820eb86a20241c759140e2e737f4085399c14346413e3"
+      "sha256": "b2fe85e7f18847cf95a2022dfac2520b5ca68147e9d2c32e3b7edff89ee43af2"
     },
-    "_next/static/chunks/layout-segment-context-DMDTP97a.js": {
+    "_next/static/chunks/layout-segment-context-CZUYgZSG.js": {
       "bytes": 496,
-      "sha256": "b6952507a5fce0bb9851ab48fef242ba28264273cc51f8280fc286d7410ef56f"
+      "sha256": "1ae4ad3807deef99f14714e6a72a460a3e571ffa973aa36748a8b80ddf4d34b3"
     },
     "_next/static/chunks/leaflet-src-CglwsnG5.js": {
       "bytes": 148747,
@@ -364,29 +420,21 @@
       "bytes": 716,
       "sha256": "580ad8c58061a4dde99bde0a56905e382f0568516ee2f5b84dbfb52085709021"
     },
-    "_next/static/chunks/vinext-Dfa6AD12.js": {
+    "_next/static/chunks/vinext-B9RmgCcB.js": {
       "bytes": 111758,
-      "sha256": "54ff6c7ea73f8f47ac37fa5169ff1711a69ea27f6d00516f3f77e12de3c6e7b9"
+      "sha256": "522dd2782eb9e2589db02fc13555a26e692f7e3da9611870bf7a4b8634510fb2"
     },
-    "_next/static/chunks/water-watch-D5HrHcPr.js": {
-      "bytes": 427506,
-      "sha256": "01384beeb84742acf8a3efb66cc2dd68fe91ff51a9007ed0fa6f5cdd593eecd8"
+    "_next/static/chunks/water-watch-Bq__ePqz.js": {
+      "bytes": 438417,
+      "sha256": "31553dc07355807f82c8ae33fa33599a7589070ef5bc426fc0a3b67044212f75"
     },
-    "_next/static/chunks/watershed-map-engine-ClTQp_ev.js": {
+    "_next/static/chunks/watershed-map-engine-BmiujZLF.js": {
       "bytes": 3737,
-      "sha256": "bc8b7a83e3cfbd253451040f487a85489006788aca831403e586e141150e9582"
+      "sha256": "dec3e30b25c0e7ca4a7fbbecd573fdf45556e7832254f53fc52181895630e6fd"
     },
-    "_next/static/css/index.B7a28hyy.css": {
-      "bytes": 161723,
-      "sha256": "1797634048e9fd0ede355a697cf2dec803187fd9ec21106dae2f63910a0a33f9"
-    },
-    "_next/static/fc95d9f4-59d3-4d9f-9421-ebb95951682e/_buildManifest.js": {
-      "bytes": 159,
-      "sha256": "47f02b34be6dc481257b6efce4c19e19111f37ef5c437f8ffed44f0da97fa9bb"
-    },
-    "_next/static/fc95d9f4-59d3-4d9f-9421-ebb95951682e/_ssgManifest.js": {
-      "bytes": 76,
-      "sha256": "653f3e53e89b4f8548ff86c19e92bb3c6b84b6be7485a320b1e00893ed877479"
+    "_next/static/css/index.BuHmoEMa.css": {
+      "bytes": 47728,
+      "sha256": "4100773a236b69020531094704703e38513188ff84499e94e8d6eb8776843c60"
     },
     "data/dashboard.json": {
       "bytes": 19696,
@@ -405,8 +453,8 @@
       "sha256": "b37e4dd512518eecf805fedce877505c32269a15b04338c290d288d6131218a0"
     },
     "index.html": {
-      "bytes": 158917,
-      "sha256": "f18e5aab494750c34f5a52a9d48ecdd0b73dcc45896af7ae9381f679fb879dc9"
+      "bytes": 165178,
+      "sha256": "72b3f8a138f65e9df609c4bf7406b2ad68e9f91c7c8457f079c98267b30357da"
     },
     "og.png": {
       "bytes": 1751932,
@@ -414,7 +462,7 @@
     },
     "vinext-client-entry-manifest.json": {
       "bytes": 65,
-      "sha256": "0b70b4da50519cb2896891d452b0b562c60a9cfe4930debd8e5c70d7a9d9cc5b"
+      "sha256": "e00268f3149692ccad3e29238e56b65cc44be08435df3717d18e70ab1a7264a3"
     }
   }
 }
