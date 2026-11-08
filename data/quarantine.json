@@ -1,34 +1,6 @@
 [
   {
     "metrics": [
-      "streamflow.flat",
-      "streamflow.little"
-    ],
-    "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
-    "reason": "USGS service failed (503)",
-    "receivedAt": "2026-08-21T12:00:48.084Z",
-    "disposition": "rejected; last-known-good value preserved"
-  },
-  {
-    "metrics": [
-      "streamflowHistory.flat"
-    ],
-    "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
-    "reason": "The USGS year comparison could not be refreshed: USGS service failed (503)",
-    "receivedAt": "2026-08-21T12:00:48.084Z",
-    "disposition": "rejected; last-known-good year comparison preserved"
-  },
-  {
-    "metrics": [
-      "streamflowHistory.little"
-    ],
-    "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/0208521324/",
-    "reason": "The USGS year comparison could not be refreshed: Unexpected official response (503)",
-    "receivedAt": "2026-08-21T12:00:48.084Z",
-    "disposition": "rejected; last-known-good year comparison preserved"
-  },
-  {
-    "metrics": [
       "streamflowHistory.flat"
     ],
     "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
@@ -985,6 +957,36 @@
     "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
     "reason": "No recognizable official date was present",
     "receivedAt": "2026-11-07T11:01:17.858Z",
+    "disposition": "rejected; last-known-good value preserved"
+  },
+  {
+    "metrics": [
+      "supply.accessible",
+      "supply.belowIntakes",
+      "supply.quarry",
+      "supply.total"
+    ],
+    "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
+    "reason": "No recognizable official date was present",
+    "receivedAt": "2026-11-08T11:00:47.394Z",
+    "disposition": "rejected; last-known-good value preserved"
+  },
+  {
+    "metrics": [
+      "reservoirs.michie"
+    ],
+    "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
+    "reason": "Current reservoir section was missing",
+    "receivedAt": "2026-11-08T11:00:47.394Z",
+    "disposition": "rejected; last-known-good value preserved"
+  },
+  {
+    "metrics": [
+      "reservoirs.little"
+    ],
+    "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
+    "reason": "Current reservoir section was missing",
+    "receivedAt": "2026-11-08T11:00:47.394Z",
     "disposition": "rejected; last-known-good value preserved"
   }
 ]
