@@ -6,17 +6,18 @@
     "observedAt": "2026-06-15",
     "effectiveDate": "2026-06-15",
     "verifiedAt": "2026-11-08T11:00:47.394Z",
-    "status": "fresh",
-    "retrievalStatus": "verified",
-    "validationResult": "accepted",
+    "status": "stale",
+    "retrievalStatus": "failed",
+    "validationResult": "rejected",
     "previousValue": null,
-    "checkedAt": "2026-11-08T11:00:47.394Z",
+    "checkedAt": "2026-11-09T11:03:46.742Z",
     "retrievalMethod": "official-page-text",
     "sourceEvidence": {
       "retrievedAt": "2026-11-08T10:59:59Z",
       "sha256": "ebcdcbd49e40365b1bc19184140ec08b7263ae315ffc9734f878fd77781a0ae3"
     },
-    "lastCheckMethod": "official-page-text"
+    "lastCheckMethod": "direct",
+    "note": "The official source could not be refreshed: Unexpected official response (403)"
   },
   "supply": {
     "accessible": {
@@ -29,14 +30,14 @@
       "retrievalStatus": "failed",
       "validationResult": "rejected",
       "previousValue": 86,
-      "checkedAt": "2026-11-08T11:00:47.394Z",
+      "checkedAt": "2026-11-09T11:03:46.742Z",
       "retrievalMethod": "official-page-text",
       "sourceEvidence": {
         "retrievedAt": "2026-11-03T10:58:03Z",
         "sha256": "58f3220adf9c05ddd0a0779b99f60135c3225613848b59c8112f693b4a4ed354"
       },
-      "lastCheckMethod": "official-page-text",
-      "note": "The official source could not be refreshed: No recognizable official date was present"
+      "lastCheckMethod": "direct",
+      "note": "The official source could not be refreshed: Unexpected official response (403)"
     },
     "belowIntakes": {
       "value": 51,
@@ -48,14 +49,14 @@
       "retrievalStatus": "failed",
       "validationResult": "rejected",
       "previousValue": 50,
-      "checkedAt": "2026-11-08T11:00:47.394Z",
+      "checkedAt": "2026-11-09T11:03:46.742Z",
       "retrievalMethod": "official-page-text",
       "sourceEvidence": {
         "retrievedAt": "2026-11-03T10:58:03Z",
         "sha256": "58f3220adf9c05ddd0a0779b99f60135c3225613848b59c8112f693b4a4ed354"
       },
-      "lastCheckMethod": "official-page-text",
-      "note": "The official source could not be refreshed: No recognizable official date was present"
+      "lastCheckMethod": "direct",
+      "note": "The official source could not be refreshed: Unexpected official response (403)"
     },
     "quarry": {
       "value": 18,
@@ -67,14 +68,14 @@
       "retrievalStatus": "failed",
       "validationResult": "rejected",
       "previousValue": 19,
-      "checkedAt": "2026-11-08T11:00:47.394Z",
+      "checkedAt": "2026-11-09T11:03:46.742Z",
       "retrievalMethod": "official-page-text",
       "sourceEvidence": {
         "retrievedAt": "2026-11-03T10:58:03Z",
         "sha256": "58f3220adf9c05ddd0a0779b99f60135c3225613848b59c8112f693b4a4ed354"
       },
-      "lastCheckMethod": "official-page-text",
-      "note": "The official source could not be refreshed: No recognizable official date was present"
+      "lastCheckMethod": "direct",
+      "note": "The official source could not be refreshed: Unexpected official response (403)"
     },
     "total": {
       "value": 152,
@@ -86,14 +87,14 @@
       "retrievalStatus": "failed",
       "validationResult": "rejected",
       "previousValue": 155,
-      "checkedAt": "2026-11-08T11:00:47.394Z",
+      "checkedAt": "2026-11-09T11:03:46.742Z",
       "retrievalMethod": "official-page-text",
       "sourceEvidence": {
         "retrievedAt": "2026-11-03T10:58:03Z",
         "sha256": "58f3220adf9c05ddd0a0779b99f60135c3225613848b59c8112f693b4a4ed354"
       },
-      "lastCheckMethod": "official-page-text",
-      "note": "The official source could not be refreshed: No recognizable official date was present"
+      "lastCheckMethod": "direct",
+      "note": "The official source could not be refreshed: Unexpected official response (403)"
     }
   },
   "reservoirs": {
@@ -108,14 +109,14 @@
       "retrievalStatus": "failed",
       "validationResult": "rejected",
       "previousValue": 329.1,
-      "checkedAt": "2026-11-08T11:00:47.394Z",
+      "checkedAt": "2026-11-09T11:03:46.742Z",
       "retrievalMethod": "official-page-text",
       "sourceEvidence": {
         "retrievedAt": "2026-11-07T11:00:23Z",
         "sha256": "1657fa992d483bb28e9bb2da22d79d1c4e7ab65d4b9fe715e363b7bb91594eae"
       },
-      "lastCheckMethod": "official-page-text",
-      "note": "The official source could not be refreshed: Current reservoir section was missing"
+      "lastCheckMethod": "direct",
+      "note": "The official source could not be refreshed: Unexpected official response (403)"
     },
     "little": {
       "value": 335.93,
@@ -128,14 +129,14 @@
       "retrievalStatus": "failed",
       "validationResult": "rejected",
       "previousValue": 336.75,
-      "checkedAt": "2026-11-08T11:00:47.394Z",
+      "checkedAt": "2026-11-09T11:03:46.742Z",
       "retrievalMethod": "official-page-text",
       "sourceEvidence": {
         "retrievedAt": "2026-11-07T11:00:23Z",
         "sha256": "1657fa992d483bb28e9bb2da22d79d1c4e7ab65d4b9fe715e363b7bb91594eae"
       },
-      "lastCheckMethod": "official-page-text",
-      "note": "The official source could not be refreshed: Current reservoir section was missing"
+      "lastCheckMethod": "direct",
+      "note": "The official source could not be refreshed: Unexpected official response (403)"
     }
   },
   "drought": {
@@ -143,57 +144,57 @@
     "units": "category",
     "sourceUrl": "https://www.ncdrought.org/",
     "observedAt": "2026-11-03T08:00:00-04:00",
-    "verifiedAt": "2026-11-08T11:00:47.394Z",
+    "verifiedAt": "2026-11-09T11:03:46.742Z",
     "status": "fresh",
     "retrievalStatus": "verified",
     "validationResult": "accepted",
     "previousValue": "D2 · Severe Drought",
-    "checkedAt": "2026-11-08T11:00:47.394Z",
+    "checkedAt": "2026-11-09T11:03:46.742Z",
     "retrievalMethod": "direct",
     "lastCheckMethod": "direct"
   },
   "streamflow": {
     "flat": {
-      "value": 1.89,
+      "value": 2.45,
       "units": "ft³/s",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
-      "observedAt": "2026-11-08T04:45:00.000-05:00",
-      "verifiedAt": "2026-11-08T11:00:47.394Z",
+      "observedAt": "2026-11-09T05:45:00.000-05:00",
+      "verifiedAt": "2026-11-09T11:03:46.742Z",
       "status": "fresh",
       "retrievalStatus": "verified",
       "validationResult": "accepted",
-      "previousValue": 1.73,
+      "previousValue": 1.89,
       "note": "USGS provisional data; subject to revision.",
-      "checkedAt": "2026-11-08T11:00:47.394Z",
+      "checkedAt": "2026-11-09T11:03:46.742Z",
       "retrievalMethod": "direct",
       "lastCheckMethod": "direct"
     },
     "little": {
-      "value": 0.14,
+      "value": 0.12,
       "units": "ft³/s",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/0208521324/",
-      "observedAt": "2026-11-08T05:15:00.000-05:00",
-      "verifiedAt": "2026-11-08T11:00:47.394Z",
+      "observedAt": "2026-11-09T05:15:00.000-05:00",
+      "verifiedAt": "2026-11-09T11:03:46.742Z",
       "status": "fresh",
       "retrievalStatus": "verified",
       "validationResult": "accepted",
-      "previousValue": 0.16,
+      "previousValue": 0.14,
       "note": "USGS provisional data; subject to revision.",
-      "checkedAt": "2026-11-08T11:00:47.394Z",
+      "checkedAt": "2026-11-09T11:03:46.742Z",
       "retrievalMethod": "direct",
       "lastCheckMethod": "direct"
     }
   },
   "historyStarts": "2026-03-01",
-  "generatedAt": "2026-11-08T11:00:47.394Z",
-  "lastRefreshResult": "failed: supply.accessible, supply.belowIntakes, supply.quarry, supply.total (No recognizable official date was present); failed: reservoirs.michie (Current reservoir section was missing); failed: reservoirs.little (Current reservoir section was missing); verified: stage; verified: flat historical streamflow; verified: drought; verified: flat ten-year streamflow average (2016–2025); verified: streamflow.flat; verified: streamflow.little; verified: little historical streamflow; verified: little ten-year streamflow average (2016–2025); verified: NOAA seven-day rainfall forecast",
+  "generatedAt": "2026-11-09T11:03:46.742Z",
+  "lastRefreshResult": "failed: stage (Unexpected official response (403)); failed: supply.accessible, supply.belowIntakes, supply.quarry, supply.total (Unexpected official response (403)); failed: reservoirs.michie, reservoirs.little (Unexpected official response (403)); verified: flat historical streamflow; verified: streamflow.flat; verified: streamflow.little; verified: drought; verified: little historical streamflow; verified: little ten-year streamflow average (2016–2025); verified: flat ten-year streamflow average (2016–2025); verified: NOAA seven-day rainfall forecast",
   "rainfallForecast": {
     "sourceUrl": "https://www.wpc.ncep.noaa.gov/qpf/day1-7.shtml",
-    "issuedAt": "2026-11-08T10:08:38.000Z",
-    "startsAt": "2026-11-08T12:00:00.000Z",
-    "endsAt": "2026-11-15T12:00:00.000Z",
-    "verifiedAt": "2026-11-08T11:00:47.394Z",
-    "checkedAt": "2026-11-08T11:00:47.394Z",
+    "issuedAt": "2026-11-09T10:26:11.000Z",
+    "startsAt": "2026-11-09T12:00:00.000Z",
+    "endsAt": "2026-11-16T12:00:00.000Z",
+    "verifiedAt": "2026-11-09T11:03:46.742Z",
+    "checkedAt": "2026-11-09T11:03:46.742Z",
     "retrievalStatus": "verified",
     "status": "fresh",
     "imagePath": "data/rainfall-forecast.png",
@@ -342,11 +343,12 @@
       "units": "stage",
       "observedAt": "2026-06-15",
       "previousObservedAt": "2026-06-15",
-      "checkedAt": "2026-11-08T11:00:47.394Z",
+      "checkedAt": "2026-11-09T11:03:46.742Z",
       "sourceUrl": "https://www.durhamnc.gov/1061/Durham-Saves-Water",
-      "status": "fresh",
-      "outcome": "checked unchanged",
-      "retrievalMethod": "official-page-text"
+      "status": "stale",
+      "outcome": "retained",
+      "retrievalMethod": "direct",
+      "reason": "The official source could not be refreshed: Unexpected official response (403)"
     },
     {
       "key": "supply.accessible",
@@ -356,12 +358,12 @@
       "units": "days",
       "observedAt": "2026-11-01",
       "previousObservedAt": "2026-11-01",
-      "checkedAt": "2026-11-08T11:00:47.394Z",
+      "checkedAt": "2026-11-09T11:03:46.742Z",
       "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
       "status": "stale",
       "outcome": "retained",
-      "retrievalMethod": "official-page-text",
-      "reason": "The official source could not be refreshed: No recognizable official date was present"
+      "retrievalMethod": "direct",
+      "reason": "The official source could not be refreshed: Unexpected official response (403)"
     },
     {
       "key": "supply.belowIntakes",
@@ -371,12 +373,12 @@
       "units": "days",
       "observedAt": "2026-11-01",
       "previousObservedAt": "2026-11-01",
-      "checkedAt": "2026-11-08T11:00:47.394Z",
+      "checkedAt": "2026-11-09T11:03:46.742Z",
       "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
       "status": "stale",
       "outcome": "retained",
-      "retrievalMethod": "official-page-text",
-      "reason": "The official source could not be refreshed: No recognizable official date was present"
+      "retrievalMethod": "direct",
+      "reason": "The official source could not be refreshed: Unexpected official response (403)"
     },
     {
       "key": "supply.quarry",
@@ -386,12 +388,12 @@
       "units": "days",
       "observedAt": "2026-11-01",
       "previousObservedAt": "2026-11-01",
-      "checkedAt": "2026-11-08T11:00:47.394Z",
+      "checkedAt": "2026-11-09T11:03:46.742Z",
       "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
       "status": "stale",
       "outcome": "retained",
-      "retrievalMethod": "official-page-text",
-      "reason": "The official source could not be refreshed: No recognizable official date was present"
+      "retrievalMethod": "direct",
+      "reason": "The official source could not be refreshed: Unexpected official response (403)"
     },
     {
       "key": "supply.total",
@@ -401,12 +403,12 @@
       "units": "days",
       "observedAt": "2026-11-01",
       "previousObservedAt": "2026-11-01",
-      "checkedAt": "2026-11-08T11:00:47.394Z",
+      "checkedAt": "2026-11-09T11:03:46.742Z",
       "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
       "status": "stale",
       "outcome": "retained",
-      "retrievalMethod": "official-page-text",
-      "reason": "The official source could not be refreshed: No recognizable official date was present"
+      "retrievalMethod": "direct",
+      "reason": "The official source could not be refreshed: Unexpected official response (403)"
     },
     {
       "key": "reservoirs.michie",
@@ -416,12 +418,12 @@
       "units": "ft msl",
       "observedAt": "2026-11-05",
       "previousObservedAt": "2026-11-05",
-      "checkedAt": "2026-11-08T11:00:47.394Z",
+      "checkedAt": "2026-11-09T11:03:46.742Z",
       "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
       "status": "stale",
       "outcome": "retained",
-      "retrievalMethod": "official-page-text",
-      "reason": "The official source could not be refreshed: Current reservoir section was missing"
+      "retrievalMethod": "direct",
+      "reason": "The official source could not be refreshed: Unexpected official response (403)"
     },
     {
       "key": "reservoirs.little",
@@ -431,12 +433,12 @@
       "units": "ft msl",
       "observedAt": "2026-11-05",
       "previousObservedAt": "2026-11-05",
-      "checkedAt": "2026-11-08T11:00:47.394Z",
+      "checkedAt": "2026-11-09T11:03:46.742Z",
       "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
       "status": "stale",
       "outcome": "retained",
-      "retrievalMethod": "official-page-text",
-      "reason": "The official source could not be refreshed: Current reservoir section was missing"
+      "retrievalMethod": "direct",
+      "reason": "The official source could not be refreshed: Unexpected official response (403)"
     },
     {
       "key": "drought",
@@ -446,7 +448,7 @@
       "units": "category",
       "observedAt": "2026-11-03T08:00:00-04:00",
       "previousObservedAt": "2026-11-03T08:00:00-04:00",
-      "checkedAt": "2026-11-08T11:00:47.394Z",
+      "checkedAt": "2026-11-09T11:03:46.742Z",
       "sourceUrl": "https://www.ncdrought.org/",
       "status": "fresh",
       "outcome": "checked unchanged",
@@ -455,12 +457,12 @@
     {
       "key": "streamflow.flat",
       "label": "Flat River current flow",
-      "value": 1.89,
-      "previousValue": 1.73,
+      "value": 2.45,
+      "previousValue": 1.89,
       "units": "ft³/s",
-      "observedAt": "2026-11-08T04:45:00.000-05:00",
-      "previousObservedAt": "2026-11-07T05:45:00.000-05:00",
-      "checkedAt": "2026-11-08T11:00:47.394Z",
+      "observedAt": "2026-11-09T05:45:00.000-05:00",
+      "previousObservedAt": "2026-11-08T04:45:00.000-05:00",
+      "checkedAt": "2026-11-09T11:03:46.742Z",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
       "status": "fresh",
       "outcome": "updated",
@@ -469,12 +471,12 @@
     {
       "key": "streamflow.little",
       "label": "Little River current flow",
-      "value": 0.14,
-      "previousValue": 0.16,
+      "value": 0.12,
+      "previousValue": 0.14,
       "units": "ft³/s",
-      "observedAt": "2026-11-08T05:15:00.000-05:00",
-      "previousObservedAt": "2026-11-07T05:15:00.000-05:00",
-      "checkedAt": "2026-11-08T11:00:47.394Z",
+      "observedAt": "2026-11-09T05:15:00.000-05:00",
+      "previousObservedAt": "2026-11-08T05:15:00.000-05:00",
+      "checkedAt": "2026-11-09T11:03:46.742Z",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/0208521324/",
       "status": "fresh",
       "outcome": "updated",
@@ -483,10 +485,10 @@
     {
       "key": "streamflowHistory.flat",
       "label": "Flat River daily-mean comparison",
-      "value": 311,
+      "value": 312,
       "units": "daily means",
-      "observedAt": "2026-11-07",
-      "checkedAt": "2026-11-08T11:00:47.394Z",
+      "observedAt": "2026-11-08",
+      "checkedAt": "2026-11-09T11:03:46.742Z",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
       "status": "fresh",
       "outcome": "updated",
@@ -502,7 +504,7 @@
       "endYear": 2025,
       "observationCount": 3651,
       "provisionalCount": 0,
-      "checkedAt": "2026-11-08T11:00:47.394Z",
+      "checkedAt": "2026-11-09T11:03:46.742Z",
       "sourceUrl": "https://waterservices.usgs.gov/nwis/dv/?format=json&sites=02085500&startDT=2016-01-01&endDT=2025-12-31&parameterCd=00060&statCd=00003&siteStatus=all",
       "status": "fresh",
       "outcome": "updated"
@@ -510,10 +512,10 @@
     {
       "key": "streamflowHistory.little",
       "label": "Little River daily-mean comparison",
-      "value": 311,
+      "value": 312,
       "units": "daily means",
-      "observedAt": "2026-11-07",
-      "checkedAt": "2026-11-08T11:00:47.394Z",
+      "observedAt": "2026-11-08",
+      "checkedAt": "2026-11-09T11:03:46.742Z",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/0208521324/",
       "status": "fresh",
       "outcome": "updated",
@@ -529,7 +531,7 @@
       "endYear": 2025,
       "observationCount": 3651,
       "provisionalCount": 247,
-      "checkedAt": "2026-11-08T11:00:47.394Z",
+      "checkedAt": "2026-11-09T11:03:46.742Z",
       "sourceUrl": "https://waterservices.usgs.gov/nwis/dv/?format=json&sites=0208521324&startDT=2016-01-01&endDT=2025-12-31&parameterCd=00060&statCd=00003&siteStatus=all",
       "status": "fresh",
       "outcome": "updated"
@@ -589,13 +591,13 @@
         }
       ],
       "units": "inches",
-      "observedAt": "2026-11-08T10:08:38.000Z",
-      "checkedAt": "2026-11-08T11:00:47.394Z",
+      "observedAt": "2026-11-09T10:26:11.000Z",
+      "checkedAt": "2026-11-09T11:03:46.742Z",
       "sourceUrl": "https://www.wpc.ncep.noaa.gov/qpf/day1-7.shtml",
       "status": "fresh",
       "outcome": "updated",
-      "startsAt": "2026-11-08T12:00:00.000Z",
-      "endsAt": "2026-11-15T12:00:00.000Z"
+      "startsAt": "2026-11-09T12:00:00.000Z",
+      "endsAt": "2026-11-16T12:00:00.000Z"
     }
   ]
 }
