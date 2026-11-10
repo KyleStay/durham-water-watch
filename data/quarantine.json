@@ -1,15 +1,6 @@
 [
   {
     "metrics": [
-      "streamflowHistory.flat"
-    ],
-    "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
-    "reason": "The USGS year comparison could not be refreshed: USGS service failed (503)",
-    "receivedAt": "2026-08-24T12:01:29.316Z",
-    "disposition": "rejected; last-known-good year comparison preserved"
-  },
-  {
-    "metrics": [
       "streamflow.flat",
       "streamflow.little"
     ],
@@ -991,5 +982,14 @@
     "reason": "Unexpected official response (403)",
     "receivedAt": "2026-11-09T11:03:46.742Z",
     "disposition": "rejected; last-known-good value preserved"
+  },
+  {
+    "metrics": [
+      "rainfallForecast"
+    ],
+    "sourceUrl": "https://www.wpc.ncep.noaa.gov/qpf/day1-7.shtml",
+    "reason": "Butner: NOAA forecast coverage is unavailable",
+    "receivedAt": "2026-11-10T11:22:40.821Z",
+    "disposition": "rejected; last-known-good forecast preserved"
   }
 ]
