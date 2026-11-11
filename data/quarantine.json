@@ -1,16 +1,6 @@
 [
   {
     "metrics": [
-      "streamflow.flat",
-      "streamflow.little"
-    ],
-    "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
-    "reason": "USGS service failed (503)",
-    "receivedAt": "2026-08-24T12:01:29.316Z",
-    "disposition": "rejected; last-known-good value preserved"
-  },
-  {
-    "metrics": [
       "streamflowHistory.little"
     ],
     "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/0208521324/",
@@ -991,5 +981,17 @@
     "reason": "Butner: NOAA forecast coverage is unavailable",
     "receivedAt": "2026-11-10T11:22:40.821Z",
     "disposition": "rejected; last-known-good forecast preserved"
+  },
+  {
+    "metrics": [
+      "supply.accessible",
+      "supply.belowIntakes",
+      "supply.quarry",
+      "supply.total"
+    ],
+    "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
+    "reason": "Unexpected official response (403)",
+    "receivedAt": "2026-11-11T11:03:14.365Z",
+    "disposition": "rejected; last-known-good value preserved"
   }
 ]
