@@ -1,24 +1,6 @@
 [
   {
     "metrics": [
-      "streamflowHistory.little"
-    ],
-    "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/0208521324/",
-    "reason": "The USGS year comparison could not be refreshed: USGS service failed (503)",
-    "receivedAt": "2026-08-24T12:01:29.316Z",
-    "disposition": "rejected; last-known-good year comparison preserved"
-  },
-  {
-    "metrics": [
-      "streamflowHistory.flat"
-    ],
-    "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
-    "reason": "The USGS year comparison could not be refreshed: USGS service failed (503)",
-    "receivedAt": "2026-08-25T12:01:26.310Z",
-    "disposition": "rejected; last-known-good year comparison preserved"
-  },
-  {
-    "metrics": [
       "streamflow.flat",
       "streamflow.little"
     ],
@@ -993,5 +975,26 @@
     "reason": "Unexpected official response (403)",
     "receivedAt": "2026-11-11T11:03:14.365Z",
     "disposition": "rejected; last-known-good value preserved"
+  },
+  {
+    "metrics": [
+      "supply.accessible",
+      "supply.belowIntakes",
+      "supply.quarry",
+      "supply.total"
+    ],
+    "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
+    "reason": "No recognizable official date was present",
+    "receivedAt": "2026-11-13T11:07:15.474Z",
+    "disposition": "rejected; last-known-good value preserved"
+  },
+  {
+    "metrics": [
+      "rainfallForecast"
+    ],
+    "sourceUrl": "https://www.wpc.ncep.noaa.gov/qpf/day1-7.shtml",
+    "reason": "Roxboro: NOAA forecast coverage is unavailable",
+    "receivedAt": "2026-11-13T11:07:15.474Z",
+    "disposition": "rejected; last-known-good forecast preserved"
   }
 ]
