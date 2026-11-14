@@ -1,16 +1,6 @@
 [
   {
     "metrics": [
-      "streamflow.flat",
-      "streamflow.little"
-    ],
-    "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
-    "reason": "USGS service failed (503)",
-    "receivedAt": "2026-08-25T12:01:26.310Z",
-    "disposition": "rejected; last-known-good value preserved"
-  },
-  {
-    "metrics": [
       "streamflowHistory.little"
     ],
     "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/0208521324/",
@@ -995,6 +985,15 @@
     "sourceUrl": "https://www.wpc.ncep.noaa.gov/qpf/day1-7.shtml",
     "reason": "Roxboro: NOAA forecast coverage is unavailable",
     "receivedAt": "2026-11-13T11:07:15.474Z",
+    "disposition": "rejected; last-known-good forecast preserved"
+  },
+  {
+    "metrics": [
+      "rainfallForecast"
+    ],
+    "sourceUrl": "https://www.wpc.ncep.noaa.gov/qpf/day1-7.shtml",
+    "reason": "Hillsborough: NOAA forecast coverage is unavailable",
+    "receivedAt": "2026-11-14T11:00:44.299Z",
     "disposition": "rejected; last-known-good forecast preserved"
   }
 ]
