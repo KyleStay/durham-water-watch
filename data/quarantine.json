@@ -5,43 +5,6 @@
     ],
     "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/0208521324/",
     "reason": "The USGS year comparison could not be refreshed: Unexpected official response (503)",
-    "receivedAt": "2026-08-25T12:01:26.310Z",
-    "disposition": "rejected; last-known-good year comparison preserved"
-  },
-  {
-    "metrics": [
-      "streamflowHistory.little"
-    ],
-    "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/0208521324/",
-    "reason": "The USGS year comparison could not be refreshed: fetch failed",
-    "receivedAt": "2026-08-27T12:02:15.070Z",
-    "disposition": "rejected; last-known-good year comparison preserved"
-  },
-  {
-    "metrics": [
-      "streamflow.flat",
-      "streamflow.little"
-    ],
-    "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
-    "reason": "USGS service failed (503)",
-    "receivedAt": "2026-09-01T12:02:21.586Z",
-    "disposition": "rejected; last-known-good value preserved"
-  },
-  {
-    "metrics": [
-      "streamflowHistory.flat"
-    ],
-    "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
-    "reason": "The USGS year comparison could not be refreshed: Unexpected official response (503)",
-    "receivedAt": "2026-09-01T12:02:21.586Z",
-    "disposition": "rejected; last-known-good year comparison preserved"
-  },
-  {
-    "metrics": [
-      "streamflowHistory.little"
-    ],
-    "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/0208521324/",
-    "reason": "The USGS year comparison could not be refreshed: Unexpected official response (503)",
     "receivedAt": "2026-09-01T12:02:21.586Z",
     "disposition": "rejected; last-known-good year comparison preserved"
   },
@@ -994,6 +957,45 @@
     "sourceUrl": "https://www.wpc.ncep.noaa.gov/qpf/day1-7.shtml",
     "reason": "Hillsborough: NOAA forecast coverage is unavailable",
     "receivedAt": "2026-11-14T11:00:44.299Z",
+    "disposition": "rejected; last-known-good forecast preserved"
+  },
+  {
+    "metrics": [
+      "supply.accessible",
+      "supply.belowIntakes",
+      "supply.quarry",
+      "supply.total"
+    ],
+    "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
+    "reason": "No recognizable official date was present",
+    "receivedAt": "2026-11-15T11:00:47.124Z",
+    "disposition": "rejected; last-known-good value preserved"
+  },
+  {
+    "metrics": [
+      "reservoirs.michie"
+    ],
+    "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
+    "reason": "Current reservoir section was missing",
+    "receivedAt": "2026-11-15T11:00:47.124Z",
+    "disposition": "rejected; last-known-good value preserved"
+  },
+  {
+    "metrics": [
+      "reservoirs.little"
+    ],
+    "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
+    "reason": "Current reservoir section was missing",
+    "receivedAt": "2026-11-15T11:00:47.124Z",
+    "disposition": "rejected; last-known-good value preserved"
+  },
+  {
+    "metrics": [
+      "rainfallForecast"
+    ],
+    "sourceUrl": "https://www.wpc.ncep.noaa.gov/qpf/day1-7.shtml",
+    "reason": "Butner: NOAA forecast coverage is unavailable",
+    "receivedAt": "2026-11-15T11:00:47.124Z",
     "disposition": "rejected; last-known-good forecast preserved"
   }
 ]
