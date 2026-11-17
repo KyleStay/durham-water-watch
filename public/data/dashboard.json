@@ -5,53 +5,53 @@
     "sourceUrl": "https://www.durhamnc.gov/1061/Durham-Saves-Water",
     "observedAt": "2026-06-15",
     "effectiveDate": "2026-06-15",
-    "verifiedAt": "2026-11-16T11:04:54.209Z",
+    "verifiedAt": "2026-11-17T11:00:29.598Z",
     "status": "fresh",
     "retrievalStatus": "verified",
     "validationResult": "accepted",
     "previousValue": null,
-    "checkedAt": "2026-11-16T11:04:54.209Z",
+    "checkedAt": "2026-11-17T11:00:29.598Z",
     "retrievalMethod": "official-page-text",
     "sourceEvidence": {
-      "retrievedAt": "2026-11-16T11:04:01Z",
-      "sha256": "0ec63f536815e5199be5eb8c31144b5278a44b1bf883bac05c7551a431c5d8e3"
+      "retrievedAt": "2026-11-17T10:56:29Z",
+      "sha256": "0cbc79ffea790ea6dfe029c26f67bd8cba6ad5638513031c0ba91cf845246842"
     },
     "lastCheckMethod": "official-page-text"
   },
   "supply": {
     "accessible": {
-      "value": 78,
+      "value": 77,
       "units": "days",
       "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
-      "observedAt": "2026-11-12",
-      "verifiedAt": "2026-11-16T11:04:54.209Z",
-      "status": "stale",
+      "observedAt": "2026-11-15",
+      "verifiedAt": "2026-11-17T11:00:29.598Z",
+      "status": "fresh",
       "retrievalStatus": "verified",
       "validationResult": "accepted",
       "previousValue": 78,
-      "checkedAt": "2026-11-16T11:04:54.209Z",
+      "checkedAt": "2026-11-17T11:00:29.598Z",
       "retrievalMethod": "official-page-text",
       "sourceEvidence": {
-        "retrievedAt": "2026-11-16T11:04:01Z",
-        "sha256": "2a98a3d1155f249a91af1beecd83511e217c64036477dd6d03c638737b41f4e2"
+        "retrievedAt": "2026-11-17T10:56:29Z",
+        "sha256": "f00851275762252dc40dceb6f922b8549da0fd3ff4f72122a35baac3a5d74b93"
       },
       "lastCheckMethod": "official-page-text"
     },
     "belowIntakes": {
-      "value": 53,
+      "value": 54,
       "units": "days",
       "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
-      "observedAt": "2026-11-12",
-      "verifiedAt": "2026-11-16T11:04:54.209Z",
-      "status": "stale",
+      "observedAt": "2026-11-15",
+      "verifiedAt": "2026-11-17T11:00:29.598Z",
+      "status": "fresh",
       "retrievalStatus": "verified",
       "validationResult": "accepted",
-      "previousValue": 52,
-      "checkedAt": "2026-11-16T11:04:54.209Z",
+      "previousValue": 53,
+      "checkedAt": "2026-11-17T11:00:29.598Z",
       "retrievalMethod": "official-page-text",
       "sourceEvidence": {
-        "retrievedAt": "2026-11-16T11:04:01Z",
-        "sha256": "2a98a3d1155f249a91af1beecd83511e217c64036477dd6d03c638737b41f4e2"
+        "retrievedAt": "2026-11-17T10:56:29Z",
+        "sha256": "f00851275762252dc40dceb6f922b8549da0fd3ff4f72122a35baac3a5d74b93"
       },
       "lastCheckMethod": "official-page-text"
     },
@@ -59,17 +59,17 @@
       "value": 17,
       "units": "days",
       "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
-      "observedAt": "2026-11-12",
-      "verifiedAt": "2026-11-16T11:04:54.209Z",
-      "status": "stale",
+      "observedAt": "2026-11-15",
+      "verifiedAt": "2026-11-17T11:00:29.598Z",
+      "status": "fresh",
       "retrievalStatus": "verified",
       "validationResult": "accepted",
       "previousValue": 17,
-      "checkedAt": "2026-11-16T11:04:54.209Z",
+      "checkedAt": "2026-11-17T11:00:29.598Z",
       "retrievalMethod": "official-page-text",
       "sourceEvidence": {
-        "retrievedAt": "2026-11-16T11:04:01Z",
-        "sha256": "2a98a3d1155f249a91af1beecd83511e217c64036477dd6d03c638737b41f4e2"
+        "retrievedAt": "2026-11-17T10:56:29Z",
+        "sha256": "f00851275762252dc40dceb6f922b8549da0fd3ff4f72122a35baac3a5d74b93"
       },
       "lastCheckMethod": "official-page-text"
     },
@@ -77,57 +77,57 @@
       "value": 148,
       "units": "days",
       "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
-      "observedAt": "2026-11-12",
-      "verifiedAt": "2026-11-16T11:04:54.209Z",
-      "status": "stale",
+      "observedAt": "2026-11-15",
+      "verifiedAt": "2026-11-17T11:00:29.598Z",
+      "status": "fresh",
       "retrievalStatus": "verified",
       "validationResult": "accepted",
-      "previousValue": 147,
-      "checkedAt": "2026-11-16T11:04:54.209Z",
+      "previousValue": 148,
+      "checkedAt": "2026-11-17T11:00:29.598Z",
       "retrievalMethod": "official-page-text",
       "sourceEvidence": {
-        "retrievedAt": "2026-11-16T11:04:01Z",
-        "sha256": "2a98a3d1155f249a91af1beecd83511e217c64036477dd6d03c638737b41f4e2"
+        "retrievedAt": "2026-11-17T10:56:29Z",
+        "sha256": "f00851275762252dc40dceb6f922b8549da0fd3ff4f72122a35baac3a5d74b93"
       },
       "lastCheckMethod": "official-page-text"
     }
   },
   "reservoirs": {
     "michie": {
-      "value": 327.75,
+      "value": 327.64,
       "fullPool": 341,
       "units": "ft msl",
       "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
-      "observedAt": "2026-11-12",
-      "verifiedAt": "2026-11-16T11:04:54.209Z",
-      "status": "stale",
+      "observedAt": "2026-11-15",
+      "verifiedAt": "2026-11-17T11:00:29.598Z",
+      "status": "fresh",
       "retrievalStatus": "verified",
       "validationResult": "accepted",
-      "previousValue": 327.73,
-      "checkedAt": "2026-11-16T11:04:54.209Z",
+      "previousValue": 327.75,
+      "checkedAt": "2026-11-17T11:00:29.598Z",
       "retrievalMethod": "official-page-text",
       "sourceEvidence": {
-        "retrievedAt": "2026-11-16T11:04:01Z",
-        "sha256": "b7aed5ebeda9a9142552e32ab68c519e4bcb09908d45075ae95cb414131e9e0b"
+        "retrievedAt": "2026-11-17T10:56:29Z",
+        "sha256": "dc08ee1192ee6f2f51ca258588560beb92ef447b309bffb3d892c95c1b482182"
       },
       "lastCheckMethod": "official-page-text"
     },
     "little": {
-      "value": 335.08,
+      "value": 334.49,
       "fullPool": 355,
       "units": "ft msl",
       "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
-      "observedAt": "2026-11-12",
-      "verifiedAt": "2026-11-16T11:04:54.209Z",
-      "status": "stale",
+      "observedAt": "2026-11-15",
+      "verifiedAt": "2026-11-17T11:00:29.598Z",
+      "status": "fresh",
       "retrievalStatus": "verified",
       "validationResult": "accepted",
-      "previousValue": 335.19,
-      "checkedAt": "2026-11-16T11:04:54.209Z",
+      "previousValue": 335.08,
+      "checkedAt": "2026-11-17T11:00:29.598Z",
       "retrievalMethod": "official-page-text",
       "sourceEvidence": {
-        "retrievedAt": "2026-11-16T11:04:01Z",
-        "sha256": "b7aed5ebeda9a9142552e32ab68c519e4bcb09908d45075ae95cb414131e9e0b"
+        "retrievedAt": "2026-11-17T10:56:29Z",
+        "sha256": "dc08ee1192ee6f2f51ca258588560beb92ef447b309bffb3d892c95c1b482182"
       },
       "lastCheckMethod": "official-page-text"
     }
@@ -137,12 +137,12 @@
     "units": "category",
     "sourceUrl": "https://www.ncdrought.org/",
     "observedAt": "2026-11-10T08:00:00-04:00",
-    "verifiedAt": "2026-11-16T11:04:54.209Z",
+    "verifiedAt": "2026-11-17T11:00:29.598Z",
     "status": "fresh",
     "retrievalStatus": "verified",
     "validationResult": "accepted",
     "previousValue": "D2 · Severe Drought",
-    "checkedAt": "2026-11-16T11:04:54.209Z",
+    "checkedAt": "2026-11-17T11:00:29.598Z",
     "retrievalMethod": "direct",
     "lastCheckMethod": "direct"
   },
@@ -151,45 +151,45 @@
       "value": 2.88,
       "units": "ft³/s",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
-      "observedAt": "2026-11-16T05:45:00.000-05:00",
-      "verifiedAt": "2026-11-16T11:04:54.209Z",
+      "observedAt": "2026-11-17T04:45:00.000-05:00",
+      "verifiedAt": "2026-11-17T11:00:29.598Z",
       "status": "fresh",
       "retrievalStatus": "verified",
       "validationResult": "accepted",
-      "previousValue": 3.11,
+      "previousValue": 2.88,
       "note": "USGS provisional data; subject to revision.",
-      "checkedAt": "2026-11-16T11:04:54.209Z",
+      "checkedAt": "2026-11-17T11:00:29.598Z",
       "retrievalMethod": "direct",
       "lastCheckMethod": "direct"
     },
     "little": {
-      "value": 0.18,
+      "value": 0.21,
       "units": "ft³/s",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/0208521324/",
-      "observedAt": "2026-11-16T05:15:00.000-05:00",
-      "verifiedAt": "2026-11-16T11:04:54.209Z",
+      "observedAt": "2026-11-17T05:15:00.000-05:00",
+      "verifiedAt": "2026-11-17T11:00:29.598Z",
       "status": "fresh",
       "retrievalStatus": "verified",
       "validationResult": "accepted",
-      "previousValue": 0.16,
+      "previousValue": 0.18,
       "note": "USGS provisional data; subject to revision.",
-      "checkedAt": "2026-11-16T11:04:54.209Z",
+      "checkedAt": "2026-11-17T11:00:29.598Z",
       "retrievalMethod": "direct",
       "lastCheckMethod": "direct"
     }
   },
   "historyStarts": "2026-03-01",
-  "generatedAt": "2026-11-16T11:04:54.209Z",
-  "lastRefreshResult": "verified: streamflow.flat; verified: streamflow.little; verified: flat historical streamflow; verified: stage; verified: little historical streamflow; verified: supply; verified: reservoirs.michie; verified: reservoirs.little; verified: little ten-year streamflow average (2016–2025); verified: flat ten-year streamflow average (2016–2025); verified: drought; failed: NOAA rainfall forecast (Roxboro: NOAA forecast coverage is unavailable)",
+  "generatedAt": "2026-11-17T11:00:29.598Z",
+  "lastRefreshResult": "verified: stage; verified: reservoirs.michie; verified: reservoirs.little; verified: supply; verified: drought; verified: NOAA seven-day rainfall forecast; verified: flat historical streamflow; verified: streamflow.flat; verified: streamflow.little; failed: flat ten-year streamflow average (Request timed out after 15000 ms); failed: little ten-year streamflow average (fetch failed); verified: little historical streamflow",
   "rainfallForecast": {
     "sourceUrl": "https://www.wpc.ncep.noaa.gov/qpf/day1-7.shtml",
-    "issuedAt": "2026-11-12T10:04:53.000Z",
-    "startsAt": "2026-11-12T12:00:00.000Z",
-    "endsAt": "2026-11-19T12:00:00.000Z",
-    "verifiedAt": "2026-11-12T11:01:29.177Z",
-    "checkedAt": "2026-11-16T11:04:54.209Z",
-    "retrievalStatus": "failed",
-    "status": "stale",
+    "issuedAt": "2026-11-17T10:29:15.000Z",
+    "startsAt": "2026-11-17T12:00:00.000Z",
+    "endsAt": "2026-11-24T12:00:00.000Z",
+    "verifiedAt": "2026-11-17T11:00:29.598Z",
+    "checkedAt": "2026-11-17T11:00:29.598Z",
+    "retrievalStatus": "verified",
+    "status": "fresh",
     "imagePath": "data/rainfall-forecast.png",
     "imageBounds": [
       -8888107.823589286,
@@ -280,53 +280,52 @@
         "name": "Roxboro",
         "longitude": -78.9828,
         "latitude": 36.3938,
-        "lowerInches": 0.01,
-        "upperInches": 0.1
+        "lowerInches": 0.1,
+        "upperInches": 0.25
       },
       {
         "name": "Rougemont",
         "longitude": -78.922,
         "latitude": 36.2196,
-        "lowerInches": 0.01,
-        "upperInches": 0.1
+        "lowerInches": 0.1,
+        "upperInches": 0.25
       },
       {
         "name": "Lake Michie",
         "longitude": -78.83,
         "latitude": 36.1508333333333,
-        "lowerInches": 0.01,
-        "upperInches": 0.1
+        "lowerInches": 0.1,
+        "upperInches": 0.25
       },
       {
         "name": "Little River Reservoir",
         "longitude": -78.8691666666667,
         "latitude": 36.115,
-        "lowerInches": 0.01,
-        "upperInches": 0.1
+        "lowerInches": 0.1,
+        "upperInches": 0.25
       },
       {
         "name": "Hillsborough",
         "longitude": -79.0997,
         "latitude": 36.0754,
-        "lowerInches": 0.01,
-        "upperInches": 0.1
+        "lowerInches": 0.1,
+        "upperInches": 0.25
       },
       {
         "name": "Butner",
         "longitude": -78.7567,
         "latitude": 36.1321,
-        "lowerInches": 0.01,
-        "upperInches": 0.1
+        "lowerInches": 0.1,
+        "upperInches": 0.25
       },
       {
         "name": "Durham",
         "longitude": -78.8986,
         "latitude": 35.994,
-        "lowerInches": 0.01,
-        "upperInches": 0.1
+        "lowerInches": 0.1,
+        "upperInches": 0.25
       }
-    ],
-    "note": "Roxboro: NOAA forecast coverage is unavailable"
+    ]
   },
   "refreshReport": [
     {
@@ -337,7 +336,7 @@
       "units": "stage",
       "observedAt": "2026-06-15",
       "previousObservedAt": "2026-06-15",
-      "checkedAt": "2026-11-16T11:04:54.209Z",
+      "checkedAt": "2026-11-17T11:00:29.598Z",
       "sourceUrl": "https://www.durhamnc.gov/1061/Durham-Saves-Water",
       "status": "fresh",
       "outcome": "checked unchanged",
@@ -346,29 +345,29 @@
     {
       "key": "supply.accessible",
       "label": "Accessible supply",
-      "value": 78,
+      "value": 77,
       "previousValue": 78,
       "units": "days",
-      "observedAt": "2026-11-12",
+      "observedAt": "2026-11-15",
       "previousObservedAt": "2026-11-12",
-      "checkedAt": "2026-11-16T11:04:54.209Z",
+      "checkedAt": "2026-11-17T11:00:29.598Z",
       "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
-      "status": "stale",
-      "outcome": "checked unchanged",
+      "status": "fresh",
+      "outcome": "updated",
       "retrievalMethod": "official-page-text"
     },
     {
       "key": "supply.belowIntakes",
       "label": "Below-intake supply",
-      "value": 53,
+      "value": 54,
       "previousValue": 53,
       "units": "days",
-      "observedAt": "2026-11-12",
+      "observedAt": "2026-11-15",
       "previousObservedAt": "2026-11-12",
-      "checkedAt": "2026-11-16T11:04:54.209Z",
+      "checkedAt": "2026-11-17T11:00:29.598Z",
       "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
-      "status": "stale",
-      "outcome": "checked unchanged",
+      "status": "fresh",
+      "outcome": "updated",
       "retrievalMethod": "official-page-text"
     },
     {
@@ -377,12 +376,12 @@
       "value": 17,
       "previousValue": 17,
       "units": "days",
-      "observedAt": "2026-11-12",
+      "observedAt": "2026-11-15",
       "previousObservedAt": "2026-11-12",
-      "checkedAt": "2026-11-16T11:04:54.209Z",
+      "checkedAt": "2026-11-17T11:00:29.598Z",
       "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
-      "status": "stale",
-      "outcome": "checked unchanged",
+      "status": "fresh",
+      "outcome": "updated",
       "retrievalMethod": "official-page-text"
     },
     {
@@ -391,39 +390,39 @@
       "value": 148,
       "previousValue": 148,
       "units": "days",
-      "observedAt": "2026-11-12",
+      "observedAt": "2026-11-15",
       "previousObservedAt": "2026-11-12",
-      "checkedAt": "2026-11-16T11:04:54.209Z",
+      "checkedAt": "2026-11-17T11:00:29.598Z",
       "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
-      "status": "stale",
-      "outcome": "checked unchanged",
+      "status": "fresh",
+      "outcome": "updated",
       "retrievalMethod": "official-page-text"
     },
     {
       "key": "reservoirs.michie",
       "label": "Lake Michie elevation",
-      "value": 327.75,
-      "previousValue": 327.73,
+      "value": 327.64,
+      "previousValue": 327.75,
       "units": "ft msl",
-      "observedAt": "2026-11-12",
-      "previousObservedAt": "2026-11-11",
-      "checkedAt": "2026-11-16T11:04:54.209Z",
+      "observedAt": "2026-11-15",
+      "previousObservedAt": "2026-11-12",
+      "checkedAt": "2026-11-17T11:00:29.598Z",
       "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
-      "status": "stale",
+      "status": "fresh",
       "outcome": "updated",
       "retrievalMethod": "official-page-text"
     },
     {
       "key": "reservoirs.little",
       "label": "Little River Reservoir elevation",
-      "value": 335.08,
-      "previousValue": 335.19,
+      "value": 334.49,
+      "previousValue": 335.08,
       "units": "ft msl",
-      "observedAt": "2026-11-12",
-      "previousObservedAt": "2026-11-11",
-      "checkedAt": "2026-11-16T11:04:54.209Z",
+      "observedAt": "2026-11-15",
+      "previousObservedAt": "2026-11-12",
+      "checkedAt": "2026-11-17T11:00:29.598Z",
       "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
-      "status": "stale",
+      "status": "fresh",
       "outcome": "updated",
       "retrievalMethod": "official-page-text"
     },
@@ -435,7 +434,7 @@
       "units": "category",
       "observedAt": "2026-11-10T08:00:00-04:00",
       "previousObservedAt": "2026-11-10T08:00:00-04:00",
-      "checkedAt": "2026-11-16T11:04:54.209Z",
+      "checkedAt": "2026-11-17T11:00:29.598Z",
       "sourceUrl": "https://www.ncdrought.org/",
       "status": "fresh",
       "outcome": "checked unchanged",
@@ -445,11 +444,11 @@
       "key": "streamflow.flat",
       "label": "Flat River current flow",
       "value": 2.88,
-      "previousValue": 3.11,
+      "previousValue": 2.88,
       "units": "ft³/s",
-      "observedAt": "2026-11-16T05:45:00.000-05:00",
-      "previousObservedAt": "2026-11-15T04:45:00.000-05:00",
-      "checkedAt": "2026-11-16T11:04:54.209Z",
+      "observedAt": "2026-11-17T04:45:00.000-05:00",
+      "previousObservedAt": "2026-11-16T05:45:00.000-05:00",
+      "checkedAt": "2026-11-17T11:00:29.598Z",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
       "status": "fresh",
       "outcome": "updated",
@@ -458,12 +457,12 @@
     {
       "key": "streamflow.little",
       "label": "Little River current flow",
-      "value": 0.18,
-      "previousValue": 0.16,
+      "value": 0.21,
+      "previousValue": 0.18,
       "units": "ft³/s",
-      "observedAt": "2026-11-16T05:15:00.000-05:00",
-      "previousObservedAt": "2026-11-15T05:15:00.000-05:00",
-      "checkedAt": "2026-11-16T11:04:54.209Z",
+      "observedAt": "2026-11-17T05:15:00.000-05:00",
+      "previousObservedAt": "2026-11-16T05:15:00.000-05:00",
+      "checkedAt": "2026-11-17T11:00:29.598Z",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/0208521324/",
       "status": "fresh",
       "outcome": "updated",
@@ -472,10 +471,10 @@
     {
       "key": "streamflowHistory.flat",
       "label": "Flat River daily-mean comparison",
-      "value": 319,
+      "value": 320,
       "units": "daily means",
-      "observedAt": "2026-11-15",
-      "checkedAt": "2026-11-16T11:04:54.209Z",
+      "observedAt": "2026-11-16",
+      "checkedAt": "2026-11-17T11:00:29.598Z",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
       "status": "fresh",
       "outcome": "updated",
@@ -491,18 +490,19 @@
       "endYear": 2025,
       "observationCount": 3651,
       "provisionalCount": 0,
-      "checkedAt": "2026-11-16T11:04:54.209Z",
+      "checkedAt": "2026-11-17T11:00:29.598Z",
       "sourceUrl": "https://waterservices.usgs.gov/nwis/dv/?format=json&sites=02085500&startDT=2016-01-01&endDT=2025-12-31&parameterCd=00060&statCd=00003&siteStatus=all",
-      "status": "fresh",
-      "outcome": "updated"
+      "status": "stale",
+      "outcome": "retained",
+      "reason": "The ten-year USGS average could not be refreshed: Request timed out after 15000 ms"
     },
     {
       "key": "streamflowHistory.little",
       "label": "Little River daily-mean comparison",
-      "value": 319,
+      "value": 320,
       "units": "daily means",
-      "observedAt": "2026-11-15",
-      "checkedAt": "2026-11-16T11:04:54.209Z",
+      "observedAt": "2026-11-16",
+      "checkedAt": "2026-11-17T11:00:29.598Z",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/0208521324/",
       "status": "fresh",
       "outcome": "updated",
@@ -518,10 +518,11 @@
       "endYear": 2025,
       "observationCount": 3651,
       "provisionalCount": 247,
-      "checkedAt": "2026-11-16T11:04:54.209Z",
+      "checkedAt": "2026-11-17T11:00:29.598Z",
       "sourceUrl": "https://waterservices.usgs.gov/nwis/dv/?format=json&sites=0208521324&startDT=2016-01-01&endDT=2025-12-31&parameterCd=00060&statCd=00003&siteStatus=all",
-      "status": "fresh",
-      "outcome": "updated"
+      "status": "stale",
+      "outcome": "retained",
+      "reason": "The ten-year USGS average could not be refreshed: fetch failed"
     },
     {
       "key": "rainfallForecast",
@@ -531,61 +532,60 @@
           "name": "Roxboro",
           "longitude": -78.9828,
           "latitude": 36.3938,
-          "lowerInches": 0.01,
-          "upperInches": 0.1
+          "lowerInches": 0.1,
+          "upperInches": 0.25
         },
         {
           "name": "Rougemont",
           "longitude": -78.922,
           "latitude": 36.2196,
-          "lowerInches": 0.01,
-          "upperInches": 0.1
+          "lowerInches": 0.1,
+          "upperInches": 0.25
         },
         {
           "name": "Lake Michie",
           "longitude": -78.83,
           "latitude": 36.1508333333333,
-          "lowerInches": 0.01,
-          "upperInches": 0.1
+          "lowerInches": 0.1,
+          "upperInches": 0.25
         },
         {
           "name": "Little River Reservoir",
           "longitude": -78.8691666666667,
           "latitude": 36.115,
-          "lowerInches": 0.01,
-          "upperInches": 0.1
+          "lowerInches": 0.1,
+          "upperInches": 0.25
         },
         {
           "name": "Hillsborough",
           "longitude": -79.0997,
           "latitude": 36.0754,
-          "lowerInches": 0.01,
-          "upperInches": 0.1
+          "lowerInches": 0.1,
+          "upperInches": 0.25
         },
         {
           "name": "Butner",
           "longitude": -78.7567,
           "latitude": 36.1321,
-          "lowerInches": 0.01,
-          "upperInches": 0.1
+          "lowerInches": 0.1,
+          "upperInches": 0.25
         },
         {
           "name": "Durham",
           "longitude": -78.8986,
           "latitude": 35.994,
-          "lowerInches": 0.01,
-          "upperInches": 0.1
+          "lowerInches": 0.1,
+          "upperInches": 0.25
         }
       ],
       "units": "inches",
-      "observedAt": "2026-11-12T10:04:53.000Z",
-      "checkedAt": "2026-11-16T11:04:54.209Z",
+      "observedAt": "2026-11-17T10:29:15.000Z",
+      "checkedAt": "2026-11-17T11:00:29.598Z",
       "sourceUrl": "https://www.wpc.ncep.noaa.gov/qpf/day1-7.shtml",
-      "status": "stale",
-      "outcome": "retained",
-      "startsAt": "2026-11-12T12:00:00.000Z",
-      "endsAt": "2026-11-19T12:00:00.000Z",
-      "reason": "Roxboro: NOAA forecast coverage is unavailable"
+      "status": "fresh",
+      "outcome": "updated",
+      "startsAt": "2026-11-17T12:00:00.000Z",
+      "endsAt": "2026-11-24T12:00:00.000Z"
     }
   ]
 }
