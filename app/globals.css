@@ -928,6 +928,8 @@ footer a { color: #fff; font-size: .78rem; font-weight: 700; }
 .context-legend { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: .76rem; color: var(--muted); }
 .context-legend span { display: inline-flex; gap: 7px; align-items: center; }
 .context-legend i { display: inline-block; width: 20px; border-top-width: 3px; }
+.chart-gap-connector { stroke-width: 1.6; stroke-dasharray: 1 5; stroke-linecap: round; opacity: .65; }
+.context-legend .chart-gap-key { border-top: 2px dotted currentColor; opacity: .65; }
 .trend-change { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--border); font-size: .83rem; font-weight: 650; }
 .trend-source { margin: 12px 0 0; font-size: .78rem; color: var(--muted); }
 .prior-year-disclosure { margin: 16px 0 24px; padding: 13px 18px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }

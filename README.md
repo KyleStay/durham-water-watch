@@ -140,7 +140,8 @@ because the plan uses forecast probabilities for combined usable storage.
 Native trend charts support hover, tap and keyboard arrow keys, Home/End and
 Escape. Tooltips include the full date/year, exact elevation and distance from
 full pool, supply days, and both current and historical weekly flows with their
-actual observation ranges and sample counts. Gaps remain missing observations.
+actual observation ranges and sample counts. Thin dotted connectors guide the
+eye across missing dates without adding observations or tooltip values.
 The City's prior-year chart images remain images; exact values are available
 only where the project holds verified numeric readings.
 

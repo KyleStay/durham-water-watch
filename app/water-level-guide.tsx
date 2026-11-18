@@ -67,8 +67,8 @@ export function StageTransitionCharts({ lang, stage, storage, date, stale, readi
         ? en ? "City storage reading unavailable." : "Lectura municipal de almacenamiento no disponible."
         : <><strong>{format.format(storage)}%</strong> {en ? "storage reported by Durham" : "de almacenamiento informado por Durham"} · {date}{stale && (en ? " · Last known" : " · Última lectura conocida")}</>}</p>
       <p className="stage-proximity-note">{en
-        ? "Dots show City readings. Breaks mark dates without a reading. The dashed lines are storage targets in the City’s plan. Gaps to those targets are approximate because the public reading may differ from the plan’s measure of usable storage. Durham uses forecast probabilities to decide when stages change."
-        : "Los puntos muestran lecturas municipales. Los espacios indican fechas sin lecturas. Las líneas discontinuas marcan metas del plan municipal. Las diferencias son aproximadas porque la lectura pública puede diferir de la medida de almacenamiento utilizable del plan. Durham usa probabilidades del pronóstico para decidir cambios de etapa."}</p>
+        ? "Dots show City readings. The horizontal dashed lines are storage targets in the City’s plan. Gaps to those targets are approximate because the public reading may differ from the plan’s measure of usable storage. Durham uses forecast probabilities to decide when stages change."
+        : "Los puntos muestran lecturas municipales. Las líneas horizontales discontinuas marcan metas del plan municipal. Las diferencias son aproximadas porque la lectura pública puede diferir de la medida de almacenamiento utilizable del plan. Durham usa probabilidades del pronóstico para decidir cambios de etapa."}</p>
       <div className="stage-proximity-grid">
         {graphs.map(({ title, rows, target, scale }) => (
           <figure className="stage-proximity-chart" key={title}>

@@ -38,7 +38,7 @@ test("server-renders the resident-facing dashboard without JavaScript", async ()
   }
   assert.match(html, /Historical daily mean/);
   assert.match(html, /usual seasonal pattern through December/);
-  assert.match(html, /gaps mean no observation/);
+  assert.match(html, /Thin dotted bridges span gaps without filling in values/);
   assert.match(html, /verified ten-year numeric series is not available.*City reservoir levels or supply/);
   assert.match(html, /USGS daily means appear where available/);
   assert.match(html, /Official City guidance always takes precedence/);

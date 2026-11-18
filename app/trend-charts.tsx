@@ -36,6 +36,9 @@ export function Chart({ title, description, series, window, unit, lang, zeroRefe
   }, []);
   const height = 246;
   const left = 45, right = 13, top = 26, bottom = 33;
+  const traces = series.map((item) => ({ ...item, segments: observedSegments(item.points, gapDays) }));
+  const hasGaps = traces.some(({ segments }) => segments.length > 1);
+  const gapLabel = lang === "en" ? "Dotted bridges mark missing readings" : "Los tramos punteados indican lecturas faltantes";
   const values = series.flatMap((s) => s.points.flatMap((p) => p.value === null ? [] : [p.value]));
   const minimum = Math.min(0, ...(domain ?? values));
   const maximum = Math.max(0, ...(domain ?? values));
@@ -72,8 +75,8 @@ export function Chart({ title, description, series, window, unit, lang, zeroRefe
   return <div ref={container} className="context-chart">
     <svg viewBox={`0 0 ${width} ${height}`} role="group" aria-labelledby={`${id}-title`} aria-describedby={`${id}-desc`}>
       <title id={`${id}-title`}>{title}</title>
-      <desc id={`${id}-desc`}>{description} {help}</desc>
-    <text className="context-axis" x={left} y={14}>{unit}</text>
+      <desc id={`${id}-desc`}>{description} {hasGaps && `${gapLabel}. `}{help}</desc>
+      <text className="context-axis" x={left} y={14}>{unit}</text>
       {ticks.map((tick) => <g key={tick}>
         <line x1={left} x2={width - right} y1={y(tick)} y2={y(tick)} className={zeroReference && tick === 0 ? "full-pool-line" : "context-grid-line"} />
         <text x={left - 8} y={y(tick) + 4} textAnchor="end" className="context-axis">{tick}</text>
@@ -82,8 +85,13 @@ export function Chart({ title, description, series, window, unit, lang, zeroRefe
       {dates.map((date, i) => <text key={date} x={x(date)} y={height - 9} textAnchor={i === 0 ? "start" : i === dates.length - 1 ? "end" : "middle"} className="context-axis">{dateLabel(date, lang)}</text>)}
       {references.map((rule) => <line key={rule.label} x1={left} x2={width - right}
         y1={y(rule.value)} y2={y(rule.value)} stroke={rule.color} strokeDasharray="6 4" strokeWidth={rule.highlighted ? 2.5 : 1.5} />)}
-      {series.map((s) => <g key={s.label}>
-        {observedSegments(s.points, gapDays).map((segment, i) => <path key={i} d={segment.map((p, index) => `${index ? "L" : "M"}${x(p.date)},${y(p.value)}`).join(" ")} fill="none" stroke={s.color} strokeWidth="2.5" strokeDasharray={s.dashed ? s.dashPattern ?? "6 5" : undefined} />)}
+      {traces.map((s) => <g key={s.label}>
+        {s.segments.slice(1).map(([next], i) => {
+          const previous = s.segments[i][s.segments[i].length - 1];
+          return <line key={next.date} className="chart-gap-connector" aria-hidden="true"
+            x1={x(previous.date)} y1={y(previous.value)} x2={x(next.date)} y2={y(next.value)} stroke={s.color} />;
+        })}
+        {s.segments.map((segment, i) => <path key={i} d={segment.map((p, index) => `${index ? "L" : "M"}${x(p.date)},${y(p.value)}`).join(" ")} fill="none" stroke={s.color} strokeWidth="2.5" strokeDasharray={s.dashed ? s.dashPattern ?? "6 5" : undefined} />)}
         {!s.dashed && s.points.map((p) => p.value === null ? null : <circle key={p.date} cx={x(p.date)} cy={y(p.value)} r={gapDays === 1 ? 3 : 2.5} fill={s.color}>
           <title>{`${s.label} · ${fullDate(p.date, lang)}: ${p.value.toFixed(2)} ${unit}`}</title>
         </circle>)}
@@ -118,6 +126,7 @@ export function Chart({ title, description, series, window, unit, lang, zeroRefe
     <div className="context-legend">
       {series.map((s) => <span key={s.label}><i style={{ borderColor: s.color, borderStyle: s.dashPattern === "2 4" ? "dotted" : s.dashed ? "dashed" : "solid" }} />{s.label}</span>)}
       {references.map((rule) => <span key={rule.label}><i style={{ borderColor: rule.color, borderStyle: "dashed" }} />{rule.label}</span>)}
+      {hasGaps && <span><i className="chart-gap-key" />{gapLabel}</span>}
     </div>
     {!values.length && <p>{lang === "en" ? "No observations in this period." : "No hay observaciones en este período."}</p>}
   </div>;
@@ -155,7 +164,7 @@ export default function TrendContext({ days, end, lang, reservoirs, supplyStatus
           {(["30", "90", "year"] as const).map((value) => <button key={value} aria-pressed={period === value} onClick={() => setPeriod(value)}>{value === "year" ? year : `${value} ${lang === "en" ? "days" : "días"}`}</button>)}
         </div>
       </div>
-      <p className="period-note" aria-live="polite">{lang === "en" ? "Showing" : "Mostrando"} {dateLabel(window.start, lang)} – {dateLabel(window.end, lang)}, {year}. {lang === "en" ? "Dots are dated readings; gaps mean no observation. No values are filled in." : "Los puntos son lecturas fechadas; los huecos indican que falta una observación. No se rellenan valores."}</p>
+      <p className="period-note" aria-live="polite">{lang === "en" ? "Showing" : "Mostrando"} {dateLabel(window.start, lang)} – {dateLabel(window.end, lang)}, {year}. {lang === "en" ? "Dots are dated readings. Thin dotted bridges span gaps without filling in values." : "Los puntos son lecturas fechadas. Los tramos punteados finos cruzan los huecos sin rellenar valores."}</p>
       <div id="reservoirs" className="trend-section-heading"><span>01</span><div><h3>{lang === "en" ? "Reservoirs: how far below full?" : "Embalses: ¿cuánto falta para llenarse?"}</h3><p>{lang === "en" ? "Both graphs use the same scale. Higher means closer to full pool. Feet below full pool are not a percentage of usable storage." : "Ambas gráficas usan la misma escala. Más alto significa más cerca de la cota máxima. Los pies bajo la cota máxima no representan un porcentaje del agua utilizable."}</p></div></div>
       <div className="context-card-grid">
         {reservoirs.map((lake) => {
@@ -200,7 +209,7 @@ export default function TrendContext({ days, end, lang, reservoirs, supplyStatus
             <div className="trend-card-heading"><h4>{station.name}</h4><span className={`status ${station.status}`}>{lang === "en" ? { fresh: "Verified", stale: "Stale · retained", unavailable: "Unavailable" }[station.status] : { fresh: "Verificado", stale: "Antiguo · conservado", unavailable: "No disponible" }[station.status]}</span></div>
             <p className="trend-reading"><strong>{difference === null ? "—" : `${Math.abs(difference).toLocaleString(lang === "en" ? "en-US" : "es-US", { maximumFractionDigits: 1 })}%`}</strong> {difference === null ? "" : lang === "en" ? `${difference > 0 ? "above" : difference < 0 ? "below" : "at"} ${referenceLabel}` : `${difference > 0 ? "sobre" : difference < 0 ? "bajo" : "en"} el ${referenceLabel}`}</p>
             <p className="observation-date">{recent?.through ? `${dateLabel(recent.start, lang)} – ${dateLabel(recent.through, lang)} · ${recent.count}/7 ${lang === "en" ? "daily readings" : "lecturas diarias"}` : lang === "en" ? "Comparison unavailable" : "Comparación no disponible"}</p>
-            <Chart title={`${station.name}: ${year} ${lang === "en" ? "vs historical daily mean" : "frente al promedio diario histórico"}`} description={lang === "en" ? "Weekly averages in cubic feet per second. The dotted green line is the 10-year average; the dashed amber line is the full-record mean. Missing weeks are gaps." : "Promedios semanales en pies cúbicos por segundo. La línea verde de puntos es el promedio de 10 años; la ámbar discontinua es el histórico completo. Las semanas faltantes son huecos."} series={chartSeries} window={window} unit="ft³/s" lang={lang} gapDays={7} />
+            <Chart title={`${station.name}: ${year} ${lang === "en" ? "vs historical daily mean" : "frente al promedio diario histórico"}`} description={lang === "en" ? "Weekly averages in cubic feet per second. The green line shows the 10-year average and the amber line shows the full-record mean." : "Promedios semanales en pies cúbicos por segundo. La línea verde muestra el promedio de 10 años y la ámbar el histórico completo."} series={chartSeries} window={window} unit="ft³/s" lang={lang} gapDays={7} />
             {average?.days.length ? <p className="trend-source">{averageLabel}. {lang === "en" ? "Each calendar date averages available daily means; hover for sample years. Leap days use only leap years." : "Cada fecha promedia los datos disponibles; consulte los años de muestra. El 29 de febrero usa solo años bisiestos."} {average.provisionalCount ? (lang === "en" ? "Some historical readings remain provisional." : "Algunas lecturas históricas son provisionales.") : ""} <a href={average.sourceUrl} target="_blank" rel="noreferrer">USGS ↗</a></p> : <p className="stale-note">{lang === "en" ? "10-year average unavailable for this station." : "Promedio de 10 años no disponible para esta estación."}</p>}
             {average && average.status !== "fresh" && average.days.length > 0 && <p className="stale-note">{lang === "en" ? "Last verified 10-year average retained; the latest check failed or has aged." : "Se conserva el último promedio de 10 años verificado; la consulta falló o ha envejecido."}</p>}
             {station.status !== "fresh" && <p className="stale-note">{lang === "en" ? "Latest retrieval failed or this record has aged. Last verified daily means are retained; newer flow is unknown." : "La última consulta falló o el registro ha envejecido. Se conservan los promedios verificados; el caudal más reciente se desconoce."}</p>}

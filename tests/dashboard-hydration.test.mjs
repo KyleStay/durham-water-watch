@@ -31,6 +31,13 @@ test('stage charts distinguish dated storage gaps from city forecast criteria', 
     for (const graph of graphs) {
       assert.ok(graph.querySelector('circle title').textContent.includes('Aug 4, 2026: 52.20'));
       assert.ok([...graph.querySelectorAll('circle title')].some((point) => point.textContent.includes('Nov 16, 2026: 28.00')));
+      const dots = new Set([...graph.querySelectorAll('circle')].map(dot => `${dot.getAttribute('cx')},${dot.getAttribute('cy')}`));
+      const connectors = [...graph.querySelectorAll('.chart-gap-connector')];
+      assert.ok(connectors.length > 0);
+      for (const connector of connectors) {
+        assert.ok(dots.has(`${connector.getAttribute('x1')},${connector.getAttribute('y1')}`));
+        assert.ok(dots.has(`${connector.getAttribute('x2')},${connector.getAttribute('y2')}`));
+      }
     }
     assert.equal(graphs[0].querySelectorAll('line[stroke-dasharray]').length, 4);
     assert.equal(graphs[1].querySelectorAll('line[stroke-dasharray]').length, 1);
@@ -164,6 +171,7 @@ test('chart inspection exposes hover, tap, missing dates, keyboard values and hi
   try {
     await act(async () => { hydrated = hydrateRoot(document.getElementById('root'), element); });
     const [lake, , supply, river] = [...document.querySelectorAll('.chart-hit-area')];
+    assert.equal(lake.ownerSVGElement.querySelector('.chart-gap-connector'), null, 'Do not extend a line into missing dates after the last reading');
     for (const slider of [lake, supply, river]) slider.ownerSVGElement.getBoundingClientRect = () => ({ left: 0, width: 640 });
     await act(async () => { lake.dispatchEvent(new dom.window.MouseEvent('pointermove', { bubbles: true, clientX: 627 })); });
     assert.match(lake.closest('.context-chart').textContent, /Oct 3, 2026.*No observation/);

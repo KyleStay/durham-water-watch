@@ -23,7 +23,7 @@ test("produces a complete GitHub Pages artifact", async () => {
   assert.match(html, /Exact daily values/);
   assert.match(html, /River flow: is this typical for the season/);
   assert.match(html, /vs historical daily mean/);
-  assert.match(html, /gaps mean no observation/);
+  assert.match(html, /Thin dotted bridges span gaps without filling in values/);
   assert.match(html, /Both graphs use the same scale/);
   assert.match(html, /verified ten-year numeric series is not available.*City reservoir levels or supply/);
   assert.match(html, /USGS daily means appear where available/);
