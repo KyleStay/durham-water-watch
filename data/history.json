@@ -11987,5 +11987,155 @@
       "verifiedAt": "2026-11-18T10:58:17Z",
       "sourceUrl": "https://www.durhamnc.gov/1061/Durham-Saves-Water"
     }
+  ],
+  "droughtObservations": [
+    {
+      "date": "2026-03-03",
+      "category": "D2"
+    },
+    {
+      "date": "2026-03-10",
+      "category": "D2"
+    },
+    {
+      "date": "2026-03-17",
+      "category": "D2"
+    },
+    {
+      "date": "2026-03-24",
+      "category": "D2"
+    },
+    {
+      "date": "2026-03-31",
+      "category": "D2"
+    },
+    {
+      "date": "2026-04-07",
+      "category": "D2"
+    },
+    {
+      "date": "2026-04-14",
+      "category": "D3"
+    },
+    {
+      "date": "2026-04-21",
+      "category": "D3"
+    },
+    {
+      "date": "2026-04-28",
+      "category": "D3"
+    },
+    {
+      "date": "2026-05-05",
+      "category": "D3"
+    },
+    {
+      "date": "2026-05-12",
+      "category": "D3"
+    },
+    {
+      "date": "2026-05-19",
+      "category": "D3"
+    },
+    {
+      "date": "2026-05-26",
+      "category": "D3"
+    },
+    {
+      "date": "2026-06-02",
+      "category": "D3"
+    },
+    {
+      "date": "2026-06-09",
+      "category": "D4"
+    },
+    {
+      "date": "2026-06-16",
+      "category": "D4"
+    },
+    {
+      "date": "2026-06-23",
+      "category": "D4"
+    },
+    {
+      "date": "2026-06-30",
+      "category": "D4"
+    },
+    {
+      "date": "2026-07-07",
+      "category": "D4"
+    },
+    {
+      "date": "2026-07-14",
+      "category": "D4"
+    },
+    {
+      "date": "2026-07-21",
+      "category": "D3"
+    },
+    {
+      "date": "2026-07-28",
+      "category": "D1"
+    },
+    {
+      "date": "2026-08-04",
+      "category": "D1"
+    },
+    {
+      "date": "2026-08-11",
+      "category": "D1"
+    },
+    {
+      "date": "2026-08-18",
+      "category": "D1"
+    },
+    {
+      "date": "2026-08-25",
+      "category": "D1"
+    },
+    {
+      "date": "2026-09-01",
+      "category": "D1"
+    },
+    {
+      "date": "2026-09-08",
+      "category": "D1"
+    },
+    {
+      "date": "2026-09-15",
+      "category": "D1"
+    },
+    {
+      "date": "2026-09-22",
+      "category": "D2"
+    },
+    {
+      "date": "2026-09-29",
+      "category": "D2"
+    },
+    {
+      "date": "2026-10-06",
+      "category": "D2"
+    },
+    {
+      "date": "2026-10-13",
+      "category": "D2"
+    },
+    {
+      "date": "2026-10-20",
+      "category": "D2"
+    },
+    {
+      "date": "2026-10-27",
+      "category": "D2"
+    },
+    {
+      "date": "2026-11-03",
+      "category": "D2"
+    },
+    {
+      "date": "2026-11-10",
+      "category": "D2"
+    }
   ]
 }
