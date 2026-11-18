@@ -84,6 +84,7 @@ export async function dailyPreflight({ root = resolve(import.meta.dirname, "..")
   const head = await assertCleanMain(root, runCommand);
   await access(resolve(root, "node_modules"));
   console.log(`Preflight passed: clean main at ${head}, no active owned lock, no command attempt for ${easternDate(date)}.`);
+  console.log("For City web evidence, include the Water Supply Snapshot heading, update date and reservoir storage percentage on Durham Saves Water. Include Days of Supply and Current Conditions in the other City excerpts.");
   if (abandoned) console.log(`Verified abandoned owned lock; the permitted updater will archive ${abandoned.path} during acquisition.`);
 }
 

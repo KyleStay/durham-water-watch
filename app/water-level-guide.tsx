@@ -23,6 +23,68 @@ const stages = [
   },
 ];
 
+const recovery = { probability: 95, weeks: 10, storage: 95 };
+
+export function StageTransitionCharts({ lang, stage, storage, date, stale }: {
+  lang: Lang;
+  stage: number | null;
+  storage: number | null;
+  date: string | null;
+  stale: boolean;
+}) {
+  const en = lang === "en";
+  const format = new Intl.NumberFormat(en ? "en-US" : "es-US", { maximumFractionDigits: 2 });
+  const graphs = [
+    { title: en ? "Entering a stage" : "Entrar en una etapa", rows: stages },
+    { title: en ? "Lifting restrictions" : "Levantar restricciones", rows: [{ stage: 0, ...recovery }] },
+  ];
+  return (
+    <section id="stage-proximity" className="stage-proximity" aria-labelledby="stage-proximity-title">
+      <h2 id="stage-proximity-title">{en ? "How close are Durham’s water restrictions to changing?" : "¿Qué tan cerca está Durham de cambiar sus restricciones de agua?"}</h2>
+      <p>{storage === null
+        ? en ? "City storage reading unavailable." : "Lectura municipal de almacenamiento no disponible."
+        : <><strong>{format.format(storage)}%</strong> {en ? "storage reported by Durham" : "de almacenamiento informado por Durham"} · {date}{stale && (en ? " · Last known" : " · Última lectura conocida")}</>}</p>
+      <p className="stage-proximity-note">{en
+        ? "The shaded bar shows reported storage. Each line marks a storage target in the City’s plan. The gaps are approximate because the public reading may differ from the plan’s measure of usable storage. Stage decisions depend on Durham’s forecast probabilities."
+        : "La barra sombreada muestra el almacenamiento informado. Cada línea marca una meta de almacenamiento del plan municipal. Las diferencias son aproximadas porque la lectura pública puede diferir de la medida de almacenamiento utilizable del plan. Los cambios de etapa dependen de las probabilidades del pronóstico municipal."}</p>
+      <div className="stage-proximity-grid">
+        {graphs.map(({ title, rows }) => (
+          <figure className="stage-proximity-chart" key={title}>
+            <figcaption>{title}</figcaption>
+            <div className="stage-proximity-scale" aria-hidden="true">{[0, 25, 50, 75, 100].map((tick) => <span key={tick}>{tick}%</span>)}</div>
+            <ul>
+              {rows.map((rule) => {
+                const gap = storage === null ? null : Math.round((storage - rule.storage) * 100) / 100;
+                const next = rule.stage !== 0 && stage !== null && rule.stage === stage + 1;
+                return (
+                  <li key={rule.stage} className={next ? "stage-proximity-next" : undefined}>
+                    <div className="stage-proximity-label">
+                      <strong>{rule.stage === 0 ? (en ? "Recovery target" : "Meta de recuperación") : `${en ? "Stage" : "Etapa"} ${rule.stage}`}{next && (en ? " · Next higher stage" : " · Siguiente etapa más restrictiva")}</strong>
+                      <span>{en
+                        ? `${rule.stage === 0 ? "At least " : ""}${rule.probability}% chance of ${rule.storage}% usable storage in ${rule.weeks} weeks`
+                        : `${rule.stage === 0 ? "Al menos " : ""}${rule.probability}% de probabilidad de alcanzar ${rule.storage}% de almacenamiento utilizable en ${rule.weeks} semanas`}</span>
+                    </div>
+                    <div className="stage-proximity-track" aria-hidden="true">
+                      {storage !== null && <span className="stage-proximity-fill" style={{ width: `${storage}%` }} />}
+                      <span className="stage-proximity-target" style={{ left: `${rule.storage}%` }} />
+                    </div>
+                    {gap !== null && <small>{gap === 0
+                      ? (en ? "At the storage target" : "En la meta de almacenamiento")
+                      : en ? `${format.format(Math.abs(gap))} percentage points ${gap > 0 ? "above" : "below"} the storage target`
+                        : `${format.format(Math.abs(gap))} puntos porcentuales por ${gap > 0 ? "encima" : "debajo"} de la meta`}</small>}
+                  </li>
+                );
+              })}
+            </ul>
+            {rows.length === 1 && <p>{en ? "Reservoir volumes must also be rising. The City can lift one or more stages." : "El volumen de los embalses también debe estar aumentando. La Ciudad puede levantar una o más etapas."}</p>}
+          </figure>
+        ))}
+      </div>
+      <p className="level-sources"><a href={planUrl} target="_blank" rel="noreferrer">{en ? "City response plan, Tables 5.1–5.2" : "Plan municipal, tablas 5.1–5.2"} ↗</a> · <a href="https://www.durhamnc.gov/1061/Durham-Saves-Water" target="_blank" rel="noreferrer">{en ? "City storage reading" : "Lectura municipal de almacenamiento"} ↗</a></p>
+    </section>
+  );
+}
+
 export function RestrictionLevels({ lang }: { lang: Lang }) {
   const en = lang === "en";
   return (

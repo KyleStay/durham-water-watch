@@ -30,6 +30,12 @@ export function cityStage(text) {
   return { value: Number(match[1]), units: "stage", sourceUrl: cityPages.stage, observedAt: date, effectiveDate: date };
 }
 
+export function cityStorage(text) {
+  const match = plainText(text).match(/Water Supply Snapshot\s+Updated\s+([A-Za-z]+\s+\d{1,2},\s+\d{4})\s+Reservoir storage\s+(\d+(?:\.\d+)?)\s*%\s+full\b/i);
+  if (!match || Number(match[2]) > 100) throw new Error("Dated reservoir storage percentage did not validate");
+  return { value: Number(match[2]), units: "%", sourceUrl: cityPages.stage, observedAt: officialDate(match[1]) };
+}
+
 export function citySupply(text) {
   const start = text.search(/Days of Supply/i);
   if (start < 0) throw new Error("Days-of-supply section was missing");

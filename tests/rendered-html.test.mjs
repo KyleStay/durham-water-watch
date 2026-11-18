@@ -52,7 +52,7 @@ test("server-renders the resident-facing dashboard without JavaScript", async ()
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
 });
 
-test("renders authoritative direct links and no reservoir percentages", async () => {
+test("renders authoritative direct links and no individual reservoir percentages", async () => {
   const response = await render();
   const html = await response.text();
   assert.match(html, /https:\/\/www\.durhamnc\.gov\/1214\/Current-Data/);

@@ -18,6 +18,17 @@
     },
     "lastCheckMethod": "official-page-text"
   },
+  "reservoirStorage": {
+    "value": 28,
+    "units": "%",
+    "sourceUrl": "https://www.durhamnc.gov/1061/Durham-Saves-Water",
+    "observedAt": "2026-11-16",
+    "verifiedAt": "2026-11-18T10:58:17Z",
+    "status": "fresh",
+    "retrievalStatus": "verified",
+    "validationResult": "accepted",
+    "retrievalMethod": "official-page-text"
+  },
   "supply": {
     "accessible": {
       "value": 77,

@@ -8,7 +8,7 @@ import { dashboardAt, metricStatus } from "../scripts/freshness.mjs";
 import { annualReservoirHeading, showsStageTwoGuidance } from "../scripts/stage-guidance.mjs";
 import TrendContext, { type TenYearAverage } from "./trend-charts";
 import WatershedMap, { type RainfallForecast } from "./watershed-map";
-import { DroughtLevels, RestrictionLevels } from "./water-level-guide";
+import { DroughtLevels, RestrictionLevels, StageTransitionCharts } from "./water-level-guide";
 
 type Lang = "en" | "es";
 type Freshness = "fresh" | "stale" | "unavailable";
@@ -26,6 +26,7 @@ type Metric = {
 };
 type DashboardData = {
   stage: Metric & { effectiveDate: string | null };
+  reservoirStorage?: Metric;
   supply: {
     accessible: Metric;
     belowIntakes: Metric;
@@ -393,8 +394,8 @@ function dailyQuality(day: DailyEntry, lang: Lang) {
   return lang === "en" ? "All current" : "Todo vigente";
 }
 
-function StageExitExplorer({ lang }: { lang: Lang }) {
-  const [startingStorage, setStartingStorage] = useState(70);
+function StageExitExplorer({ lang, reportedStorage }: { lang: Lang; reportedStorage: number | null }) {
+  const [startingStorage, setStartingStorage] = useState(reportedStorage === null ? 70 : Math.round(reportedStorage * 10) / 10);
   const [rainfall, setRainfall] = useState(10);
   const [rainResponse, setRainResponse] = useState(0.8);
   const [systemDraw, setSystemDraw] = useState(10);
@@ -431,8 +432,8 @@ function StageExitExplorer({ lang }: { lang: Lang }) {
         <p className="model-warning">
           <strong>{lang === "en" ? "Not an official forecast." : "No es un pronóstico oficial."}</strong>{" "}
           {lang === "en"
-            ? "All four inputs are assumptions. They are not derived from current reservoir elevations."
-            : "Los cuatro datos son supuestos. No se derivan de las elevaciones actuales de los embalses."}
+            ? "Use your own assumptions about rainfall, refill and demand to explore how storage could change."
+            : "Use sus propios supuestos sobre lluvia, recarga y demanda para explorar cómo podría cambiar el almacenamiento."}
         </p>
       </div>
 
@@ -447,8 +448,8 @@ function StageExitExplorer({ lang }: { lang: Lang }) {
         <div className="scenario-controls">
           <label>
             <span><strong>{lang === "en" ? "Assumed starting combined usable storage" : "Almacenamiento utilizable combinado inicial supuesto"}</strong><output>{startingStorage}%</output></span>
-            <input type="range" min="40" max="94" step="1" value={startingStorage} onInput={(event) => setStartingStorage(Number(event.currentTarget.value))} />
-            <small>{lang === "en" ? "The current official value is not publicly posted." : "El valor oficial actual no se publica."}</small>
+            <input type="range" min="0" max="100" step="0.1" value={startingStorage} onInput={(event) => setStartingStorage(Number(event.currentTarget.value))} />
+            <small>{lang === "en" ? "Use a starting storage percentage to explore a scenario." : "Elija un porcentaje de almacenamiento inicial para explorar un escenario."}</small>
           </label>
           <label>
             <span><strong>{lang === "en" ? "Assumed rainfall over 10 weeks" : "Lluvia supuesta durante 10 semanas"}</strong><output>{rainfall} in</output></span>
@@ -529,6 +530,9 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
       : station.status,
   });
   const isStageTwo = showsStageTwoGuidance(data.stage.value);
+  const storage = data.reservoirStorage;
+  const reportedStorage = typeof storage?.value === "number" && storage.value >= 0 && storage.value <= 100 && storage.observedAt
+    ? storage.value : null;
   const historyDays = history.days.filter((day) => day.date.startsWith(currentHistoryYear));
   const supplyObservations = historyDays.filter((day) => typeof day.values.supply.total === "number");
   const latestDay = supplyObservations.at(-1);
@@ -598,7 +602,7 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
               <div><p className="eyebrow">{t.stage}</p><div className="stage-brief-value"><strong>Stage / Etapa {data.stage.value ?? "—"}</strong><Status metric={data.stage} lang={lang} /></div><p>{t.effective} {fmtDate(data.stage.effectiveDate, lang)}</p></div>
               <div><p>{isStageTwo ? t.action : lang === "en" ? "Check the current City water-use rules." : "Consulte las reglas actuales de uso del agua de la Ciudad."}</p><a href="#actions">{lang === "en" ? "What to do now" : "Qué hacer ahora"} ↓</a><span aria-hidden="true"> · </span><a href={urls.stage} target="_blank" rel="noreferrer">{t.allRules} ↗</a></div>
             </div>
-            <p className="briefing-priority">{t.official}</p>
+            <p className="briefing-priority">{t.official} <a href="#stage-proximity">{lang === "en" ? "See stage transition graphs" : "Ver gráficas de cambio de etapa"} ↓</a></p>
             <noscript><p>Freshness labels reflect the published snapshot time. Check observation dates and official sources for current conditions.</p></noscript>
           </div>
         </section>
@@ -845,6 +849,9 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
 
         <section id="outlook" className="section outlook-section">
           <div className="wrap">
+            <StageTransitionCharts lang={lang} stage={data.stage.status === "fresh" && typeof data.stage.value === "number" ? data.stage.value : null}
+              storage={reportedStorage} date={reportedStorage === null ? null : fmtDate(storage?.observedAt ?? null, lang)}
+              stale={storage?.status !== "fresh"} />
             {isStageTwo ? (
             <article className="exit-outlook" aria-labelledby="exit-outlook-title">
               <div className="exit-outlook-intro">
@@ -858,14 +865,14 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
                   <span aria-hidden="true">?</span>
                   <strong>
                     {lang === "en"
-                      ? "Not calculable from the public readings currently posted."
-                      : "No se puede calcular con las lecturas públicas disponibles actualmente."}
+                      ? "Durham’s forecast determines when it can lift restrictions."
+                      : "El pronóstico municipal determina cuándo se pueden levantar las restricciones."}
                   </strong>
                 </p>
                 <p>
                   {lang === "en"
-                    ? "The City does not publish the modeled probability or the 10-week combined usable-storage forecast needed to measure distance from the official rescission test. A numeric progress bar here would imply precision the source data do not support."
-                    : "La Ciudad no publica la probabilidad modelada ni el pronóstico de almacenamiento utilizable combinado a 10 semanas necesarios para medir la distancia a la prueba oficial de rescisión. Una barra numérica implicaría una precisión que las fuentes no respaldan."}
+                    ? "The City can lift Stage 2 when reservoir volumes are rising and its forecast meets the probability test below."
+                    : "La Ciudad puede levantar la Etapa 2 cuando el volumen de los embalses aumenta y su pronóstico cumple la prueba de probabilidad que se indica abajo."}
                 </p>
               </div>
               <div className="exit-rule">
@@ -921,7 +928,7 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
                     : "Si Durham publica la probabilidad modelada y el pronóstico combinado, este panel podrá mostrar esa perspectiva oficial y compararla con el plan, sin inventar un pronóstico."}
                 </p>
               </aside>
-              <StageExitExplorer lang={lang} />
+              <StageExitExplorer lang={lang} reportedStorage={reportedStorage} />
             </article>
             ) : (
               <article className="exit-outlook" aria-labelledby="stage-plan-title">

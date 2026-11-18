@@ -19,6 +19,26 @@ try {
 } finally { await rm(temporary, { recursive: true, force: true }); }
 const snapshot = JSON.parse(await readFile(join(root, 'public/data/dashboard.json'), 'utf8'));
 
+test('stage charts distinguish dated storage gaps from city forecast criteria', () => {
+  const data = structuredClone(snapshot);
+  data.stage = { ...data.stage, value: 2, verifiedAt: data.generatedAt, retrievalStatus: 'verified', validationResult: 'accepted' };
+  data.reservoirStorage = { ...data.reservoirStorage, value: 28, observedAt: '2026-11-16', retrievalStatus: 'failed' };
+  const renderCharts = () => {
+    const dom = new JSDOM(renderToString(createElement(WaterWatch, { snapshot: data })));
+    const charts = dom.window.document.querySelector('#stage-proximity').textContent;
+    dom.window.close();
+    return charts;
+  };
+  const charts = renderCharts();
+  assert.match(charts, /28% storage reported by Durham.*November 16, 2026.*Last known/);
+  assert.match(charts, /Stage 3.*10% chance of 25% usable storage in 8 weeks.*3 percentage points above/);
+  assert.match(charts, /95% chance of 95% usable storage in 10 weeks.*67 percentage points below/);
+  delete data.reservoirStorage;
+  const unavailable = renderCharts();
+  assert.match(unavailable, /City storage reading unavailable/);
+  assert.doesNotMatch(unavailable, /percentage points (above|below)/);
+});
+
 test('stage changes render appropriate guidance without requiring Stage 2 content', () => {
   for (const value of [1, 2, 3, 4, null]) {
     const data = structuredClone(snapshot);

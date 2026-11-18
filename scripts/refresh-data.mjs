@@ -7,7 +7,7 @@ import { backfillStreamflowDailyMeans, dailyMeanFor, retainComparisonYear } from
 import { acceptMetrics } from "./metric-acceptance.mjs";
 import { sourceIsDue } from "./refresh-policy.mjs";
 import { fetchJsonWithRetry, fetchTextWithRetry } from "./source-fetch.mjs";
-import { cityPages, cityStage, citySupply, cityReservoir, officialDate } from "./city-readings.mjs";
+import { cityPages, cityStage, cityStorage, citySupply, cityReservoir, officialDate } from "./city-readings.mjs";
 import { gitDirectory } from "./daily-lock.mjs";
 import { readPageEvidence } from "./official-page-evidence.mjs";
 import { refreshReport } from "./refresh-report.mjs";
@@ -31,6 +31,7 @@ const streamflowHistory = JSON.parse(await readFile(streamflowHistoryPath, "utf8
 const now = new Date();
 const nowIso = now.toISOString();
 const forceAll = process.argv.includes("--all");
+snapshot.reservoirStorage ??= { value: null, units: "%", sourceUrl: cityPages.stage, observedAt: null, verifiedAt: null };
 
 const SOURCES = {
   stage: "https://www.durhamnc.gov/1061/Durham-Saves-Water",
@@ -129,11 +130,23 @@ function fail(paths, error) {
 }
 
 async function refreshStage() {
-  const paths = [["stage"]];
+  let text;
+  try { text = await fetchOfficialText(SOURCES.stage); }
+  catch (error) {
+    fail([["stage"], ["reservoirStorage"]], error);
+    return;
+  }
   try {
-    accept([{ path: paths[0], next: cityStage(await fetchOfficialText(SOURCES.stage)) }]);
+    accept([{ path: ["stage"], next: cityStage(text) }]);
     results.push("verified: stage");
-  } catch (error) { fail(paths, error); }
+  } catch (error) { fail([["stage"]], error); }
+  try {
+    const next = cityStorage(text);
+    const { year, month, day } = easternDateParts(now);
+    if (next.observedAt > `${year}-${month}-${day}`) throw new Error("Reservoir storage observation is future-dated");
+    accept([{ path: ["reservoirStorage"], next }]);
+    results.push("verified: reservoir storage percentage");
+  } catch (error) { fail([["reservoirStorage"]], error); }
 }
 
 async function refreshSupply() {
@@ -372,7 +385,7 @@ function updateStatus(metric, kind) {
 const jobs = [refreshStreamflow(), refreshStreamflowHistory(), refreshTenYearHistory(), refreshRainfall()];
 if (sourceIsDue({
   forceAll,
-  metrics: [snapshot.stage],
+  metrics: [snapshot.stage, snapshot.reservoirStorage],
   elapsed: hoursSince(snapshot.stage.verifiedAt),
   interval: 20,
 })) jobs.push(refreshStage());
@@ -463,6 +476,7 @@ while (missingDate < today) {
 backfillStreamflowDailyMeans(history, streamflowHistory);
 
 updateStatus(snapshot.stage, "stage");
+updateStatus(snapshot.reservoirStorage, "durham");
 updateStatus(snapshot.supply.accessible, "durham");
 updateStatus(snapshot.supply.belowIntakes, "durham");
 updateStatus(snapshot.supply.quarry, "durham");

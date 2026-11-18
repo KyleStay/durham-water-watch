@@ -22,6 +22,7 @@ test('all-source refresh retains independent successful stations and lakes, and 
   }
   await writeFile(resolve(fixture, 'data/quarantine.json'), '[]');
   const original = JSON.parse(await readFile(resolve(fixture, 'public/data/dashboard.json')));
+  delete original.reservoirStorage;
   for (const metric of [original.stage, ...Object.values(original.supply), ...Object.values(original.reservoirs), ...Object.values(original.streamflow)]) {
     metric.observedAt = '2020-01-01';
     metric.verifiedAt = '2020-01-01T12:00:00Z';
@@ -36,7 +37,7 @@ test('all-source refresh retains independent successful stations and lakes, and 
   await writeFile(resolve(fixture,'public/data/streamflow-history.json'),JSON.stringify(initialComparison));
   execFileSync('git', ['init', '--quiet'], { cwd: fixture });
   await cachePageEvidence(resolve(fixture, '.git'), { pages: [
-    { url: cityPages.stage, retrievedAt: '2026-10-12T09:59:00Z', text: 'Durham Saves Water. Stage 2 in Effect Effective June 15, 2026. Durham is under a Stage 2 Water Shortage Response.' },
+    { url: cityPages.stage, retrievedAt: '2026-10-12T09:59:00Z', text: 'Stage 2 in Effect Effective June 15, 2026\nWater Supply Snapshot\nUpdated October 8, 2026\nReservoir storage\n43.5% full' },
     { url: cityPages.supply, retrievedAt: '2026-10-12T09:59:00Z', text: 'Days of Supply. As of October 8, 2026. Days of supply of easily accessible water remaining: 92. Days of less accessible water below the intake structures remaining: 45. Days remaining in Teer Quarry (emergency storage): 19. Total days of supply: 156.' },
   ] }, new Date('2026-10-12T10:00:00Z'));
   const bootstrap = resolve(fixture, 'mock-fetch.mjs');
@@ -78,7 +79,12 @@ globalThis.fetch = async (url) => {
   assert.equal(after.supply.total.value, 156);
   assert.equal(after.supply.total.retrievalMethod, 'official-page-text');
   assert.equal(after.stage.retrievalStatus, 'verified');
-  assert.equal(after.refreshReport.length, 15);
+  assert.equal(after.reservoirStorage.value, 43.5);
+  assert.equal(after.reservoirStorage.observedAt, '2026-10-08');
+  assert.equal(after.reservoirStorage.retrievalMethod, 'official-page-text');
+  assert.equal(after.reservoirStorage.status, 'stale');
+  assert.equal(after.refreshReport.find(row => row.key === 'reservoirStorage').outcome, 'updated');
+  assert.equal(after.refreshReport.length, 16);
   const refreshedComparison=JSON.parse(await readFile(resolve(fixture,'public/data/streamflow-history.json')));
   assert.equal(refreshedComparison.stations.flat.days.length,365);
   assert.equal(refreshedComparison.stations.flat.tenYearAverage.status,'fresh');

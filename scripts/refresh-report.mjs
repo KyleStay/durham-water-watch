@@ -1,5 +1,6 @@
 const fields = [
-  ["stage", "Water shortage stage"], ["supply.accessible", "Accessible supply"], ["supply.belowIntakes", "Below-intake supply"],
+  ["stage", "Water shortage stage"], ["reservoirStorage", "City-reported reservoir storage"],
+  ["supply.accessible", "Accessible supply"], ["supply.belowIntakes", "Below-intake supply"],
   ["supply.quarry", "Teer Quarry supply"], ["supply.total", "Total supply"],
   ["reservoirs.michie", "Lake Michie elevation"], ["reservoirs.little", "Little River Reservoir elevation"],
   ["drought", "Durham County drought"], ["streamflow.flat", "Flat River current flow"], ["streamflow.little", "Little River current flow"],
@@ -7,14 +8,14 @@ const fields = [
 const at = (data, path) => path.split(".").reduce((value, key) => value?.[key], data);
 
 export function refreshReport(before, after, comparisons, checkedAt) {
-  const entries = fields.map(([key, label]) => {
+  const entries = fields.filter(([key]) => at(after, key)).map(([key, label]) => {
     const current = at(after, key), previous = at(before, key);
     const checked = current.checkedAt === checkedAt || current.verifiedAt === checkedAt;
     return {
       key, label, value: current.value, previousValue: previous?.value ?? null, units: current.units,
       observedAt: current.observedAt, previousObservedAt: previous?.observedAt ?? null,
       checkedAt: current.checkedAt ?? current.verifiedAt, sourceUrl: current.sourceUrl, status: current.status,
-      outcome: !checked ? "not checked" : current.retrievalStatus === "failed" ? "retained" :
+      outcome: !checked ? "not checked" : current.retrievalStatus === "failed" ? (current.value === null ? "unavailable" : "retained") :
         current.value !== previous?.value || current.observedAt !== previous?.observedAt ? "updated" : "checked unchanged",
       retrievalMethod: current.lastCheckMethod ?? current.retrievalMethod ?? "direct", reason: current.retrievalStatus === "failed" ? current.note : undefined,
     };

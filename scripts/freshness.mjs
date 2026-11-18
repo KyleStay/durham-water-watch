@@ -30,6 +30,7 @@ export function dashboardAt(snapshot, now) {
   const group = (metrics, kind) => Object.fromEntries(Object.entries(metrics).map(([key, metric]) => [key, age(metric, kind)]));
   return {
     ...snapshot, stage: age(snapshot.stage, 'stage'), drought: age(snapshot.drought, 'drought'),
+    reservoirStorage: snapshot.reservoirStorage && age(snapshot.reservoirStorage, 'durham'),
     supply: group(snapshot.supply, 'durham'), reservoirs: group(snapshot.reservoirs, 'durham'),
     streamflow: group(snapshot.streamflow, 'usgs'),
   };

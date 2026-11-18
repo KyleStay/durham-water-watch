@@ -110,9 +110,11 @@ each value, previous value, observation date, check outcome and error reason,
 plus daily-mean coverage and each named NOAA location's rainfall band.
 
 If direct City requests are blocked, Codex can retrieve the actual three public
-City pages with its web tool before the permitted update. Save verbatim relevant
-page sections (including official dates, supply components/total and both lake
-full-pool references) as an input JSON file with `pages` entries containing
+City pages with its web tool before the permitted update. Save the verbatim
+section headings with their official dates and values: the stage notice and
+`Water Supply Snapshot` (including the reported storage percentage), `Days of
+Supply` (all components and total), and `Current Conditions` (both elevations
+and full-pool references). Use an input JSON file with `pages` entries containing
 `url`, `retrievedAt` (ISO UTC retrieval time), and `text`, then run:
 
 ```bash
@@ -126,6 +128,12 @@ than two hours old. Normal parsers, observation-date checks, change limits and
 publication validation still apply. It does not turn an older City observation
 into today's reading. Missing, expired or rejected evidence retains labeled
 last-known-good data. Earlier evidence records remain for diagnosis.
+
+The stage transition charts compare the City’s dated reservoir storage reading
+with the storage levels in its response plan. The gaps are approximate. The
+plan uses forecast probabilities for combined usable storage, which may differ
+from the published reading. The charts retain and date the last accepted reading
+when a refresh fails.
 
 Native trend charts support hover, tap and keyboard arrow keys, Home/End and
 Escape. Tooltips include the full date/year, exact elevation and distance from

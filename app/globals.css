@@ -865,6 +865,24 @@ footer a { color: #fff; font-size: .78rem; font-weight: 700; }
 .daily-data-disclosure .table-scroll { margin-top: 18px; max-height: 65vh; overflow: auto; }
 .daily-data-disclosure thead th { position: sticky; top: 0; z-index: 1; background: var(--surface); }
 .outlook-section { background: var(--surface); }
+.stage-proximity { margin-bottom: 32px; scroll-margin-top: 20px; }
+.stage-proximity h2 { margin: 0 0 10px; color: var(--blue-dark); }
+.stage-proximity-note { max-width: 76ch; color: var(--muted); }
+.stage-proximity-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.stage-proximity-chart { min-width: 0; margin: 0; padding: 20px; border: 1px solid var(--border); border-radius: 8px; }
+.stage-proximity-chart figcaption { margin-bottom: 12px; color: var(--blue-dark); font-size: 1.15rem; font-weight: 700; }
+.stage-proximity-chart ul { margin: 0; padding: 0; list-style: none; }
+.stage-proximity-chart li { padding: 9px 8px; }
+.stage-proximity-next { background: var(--amber-light); border-radius: 5px; }
+.stage-proximity-label { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 12px; font-size: .85rem; }
+.stage-proximity-scale { display: flex; justify-content: space-between; padding: 0 8px; color: var(--muted); font-size: .75rem; }
+.stage-proximity-track { position: relative; height: 12px; margin: 5px 0; background: var(--border); }
+.stage-proximity-fill { display: block; height: 100%; background: var(--teal); }
+.stage-proximity-target { position: absolute; inset-block: -2px; border-left: 2px solid var(--blue-dark); }
+.stage-proximity-chart small, .stage-proximity-chart > p { color: var(--muted); font-size: .82rem; }
+@media (max-width: 720px) {
+  .stage-proximity-grid { grid-template-columns: 1fr; }
+}
 .outlook-section .exit-outlook { margin-top: 0; }
 .exit-outlook > *, .scenario-grid > * { min-width: 0; }
 @media (max-width: 540px) {
