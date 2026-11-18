@@ -7,7 +7,7 @@ import { withTenYearAverage } from "../scripts/ten-year-flow.mjs";
 type Lang = "en" | "es";
 type Point = { date: string; value: number | null; start?: string; end?: string; detail?: string };
 type Series = { label: string; color: string; points: Point[]; dashed?: boolean; dashPattern?: string };
-type Reference = { label: string; value: number; color: string; highlighted?: boolean };
+type Reference = { label: string; value: number; color: string; highlighted?: boolean; inlineLabel?: string };
 type HistoryDay = { date: string; values: { supply: { total: number | null }; reservoirs: { michie: number | null; little: number | null } } };
 export type TenYearAverage = { startYear: number; endYear: number; status: "fresh" | "stale" | "unavailable"; sourceUrl: string; verifiedAt?: string; note?: string; provisionalCount?: number; days: { monthDay: string; value: number | null; count: number; expectedCount: number }[] };
 type Station = { tenYearAverage?: TenYearAverage; name: string; site: string; sourceUrl: string; historicalPeriod: string | null; status: "fresh" | "stale" | "unavailable"; days: { date: string; currentYear: number | null; historicalMean: number }[] };
@@ -20,9 +20,19 @@ function fullDate(date: string, lang: Lang) {
   return new Intl.DateTimeFormat(lang === "en" ? "en-US" : "es-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }).format(new Date(`${date}T12:00:00Z`));
 }
 
-export function Chart({ title, description, series, window, unit, lang, zeroReference = false, gapDays = 1, domain, references = [] }: {
-  title: string; description: string; series: Series[]; window: { start: string; end: string }; unit: string; lang: Lang; zeroReference?: boolean; gapDays?: number; domain?: [number, number];
+export type ChartTrack = {
+  label?: string;
+  unit: string;
+  series: Series[];
+  domain?: [number, number];
+  gapDays?: number;
+  zeroReference?: boolean;
   references?: Reference[];
+  categories?: string[];
+};
+
+export function Chart({ title, description, window, lang, tracks = [], ...primary }: ChartTrack & {
+  title: string; description: string; window: { start: string; end: string }; lang: Lang; tracks?: ChartTrack[];
 }) {
   const id = useId();
   const container = useRef<HTMLDivElement>(null);
@@ -34,36 +44,44 @@ export function Chart({ title, description, series, window, unit, lang, zeroRefe
     observer.observe(container.current);
     return () => observer.disconnect();
   }, []);
-  const height = 246;
-  const left = 45, right = 13, top = 26, bottom = 33;
-  const traces = series.map((item) => ({ ...item, segments: observedSegments(item.points, gapDays) }));
-  const hasGaps = traces.some(({ segments }) => segments.length > 1);
-  const gapLabel = lang === "en" ? "Dotted bridges mark missing readings" : "Los tramos punteados indican lecturas faltantes";
-  const values = series.flatMap((s) => s.points.flatMap((p) => p.value === null ? [] : [p.value]));
-  const minimum = Math.min(0, ...(domain ?? values));
-  const maximum = Math.max(0, ...(domain ?? values));
-  const step = zeroReference ? Math.max(2, Math.ceil(Math.abs(minimum) / 4)) : Math.max(1, Math.ceil(maximum / 4));
-  const low = Math.floor(minimum / step) * step;
-  const high = Math.max(low + step, Math.ceil(maximum / step) * step);
+  const height = 246 + tracks.length * 128;
+  const left = 45, right = primary.references?.some((rule) => rule.inlineLabel) ? 65 : 13;
   const start = Date.parse(`${window.start}T00:00:00Z`), end = Date.parse(`${window.end}T00:00:00Z`);
   const x = (date: string) => left + (Date.parse(`${date}T00:00:00Z`) - start) / Math.max(1, end - start) * (width - left - right);
-  const y = (value: number) => top + (high - value) / (high - low) * (height - top - bottom);
-  const ticks = Array.from({ length: Math.round((high - low) / step) + 1 }, (_, i) => low + i * step);
-  const dates = [...new Set([window.start, new Date(start + (end - start) / 2).toISOString().slice(0, 10), window.end])];
-  const entries = [...new Set(series.flatMap((s) => s.points.map((p) => p.date)))].sort();
+  const dateLabels = [...new Set([window.start, new Date(start + (end - start) / 2).toISOString().slice(0, 10), window.end])];
+  const plots = [primary, ...tracks].map((track, index) => {
+    const { unit, series, domain, gapDays = 1, zeroReference = false, references = [], categories } = track;
+    const values = series.flatMap((s) => s.points.flatMap((p) => p.value === null ? [] : [p.value]));
+    const min = Math.min(0, ...(domain ?? values));
+    const max = Math.max(0, ...(domain ?? values));
+    const step = categories ? 1 : zeroReference ? Math.max(2, Math.ceil(Math.abs(min) / 4)) : Math.max(1, Math.ceil(max / 4));
+    const low = categories ? 0 : Math.floor(min / step) * step;
+    const high = categories ? categories.length - 1 : Math.max(low + step, Math.ceil(max / step) * step);
+    const top = index === 0 ? 26 : 242 + (index - 1) * 128;
+    const bottom = index === 0 ? 213 : top + 99;
+    const y = (value: number) => top + (high - value) / (high - low) * (bottom - top);
+    const ticks = Array.from({ length: Math.round((high - low) / step) + 1 }, (_, i) => low + i * step);
+    const traces = series.map((item) => ({ ...item, segments: observedSegments(item.points, gapDays) }));
+    return { label: track.label, unit, values, series, traces, gapDays, zeroReference, references, categories, top, bottom, y, ticks };
+  });
+  const hasGaps = plots.some((plot) => !plot.categories && plot.traces.some(({ segments }) => segments.length > 1));
+  const gapLabel = lang === "en" ? "Dotted bridges mark missing readings" : "Los tramos punteados indican lecturas faltantes";
+  const allSeries = plots.flatMap((plot) => plot.series);
+  const entries = [...new Set(allSeries.flatMap((s) => s.points.map((p) => p.date)))].sort();
   const activeIndex = activeDate ? entries.indexOf(activeDate) : -1;
   const selected = activeIndex < 0 ? null : entries[activeIndex];
-  const rows = selected ? series.map((s) => {
+  const rows = selected ? plots.flatMap((plot) => plot.series.map((s) => {
     const point = s.points.find((p) => p.date === selected);
     const value = point?.value;
     const reading = value === null || value === undefined
       ? lang === "en" ? "No observation" : "Sin observación"
-      : zeroReference
-        ? `${Math.abs(value).toFixed(2)} ${lang === "en" ? (value > 0 ? "ft above full pool" : "ft below full pool") : (value > 0 ? "pies sobre la cota máxima" : "pies bajo la cota máxima")}`
-        : `${value.toLocaleString(lang === "en" ? "en-US" : "es-US", { minimumFractionDigits: unit === "ft³/s" ? 2 : 0, maximumFractionDigits: 2 })} ${unit}`;
+      : plot.categories ? plot.categories[value]
+        : plot.zeroReference
+          ? `${Math.abs(value).toFixed(2)} ${lang === "en" ? (value > 0 ? "ft above full pool" : "ft below full pool") : (value > 0 ? "pies sobre la cota máxima" : "pies bajo la cota máxima")}`
+          : `${value.toLocaleString(lang === "en" ? "en-US" : "es-US", { minimumFractionDigits: plot.unit === "ft³/s" ? 2 : 0, maximumFractionDigits: 2 })} ${plot.unit}`;
     const period = point?.start && point?.end ? `${fullDate(point.start, lang)} – ${fullDate(point.end, lang)}` : "";
-    return { label: s.label, color: s.color, value, reading, period, detail: point?.detail };
-  }) : [];
+    return { label: s.label, color: s.color, value, reading, period, detail: point?.detail, y: plot.y };
+  })) : [];
   const inspectPointer = (clientX: number, svg: SVGSVGElement | null) => {
     const rect = svg?.getBoundingClientRect();
     if (!rect?.width) return;
@@ -76,38 +94,47 @@ export function Chart({ title, description, series, window, unit, lang, zeroRefe
     <svg viewBox={`0 0 ${width} ${height}`} role="group" aria-labelledby={`${id}-title`} aria-describedby={`${id}-desc`}>
       <title id={`${id}-title`}>{title}</title>
       <desc id={`${id}-desc`}>{description} {hasGaps && `${gapLabel}. `}{help}</desc>
-      <text className="context-axis" x={left} y={14}>{unit}</text>
-      {ticks.map((tick) => <g key={tick}>
-        <line x1={left} x2={width - right} y1={y(tick)} y2={y(tick)} className={zeroReference && tick === 0 ? "full-pool-line" : "context-grid-line"} />
-        <text x={left - 8} y={y(tick) + 4} textAnchor="end" className="context-axis">{tick}</text>
+      {plots.map(({ label, unit, traces, references, ticks, top, y, categories, zeroReference, gapDays }) => <g key={label ?? unit}>
+        <text className="context-axis" x={left} y={top - 12}>{label ?? unit}</text>
+        {ticks.map((tick) => <g key={tick}>
+          <line x1={left} x2={width - right} y1={y(tick)} y2={y(tick)} className={zeroReference && tick === 0 ? "full-pool-line" : "context-grid-line"} />
+          <text x={left - 8} y={y(tick) + 4} textAnchor="end" className="context-axis">{categories ? categories[tick] : tick}</text>
+        </g>)}
+        {zeroReference && <text x={width - right} y={y(0) - 7} textAnchor="end" className="context-axis">{lang === "en" ? "Full pool" : "Cota máxima"}</text>}
+        {references.map((rule) => <g key={rule.label}>
+          <line x1={left} x2={width - right} y1={y(rule.value)} y2={y(rule.value)}
+            stroke={rule.color} strokeDasharray="6 4" strokeWidth={rule.highlighted ? 2.5 : 1.5} />
+          {rule.inlineLabel && <text className="context-axis" x={width - right + 5} y={y(rule.value) + 3}
+            style={{ fill: rule.color, fontWeight: rule.highlighted ? 700 : 500 }}>{rule.inlineLabel}</text>}
+        </g>)}
+        {traces.map((s) => <g key={s.label}>
+          {!categories && s.segments.slice(1).map(([next], i) => {
+            const previous = s.segments[i][s.segments[i].length - 1];
+            return <line key={next.date} className="chart-gap-connector" aria-hidden="true"
+              x1={x(previous.date)} y1={y(previous.value)} x2={x(next.date)} y2={y(next.value)} stroke={s.color} />;
+          })}
+          {s.segments.map((segment, i) => <path key={i} d={segment.map((p, index) => {
+            if (!index) return `M${x(p.date)},${y(p.value)}`;
+            return categories ? `H${x(p.date)}V${y(p.value)}` : `L${x(p.date)},${y(p.value)}`;
+          }).join(" ")} fill="none" stroke={s.color} strokeWidth="2.5" strokeDasharray={s.dashed ? s.dashPattern ?? "6 5" : undefined} />)}
+          {!s.dashed && s.points.map((p) => p.value === null ? null : <circle key={p.date} cx={x(p.date)} cy={y(p.value)} r={gapDays === 1 ? 3 : 2.5} fill={s.color}>
+            <title>{`${s.label} · ${fullDate(p.date, lang)}: ${categories ? categories[p.value] : `${p.value.toFixed(2)} ${unit}`}`}</title>
+          </circle>)}
+        </g>)}
       </g>)}
-      {zeroReference && <text x={width - right} y={y(0) - 7} textAnchor="end" className="context-axis">{lang === "en" ? "Full pool" : "Cota máxima"}</text>}
-      {dates.map((date, i) => <text key={date} x={x(date)} y={height - 9} textAnchor={i === 0 ? "start" : i === dates.length - 1 ? "end" : "middle"} className="context-axis">{dateLabel(date, lang)}</text>)}
-      {references.map((rule) => <line key={rule.label} x1={left} x2={width - right}
-        y1={y(rule.value)} y2={y(rule.value)} stroke={rule.color} strokeDasharray="6 4" strokeWidth={rule.highlighted ? 2.5 : 1.5} />)}
-      {traces.map((s) => <g key={s.label}>
-        {s.segments.slice(1).map(([next], i) => {
-          const previous = s.segments[i][s.segments[i].length - 1];
-          return <line key={next.date} className="chart-gap-connector" aria-hidden="true"
-            x1={x(previous.date)} y1={y(previous.value)} x2={x(next.date)} y2={y(next.value)} stroke={s.color} />;
-        })}
-        {s.segments.map((segment, i) => <path key={i} d={segment.map((p, index) => `${index ? "L" : "M"}${x(p.date)},${y(p.value)}`).join(" ")} fill="none" stroke={s.color} strokeWidth="2.5" strokeDasharray={s.dashed ? s.dashPattern ?? "6 5" : undefined} />)}
-        {!s.dashed && s.points.map((p) => p.value === null ? null : <circle key={p.date} cx={x(p.date)} cy={y(p.value)} r={gapDays === 1 ? 3 : 2.5} fill={s.color}>
-          <title>{`${s.label} · ${fullDate(p.date, lang)}: ${p.value.toFixed(2)} ${unit}`}</title>
-        </circle>)}
-      </g>)}
+      {dateLabels.map((date, i) => <text key={date} x={x(date)} y={height - 9} textAnchor={i === 0 ? "start" : i === dateLabels.length - 1 ? "end" : "middle"} className="context-axis">{dateLabel(date, lang)}</text>)}
       {selected && <g className="chart-selection" pointerEvents="none">
-        <line x1={x(selected)} x2={x(selected)} y1={top} y2={height - bottom} />
-        {rows.map((row) => row.value === null || row.value === undefined ? null : <circle key={row.label} cx={x(selected)} cy={y(row.value)} r={5} fill={row.color} />)}
+        <line x1={x(selected)} x2={x(selected)} y1={plots[0].top} y2={plots.at(-1)?.bottom} />
+        {rows.map((row) => row.value === null || row.value === undefined ? null : <circle key={row.label} cx={x(selected)} cy={row.y(row.value)} r={5} fill={row.color} />)}
       </g>}
-      {entries.length > 0 && <rect className="chart-hit-area" x={left} y={top} width={width - left - right} height={height - top - bottom}
+      {entries.length > 0 && <rect className="chart-hit-area" x={left} y={plots[0].top} width={width - left - right} height={plots[plots.length - 1].bottom - plots[0].top}
         fill="transparent" tabIndex={0} role="slider" aria-label={title} aria-orientation="horizontal"
         aria-valuemin={0} aria-valuemax={entries.length - 1} aria-valuenow={Math.max(0, activeIndex)} aria-valuetext={valueText}
         aria-describedby={`${id}-desc`}
         onPointerMove={(event) => inspectPointer(event.clientX, event.currentTarget.ownerSVGElement)}
         onPointerDown={(event) => inspectPointer(event.clientX, event.currentTarget.ownerSVGElement)}
         onPointerLeave={(event) => { if (document.activeElement !== event.currentTarget) setActiveDate(null); }}
-        onFocus={() => setActiveDate((date) => date && entries.includes(date) ? date : entries.findLast((date) => series.some((s) => s.points.some((p) => p.date === date && p.value !== null))) ?? entries[0])}
+        onFocus={() => setActiveDate((date) => date && entries.includes(date) ? date : entries.findLast((date) => allSeries.some((s) => s.points.some((p) => p.date === date && p.value !== null))) ?? entries[0])}
         onBlur={() => setActiveDate(null)}
         onKeyDown={(event) => {
           const key = event.key;
@@ -119,16 +146,16 @@ export function Chart({ title, description, series, window, unit, lang, zeroRefe
         }} />}
     </svg>
     {selected && <div className="chart-tooltip" id={`${id}-tooltip`} role="tooltip" style={{ left: `clamp(0px, calc(${x(selected) / width * 100}% - 145px), max(0px, calc(100% - 290px)))` }}>
-      <strong>{gapDays > 1 ? (lang === "en" ? "Week ending " : "Semana hasta ") : ""}{fullDate(selected, lang)}</strong>
+      <strong>{(primary.gapDays ?? 1) > 1 && !primary.categories ? (lang === "en" ? "Week ending " : "Semana hasta ") : ""}{fullDate(selected, lang)}</strong>
       {rows.map((row) => <div key={row.label}><span className="chart-tooltip-series"><i style={{ background: row.color }} />{row.label}</span><b>{row.reading}</b>{row.period && <span>{row.period}</span>}{row.detail && <span>{row.detail}</span>}</div>)}
     </div>}
     <p className="chart-help">{lang === "en" ? "Hover, tap, or use arrow keys for values and dates." : "Pase el cursor, toque o use las flechas para consultar valores y fechas."}</p>
     <div className="context-legend">
-      {series.map((s) => <span key={s.label}><i style={{ borderColor: s.color, borderStyle: s.dashPattern === "2 4" ? "dotted" : s.dashed ? "dashed" : "solid" }} />{s.label}</span>)}
-      {references.map((rule) => <span key={rule.label}><i style={{ borderColor: rule.color, borderStyle: "dashed" }} />{rule.label}</span>)}
+      {allSeries.map((s) => <span key={s.label}><i style={{ borderColor: s.color, borderStyle: s.dashPattern === "2 4" ? "dotted" : s.dashed ? "dashed" : "solid" }} />{s.label}</span>)}
+      {plots.flatMap((plot) => plot.references).map((rule) => <span key={rule.label}><i style={{ borderColor: rule.color, borderStyle: "dashed" }} />{rule.label}</span>)}
       {hasGaps && <span><i className="chart-gap-key" />{gapLabel}</span>}
     </div>
-    {!values.length && <p>{lang === "en" ? "No observations in this period." : "No hay observaciones en este período."}</p>}
+    {!plots.some((plot) => plot.values.length) && <p>{lang === "en" ? "No observations in this period." : "No hay observaciones en este período."}</p>}
   </div>;
 }
 

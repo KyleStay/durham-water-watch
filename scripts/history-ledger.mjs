@@ -111,6 +111,18 @@ export function recordStorageObservation(history, observation) {
   return true;
 }
 
+export function recordDroughtObservation(history, metric) {
+  const date = validObservationDate(metric?.observedAt);
+  const category = typeof metric?.value === "string" ? metric.value.match(/^(D[0-4]|None)(?:\s|$)/)?.[1] : null;
+  if (!date || !category || metric.validationResult !== "accepted" || metric.sourceUrl !== "https://www.ncdrought.org/") return;
+  const readings = history.droughtObservations ??= [];
+  const index = readings.findIndex((reading) => reading.date === date);
+  const reading = { date, category };
+  if (index < 0) readings.push(reading);
+  else readings[index] = reading;
+  readings.sort((left, right) => left.date.localeCompare(right.date));
+}
+
 export function clearCityObservations(history) {
   for (const entry of history.days) {
     for (const [field, group, key] of CITY_FIELDS) {

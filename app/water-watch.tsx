@@ -8,7 +8,7 @@ import { dashboardAt, metricStatus } from "../scripts/freshness.mjs";
 import { annualReservoirHeading, showsStageTwoGuidance } from "../scripts/stage-guidance.mjs";
 import TrendContext, { type TenYearAverage } from "./trend-charts";
 import WatershedMap, { type RainfallForecast } from "./watershed-map";
-import { DroughtLevels, RestrictionLevels, StageTransitionCharts, type StorageReading } from "./water-level-guide";
+import { DroughtLevels, DroughtTrend, RestrictionLevels, StageTransitionChart, type DroughtReading, type StorageReading } from "./water-level-guide";
 
 type Lang = "en" | "es";
 type Freshness = "fresh" | "stale" | "unavailable";
@@ -69,6 +69,7 @@ type DailyEntry = {
 type HistoryData = {
   schemaVersion: number;
   storageObservations?: StorageReading[];
+  droughtObservations?: DroughtReading[];
   coverage?: { startsOn: string; through: string; note: string };
   days: DailyEntry[];
 };
@@ -603,16 +604,17 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
               <div><p className="eyebrow">{t.stage}</p><div className="stage-brief-value"><strong>Stage / Etapa {data.stage.value ?? "—"}</strong><Status metric={data.stage} lang={lang} /></div><p>{t.effective} {fmtDate(data.stage.effectiveDate, lang)}</p></div>
               <div><p>{isStageTwo ? t.action : lang === "en" ? "Check the current City water-use rules." : "Consulte las reglas actuales de uso del agua de la Ciudad."}</p><a href="#actions">{lang === "en" ? "What to do now" : "Qué hacer ahora"} ↓</a><span aria-hidden="true"> · </span><a href={urls.stage} target="_blank" rel="noreferrer">{t.allRules} ↗</a></div>
             </div>
-            <p className="briefing-priority">{t.official} <a href="#stage-proximity">{lang === "en" ? "See stage transition graphs" : "Ver gráficas de cambio de etapa"} ↓</a></p>
+            <p className="briefing-priority">{t.official} <a href="#stage-proximity">{lang === "en" ? "See the stage trend" : "Ver la tendencia de etapas"} ↓</a></p>
             <noscript><p>Freshness labels reflect the published snapshot time. Check observation dates and official sources for current conditions.</p></noscript>
           </div>
         </section>
 
         <div className="section outlook-section">
           <div className="wrap">
-            <StageTransitionCharts lang={lang} stage={data.stage.status === "fresh" && typeof data.stage.value === "number" ? data.stage.value : null}
+            <StageTransitionChart lang={lang} stage={data.stage.status === "fresh" && typeof data.stage.value === "number" ? data.stage.value : null}
               storage={reportedStorage} date={reportedStorage === null ? null : fmtDate(storage?.observedAt ?? null, lang)}
-              stale={storage?.status !== "fresh"} readings={history.storageObservations ?? []} />
+              stale={storage?.status !== "fresh"} readings={history.storageObservations ?? []} days={history.days} />
+            <DroughtTrend lang={lang} readings={history.droughtObservations ?? []} />
           </div>
         </div>
 

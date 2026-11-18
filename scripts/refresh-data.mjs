@@ -2,7 +2,7 @@ import { readFile, rename, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { isCalendarDate } from "./calendar-date.mjs";
 import { metricStatus } from "./freshness.mjs";
-import { appendDailyEntry, normalizeCityAvailability, recordCitySnapshot, recordStorageObservation } from "./history-ledger.mjs";
+import { appendDailyEntry, normalizeCityAvailability, recordCitySnapshot, recordDroughtObservation, recordStorageObservation } from "./history-ledger.mjs";
 import { acceptedMetricObservation } from "./history-metric.mjs";
 import { backfillStreamflowDailyMeans, dailyMeanFor, retainComparisonYear } from "./history-streamflow.mjs";
 import { acceptMetrics } from "./metric-acceptance.mjs";
@@ -539,6 +539,7 @@ if (littleDailyMean === null) dailyEntry.unavailableFields.push("streamflow.litt
 normalizeCityAvailability(dailyEntry);
 appendDailyEntry(history, dailyEntry);
 recordCitySnapshot(history, snapshot);
+recordDroughtObservation(history, snapshot.drought);
 const storageObservation = acceptedMetricObservation(snapshot.reservoirStorage);
 if (storageObservation) recordStorageObservation(history, {
   ...storageObservation,

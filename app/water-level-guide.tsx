@@ -1,5 +1,5 @@
 import { Chart } from "./trend-charts";
-import { trendWindow } from "../scripts/trend-series.mjs";
+import { trendWindow, weeklyFlow } from "../scripts/trend-series.mjs";
 
 type Lang = "en" | "es";
 
@@ -30,23 +30,48 @@ const recovery = { probability: 95, weeks: 10, storage: 95 };
 
 export type StorageReading = { observedAt: string; value: number; sourceUrl: string; bulletinDate?: boolean };
 
-export function StageTransitionCharts({ lang, stage, storage, date, stale, readings }: {
+type FactorDay = {
+  date: string;
+  values: { supply: { accessible: number | null }; streamflow: { flat: number | null; little: number | null } };
+  measurementKinds?: Record<string, string>;
+  retainedFields?: string[];
+  quarantinedFields?: string[];
+};
+
+export function StageTransitionChart({ lang, stage, storage, date, stale, readings, days }: {
   lang: Lang;
   stage: number | null;
   storage: number | null;
   date: string | null;
   stale: boolean;
   readings: StorageReading[];
+  days: FactorDay[];
 }) {
   const en = lang === "en";
   const locale = en ? "en-US" : "es-US";
   const format = new Intl.NumberFormat(locale, { maximumFractionDigits: 2 });
   const formatDate = new Intl.DateTimeFormat(locale, { dateStyle: "medium", timeZone: "UTC" });
   const next = stages.find((rule) => stage !== null && rule.stage === stage + 1);
-  const first = readings[0], latest = readings.at(-1);
+  const first = readings[0]?.observedAt ?? days[0]?.date;
+  const latest = [readings.at(-1)?.observedAt, days.at(-1)?.date].filter((day): day is string => Boolean(day)).sort().at(-1);
   const window = first && latest
-    ? first === latest ? trendWindow(latest.observedAt, "30") : { start: first.observedAt, end: latest.observedAt }
+    ? first === latest ? trendWindow(latest, "30") : { start: first, end: latest }
     : null;
+  const visibleDays = window ? days.filter((day) => day.date >= window.start && day.date <= window.end) : [];
+  const recorded = (day: FactorDay, field: string) => !day.retainedFields?.includes(field) && !day.quarantinedFields?.includes(field);
+  const accessibleLabel = en ? "Accessible supply" : "Suministro accesible";
+  const daysUnit = en ? "days" : "días";
+  const flows = (["flat", "little"] as const).map((key) => ({
+    label: key === "flat" ? "Flat River" : "Little River",
+    color: key === "flat" ? "#07516e" : "#795384",
+    points: window ? weeklyFlow(visibleDays.map((day) => ({
+      date: day.date, historicalMean: null,
+      currentYear: day.measurementKinds?.streamflow === "USGS daily mean" && recorded(day, `streamflow.${key}`) ? day.values.streamflow[key] : null,
+    })), window, window.end).filter((week) => week.current !== null).map((week) => ({
+      date: week.through ?? week.date, value: week.current, start: week.start, end: week.through ?? undefined,
+      detail: `${week.count} ${en ? "observed daily means" : "promedios diarios observados"}`,
+    })) : [],
+  }));
   const storageLabel = en ? "City-reported storage" : "Almacenamiento informado";
   const bulletinLabel = en ? "Bulletin date" : "Fecha del boletín";
   const gap = (value: number, target: number) => {
@@ -56,10 +81,10 @@ export function StageTransitionCharts({ lang, stage, storage, date, stale, readi
     return en ? `${amount} percentage points ${difference > 0 ? "above" : "below"} the storage target`
       : `${amount} puntos porcentuales por ${difference > 0 ? "encima" : "debajo"} de la meta`;
   };
-  const graphs = [
-    { title: en ? "Entering a stage" : "Entrar en una etapa", rows: stages, target: next?.storage, scale: Math.max(60, ...readings.map((point) => point.value)) },
-    { title: en ? "Lifting restrictions" : "Levantar restricciones", rows: [{ stage: 0, ...recovery }], target: recovery.storage, scale: 100 },
-  ];
+  const targets = [...stages, { stage: 0, ...recovery }];
+  const label = (rule: { stage: number }) => rule.stage === 0
+    ? (en ? "Recovery target" : "Meta de recuperación")
+    : `${en ? "Stage" : "Etapa"} ${rule.stage}`;
   return (
     <section id="stage-proximity" className="stage-proximity" aria-labelledby="stage-proximity-title">
       <h2 id="stage-proximity-title">{en ? "How close are Durham’s water restrictions to changing?" : "¿Qué tan cerca está Durham de cambiar sus restricciones de agua?"}</h2>
@@ -67,44 +92,51 @@ export function StageTransitionCharts({ lang, stage, storage, date, stale, readi
         ? en ? "City storage reading unavailable." : "Lectura municipal de almacenamiento no disponible."
         : <><strong>{format.format(storage)}%</strong> {en ? "storage reported by Durham" : "de almacenamiento informado por Durham"} · {date}{stale && (en ? " · Last known" : " · Última lectura conocida")}</>}</p>
       <p className="stage-proximity-note">{en
-        ? "Dots show City readings. The horizontal dashed lines are storage targets in the City’s plan. Gaps to those targets are approximate because the public reading may differ from the plan’s measure of usable storage. Durham uses forecast probabilities to decide when stages change."
-        : "Los puntos muestran lecturas municipales. Las líneas horizontales discontinuas marcan metas del plan municipal. Las diferencias son aproximadas porque la lectura pública puede diferir de la medida de almacenamiento utilizable del plan. Durham usa probabilidades del pronóstico para decidir cambios de etapa."}</p>
-      <div className="stage-proximity-grid">
-        {graphs.map(({ title, rows, target, scale }) => (
-          <figure className="stage-proximity-chart" key={title}>
-            <figcaption>{title}</figcaption>
-            {window ? <Chart title={title}
-              description={en ? "Dated storage readings and the storage targets in Durham’s plan." : "Lecturas fechadas y metas de almacenamiento del plan municipal."}
-              series={[{ label: storageLabel, color: "#286a67", points: readings.map((reading) => ({
-                date: reading.observedAt, value: reading.value,
-                detail: [reading.bulletinDate ? bulletinLabel : "", target === undefined ? "" : gap(reading.value, target)].filter(Boolean).join(" · "),
-              })) }]}
-              references={rows.map((rule) => ({
-                label: `${rule.stage === 0 ? (en ? "Recovery" : "Recuperación") : `${en ? "Stage" : "Etapa"} ${rule.stage}`} · ${rule.storage}%`,
-                value: rule.storage, color: rule.stage === next?.stage ? "#9b4b1d" : "#526f7f", highlighted: rule.stage === next?.stage,
-              }))}
-              window={window} lang={lang} unit="%" domain={[0, scale]} />
-              : <p>{en ? "No dated storage readings available." : "No hay lecturas fechadas disponibles."}</p>}
-            <ul>
-              {rows.map((rule) => {
-                const highlight = rule.stage === next?.stage;
-                return (
-                  <li key={rule.stage} className={highlight ? "stage-proximity-next" : undefined}>
-                    <div className="stage-proximity-label">
-                      <strong>{rule.stage === 0 ? (en ? "Recovery target" : "Meta de recuperación") : `${en ? "Stage" : "Etapa"} ${rule.stage}`}{highlight && (en ? " · Next higher stage" : " · Siguiente etapa más restrictiva")}</strong>
-                      <span>{en
-                        ? `${rule.stage === 0 ? "At least " : ""}${rule.probability}% chance of ${rule.storage}% usable storage in ${rule.weeks} weeks`
-                        : `${rule.stage === 0 ? "Al menos " : ""}${rule.probability}% de probabilidad de alcanzar ${rule.storage}% de almacenamiento utilizable en ${rule.weeks} semanas`}</span>
-                    </div>
-                    {storage !== null && (highlight || rule.stage === 0) && <small>{gap(storage, rule.storage)}</small>}
-                  </li>
-                );
-              })}
-            </ul>
-            {target === recovery.storage && <p>{en ? "Reservoir volumes must also be rising. The City can lift one or more stages." : "El volumen de los embalses también debe estar aumentando. La Ciudad puede levantar una o más etapas."}</p>}
-          </figure>
-        ))}
-      </div>
+        ? "The dashed lines show the storage targets in Durham’s plan. Durham uses forecast probabilities to change restrictions. The storage gaps are approximate. Supply and river flow share the same dates so you can compare how conditions moved."
+        : "Las líneas discontinuas muestran las metas de almacenamiento del plan de Durham. La Ciudad usa probabilidades del pronóstico para cambiar las restricciones. Las diferencias son aproximadas. El suministro y el caudal comparten las fechas para comparar cómo cambiaron las condiciones."}</p>
+      <figure className="stage-proximity-chart">
+        <figcaption>{en ? "Storage, stage targets and water conditions" : "Almacenamiento, metas de etapa y condiciones del agua"}</figcaption>
+        {window ? <Chart title={en ? "Stage targets and contributing conditions" : "Metas de etapa y condiciones relacionadas"}
+          description={en ? "Reported storage and five plan targets, accessible supply, and weekly USGS river flow share a date axis." : "El almacenamiento informado y cinco metas del plan, el suministro accesible y el caudal semanal del USGS comparten un eje de fechas."}
+          label={en ? "Reservoir storage (%)" : "Almacenamiento de los embalses (%)"}
+          series={[{ label: storageLabel, color: "#286a67", points: readings.map((reading) => ({
+            date: reading.observedAt, value: reading.value,
+            detail: [reading.bulletinDate ? bulletinLabel : "", next ? gap(reading.value, next.storage) : ""].filter(Boolean).join(" · "),
+          })) }]}
+          references={targets.map((rule) => ({
+            label: `${label(rule)} · ${rule.storage}%`, value: rule.storage,
+            inlineLabel: `${rule.stage ? `${en ? "S" : "E"}${rule.stage}` : en ? "Lift" : "Fin"} ${rule.storage}%`,
+            color: rule.stage === next?.stage ? "#9b4b1d" : "#526f7f", highlighted: rule.stage === next?.stage,
+          }))}
+          tracks={[
+            { label: `${accessibleLabel} (${daysUnit})`, unit: daysUnit, series: [{ label: accessibleLabel, color: "#4c7760",
+              points: visibleDays.filter((day) => day.values.supply.accessible !== null && recorded(day, "supply.accessible"))
+                .map((day) => ({ date: day.date, value: day.values.supply.accessible })) }] },
+            { label: en ? "Weekly river flow (ft³/s)" : "Caudal semanal (pies³/s)", unit: "ft³/s", series: flows, gapDays: 7 },
+          ]}
+          window={window} lang={lang} unit="%" domain={[0, 100]} />
+          : <p>{en ? "No dated readings available." : "No hay lecturas fechadas disponibles."}</p>}
+        {storage !== null && <p className="stage-gap-readout">
+          {next && <span><strong>{label(next)}</strong> · {gap(storage, next.storage)}</span>}
+          <span><strong>{label({ stage: 0 })}</strong> · {gap(storage, recovery.storage)}</span>
+        </p>}
+        <details>
+          <summary>{en ? "Official stage criteria" : "Criterios oficiales de etapa"}</summary>
+          <ul>
+            {targets.map((rule) => (
+              <li key={rule.stage} className={rule.stage === next?.stage ? "stage-proximity-next" : undefined}>
+                <div className="stage-proximity-label">
+                  <strong>{label(rule)}</strong>
+                  <span>{en
+                    ? `${rule.stage === 0 ? "At least " : ""}${rule.probability}% chance of ${rule.storage}% usable storage in ${rule.weeks} weeks`
+                    : `${rule.stage === 0 ? "Al menos " : ""}${rule.probability}% de probabilidad de alcanzar ${rule.storage}% de almacenamiento utilizable en ${rule.weeks} semanas`}</span>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <p>{en ? "Reservoir volumes must also be rising for the City to lift restrictions." : "El volumen de los embalses también debe estar aumentando para que la Ciudad levante las restricciones."}</p>
+        </details>
+      </figure>
       {readings.length > 0 && <details className="storage-reading-sources">
         <summary>{en ? "Storage readings and sources" : "Lecturas y fuentes de almacenamiento"} · {readings.length}</summary>
         <ul>{[...readings].reverse().map((reading) => (
@@ -167,6 +199,32 @@ const droughtLevels = [
   { code: "D3", range: "2–5", en: ["Extreme drought", "More serious water shortages and widespread impacts are possible."], es: ["Sequía extrema", "Puede haber escasez más grave e impactos extensos."] },
   { code: "D4", range: "0–2", en: ["Exceptional drought", "Critical shortages can affect communities, agriculture and daily life."], es: ["Sequía excepcional", "La escasez crítica puede afectar comunidades, agricultura y vida cotidiana."] },
 ];
+
+export type DroughtReading = { date: string; category: string };
+
+export function DroughtTrend({ lang, readings }: { lang: Lang; readings: DroughtReading[] }) {
+  const en = lang === "en";
+  const title = en ? "Durham County drought over time" : "Sequía en el condado de Durham a lo largo del tiempo";
+  const first = readings[0]?.date, latest = readings.at(-1)?.date;
+  const categories = droughtLevels.map(({ code }) => code === "None" && !en ? "Sin sequía" : code);
+  const points = readings.flatMap(({ date, category }) => {
+    const value = droughtLevels.findIndex(({ code }) => code === category);
+    return value < 0 ? [] : [{ date, value, detail: droughtLevels[value][lang][0] }];
+  });
+  return <section id="drought-trend" aria-labelledby="drought-trend-title" className="drought-trend">
+    <h2 id="drought-trend-title">{title}</h2>
+    <figure className="stage-proximity-chart">
+      <figcaption>{en ? "Weekly county category" : "Categoría semanal del condado"}</figcaption>
+      {first && latest ? <Chart title={title}
+        description={en ? "Official weekly North Carolina drought classifications for Durham County." : "Clasificaciones semanales oficiales de sequía de Carolina del Norte para el condado de Durham."}
+        series={[{ label: en ? "County drought category" : "Categoría de sequía del condado", color: "#9b4b1d", points }]}
+        unit={en ? "Severity" : "Gravedad"} categories={categories} lang={lang} gapDays={7}
+        window={first === latest ? trendWindow(latest, "30") : { start: first, end: latest }} />
+        : <p>{en ? "No weekly classifications available." : "No hay clasificaciones semanales disponibles."}</p>}
+      <p className="level-sources"><a href="https://www.ncdrought.org/map-archives" target="_blank" rel="noreferrer">{en ? "NC drought archive" : "Archivo de sequía de Carolina del Norte"} ↗</a> · <a href="#drought">{en ? "What D0–D4 mean" : "Qué significan D0–D4"} ↓</a></p>
+    </figure>
+  </section>;
+}
 
 export function DroughtLevels({ lang }: { lang: Lang }) {
   const en = lang === "en";

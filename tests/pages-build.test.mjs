@@ -27,6 +27,7 @@ test("produces a complete GitHub Pages artifact", async () => {
   assert.match(html, /Both graphs use the same scale/);
   const stageChart = html.indexOf('id="stage-proximity"');
   assert.ok(stageChart >= 0 && stageChart < html.indexOf('id="trends"'), "Show the stage charts before the other trends");
+  assert.ok(stageChart < html.indexOf('id="drought-trend"'), "Show the separate drought chart after the stage chart");
   assert.match(html, /verified ten-year numeric series is not available.*City reservoir levels or supply/);
   assert.match(html, /USGS daily means appear where available/);
 
@@ -57,6 +58,9 @@ test("publishes a complete, ordered daily values ledger", async () => {
   assert.deepEqual(storageDates, [...new Set(storageDates)].sort());
   assert.ok(history.storageObservations.some((point) => point.bulletinDate && point.value === 52.2));
   assert.ok(history.storageObservations.every((point) => Number.isFinite(point.value) && point.value >= 0 && point.value <= 100));
+  const droughtDates = history.droughtObservations.map(({ date }) => date);
+  assert.deepEqual(droughtDates, [...new Set(droughtDates)].sort());
+  assert.ok(history.droughtObservations.some(({ date, category }) => date === "2026-07-28" && category === "D1"));
   assert.match(history.coverage.startsOn, /^\d{4}-\d{2}-\d{2}$/);
   assert.match(history.coverage.note, /not forward-filled/);
   assert.ok(history.days.length > 0);

@@ -19,7 +19,7 @@ try {
 } finally { await rm(temporary, { recursive: true, force: true }); }
 const snapshot = JSON.parse(await readFile(join(root, 'public/data/dashboard.json'), 'utf8'));
 
-test('stage charts distinguish dated storage gaps from city forecast criteria', () => {
+test('stage targets and contributing readings share one chart and county drought uses a separate step chart', () => {
   const data = structuredClone(snapshot);
   data.stage = { ...data.stage, value: 2, verifiedAt: data.generatedAt, retrievalStatus: 'verified', validationResult: 'accepted' };
   data.reservoirStorage = { ...data.reservoirStorage, value: 28, observedAt: '2026-11-16', retrievalStatus: 'failed' };
@@ -27,7 +27,7 @@ test('stage charts distinguish dated storage gaps from city forecast criteria', 
     const dom = new JSDOM(renderToString(createElement(WaterWatch, { snapshot: data })));
     const charts = dom.window.document.querySelector('#stage-proximity');
     const graphs = [...charts.querySelectorAll('figure svg')];
-    assert.equal(graphs.length, 2);
+    assert.equal(graphs.length, 1);
     for (const graph of graphs) {
       assert.ok(graph.querySelector('circle title').textContent.includes('Aug 4, 2026: 52.20'));
       assert.ok([...graph.querySelectorAll('circle title')].some((point) => point.textContent.includes('Nov 16, 2026: 28.00')));
@@ -39,16 +39,21 @@ test('stage charts distinguish dated storage gaps from city forecast criteria', 
         assert.ok(dots.has(`${connector.getAttribute('x2')},${connector.getAttribute('y2')}`));
       }
     }
-    assert.equal(graphs[0].querySelectorAll('line[stroke-dasharray]').length, 4);
-    assert.equal(graphs[1].querySelectorAll('line[stroke-dasharray]').length, 1);
+    assert.equal(graphs[0].querySelectorAll('line[stroke-dasharray]').length, 5);
+    assert.match(graphs[0].textContent, /Accessible supply \(days\).*Weekly river flow \(ft³\/s\)/);
+    assert.ok([...graphs[0].querySelectorAll("circle title")].some((point) => point.textContent.includes("Flat River")));
+    const drought = dom.window.document.querySelector('#drought-trend svg');
+    assert.ok(drought.querySelectorAll('circle').length >= 37);
+    assert.match(drought.textContent, /Jun 9, 2026: D4/);
+    assert.match(drought.querySelector('path').getAttribute('d'), /H[\d.]+V[\d.]+/);
     const content = charts.textContent;
     dom.window.close();
     return content;
   };
   const charts = renderCharts();
   assert.match(charts, /28% storage reported by Durham.*November 16, 2026.*Last known/);
-  assert.match(charts, /Stage 3.*10% chance of 25% usable storage in 8 weeks.*3 percentage points above/);
-  assert.match(charts, /95% chance of 95% usable storage in 10 weeks.*67 percentage points below/);
+  assert.match(charts, /Stage 3.*3 percentage points above.*10% chance of 25% usable storage in 8 weeks/);
+  assert.match(charts, /67 percentage points below.*95% chance of 95% usable storage in 10 weeks/);
   delete data.reservoirStorage;
   const unavailable = renderCharts();
   assert.match(unavailable, /City storage reading unavailable/);
@@ -120,7 +125,7 @@ for (const [endDate, startLabel, endLabel] of [
     await act(async () => { hydrated = hydrateRoot(container, element, { onRecoverableError: error => errors.push(error.message) }); });
     await act(async () => { await new Promise(resolve => setTimeout(resolve, 30)); });
     assert.deepEqual(errors, []);
-    assert.ok(document.querySelector('svg title').textContent.includes('Lake Michie'));
+    assert.ok(document.querySelector('#trends svg title').textContent.includes('Lake Michie'));
     await act(async () => { [...document.querySelectorAll('.period-controls button')].find(b => b.textContent === '30 days').click(); });
     assert.ok(document.querySelector('.period-note').textContent.includes(`${startLabel} – ${endLabel}`));
     assert.equal(document.querySelector('.period-controls button').getAttribute('aria-pressed'), 'true');

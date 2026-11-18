@@ -129,13 +129,18 @@ publication validation still apply. It does not turn an older City observation
 into today's reading. Missing, expired or rejected evidence retains labeled
 last-known-good data. Earlier evidence records remain for diagnosis.
 
-The stage transition charts compare dated City reservoir storage readings with
-the storage levels in its response plan. The sparse `storageObservations`
+The stage chart compares dated City storage readings with all five storage
+targets in its response plan. Tracks for accessible supply and weekly USGS
+river flow use the same dates and separate units. The sparse `storageObservations`
 array in `history.json` keeps each official source and separates bulletin dates
 from explicit storage observation dates. The updater archives accepted readings
 only on the City’s observation date. It does not fill missing dates or derive
 percentages from elevation or days of supply. The storage gaps are approximate
 because the plan uses forecast probabilities for combined usable storage.
+The separate drought chart uses `droughtObservations`, backfilled from the NC
+Drought Management Advisory Council's weekly archive for Durham County. The
+updater adds confirmed classifications by official observation date. The chart
+does not mix those classifications with the legacy daily drought column.
 
 Native trend charts support hover, tap and keyboard arrow keys, Home/End and
 Escape. Tooltips include the full date/year, exact elevation and distance from

@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { appendDailyEntry, normalizeCityAvailability, recordCitySnapshot } from "../scripts/history-ledger.mjs";
+import { appendDailyEntry, normalizeCityAvailability, recordCitySnapshot, recordDroughtObservation } from "../scripts/history-ledger.mjs";
 
 function row(date) {
   return normalizeCityAvailability({
@@ -20,6 +20,18 @@ function row(date) {
     measurementKinds: {},
   });
 }
+
+test("weekly drought categories use the official observation date and preserve confirmed weeks", () => {
+  const history = { days: [row("2026-11-18")] };
+  const metric = {
+    value: "D2 · Severe Drought", observedAt: "2026-11-10T08:00:00-05:00",
+    validationResult: "accepted", sourceUrl: "https://www.ncdrought.org/",
+  };
+  recordDroughtObservation(history, metric);
+  recordDroughtObservation(history, metric);
+  recordDroughtObservation(history, { ...metric, value: "D3 · Extreme Drought", validationResult: "rejected" });
+  assert.deepEqual(history.droughtObservations, [{ date: "2026-11-10", category: "D2" }]);
+});
 
 test("a delayed City reading repairs its observation-date row without duplicating it on capture day", () => {
   const history = { days: [row("2026-09-02"), row("2026-09-08")] };
