@@ -91,6 +91,26 @@ export function recordCitySnapshot(history, snapshot) {
   return recorded;
 }
 
+export function recordStorageObservation(history, observation) {
+  const date = validObservationDate(observation?.observedAt);
+  if (!date || observation.observedAt !== date || !Number.isFinite(observation.value)
+    || observation.value < 0 || observation.value > 100
+    || !Number.isFinite(Date.parse(observation.verifiedAt))
+    || !/^https:\/\/www\.durhamnc\.gov\/(1061\/Durham-Saves-Water|m\/NewsFlash\/(Home\/Detail|Archive\/Item)\/\d+)(\?arcId=\d+)?$/i.test(observation.sourceUrl)) {
+    return false;
+  }
+  const readings = history.storageObservations ??= [];
+  const index = readings.findIndex((reading) => reading.observedAt === date);
+  const previous = readings[index];
+  if (previous && (!previous.bulletinDate && observation.bulletinDate
+    || Boolean(previous.bulletinDate) === Boolean(observation.bulletinDate)
+      && Date.parse(previous.verifiedAt) > Date.parse(observation.verifiedAt))) return false;
+  if (index === -1) readings.push(observation);
+  else readings[index] = observation;
+  readings.sort((left, right) => left.observedAt.localeCompare(right.observedAt));
+  return true;
+}
+
 export function clearCityObservations(history) {
   for (const entry of history.days) {
     for (const [field, group, key] of CITY_FIELDS) {

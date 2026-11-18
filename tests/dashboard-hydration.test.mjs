@@ -25,9 +25,18 @@ test('stage charts distinguish dated storage gaps from city forecast criteria', 
   data.reservoirStorage = { ...data.reservoirStorage, value: 28, observedAt: '2026-11-16', retrievalStatus: 'failed' };
   const renderCharts = () => {
     const dom = new JSDOM(renderToString(createElement(WaterWatch, { snapshot: data })));
-    const charts = dom.window.document.querySelector('#stage-proximity').textContent;
+    const charts = dom.window.document.querySelector('#stage-proximity');
+    const graphs = [...charts.querySelectorAll('figure svg')];
+    assert.equal(graphs.length, 2);
+    for (const graph of graphs) {
+      assert.ok(graph.querySelector('circle title').textContent.includes('Aug 4, 2026: 52.20'));
+      assert.ok([...graph.querySelectorAll('circle title')].some((point) => point.textContent.includes('Nov 16, 2026: 28.00')));
+    }
+    assert.equal(graphs[0].querySelectorAll('line[stroke-dasharray]').length, 4);
+    assert.equal(graphs[1].querySelectorAll('line[stroke-dasharray]').length, 1);
+    const content = charts.textContent;
     dom.window.close();
-    return charts;
+    return content;
   };
   const charts = renderCharts();
   assert.match(charts, /28% storage reported by Durham.*November 16, 2026.*Last known/);

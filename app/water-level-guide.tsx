@@ -1,3 +1,6 @@
+import { Chart } from "./trend-charts";
+import { trendWindow } from "../scripts/trend-series.mjs";
+
 type Lang = "en" | "es";
 
 const planUrl = "https://www.durhamnc.gov/DocumentCenter/View/4291";
@@ -25,18 +28,37 @@ const stages = [
 
 const recovery = { probability: 95, weeks: 10, storage: 95 };
 
-export function StageTransitionCharts({ lang, stage, storage, date, stale }: {
+export type StorageReading = { observedAt: string; value: number; sourceUrl: string; bulletinDate?: boolean };
+
+export function StageTransitionCharts({ lang, stage, storage, date, stale, readings }: {
   lang: Lang;
   stage: number | null;
   storage: number | null;
   date: string | null;
   stale: boolean;
+  readings: StorageReading[];
 }) {
   const en = lang === "en";
-  const format = new Intl.NumberFormat(en ? "en-US" : "es-US", { maximumFractionDigits: 2 });
+  const locale = en ? "en-US" : "es-US";
+  const format = new Intl.NumberFormat(locale, { maximumFractionDigits: 2 });
+  const formatDate = new Intl.DateTimeFormat(locale, { dateStyle: "medium", timeZone: "UTC" });
+  const next = stages.find((rule) => stage !== null && rule.stage === stage + 1);
+  const first = readings[0], latest = readings.at(-1);
+  const window = first && latest
+    ? first === latest ? trendWindow(latest.observedAt, "30") : { start: first.observedAt, end: latest.observedAt }
+    : null;
+  const storageLabel = en ? "City-reported storage" : "Almacenamiento informado";
+  const bulletinLabel = en ? "Bulletin date" : "Fecha del boletín";
+  const gap = (value: number, target: number) => {
+    const difference = Math.round((value - target) * 100) / 100;
+    if (difference === 0) return en ? "At the storage target" : "En la meta de almacenamiento";
+    const amount = format.format(Math.abs(difference));
+    return en ? `${amount} percentage points ${difference > 0 ? "above" : "below"} the storage target`
+      : `${amount} puntos porcentuales por ${difference > 0 ? "encima" : "debajo"} de la meta`;
+  };
   const graphs = [
-    { title: en ? "Entering a stage" : "Entrar en una etapa", rows: stages },
-    { title: en ? "Lifting restrictions" : "Levantar restricciones", rows: [{ stage: 0, ...recovery }] },
+    { title: en ? "Entering a stage" : "Entrar en una etapa", rows: stages, target: next?.storage, scale: Math.max(60, ...readings.map((point) => point.value)) },
+    { title: en ? "Lifting restrictions" : "Levantar restricciones", rows: [{ stage: 0, ...recovery }], target: recovery.storage, scale: 100 },
   ];
   return (
     <section id="stage-proximity" className="stage-proximity" aria-labelledby="stage-proximity-title">
@@ -45,42 +67,53 @@ export function StageTransitionCharts({ lang, stage, storage, date, stale }: {
         ? en ? "City storage reading unavailable." : "Lectura municipal de almacenamiento no disponible."
         : <><strong>{format.format(storage)}%</strong> {en ? "storage reported by Durham" : "de almacenamiento informado por Durham"} · {date}{stale && (en ? " · Last known" : " · Última lectura conocida")}</>}</p>
       <p className="stage-proximity-note">{en
-        ? "The shaded bar shows reported storage. Each line marks a storage target in the City’s plan. The gaps are approximate because the public reading may differ from the plan’s measure of usable storage. Stage decisions depend on Durham’s forecast probabilities."
-        : "La barra sombreada muestra el almacenamiento informado. Cada línea marca una meta de almacenamiento del plan municipal. Las diferencias son aproximadas porque la lectura pública puede diferir de la medida de almacenamiento utilizable del plan. Los cambios de etapa dependen de las probabilidades del pronóstico municipal."}</p>
+        ? "Dots show City readings. Breaks mark dates without a reading. The dashed lines are storage targets in the City’s plan. Gaps to those targets are approximate because the public reading may differ from the plan’s measure of usable storage. Durham uses forecast probabilities to decide when stages change."
+        : "Los puntos muestran lecturas municipales. Los espacios indican fechas sin lecturas. Las líneas discontinuas marcan metas del plan municipal. Las diferencias son aproximadas porque la lectura pública puede diferir de la medida de almacenamiento utilizable del plan. Durham usa probabilidades del pronóstico para decidir cambios de etapa."}</p>
       <div className="stage-proximity-grid">
-        {graphs.map(({ title, rows }) => (
+        {graphs.map(({ title, rows, target, scale }) => (
           <figure className="stage-proximity-chart" key={title}>
             <figcaption>{title}</figcaption>
-            <div className="stage-proximity-scale" aria-hidden="true">{[0, 25, 50, 75, 100].map((tick) => <span key={tick}>{tick}%</span>)}</div>
+            {window ? <Chart title={title}
+              description={en ? "Dated storage readings and the storage targets in Durham’s plan." : "Lecturas fechadas y metas de almacenamiento del plan municipal."}
+              series={[{ label: storageLabel, color: "#286a67", points: readings.map((reading) => ({
+                date: reading.observedAt, value: reading.value,
+                detail: [reading.bulletinDate ? bulletinLabel : "", target === undefined ? "" : gap(reading.value, target)].filter(Boolean).join(" · "),
+              })) }]}
+              references={rows.map((rule) => ({
+                label: `${rule.stage === 0 ? (en ? "Recovery" : "Recuperación") : `${en ? "Stage" : "Etapa"} ${rule.stage}`} · ${rule.storage}%`,
+                value: rule.storage, color: rule.stage === next?.stage ? "#9b4b1d" : "#526f7f", highlighted: rule.stage === next?.stage,
+              }))}
+              window={window} lang={lang} unit="%" domain={[0, scale]} />
+              : <p>{en ? "No dated storage readings available." : "No hay lecturas fechadas disponibles."}</p>}
             <ul>
               {rows.map((rule) => {
-                const gap = storage === null ? null : Math.round((storage - rule.storage) * 100) / 100;
-                const next = rule.stage !== 0 && stage !== null && rule.stage === stage + 1;
+                const highlight = rule.stage === next?.stage;
                 return (
-                  <li key={rule.stage} className={next ? "stage-proximity-next" : undefined}>
+                  <li key={rule.stage} className={highlight ? "stage-proximity-next" : undefined}>
                     <div className="stage-proximity-label">
-                      <strong>{rule.stage === 0 ? (en ? "Recovery target" : "Meta de recuperación") : `${en ? "Stage" : "Etapa"} ${rule.stage}`}{next && (en ? " · Next higher stage" : " · Siguiente etapa más restrictiva")}</strong>
+                      <strong>{rule.stage === 0 ? (en ? "Recovery target" : "Meta de recuperación") : `${en ? "Stage" : "Etapa"} ${rule.stage}`}{highlight && (en ? " · Next higher stage" : " · Siguiente etapa más restrictiva")}</strong>
                       <span>{en
                         ? `${rule.stage === 0 ? "At least " : ""}${rule.probability}% chance of ${rule.storage}% usable storage in ${rule.weeks} weeks`
                         : `${rule.stage === 0 ? "Al menos " : ""}${rule.probability}% de probabilidad de alcanzar ${rule.storage}% de almacenamiento utilizable en ${rule.weeks} semanas`}</span>
                     </div>
-                    <div className="stage-proximity-track" aria-hidden="true">
-                      {storage !== null && <span className="stage-proximity-fill" style={{ width: `${storage}%` }} />}
-                      <span className="stage-proximity-target" style={{ left: `${rule.storage}%` }} />
-                    </div>
-                    {gap !== null && <small>{gap === 0
-                      ? (en ? "At the storage target" : "En la meta de almacenamiento")
-                      : en ? `${format.format(Math.abs(gap))} percentage points ${gap > 0 ? "above" : "below"} the storage target`
-                        : `${format.format(Math.abs(gap))} puntos porcentuales por ${gap > 0 ? "encima" : "debajo"} de la meta`}</small>}
+                    {storage !== null && (highlight || rule.stage === 0) && <small>{gap(storage, rule.storage)}</small>}
                   </li>
                 );
               })}
             </ul>
-            {rows.length === 1 && <p>{en ? "Reservoir volumes must also be rising. The City can lift one or more stages." : "El volumen de los embalses también debe estar aumentando. La Ciudad puede levantar una o más etapas."}</p>}
+            {target === recovery.storage && <p>{en ? "Reservoir volumes must also be rising. The City can lift one or more stages." : "El volumen de los embalses también debe estar aumentando. La Ciudad puede levantar una o más etapas."}</p>}
           </figure>
         ))}
       </div>
-      <p className="level-sources"><a href={planUrl} target="_blank" rel="noreferrer">{en ? "City response plan, Tables 5.1–5.2" : "Plan municipal, tablas 5.1–5.2"} ↗</a> · <a href="https://www.durhamnc.gov/1061/Durham-Saves-Water" target="_blank" rel="noreferrer">{en ? "City storage reading" : "Lectura municipal de almacenamiento"} ↗</a></p>
+      {readings.length > 0 && <details className="storage-reading-sources">
+        <summary>{en ? "Storage readings and sources" : "Lecturas y fuentes de almacenamiento"} · {readings.length}</summary>
+        <ul>{[...readings].reverse().map((reading) => (
+          <li key={reading.observedAt}>
+            <a href={reading.sourceUrl} target="_blank" rel="noreferrer">{formatDate.format(new Date(`${reading.observedAt}T12:00:00Z`))} · {format.format(reading.value)}%{reading.bulletinDate && ` · ${bulletinLabel}`}</a>
+          </li>
+        ))}</ul>
+      </details>}
+      <p className="level-sources"><a href={planUrl} target="_blank" rel="noreferrer">{en ? "City response plan, Tables 5.1–5.2" : "Plan municipal, tablas 5.1–5.2"} ↗</a></p>
     </section>
   );
 }

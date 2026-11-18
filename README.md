@@ -129,11 +129,13 @@ publication validation still apply. It does not turn an older City observation
 into today's reading. Missing, expired or rejected evidence retains labeled
 last-known-good data. Earlier evidence records remain for diagnosis.
 
-The stage transition charts compare the City’s dated reservoir storage reading
-with the storage levels in its response plan. The gaps are approximate. The
-plan uses forecast probabilities for combined usable storage, which may differ
-from the published reading. The charts retain and date the last accepted reading
-when a refresh fails.
+The stage transition charts compare dated City reservoir storage readings with
+the storage levels in its response plan. The sparse `storageObservations`
+array in `history.json` keeps each official source and separates bulletin dates
+from explicit storage observation dates. The updater archives accepted readings
+only on the City’s observation date. It does not fill missing dates or derive
+percentages from elevation or days of supply. The storage gaps are approximate
+because the plan uses forecast probabilities for combined usable storage.
 
 Native trend charts support hover, tap and keyboard arrow keys, Home/End and
 Escape. Tooltips include the full date/year, exact elevation and distance from

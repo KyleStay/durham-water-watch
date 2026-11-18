@@ -8,7 +8,7 @@ import { dashboardAt, metricStatus } from "../scripts/freshness.mjs";
 import { annualReservoirHeading, showsStageTwoGuidance } from "../scripts/stage-guidance.mjs";
 import TrendContext, { type TenYearAverage } from "./trend-charts";
 import WatershedMap, { type RainfallForecast } from "./watershed-map";
-import { DroughtLevels, RestrictionLevels, StageTransitionCharts } from "./water-level-guide";
+import { DroughtLevels, RestrictionLevels, StageTransitionCharts, type StorageReading } from "./water-level-guide";
 
 type Lang = "en" | "es";
 type Freshness = "fresh" | "stale" | "unavailable";
@@ -68,6 +68,7 @@ type DailyEntry = {
 };
 type HistoryData = {
   schemaVersion: number;
+  storageObservations?: StorageReading[];
   coverage?: { startsOn: string; through: string; note: string };
   days: DailyEntry[];
 };
@@ -851,7 +852,7 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
           <div className="wrap">
             <StageTransitionCharts lang={lang} stage={data.stage.status === "fresh" && typeof data.stage.value === "number" ? data.stage.value : null}
               storage={reportedStorage} date={reportedStorage === null ? null : fmtDate(storage?.observedAt ?? null, lang)}
-              stale={storage?.status !== "fresh"} />
+              stale={storage?.status !== "fresh"} readings={history.storageObservations ?? []} />
             {isStageTwo ? (
             <article className="exit-outlook" aria-labelledby="exit-outlook-title">
               <div className="exit-outlook-intro">

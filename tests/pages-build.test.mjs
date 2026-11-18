@@ -51,6 +51,10 @@ test("publishes a complete, ordered daily values ledger", async () => {
   const history = JSON.parse(await readFile(new URL("data/history.json", pagesRoot), "utf8"));
   const comparison = JSON.parse(await readFile(new URL("data/streamflow-history.json", pagesRoot), "utf8"));
   assert.equal(history.schemaVersion, 3);
+  const storageDates = history.storageObservations.map(({ observedAt }) => observedAt);
+  assert.deepEqual(storageDates, [...new Set(storageDates)].sort());
+  assert.ok(history.storageObservations.some((point) => point.bulletinDate && point.value === 52.2));
+  assert.ok(history.storageObservations.every((point) => Number.isFinite(point.value) && point.value >= 0 && point.value <= 100));
   assert.match(history.coverage.startsOn, /^\d{4}-\d{2}-\d{2}$/);
   assert.match(history.coverage.note, /not forward-filled/);
   assert.ok(history.days.length > 0);

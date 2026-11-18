@@ -7,6 +7,7 @@ import { withTenYearAverage } from "../scripts/ten-year-flow.mjs";
 type Lang = "en" | "es";
 type Point = { date: string; value: number | null; start?: string; end?: string; detail?: string };
 type Series = { label: string; color: string; points: Point[]; dashed?: boolean; dashPattern?: string };
+type Reference = { label: string; value: number; color: string; highlighted?: boolean };
 type HistoryDay = { date: string; values: { supply: { total: number | null }; reservoirs: { michie: number | null; little: number | null } } };
 export type TenYearAverage = { startYear: number; endYear: number; status: "fresh" | "stale" | "unavailable"; sourceUrl: string; verifiedAt?: string; note?: string; provisionalCount?: number; days: { monthDay: string; value: number | null; count: number; expectedCount: number }[] };
 type Station = { tenYearAverage?: TenYearAverage; name: string; site: string; sourceUrl: string; historicalPeriod: string | null; status: "fresh" | "stale" | "unavailable"; days: { date: string; currentYear: number | null; historicalMean: number }[] };
@@ -19,8 +20,9 @@ function fullDate(date: string, lang: Lang) {
   return new Intl.DateTimeFormat(lang === "en" ? "en-US" : "es-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }).format(new Date(`${date}T12:00:00Z`));
 }
 
-function Chart({ title, description, series, window, unit, lang, zeroReference = false, gapDays = 1, domain }: {
+export function Chart({ title, description, series, window, unit, lang, zeroReference = false, gapDays = 1, domain, references = [] }: {
   title: string; description: string; series: Series[]; window: { start: string; end: string }; unit: string; lang: Lang; zeroReference?: boolean; gapDays?: number; domain?: [number, number];
+  references?: Reference[];
 }) {
   const id = useId();
   const container = useRef<HTMLDivElement>(null);
@@ -44,7 +46,7 @@ function Chart({ title, description, series, window, unit, lang, zeroReference =
   const x = (date: string) => left + (Date.parse(`${date}T00:00:00Z`) - start) / Math.max(1, end - start) * (width - left - right);
   const y = (value: number) => top + (high - value) / (high - low) * (height - top - bottom);
   const ticks = Array.from({ length: Math.round((high - low) / step) + 1 }, (_, i) => low + i * step);
-  const dates = [window.start, new Date(start + (end - start) / 2).toISOString().slice(0, 10), window.end];
+  const dates = [...new Set([window.start, new Date(start + (end - start) / 2).toISOString().slice(0, 10), window.end])];
   const entries = [...new Set(series.flatMap((s) => s.points.map((p) => p.date)))].sort();
   const activeIndex = activeDate ? entries.indexOf(activeDate) : -1;
   const selected = activeIndex < 0 ? null : entries[activeIndex];
@@ -71,13 +73,15 @@ function Chart({ title, description, series, window, unit, lang, zeroReference =
     <svg viewBox={`0 0 ${width} ${height}`} role="group" aria-labelledby={`${id}-title`} aria-describedby={`${id}-desc`}>
       <title id={`${id}-title`}>{title}</title>
       <desc id={`${id}-desc`}>{description} {help}</desc>
-      <text className="context-axis" x={left} y={14}>{unit}</text>
+    <text className="context-axis" x={left} y={14}>{unit}</text>
       {ticks.map((tick) => <g key={tick}>
         <line x1={left} x2={width - right} y1={y(tick)} y2={y(tick)} className={zeroReference && tick === 0 ? "full-pool-line" : "context-grid-line"} />
         <text x={left - 8} y={y(tick) + 4} textAnchor="end" className="context-axis">{tick}</text>
       </g>)}
       {zeroReference && <text x={width - right} y={y(0) - 7} textAnchor="end" className="context-axis">{lang === "en" ? "Full pool" : "Cota máxima"}</text>}
-      {dates.map((date, i) => <text key={date} x={x(date)} y={height - 9} textAnchor={i === 0 ? "start" : i === 2 ? "end" : "middle"} className="context-axis">{dateLabel(date, lang)}</text>)}
+      {dates.map((date, i) => <text key={date} x={x(date)} y={height - 9} textAnchor={i === 0 ? "start" : i === dates.length - 1 ? "end" : "middle"} className="context-axis">{dateLabel(date, lang)}</text>)}
+      {references.map((rule) => <line key={rule.label} x1={left} x2={width - right}
+        y1={y(rule.value)} y2={y(rule.value)} stroke={rule.color} strokeDasharray="6 4" strokeWidth={rule.highlighted ? 2.5 : 1.5} />)}
       {series.map((s) => <g key={s.label}>
         {observedSegments(s.points, gapDays).map((segment, i) => <path key={i} d={segment.map((p, index) => `${index ? "L" : "M"}${x(p.date)},${y(p.value)}`).join(" ")} fill="none" stroke={s.color} strokeWidth="2.5" strokeDasharray={s.dashed ? s.dashPattern ?? "6 5" : undefined} />)}
         {!s.dashed && s.points.map((p) => p.value === null ? null : <circle key={p.date} cx={x(p.date)} cy={y(p.value)} r={gapDays === 1 ? 3 : 2.5} fill={s.color}>
@@ -111,7 +115,10 @@ function Chart({ title, description, series, window, unit, lang, zeroReference =
       {rows.map((row) => <div key={row.label}><span className="chart-tooltip-series"><i style={{ background: row.color }} />{row.label}</span><b>{row.reading}</b>{row.period && <span>{row.period}</span>}{row.detail && <span>{row.detail}</span>}</div>)}
     </div>}
     <p className="chart-help">{lang === "en" ? "Hover, tap, or use arrow keys for values and dates." : "Pase el cursor, toque o use las flechas para consultar valores y fechas."}</p>
-    <div className="context-legend">{series.map((s) => <span key={s.label}><i style={{ borderColor: s.color, borderStyle: s.dashPattern === "2 4" ? "dotted" : s.dashed ? "dashed" : "solid" }} />{s.label}</span>)}</div>
+    <div className="context-legend">
+      {series.map((s) => <span key={s.label}><i style={{ borderColor: s.color, borderStyle: s.dashPattern === "2 4" ? "dotted" : s.dashed ? "dashed" : "solid" }} />{s.label}</span>)}
+      {references.map((rule) => <span key={rule.label}><i style={{ borderColor: rule.color, borderStyle: "dashed" }} />{rule.label}</span>)}
+    </div>
     {!values.length && <p>{lang === "en" ? "No observations in this period." : "No hay observaciones en este período."}</p>}
   </div>;
 }

@@ -93,6 +93,9 @@ globalThis.fetch = async (url) => {
   assert.equal(after.refreshReport.find(row => row.key === 'supply.total').previousValue, original.supply.total.value);
   assert.match(after.refreshReport.find(row => row.key === 'streamflow.little').reason, /0208521324/);
   const history = JSON.parse(await readFile(resolve(fixture, 'public/data/history.json')));
+  const originalHistory = JSON.parse(await readFile(resolve(root, 'public/data/history.json')));
+  assert.equal(history.storageObservations.find(row => row.observedAt === '2026-10-08').value, 43.5);
+  assert.deepEqual(history.storageObservations.filter(row => row.observedAt !== '2026-10-08'), originalHistory.storageObservations);
   assert.equal(history.days.find(day => day.date === '2026-10-08').values.supply.total, 156);
   assert.equal(history.days.find(day => day.date === '2026-10-12').values.supply.total, null);
 });
