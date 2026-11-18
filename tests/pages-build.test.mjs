@@ -25,6 +25,8 @@ test("produces a complete GitHub Pages artifact", async () => {
   assert.match(html, /vs historical daily mean/);
   assert.match(html, /Thin dotted bridges span gaps without filling in values/);
   assert.match(html, /Both graphs use the same scale/);
+  const stageChart = html.indexOf('id="stage-proximity"');
+  assert.ok(stageChart >= 0 && stageChart < html.indexOf('id="trends"'), "Show the stage charts before the other trends");
   assert.match(html, /verified ten-year numeric series is not available.*City reservoir levels or supply/);
   assert.match(html, /USGS daily means appear where available/);
 

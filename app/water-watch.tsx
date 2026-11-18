@@ -608,6 +608,14 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
           </div>
         </section>
 
+        <div className="section outlook-section">
+          <div className="wrap">
+            <StageTransitionCharts lang={lang} stage={data.stage.status === "fresh" && typeof data.stage.value === "number" ? data.stage.value : null}
+              storage={reportedStorage} date={reportedStorage === null ? null : fmtDate(storage?.observedAt ?? null, lang)}
+              stale={storage?.status !== "fresh"} readings={history.storageObservations ?? []} />
+          </div>
+        </div>
+
         <TrendContext days={history.days} end={historyDays.at(-1)?.date ?? data.historyStarts} lang={lang}
           reservoirs={[
             { key: "michie", name: "Lake Michie", fullPool: data.reservoirs.michie.fullPool, status: <Status metric={data.reservoirs.michie} lang={lang} /> },
@@ -850,9 +858,6 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
 
         <section id="outlook" className="section outlook-section">
           <div className="wrap">
-            <StageTransitionCharts lang={lang} stage={data.stage.status === "fresh" && typeof data.stage.value === "number" ? data.stage.value : null}
-              storage={reportedStorage} date={reportedStorage === null ? null : fmtDate(storage?.observedAt ?? null, lang)}
-              stale={storage?.status !== "fresh"} readings={history.storageObservations ?? []} />
             {isStageTwo ? (
             <article className="exit-outlook" aria-labelledby="exit-outlook-title">
               <div className="exit-outlook-intro">

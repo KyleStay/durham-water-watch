@@ -865,7 +865,7 @@ footer a { color: #fff; font-size: .78rem; font-weight: 700; }
 .daily-data-disclosure .table-scroll { margin-top: 18px; max-height: 65vh; overflow: auto; }
 .daily-data-disclosure thead th { position: sticky; top: 0; z-index: 1; background: var(--surface); }
 .outlook-section { background: var(--surface); }
-.stage-proximity { margin-bottom: 32px; scroll-margin-top: 20px; }
+.stage-proximity { scroll-margin-top: 20px; }
 .stage-proximity h2 { margin: 0 0 10px; color: var(--blue-dark); }
 .stage-proximity-note { max-width: 76ch; color: var(--muted); }
 .stage-proximity-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 18px; }
