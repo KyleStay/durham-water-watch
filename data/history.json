@@ -11862,5 +11862,130 @@
         ]
       }
     ]
-  }
+  },
+  "storageObservations": [
+    {
+      "value": 52.2,
+      "observedAt": "2026-08-04",
+      "verifiedAt": "2026-11-18T12:00:57.485Z",
+      "sourceUrl": "https://www.durhamnc.gov/m/newsflash/Archive/Item/4235?arcId=6165",
+      "bulletinDate": true
+    },
+    {
+      "value": 55.7,
+      "observedAt": "2026-08-11",
+      "verifiedAt": "2026-11-18T12:00:57.485Z",
+      "sourceUrl": "https://www.durhamnc.gov/m/NewsFlash/Archive/Item/4243?arcId=6163",
+      "bulletinDate": true
+    },
+    {
+      "value": 52,
+      "observedAt": "2026-08-20",
+      "verifiedAt": "2026-11-18T12:00:57.485Z",
+      "sourceUrl": "https://www.durhamnc.gov/m/newsflash/Archive/Item/4256?arcId=6161",
+      "bulletinDate": true
+    },
+    {
+      "value": 51.64,
+      "observedAt": "2026-08-27",
+      "verifiedAt": "2026-11-18T12:00:57.485Z",
+      "sourceUrl": "https://www.durhamnc.gov/m/newsflash/home/detail/4261",
+      "bulletinDate": true
+    },
+    {
+      "value": 42.15,
+      "observedAt": "2026-10-05",
+      "verifiedAt": "2026-11-18T12:00:57.485Z",
+      "sourceUrl": "https://www.durhamnc.gov/m/newsflash/home/detail/4291",
+      "bulletinDate": true
+    },
+    {
+      "value": 40,
+      "observedAt": "2026-10-11",
+      "sourceUrl": "https://www.durhamnc.gov/1061/Durham-Saves-Water",
+      "verifiedAt": "2026-10-13T09:56:51Z",
+      "sourceEvidence": {
+        "retrievedAt": "2026-10-13T09:56:51Z",
+        "sha256": "6a34a405045380fb1eb47f2b0e6e334ebc4c6155a246908e34b2f43ac9da1128"
+      }
+    },
+    {
+      "value": 39.7,
+      "observedAt": "2026-10-12",
+      "verifiedAt": "2026-11-18T12:00:57.485Z",
+      "sourceUrl": "https://www.durhamnc.gov/m/newsflash/home/detail/4295"
+    },
+    {
+      "value": 39,
+      "observedAt": "2026-10-13",
+      "sourceUrl": "https://www.durhamnc.gov/1061/Durham-Saves-Water",
+      "verifiedAt": "2026-10-16T09:56:48Z",
+      "sourceEvidence": {
+        "retrievedAt": "2026-10-16T09:56:48Z",
+        "sha256": "688c2cc0463041cbda1afc303f854d76fe30b7bbf9f4b542549d1604df353421"
+      }
+    },
+    {
+      "value": 33,
+      "observedAt": "2026-11-01",
+      "verifiedAt": "2026-11-18T12:00:57.485Z",
+      "sourceUrl": "https://www.durhamnc.gov/m/NewsFlash/Home/Detail/4320"
+    },
+    {
+      "value": 30,
+      "observedAt": "2026-11-05",
+      "sourceUrl": "https://www.durhamnc.gov/1061/Durham-Saves-Water",
+      "verifiedAt": "2026-11-10T11:21:28Z",
+      "sourceEvidence": {
+        "retrievedAt": "2026-11-10T11:21:28Z",
+        "sha256": "9b02ba64529d13672095343eb9588b49821692cfa97fb2449a79f9f847c63f32"
+      }
+    },
+    {
+      "value": 30,
+      "observedAt": "2026-11-09",
+      "sourceUrl": "https://www.durhamnc.gov/1061/Durham-Saves-Water",
+      "verifiedAt": "2026-11-12T11:00:24Z",
+      "sourceEvidence": {
+        "retrievedAt": "2026-11-12T11:00:24Z",
+        "sha256": "d0bdfe79eb23b2933df6b2f73a5a3d07e59f7c3ac068052842eb662b3084f016"
+      }
+    },
+    {
+      "value": 29,
+      "observedAt": "2026-11-11",
+      "sourceUrl": "https://www.durhamnc.gov/1061/Durham-Saves-Water",
+      "verifiedAt": "2026-11-13T11:06:33Z",
+      "sourceEvidence": {
+        "retrievedAt": "2026-11-13T11:06:33Z",
+        "sha256": "c093e39fd97544f8b7ec5418484f70e909d73322e08c39929da079ec33878fc3"
+      }
+    },
+    {
+      "value": 29,
+      "observedAt": "2026-11-12",
+      "sourceUrl": "https://www.durhamnc.gov/1061/Durham-Saves-Water",
+      "verifiedAt": "2026-11-16T11:04:01Z",
+      "sourceEvidence": {
+        "retrievedAt": "2026-11-16T11:04:01Z",
+        "sha256": "0ec63f536815e5199be5eb8c31144b5278a44b1bf883bac05c7551a431c5d8e3"
+      }
+    },
+    {
+      "value": 28,
+      "observedAt": "2026-11-15",
+      "sourceUrl": "https://www.durhamnc.gov/1061/Durham-Saves-Water",
+      "verifiedAt": "2026-11-17T10:56:29Z",
+      "sourceEvidence": {
+        "retrievedAt": "2026-11-17T10:56:29Z",
+        "sha256": "0cbc79ffea790ea6dfe029c26f67bd8cba6ad5638513031c0ba91cf845246842"
+      }
+    },
+    {
+      "value": 28,
+      "observedAt": "2026-11-16",
+      "verifiedAt": "2026-11-18T10:58:17Z",
+      "sourceUrl": "https://www.durhamnc.gov/1061/Durham-Saves-Water"
+    }
+  ]
 }
