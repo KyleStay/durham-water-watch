@@ -11737,6 +11737,74 @@
       "values": {
         "stage": 2,
         "supply": {
+          "accessible": 76,
+          "belowIntakes": 55,
+          "quarry": 17,
+          "total": 148
+        },
+        "reservoirs": {
+          "michie": 327.59,
+          "little": 334.16
+        },
+        "drought": "D2 · Severe Drought",
+        "streamflow": {
+          "flat": 3.05,
+          "little": 0.2
+        }
+      },
+      "retainedFields": [],
+      "quarantinedFields": [],
+      "unavailableFields": [],
+      "measurementKinds": {
+        "streamflow": "USGS daily mean",
+        "supply": "exact City reading",
+        "reservoirs": "exact City reading"
+      },
+      "observations": {
+        "supply.accessible": {
+          "observedAt": "2026-11-17",
+          "verifiedAt": "2026-11-19T11:02:30.223Z",
+          "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
+          "evidence": "official-page-text sha256:8d8b2cf83c810275fe013569712e6a3593e052e182871ac1981d54daad46237a retrieved 2026-11-19T11:01:40Z"
+        },
+        "supply.belowIntakes": {
+          "observedAt": "2026-11-17",
+          "verifiedAt": "2026-11-19T11:02:30.223Z",
+          "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
+          "evidence": "official-page-text sha256:8d8b2cf83c810275fe013569712e6a3593e052e182871ac1981d54daad46237a retrieved 2026-11-19T11:01:40Z"
+        },
+        "supply.quarry": {
+          "observedAt": "2026-11-17",
+          "verifiedAt": "2026-11-19T11:02:30.223Z",
+          "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
+          "evidence": "official-page-text sha256:8d8b2cf83c810275fe013569712e6a3593e052e182871ac1981d54daad46237a retrieved 2026-11-19T11:01:40Z"
+        },
+        "supply.total": {
+          "observedAt": "2026-11-17",
+          "verifiedAt": "2026-11-19T11:02:30.223Z",
+          "sourceUrl": "https://www.durhamnc.gov/1214/Current-Data",
+          "evidence": "official-page-text sha256:8d8b2cf83c810275fe013569712e6a3593e052e182871ac1981d54daad46237a retrieved 2026-11-19T11:01:40Z"
+        },
+        "reservoirs.michie": {
+          "observedAt": "2026-11-17",
+          "verifiedAt": "2026-11-19T11:02:30.223Z",
+          "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
+          "evidence": "official-page-text sha256:6f2495aa08eb8f0b80dbcf2b25a248c5c64667816d5e226dc0c78b895420d65e retrieved 2026-11-19T11:01:40Z"
+        },
+        "reservoirs.little": {
+          "observedAt": "2026-11-17",
+          "verifiedAt": "2026-11-19T11:02:30.223Z",
+          "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
+          "evidence": "official-page-text sha256:6f2495aa08eb8f0b80dbcf2b25a248c5c64667816d5e226dc0c78b895420d65e retrieved 2026-11-19T11:01:40Z"
+        }
+      }
+    },
+    {
+      "date": "2026-11-18",
+      "capturedAt": "2026-11-18T11:00:34.079Z",
+      "values": {
+        "stage": 2,
+        "supply": {
           "accessible": null,
           "belowIntakes": null,
           "quarry": null,
@@ -11748,14 +11816,13 @@
         },
         "drought": "D2 · Severe Drought",
         "streamflow": {
-          "flat": 3.05,
-          "little": null
+          "flat": 3.11,
+          "little": 0.18
         }
       },
       "retainedFields": [],
       "quarantinedFields": [],
       "unavailableFields": [
-        "streamflow.little",
         "supply.accessible",
         "supply.belowIntakes",
         "supply.quarry",
@@ -11770,8 +11837,8 @@
       }
     },
     {
-      "date": "2026-11-18",
-      "capturedAt": "2026-11-18T11:00:34.079Z",
+      "date": "2026-11-19",
+      "capturedAt": "2026-11-19T11:02:30.223Z",
       "values": {
         "stage": 2,
         "supply": {
@@ -11811,7 +11878,7 @@
   ],
   "coverage": {
     "startsOn": "2026-03-01",
-    "through": "2026-11-18",
+    "through": "2026-11-19",
     "note": "Permanent daily archive. USGS daily means and weekly USDM county categories fill the historical record. City supply and reservoir values appear only on their official observation dates; unavailable dates remain null and are not forward-filled.",
     "sources": [
       {
@@ -11986,6 +12053,16 @@
       "observedAt": "2026-11-16",
       "verifiedAt": "2026-11-18T10:58:17Z",
       "sourceUrl": "https://www.durhamnc.gov/1061/Durham-Saves-Water"
+    },
+    {
+      "value": 27,
+      "observedAt": "2026-11-17",
+      "verifiedAt": "2026-11-19T11:02:30.223Z",
+      "sourceUrl": "https://www.durhamnc.gov/1061/Durham-Saves-Water",
+      "sourceEvidence": {
+        "retrievedAt": "2026-11-19T11:01:40Z",
+        "sha256": "8700e41db0b8df0eb90688f755dec4bbb323273540e20cbfaf4dcf69ec244572"
+      }
     }
   ],
   "droughtObservations": [
