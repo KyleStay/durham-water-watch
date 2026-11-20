@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "year": 2026,
-  "updatedAt": "2026-11-19T11:02:30.223Z",
+  "updatedAt": "2026-11-20T11:01:40.444Z",
   "stations": {
     "flat": {
       "site": "02085500",
       "name": "Flat River",
-      "status": "fresh",
+      "status": "stale",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
       "historicalPeriod": "1926–2026",
       "verifiedAt": "2026-11-19T11:02:30.223Z",
@@ -2209,10 +2209,10 @@
         "endsOn": "2025-12-31",
         "site": "02085500",
         "units": "ft³/s",
-        "status": "stale",
+        "status": "fresh",
         "sourceUrl": "https://waterservices.usgs.gov/nwis/dv/?format=json&sites=02085500&startDT=2016-01-01&endDT=2025-12-31&parameterCd=00060&statCd=00003&siteStatus=all",
-        "verifiedAt": "2026-11-18T11:00:34.079Z",
-        "checkedAt": "2026-11-19T11:02:30.223Z",
+        "verifiedAt": "2026-11-20T11:01:40.444Z",
+        "checkedAt": "2026-11-20T11:01:40.444Z",
         "observationCount": 3651,
         "provisionalCount": 0,
         "days": [
@@ -4778,10 +4778,10 @@
             "expectedCount": 10,
             "provisionalCount": 0
           }
-        ],
-        "note": "The ten-year USGS average could not be refreshed: Request timed out after 15000 ms"
+        ]
       },
-      "checkedAt": "2026-11-19T11:02:30.223Z"
+      "checkedAt": "2026-11-20T11:01:40.444Z",
+      "note": "The USGS year comparison could not be refreshed: fetch failed"
     },
     "little": {
       "site": "0208521324",
@@ -4789,7 +4789,7 @@
       "status": "fresh",
       "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/0208521324/",
       "historicalPeriod": "1988–2025",
-      "verifiedAt": "2026-11-19T11:02:30.223Z",
+      "verifiedAt": "2026-11-20T11:01:40.444Z",
       "days": [
         {
           "date": "2026-01-01",
@@ -6725,7 +6725,7 @@
         },
         {
           "date": "2026-11-19",
-          "currentYear": null,
+          "currentYear": 0.17,
           "historicalMean": 45,
           "historicalSampleYears": 38
         },
@@ -6992,7 +6992,7 @@
         "status": "stale",
         "sourceUrl": "https://waterservices.usgs.gov/nwis/dv/?format=json&sites=0208521324&startDT=2016-01-01&endDT=2025-12-31&parameterCd=00060&statCd=00003&siteStatus=all",
         "verifiedAt": "2026-11-16T11:04:54.209Z",
-        "checkedAt": "2026-11-19T11:02:30.223Z",
+        "checkedAt": "2026-11-20T11:01:40.444Z",
         "observationCount": 3651,
         "provisionalCount": 247,
         "days": [
@@ -9561,7 +9561,7 @@
         ],
         "note": "The ten-year USGS average could not be refreshed: Request timed out after 15000 ms"
       },
-      "checkedAt": "2026-11-19T11:02:30.223Z"
+      "checkedAt": "2026-11-20T11:01:40.444Z"
     }
   }
 }

@@ -1,25 +1,6 @@
 [
   {
     "metrics": [
-      "stage"
-    ],
-    "sourceUrl": "https://www.durhamnc.gov/1061/Durham-Saves-Water",
-    "reason": "fetch failed",
-    "receivedAt": "2026-09-10T12:01:16.300Z",
-    "disposition": "rejected; last-known-good value preserved"
-  },
-  {
-    "metrics": [
-      "reservoirs.michie",
-      "reservoirs.little"
-    ],
-    "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
-    "reason": "fetch failed",
-    "receivedAt": "2026-09-10T12:01:16.300Z",
-    "disposition": "rejected; last-known-good value preserved"
-  },
-  {
-    "metrics": [
       "streamflowHistory.flat"
     ],
     "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
@@ -991,6 +972,24 @@
     "sourceUrl": "https://waterservices.usgs.gov/nwis/dv/?format=json&sites=02085500&startDT=2016-01-01&endDT=2025-12-31&parameterCd=00060&statCd=00003&siteStatus=all",
     "reason": "Request timed out after 15000 ms",
     "receivedAt": "2026-11-19T11:02:30.223Z",
+    "disposition": "rejected; last-known-good ten-year average preserved"
+  },
+  {
+    "metrics": [
+      "streamflowHistory.flat"
+    ],
+    "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
+    "reason": "The USGS year comparison could not be refreshed: fetch failed",
+    "receivedAt": "2026-11-20T11:01:40.444Z",
+    "disposition": "rejected; last-known-good year comparison preserved"
+  },
+  {
+    "metrics": [
+      "streamflowHistory.little.tenYearAverage"
+    ],
+    "sourceUrl": "https://waterservices.usgs.gov/nwis/dv/?format=json&sites=0208521324&startDT=2016-01-01&endDT=2025-12-31&parameterCd=00060&statCd=00003&siteStatus=all",
+    "reason": "Request timed out after 15000 ms",
+    "receivedAt": "2026-11-20T11:01:40.444Z",
     "disposition": "rejected; last-known-good ten-year average preserved"
   }
 ]
