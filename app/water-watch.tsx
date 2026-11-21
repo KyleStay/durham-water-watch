@@ -602,7 +602,7 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
             <p className="checked" data-publication-time={snapshot.generatedAt}>{lang === "en" ? "Published snapshot: " : "Instantánea publicada: "}{fmtDate(snapshot.generatedAt ?? null, lang, true)}. {lang === "en" ? "Sources checked daily; readings keep their observation dates." : "Fuentes verificadas a diario; las lecturas mantienen sus fechas de observación."}</p>
             <div className="restriction-brief">
               <div><p className="eyebrow">{t.stage}</p><div className="stage-brief-value"><strong>Stage / Etapa {data.stage.value ?? "—"}</strong><Status metric={data.stage} lang={lang} /></div><p>{t.effective} {fmtDate(data.stage.effectiveDate, lang)}</p></div>
-              <div><p>{isStageTwo ? t.action : lang === "en" ? "Check the current City water-use rules." : "Consulte las reglas actuales de uso del agua de la Ciudad."}</p><a href="#actions">{lang === "en" ? "What to do now" : "Qué hacer ahora"} ↓</a><span aria-hidden="true"> · </span><a href={urls.stage} target="_blank" rel="noreferrer">{t.allRules} ↗</a></div>
+              <div><p>{isStageTwo ? t.action : lang === "en" ? "Check the current City water-use rules." : "Consulte las reglas actuales de uso del agua de la Ciudad."}</p><a href="#actions">{lang === "en" ? "What to do now" : "Qué hacer ahora"} ↓</a><span aria-hidden="true"> · </span><a href={urls.stage} target="_blank" rel="noreferrer">{t.allRules} ↗</a><span aria-hidden="true"> · </span><a href="#restriction-levels">{lang === "en" ? "Compare water shortage stages" : "Comparar las etapas de escasez de agua"} ↓</a></div>
             </div>
             <p className="briefing-priority">{t.official} <a href="#stage-proximity">{lang === "en" ? "See the stage trend" : "Ver la tendencia de etapas"} ↓</a></p>
             <noscript><p>Freshness labels reflect the published snapshot time. Check observation dates and official sources for current conditions.</p></noscript>
@@ -614,6 +614,7 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
             <StageTransitionChart lang={lang} stage={data.stage.status === "fresh" && typeof data.stage.value === "number" ? data.stage.value : null}
               storage={reportedStorage} date={reportedStorage === null ? null : fmtDate(storage?.observedAt ?? null, lang)}
               stale={storage?.status !== "fresh"} readings={history.storageObservations ?? []} days={history.days} />
+            <RestrictionLevels lang={lang} currentStage={data.stage.status === "fresh" && typeof data.stage.value === "number" ? data.stage.value : null} />
             <DroughtTrend lang={lang} readings={history.droughtObservations ?? []} />
           </div>
         </div>
@@ -684,12 +685,11 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
             </>
             ) : (
               <>
-                <div className="section-heading actions-heading"><p className="kicker">{t.whatNow}</p><h2>{lang === "en" ? "Follow the rules for the displayed City stage." : "Siga las reglas de la etapa mostrada por la Ciudad."}</h2><p>{lang === "en" ? "Compare the stages below and confirm the current City declaration. The complete official rules control." : "Compare las etapas siguientes y confirme la declaración municipal actual. Las reglas oficiales completas tienen prioridad."}</p></div>
+                <div className="section-heading actions-heading"><p className="kicker">{t.whatNow}</p><h2>{lang === "en" ? "Follow the rules for the displayed City stage." : "Siga las reglas de la etapa mostrada por la Ciudad."}</h2><p>{lang === "en" ? "Compare the stages above and confirm the current City declaration. The complete official rules control." : "Compare las etapas anteriores y confirme la declaración municipal actual. Las reglas oficiales completas tienen prioridad."}</p></div>
                 {data.stage.status === "stale" && <p className="stale-banner">! {t.confirmRules}</p>}
                 <div className="rules-footer"><p>{lang === "en" ? "Confirm the current stage and requirements on the City website." : "Confirme la etapa y los requisitos actuales en el sitio web de la Ciudad."}</p><a className="button" href={urls.stage} target="_blank" rel="noreferrer">{t.readRules} ↗</a></div>
               </>
             )}
-            <RestrictionLevels lang={lang} />
           </div>
         </section>
 

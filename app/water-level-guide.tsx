@@ -150,7 +150,7 @@ export function StageTransitionChart({ lang, stage, storage, date, stale, readin
   );
 }
 
-export function RestrictionLevels({ lang }: { lang: Lang }) {
+export function RestrictionLevels({ lang, currentStage }: { lang: Lang; currentStage: number | null }) {
   const en = lang === "en";
   return (
     <div id="restriction-levels" className="level-guide" aria-labelledby="restriction-levels-title">
@@ -165,7 +165,7 @@ export function RestrictionLevels({ lang }: { lang: Lang }) {
         {stages.map(({ stage, probability, weeks, storage, ...rules }) => (
           <article className="level-row" key={stage} aria-labelledby={`restriction-stage-${stage}`}>
             <div>
-              <h4 id={`restriction-stage-${stage}`}>{en ? "Stage" : "Etapa"} {stage}{stage === 4 ? (en ? " · Emergency" : " · Emergencia") : ""}</h4>
+              <h4 id={`restriction-stage-${stage}`}>{en ? "Stage" : "Etapa"} {stage}{stage === 4 ? (en ? " · Emergency" : " · Emergencia") : ""}{stage === currentStage && (en ? " · In effect" : " · En vigor")}</h4>
               <p className="level-trigger"><strong>{en ? "Model trigger: " : "Criterio del modelo: "}</strong>{en
                 ? `${probability}% chance of ${storage}% usable storage in ${weeks} weeks.`
                 : `${probability}% de probabilidad de ${storage}% de almacenamiento utilizable en ${weeks} semanas.`}</p>
