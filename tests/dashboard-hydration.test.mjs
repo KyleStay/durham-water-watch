@@ -82,6 +82,13 @@ test('stage changes render appropriate guidance without requiring Stage 2 conten
     assert.match(rows[2].textContent, /Hand and drip landscape watering also stop.*container plants.*commercial plants for sale/);
     assert.match(rows[3].textContent, /Vehicle washing stops.*minimum health and safety/);
     assert.equal(dom.window.document.querySelectorAll('.drought-level-table tbody tr').length, 6);
+    if (value === 2 && data.stage.effectiveDate) {
+      const briefing = dom.window.document.querySelector('.restriction-brief');
+      const start = briefing.querySelector('.stage-since time');
+      assert.match(start.parentElement.textContent, /In effect since/);
+      assert.equal(start.dateTime, data.stage.effectiveDate);
+      assert.equal(briefing.querySelector('.status.fresh'), null);
+    }
     dom.window.close();
     if (value === 2) {
       assert.match(html, /Illustrative scenario explorer/);
@@ -199,7 +206,7 @@ for (const [endDate, startLabel, endLabel] of [
     assert.match(document.querySelector('#restriction-levels').textContent, /Etapas de restricción.*20% de probabilidad de 35% de almacenamiento utilizable en 10 semanas/);
     assert.match(document.querySelector('.drought-level-table').textContent, /D0 · Anormalmente seco.*D4 · Sequía excepcional/);
     assert.match(document.querySelector('#drought').textContent, /al menos el 25%/);
-    assert.match(container.textContent, /Instantánea publicada/);
+    assert.match(container.textContent, /Publicación de datos del panel/);
     assert.doesNotMatch(container.textContent, /corrections@example.org|every 30 minutes/);
     assert.deepEqual(errors, []);
   } finally {

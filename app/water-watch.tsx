@@ -126,9 +126,9 @@ const copy = {
     nav: ["Trends", "Reservoirs", "Supply", "River flow", "Water-use rules", "Drought levels", "Sources & data"],
     serious: "How serious is this?",
     stage: "Water shortage response",
-    stageVerified: "Verified",
     inEffect: "in effect",
-    effective: "Effective",
+    effective: "Effective date",
+    inEffectSince: "In effect since",
     checked: "Official source checked",
     supply: "Total estimated days of supply",
     notCountdown: "A planning estimate based on current demand—not a guaranteed countdown.",
@@ -226,9 +226,9 @@ const copy = {
     nav: ["Tendencias", "Embalses", "Suministro", "Caudal", "Reglas de uso", "Niveles de sequía", "Fuentes y datos"],
     serious: "¿Qué tan grave es?",
     stage: "Respuesta a la escasez de agua",
-    stageVerified: "Verificada",
     inEffect: "vigente",
-    effective: "Vigente desde",
+    effective: "Fecha de entrada en vigor",
+    inEffectSince: "En vigor desde",
     checked: "Fuente oficial verificada",
     supply: "Días totales estimados de suministro",
     notCountdown: "Una estimación de planificación según la demanda actual, no una cuenta regresiva garantizada.",
@@ -329,7 +329,7 @@ function fmtDate(value: string | null, lang: Lang, withTime = false) {
   }).format(date);
 }
 
-function Status({ metric, lang, freshLabel }: { metric: Metric; lang: Lang; freshLabel?: string }) {
+function Status({ metric, lang }: { metric: Metric; lang: Lang }) {
   const t = copy[lang];
   if (metric.status === "unavailable" || metric.value === null) return <span className="status unavailable">× {t.unavailable}</span>;
   if (metric.status === "stale") {
@@ -341,7 +341,7 @@ function Status({ metric, lang, freshLabel }: { metric: Metric; lang: Lang; fres
       </span>
     );
   }
-  return <span className="status fresh">✓ {freshLabel ?? t.fresh}</span>;
+  return <span className="status fresh">✓ {t.fresh}</span>;
 }
 
 function SourceLine({ metric, lang, label }: { metric: Metric; lang: Lang; label?: string }) {
@@ -628,9 +628,11 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
                 <p className="eyebrow">{t.stage}</p>
                 <div className="stage-brief-value">
                   {stageLabel && <strong>{stageLabel}</strong>}
-                  <Status metric={data.stage} lang={lang} freshLabel={t.stageVerified} />
+                  {currentStage === null && <Status metric={data.stage} lang={lang} />}
                 </div>
-                {stageLabel && data.stage.effectiveDate && <p>{t.effective} {fmtDate(data.stage.effectiveDate, lang)}</p>}
+                {stageLabel && data.stage.effectiveDate && <p><strong className="stage-since">
+                  {currentStage === null ? t.effective : t.inEffectSince} <time dateTime={data.stage.effectiveDate}>{fmtDate(data.stage.effectiveDate, lang)}</time>
+                </strong></p>}
               </div>
               <div className="restriction-brief-action">
                 <p>{isStageTwo ? t.action : lang === "en" ? "Check the City’s current water-use rules." : "Consulte las reglas vigentes de la Ciudad sobre el uso del agua."}</p>
@@ -641,7 +643,7 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
                 </div>
               </div>
             </div>
-            <p className="checked" data-publication-time={snapshot.generatedAt}>{lang === "en" ? "Published snapshot: " : "Instantánea publicada: "}{fmtDate(snapshot.generatedAt ?? null, lang, true)}</p>
+            <p className="checked" data-publication-time={snapshot.generatedAt}>{lang === "en" ? "Dashboard data published: " : "Publicación de datos del panel: "}{fmtDate(snapshot.generatedAt ?? null, lang, true)}</p>
             <noscript><p>Freshness labels reflect the published snapshot time. Check observation dates and official sources for current conditions.</p></noscript>
           </div>
         </section>
