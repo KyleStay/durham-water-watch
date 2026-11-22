@@ -11,7 +11,7 @@ export async function createWatershedMap(element: HTMLElement, options: {
 }) {
   const L = await import("leaflet");
   if (options.signal.aborted) return;
-  const map = L.map(element, { zoomControl: false, minZoom: 8, maxZoom: 15, zoomSnap: 0.5, zoomDelta: 0.5, scrollWheelZoom: true, wheelPxPerZoomLevel: 120 });
+  const map = L.map(element, { zoomControl: false, minZoom: 8, maxZoom: 15, zoomSnap: 0.5, zoomDelta: 0.5, scrollWheelZoom: false, wheelPxPerZoomLevel: 120 });
   const tiles = L.tileLayer(tileUrl, { maxZoom: 15, attribution: "Tiles © Esri · USGS · NOAA · City of Durham" }).addTo(map);
   tiles.on("tileerror", () => options.onError("base"));
   tiles.on("load", options.onLoaded);
@@ -32,8 +32,11 @@ export async function createWatershedMap(element: HTMLElement, options: {
     const reservoir = place.name === "Lake Michie" || place.name === "Little River Reservoir";
     const marker = L.marker([place.latitude, place.longitude], {
       icon: L.divIcon({ className: `water-map-pin${reservoir ? " reservoir-pin" : ""}`, html: "<span></span>", iconSize: [16, 16], iconAnchor: [8, 8] }),
-      title: place.name, alt: place.name,
+      title: place.name,
     }).addTo(markers);
+    const markerElement = marker.getElement();
+    markerElement?.setAttribute("aria-label", place.name);
+    markerElement?.setAttribute("aria-expanded", "false");
     const detail = document.createElement("div");
     const heading = document.createElement("strong"); heading.textContent = place.name; detail.append(heading);
     if (typeof place.lowerInches === "number") {
@@ -41,6 +44,12 @@ export async function createWatershedMap(element: HTMLElement, options: {
       const label = text(`${value} in · ${options.lang === "en" ? "7-day forecast" : "pronóstico de 7 días"}`); label.className = "pin-forecast"; detail.append(label);
     }
     marker.bindPopup(detail);
+    marker.on("popupopen popupclose", (event) => markerElement?.setAttribute("aria-expanded", String(event.type === "popupopen")));
+    markerElement?.addEventListener("keydown", (event) => {
+      if (event.key !== " ") return;
+      event.preventDefault();
+      if (!event.repeat) marker.togglePopup();
+    });
     marker.bindTooltip(text(place.name), { permanent: reservoir || place.name === "Durham" || place.name === "Roxboro", direction: place.name === "Little River Reservoir" ? "left" : "right", className: reservoir ? "reservoir-label" : "city-label", offset: [8, 0] });
   }
   let outline: import("leaflet").GeoJSON | undefined;
@@ -57,6 +66,11 @@ export async function createWatershedMap(element: HTMLElement, options: {
   observer?.observe(element);
   return {
     map,
+    setExpanded: (expanded: boolean) => {
+      if (expanded) map.scrollWheelZoom.enable();
+      else map.scrollWheelZoom.disable();
+      map.invalidateSize();
+    },
     zoom: (direction: number) => direction > 0 ? map.zoomIn() : map.zoomOut(),
     reset: () => map.fitBounds(homeBounds, { padding: [28, 28] }),
     focusReservoirs: () => map.fitBounds([[36.075, -78.98], [36.22, -78.75]], { padding: [32, 32] }),

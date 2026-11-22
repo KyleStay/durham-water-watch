@@ -26,6 +26,8 @@ test('stage targets and contributing readings share one chart and county drought
   const renderCharts = () => {
     const dom = new JSDOM(renderToString(createElement(WaterWatch, { snapshot: data })));
     const charts = dom.window.document.querySelector('#stage-proximity');
+    assert.match(charts.querySelector('.stage-trigger-note').textContent,
+      /Stage 3 forecast trigger.*10% chance.*25% combined usable reservoir storage.*8 weeks/);
     const graphs = [...charts.querySelectorAll('figure svg')];
     assert.equal(graphs.length, 1);
     for (const graph of graphs) {
@@ -84,11 +86,23 @@ test('stage changes render appropriate guidance without requiring Stage 2 conten
     if (value === 2) {
       assert.match(html, /Illustrative scenario explorer/);
       assert.match(html, /No landscape spray irrigation/);
+      assert.match(html, /Hand watering and drip irrigation are allowed/);
     } else {
       assert.doesNotMatch(html, /Illustrative scenario explorer|No landscape spray irrigation/);
       assert.match(html, /complete official rules control/);
     }
   }
+});
+
+test('stale Stage 2 links to the City instead of offering stage-specific actions', () => {
+  const data = structuredClone(snapshot);
+  data.stage = { ...data.stage, value: 2, retrievalStatus: 'failed' };
+  const dom = new JSDOM(renderToString(createElement(WaterWatch, { snapshot: data })));
+  const briefing = dom.window.document.querySelector('.restriction-brief');
+  assert.match(briefing.textContent, /Stage 2.*Stale.*Check the City’s current water-use rules/);
+  assert.equal(briefing.querySelector('.restriction-brief-cta').href, data.stage.sourceUrl);
+  assert.doesNotMatch(dom.window.document.querySelector('main').textContent, /Hand watering and drip irrigation are allowed|Stage 2 water-use rules|Illustrative scenario explorer/);
+  dom.window.close();
 });
 
 for (const [endDate, startLabel, endLabel] of [
@@ -132,14 +146,56 @@ for (const [endDate, startLabel, endLabel] of [
     await act(async () => { [...document.querySelectorAll('.period-controls button')].find(b => b.textContent === endDate.slice(0, 4)).click(); });
     assert.match(document.querySelector('.period-note').textContent, /Jan 1.*Dec 31/);
     assert.ok(document.querySelector('.flow-card').querySelector('.status.stale'), 'A reading older than three hours must display stale after hydration');
-    assert.ok(document.querySelector('.geographic-map[role="region"]'), 'The map must remain an accessible interactive region');
-    await act(async () => { document.querySelector('button[aria-expanded="false"]').click(); });
-    assert.ok(document.querySelector('.map-expanded'));
-    await act(async () => { document.dispatchEvent(new dom.window.KeyboardEvent('keydown', { key: 'Escape' })); });
-    assert.equal(document.querySelector('.map-expanded'), null);
+    const map = document.querySelector('.geographic-map[role="region"]');
+    assert.ok(map, 'The map must remain an accessible interactive region');
+    const mapDialog = map.closest('dialog');
+    const fullScreen = mapDialog.querySelector('button[aria-expanded="false"]');
+    assert.ok(mapDialog.open, 'The server-rendered map is visible inline');
+    let modal = false;
+    mapDialog.close = function () { this.open = false; modal = false; };
+    mapDialog.showModal = function () {
+      assert.equal(this.open, false, 'showModal requires a closed dialog');
+      this.open = true;
+      modal = true;
+    };
+    const rainToggle = mapDialog.querySelector('input[type="checkbox"]');
+    await act(async () => { rainToggle.click(); fullScreen.focus(); fullScreen.click(); });
+    assert.ok(modal);
+    assert.ok(mapDialog.classList.contains('map-expanded'));
+    assert.equal(document.activeElement, fullScreen);
+    assert.equal(fullScreen.textContent, 'Close full screen');
+    assert.equal(rainToggle.checked, false);
+    assert.equal(mapDialog.querySelector('.geographic-map'), map);
+    assert.equal(document.body.style.overflow, 'hidden');
+    rainToggle.focus();
+    assert.equal(document.activeElement, rainToggle);
+    const escape = new dom.window.Event('cancel', { cancelable: true });
+    await act(async () => { mapDialog.dispatchEvent(escape); });
+    assert.equal(escape.defaultPrevented, true);
+    assert.ok(mapDialog.open, 'Closing the modal restores the inline map');
+    assert.equal(modal, false);
+    assert.equal(mapDialog.classList.contains('map-expanded'), false);
+    assert.equal(document.activeElement, fullScreen);
+    assert.equal(fullScreen.textContent, 'Full screen');
+    assert.equal(rainToggle.checked, false);
+    assert.equal(mapDialog.querySelector('.geographic-map'), map);
     assert.equal(document.body.style.overflow, '');
     await act(async () => { document.querySelector('button[aria-label="Cambiar a español"]').click(); });
     assert.equal(document.documentElement.lang, 'es');
+    assert.match(document.querySelector('#overview h1').textContent, /El agua de Durham/);
+    assert.match(document.querySelector('.restriction-brief-cta').textContent, /reglas oficiales de Durham/);
+    const menu = document.querySelector('.mobile-nav');
+    const menuTrigger = menu.querySelector('summary');
+    const rulesLink = menu.querySelector('a[href="#actions"]');
+    assert.equal(menuTrigger.textContent, 'Secciones');
+    menu.open = true;
+    rulesLink.focus();
+    await act(async () => { rulesLink.dispatchEvent(new dom.window.KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); });
+    assert.equal(menu.open, false);
+    assert.equal(document.activeElement, menuTrigger);
+    menu.open = true;
+    await act(async () => { rulesLink.click(); });
+    assert.equal(menu.open, false);
     assert.match(document.querySelector('#restriction-levels').textContent, /Etapas de restricción.*20% de probabilidad de 35% de almacenamiento utilizable en 10 semanas/);
     assert.match(document.querySelector('.drought-level-table').textContent, /D0 · Anormalmente seco.*D4 · Sequía excepcional/);
     assert.match(document.querySelector('#drought').textContent, /al menos el 25%/);
@@ -190,7 +246,11 @@ test('chart inspection exposes hover, tap, missing dates, keyboard values and hi
     await act(async () => { river.dispatchEvent(new dom.window.MouseEvent('pointermove', { bubbles: true, clientX: 627 })); });
     assert.match(document.querySelector('.chart-tooltip').textContent, /15\.00 ft³\/s.*2 observed daily means.*10-year average \(2016–2025\).*30\.00 ft³\/s.*9–10 years per calendar date.*Historical daily mean.*110\.00 ft³\/s/);
     assert.match(river.closest('.trend-card').textContent, /50% below 10-year average/);
-    await act(async () => { river.dispatchEvent(new dom.window.MouseEvent('pointerout', { bubbles: true })); });
+    const readout = river.closest('.context-chart').querySelector('.chart-tooltip');
+    await act(async () => { river.dispatchEvent(new dom.window.MouseEvent('pointerout', { bubbles: true, relatedTarget: readout })); });
+    assert.ok(readout.isConnected, 'Keep the selected reading available when moving the pointer over it');
+    await act(async () => { readout.dispatchEvent(new dom.window.MouseEvent('pointerout', { bubbles: true, relatedTarget: document.body })); });
+    assert.equal(document.querySelector('.chart-tooltip'), null);
     await act(async () => { supply.dispatchEvent(new dom.window.KeyboardEvent('keydown', { bubbles: true, key: 'Home' })); });
     assert.match(supply.closest('.context-chart').textContent, /Oct 1, 2026.*156 days/);
     await act(async () => { supply.dispatchEvent(new dom.window.KeyboardEvent('keydown', { bubbles: true, key: 'End' })); });

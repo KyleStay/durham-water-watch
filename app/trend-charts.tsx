@@ -6,7 +6,7 @@ import { withTenYearAverage } from "../scripts/ten-year-flow.mjs";
 
 type Lang = "en" | "es";
 type Point = { date: string; value: number | null; start?: string; end?: string; detail?: string };
-type Series = { label: string; color: string; points: Point[]; dashed?: boolean; dashPattern?: string };
+type Series = { label: string; color: string; points: Point[]; dashed?: boolean; dashPattern?: string; marker?: "ring" };
 type Reference = { label: string; value: number; color: string; highlighted?: boolean; inlineLabel?: string };
 type HistoryDay = { date: string; values: { supply: { total: number | null }; reservoirs: { michie: number | null; little: number | null } } };
 export type TenYearAverage = { startYear: number; endYear: number; status: "fresh" | "stale" | "unavailable"; sourceUrl: string; verifiedAt?: string; note?: string; provisionalCount?: number; days: { monthDay: string; value: number | null; count: number; expectedCount: number }[] };
@@ -18,6 +18,27 @@ function dateLabel(date: string, lang: Lang) {
 
 function fullDate(date: string, lang: Lang) {
   return new Intl.DateTimeFormat(lang === "en" ? "en-US" : "es-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }).format(new Date(`${date}T12:00:00Z`));
+}
+
+function ChartMarker({ x, y, radius, color, marker, children }: {
+  x: number; y: number; radius: number; color: string; marker?: Series["marker"]; children?: ReactNode;
+}) {
+  return <circle cx={x} cy={y} r={radius} fill={marker ? "var(--surface)" : color}
+    stroke={marker ? color : undefined} strokeWidth={marker ? 1.75 : undefined}>{children}</circle>;
+}
+
+function ChartKey({ color, dash, marker, emphasized }: {
+  color: string; dash?: string; marker?: Series["marker"]; emphasized?: boolean;
+}) {
+  return <i aria-hidden="true" style={{
+    position: "relative", width: 24, flex: "none", borderColor: color,
+    borderStyle: dash === "2 4" ? "dotted" : dash ? "dashed" : "solid", borderTopWidth: emphasized ? 3 : 2,
+  }}>
+    {marker && <b style={{
+      position: "absolute", width: 8, height: 8, left: 8, top: -5, borderRadius: "50%",
+      border: `2px solid ${color}`, background: "var(--surface)",
+    }} />}
+  </i>;
 }
 
 export type ChartTrack = {
@@ -44,8 +65,13 @@ export function Chart({ title, description, window, lang, tracks = [], ...primar
     observer.observe(container.current);
     return () => observer.disconnect();
   }, []);
-  const height = 246 + tracks.length * 128;
-  const left = 45, right = primary.references?.some((rule) => rule.inlineLabel) ? 65 : 13;
+  const compactTracks = tracks.length > 0 && width < 450;
+  const primaryBottom = compactTracks ? 174 : 213;
+  const trackHeight = compactTracks ? 72 : 99;
+  const trackStride = trackHeight + 29;
+  const height = primaryBottom + tracks.length * trackStride + 33;
+  const left = primary.categories && lang === "es" ? 70 : 45;
+  const right = primary.references?.some((rule) => rule.inlineLabel) ? 65 : 13;
   const start = Date.parse(`${window.start}T00:00:00Z`), end = Date.parse(`${window.end}T00:00:00Z`);
   const x = (date: string) => left + (Date.parse(`${date}T00:00:00Z`) - start) / Math.max(1, end - start) * (width - left - right);
   const dateLabels = [...new Set([window.start, new Date(start + (end - start) / 2).toISOString().slice(0, 10), window.end])];
@@ -57,8 +83,8 @@ export function Chart({ title, description, window, lang, tracks = [], ...primar
     const step = categories ? 1 : zeroReference ? Math.max(2, Math.ceil(Math.abs(min) / 4)) : Math.max(1, Math.ceil(max / 4));
     const low = categories ? 0 : Math.floor(min / step) * step;
     const high = categories ? categories.length - 1 : Math.max(low + step, Math.ceil(max / step) * step);
-    const top = index === 0 ? 26 : 242 + (index - 1) * 128;
-    const bottom = index === 0 ? 213 : top + 99;
+    const top = index === 0 ? 26 : primaryBottom + 29 + (index - 1) * trackStride;
+    const bottom = index === 0 ? primaryBottom : top + trackHeight;
     const y = (value: number) => top + (high - value) / (high - low) * (bottom - top);
     const ticks = Array.from({ length: Math.round((high - low) / step) + 1 }, (_, i) => low + i * step);
     const traces = series.map((item) => ({ ...item, segments: observedSegments(item.points, gapDays) }));
@@ -80,7 +106,7 @@ export function Chart({ title, description, window, lang, tracks = [], ...primar
           ? `${Math.abs(value).toFixed(2)} ${lang === "en" ? (value > 0 ? "ft above full pool" : "ft below full pool") : (value > 0 ? "pies sobre la cota máxima" : "pies bajo la cota máxima")}`
           : `${value.toLocaleString(lang === "en" ? "en-US" : "es-US", { minimumFractionDigits: plot.unit === "ft³/s" ? 2 : 0, maximumFractionDigits: 2 })} ${plot.unit}`;
     const period = point?.start && point?.end ? `${fullDate(point.start, lang)} – ${fullDate(point.end, lang)}` : "";
-    return { label: s.label, color: s.color, value, reading, period, detail: point?.detail, y: plot.y };
+    return { label: s.label, color: s.color, marker: s.marker, value, reading, period, detail: point?.detail, y: plot.y };
   })) : [];
   const inspectPointer = (clientX: number, svg: SVGSVGElement | null) => {
     const rect = svg?.getBoundingClientRect();
@@ -90,7 +116,8 @@ export function Chart({ title, description, window, lang, tracks = [], ...primar
   };
   const help = lang === "en" ? "Hover or tap to inspect. Focus the chart and use arrow keys to browse dates; Home/End jump, Escape clears." : "Pase el cursor o toque para consultar. Use las flechas para recorrer fechas; Inicio/Fin saltan y Escape cierra.";
   const valueText = selected ? `${fullDate(selected, lang)}. ${rows.map((row) => `${row.label}: ${row.reading}. ${row.period} ${row.detail ?? ""}`).join(" ")}` : help;
-  return <div ref={container} className="context-chart">
+  return <div ref={container} className="context-chart"
+    onPointerLeave={(event) => { if (!event.currentTarget.contains(document.activeElement)) setActiveDate(null); }}>
     <svg viewBox={`0 0 ${width} ${height}`} role="group" aria-labelledby={`${id}-title`} aria-describedby={`${id}-desc`}>
       <title id={`${id}-title`}>{title}</title>
       <desc id={`${id}-desc`}>{description} {hasGaps && `${gapLabel}. `}{help}</desc>
@@ -103,7 +130,7 @@ export function Chart({ title, description, window, lang, tracks = [], ...primar
         {zeroReference && <text x={width - right} y={y(0) - 7} textAnchor="end" className="context-axis">{lang === "en" ? "Full pool" : "Cota máxima"}</text>}
         {references.map((rule) => <g key={rule.label}>
           <line x1={left} x2={width - right} y1={y(rule.value)} y2={y(rule.value)}
-            stroke={rule.color} strokeDasharray="6 4" strokeWidth={rule.highlighted ? 2.5 : 1.5} />
+            stroke={rule.color} strokeDasharray={rule.highlighted ? "11 5" : "4 5"} strokeWidth={rule.highlighted ? 2.5 : 1.5} />
           {rule.inlineLabel && <text className="context-axis" x={width - right + 5} y={y(rule.value) + 3}
             style={{ fill: rule.color, fontWeight: rule.highlighted ? 700 : 500 }}>{rule.inlineLabel}</text>}
         </g>)}
@@ -117,15 +144,17 @@ export function Chart({ title, description, window, lang, tracks = [], ...primar
             if (!index) return `M${x(p.date)},${y(p.value)}`;
             return categories ? `H${x(p.date)}V${y(p.value)}` : `L${x(p.date)},${y(p.value)}`;
           }).join(" ")} fill="none" stroke={s.color} strokeWidth="2.5" strokeDasharray={s.dashed ? s.dashPattern ?? "6 5" : undefined} />)}
-          {!s.dashed && s.points.map((p) => p.value === null ? null : <circle key={p.date} cx={x(p.date)} cy={y(p.value)} r={gapDays === 1 ? 3 : 2.5} fill={s.color}>
+          {!s.dashed && s.points.map((p) => p.value === null ? null : <ChartMarker key={p.date}
+            x={x(p.date)} y={y(p.value)} radius={s.marker ? 3.5 : gapDays === 1 ? 3 : 2.5} color={s.color} marker={s.marker}>
             <title>{`${s.label} · ${fullDate(p.date, lang)}: ${categories ? categories[p.value] : `${p.value.toFixed(2)} ${unit}`}`}</title>
-          </circle>)}
+          </ChartMarker>)}
         </g>)}
       </g>)}
       {dateLabels.map((date, i) => <text key={date} x={x(date)} y={height - 9} textAnchor={i === 0 ? "start" : i === dateLabels.length - 1 ? "end" : "middle"} className="context-axis">{dateLabel(date, lang)}</text>)}
       {selected && <g className="chart-selection" pointerEvents="none">
         <line x1={x(selected)} x2={x(selected)} y1={plots[0].top} y2={plots.at(-1)?.bottom} />
-        {rows.map((row) => row.value === null || row.value === undefined ? null : <circle key={row.label} cx={x(selected)} cy={row.y(row.value)} r={5} fill={row.color} />)}
+        {rows.map((row) => row.value === null || row.value === undefined ? null : <ChartMarker key={row.label}
+          x={x(selected)} y={row.y(row.value)} radius={5} color={row.color} marker={row.marker} />)}
       </g>}
       {entries.length > 0 && <rect className="chart-hit-area" x={left} y={plots[0].top} width={width - left - right} height={plots[plots.length - 1].bottom - plots[0].top}
         fill="transparent" tabIndex={0} role="slider" aria-label={title} aria-orientation="horizontal"
@@ -133,7 +162,6 @@ export function Chart({ title, description, window, lang, tracks = [], ...primar
         aria-describedby={`${id}-desc`}
         onPointerMove={(event) => inspectPointer(event.clientX, event.currentTarget.ownerSVGElement)}
         onPointerDown={(event) => inspectPointer(event.clientX, event.currentTarget.ownerSVGElement)}
-        onPointerLeave={(event) => { if (document.activeElement !== event.currentTarget) setActiveDate(null); }}
         onFocus={() => setActiveDate((date) => date && entries.includes(date) ? date : entries.findLast((date) => allSeries.some((s) => s.points.some((p) => p.date === date && p.value !== null))) ?? entries[0])}
         onBlur={() => setActiveDate(null)}
         onKeyDown={(event) => {
@@ -145,14 +173,15 @@ export function Chart({ title, description, window, lang, tracks = [], ...primar
           setActiveDate(entries[next]);
         }} />}
     </svg>
-    {selected && <div className="chart-tooltip" id={`${id}-tooltip`} role="tooltip" style={{ left: `clamp(0px, calc(${x(selected) / width * 100}% - 145px), max(0px, calc(100% - 290px)))` }}>
+    {selected && <div className="chart-tooltip" id={`${id}-tooltip`} role="tooltip">
       <strong>{(primary.gapDays ?? 1) > 1 && !primary.categories ? (lang === "en" ? "Week ending " : "Semana hasta ") : ""}{fullDate(selected, lang)}</strong>
       {rows.map((row) => <div key={row.label}><span className="chart-tooltip-series"><i style={{ background: row.color }} />{row.label}</span><b>{row.reading}</b>{row.period && <span>{row.period}</span>}{row.detail && <span>{row.detail}</span>}</div>)}
     </div>}
     <p className="chart-help">{lang === "en" ? "Hover, tap, or use arrow keys for values and dates." : "Pase el cursor, toque o use las flechas para consultar valores y fechas."}</p>
     <div className="context-legend">
-      {allSeries.map((s) => <span key={s.label}><i style={{ borderColor: s.color, borderStyle: s.dashPattern === "2 4" ? "dotted" : s.dashed ? "dashed" : "solid" }} />{s.label}</span>)}
-      {plots.flatMap((plot) => plot.references).map((rule) => <span key={rule.label}><i style={{ borderColor: rule.color, borderStyle: "dashed" }} />{rule.label}</span>)}
+      {allSeries.map((s) => <span key={s.label}><ChartKey color={s.color} dash={s.dashed ? s.dashPattern ?? "6 5" : undefined} marker={s.marker} />{s.label}</span>)}
+      {plots.flatMap((plot) => plot.references.filter((rule) => !rule.inlineLabel)).map((rule) => <span key={rule.label}><ChartKey color={rule.color}
+        dash={rule.highlighted ? "11 5" : "4 5"} emphasized={rule.highlighted} />{rule.label}</span>)}
       {hasGaps && <span><i className="chart-gap-key" />{gapLabel}</span>}
     </div>
     {!plots.some((plot) => plot.values.length) && <p>{lang === "en" ? "No observations in this period." : "No hay observaciones en este período."}</p>}
@@ -201,7 +230,7 @@ export default function TrendContext({ days, end, lang, reservoirs, supplyStatus
             <div className="trend-card-heading"><h4>{lake.name}</h4>{lake.status}</div>
             <p className="trend-reading"><strong>{latest ? Math.abs(latest.value!).toFixed(2) : "—"}</strong> {lang === "en" ? (latest && latest.value! > 0 ? "ft above full" : "ft below full") : (latest && latest.value! > 0 ? "pies sobre la cota máxima" : "pies bajo la cota máxima")}</p>
             <p className="observation-date">{latest ? `${lang === "en" ? "Observed" : "Observado"} ${dateLabel(latest.date, lang)}` : "—"}</p>
-            <Chart title={`${lake.name}: ${lang === "en" ? "elevation relative to full pool" : "nivel respecto a la cota máxima"}`} description={observationSummary(points, lang, "ft")} series={[{ label: lake.name, color: lake.key === "michie" ? "#137772" : "#a85e20", points }]} window={window} unit="ft" zeroReference domain={lakeDomain} lang={lang} />
+            <Chart title={`${lake.name}: ${lang === "en" ? "elevation relative to full pool" : "nivel respecto a la cota máxima"}`} description={observationSummary(points, lang, "ft")} series={[{ label: lake.name, color: lake.key === "michie" ? "var(--chart-teal, #137772)" : "var(--chart-amber, #a85e20)", points }]} window={window} unit="ft" zeroReference domain={lakeDomain} lang={lang} />
             <p className="trend-change">{observationSummary(points, lang, "ft")}</p>
           </article>;
         })}
@@ -212,7 +241,7 @@ export default function TrendContext({ days, end, lang, reservoirs, supplyStatus
       <article className="trend-card supply-trend-card">
         <div className="trend-card-heading"><h4>{lang === "en" ? "Estimated total supply" : "Suministro total estimado"}</h4>{supplyStatus}</div>
         <p className="trend-reading"><strong>{lastSupply?.value ?? "—"}</strong> {lang === "en" ? "days" : "días"}<span className="observation-date"> · {lastSupply ? dateLabel(lastSupply.date, lang) : "—"}</span></p>
-        <Chart title={lang === "en" ? "Estimated days of supply over time" : "Días de suministro estimado a lo largo del tiempo"} description={observationSummary(supply, lang, lang === "en" ? "days" : "días")} series={[{ label: lang === "en" ? "Total supply" : "Suministro total", color: "#07516e", points: supply }]} window={window} unit={lang === "en" ? "days" : "días"} lang={lang} />
+        <Chart title={lang === "en" ? "Estimated days of supply over time" : "Días de suministro estimado a lo largo del tiempo"} description={observationSummary(supply, lang, lang === "en" ? "days" : "días")} series={[{ label: lang === "en" ? "Total supply" : "Suministro total", color: "var(--chart-blue, #07516e)", points: supply }]} window={window} unit={lang === "en" ? "days" : "días"} lang={lang} />
         <p className="trend-change">{observationSummary(supply, lang, lang === "en" ? "days" : "días")}</p>
         <p className="trend-source"><a href="https://www.durhamnc.gov/1214/Current-Data" target="_blank" rel="noreferrer">{lang === "en" ? "Official City supply estimate" : "Estimación oficial del suministro"} ↗</a> · <a href="#supply-breakdown">{lang === "en" ? "What makes up this estimate?" : "¿Cómo se calcula esta estimación?"}</a></p>
       </article>
@@ -228,9 +257,9 @@ export default function TrendContext({ days, end, lang, reservoirs, supplyStatus
           const difference = reference ? Math.round((recent!.current! / reference - 1) * 1000) / 10 : null;
           const referenceLabel = lang === "en" ? (useTenYear ? "10-year average" : "historical mean") : (useTenYear ? "promedio de 10 años" : "promedio histórico");
           const chartSeries: Series[] = [
-            { label: year, color: "#07516e", points: weekly.map((p) => ({ date: p.date, value: p.current, start: p.start, end: p.through ?? undefined, detail: `${p.count} ${lang === "en" ? "observed daily means" : "promedios diarios observados"}` })) },
-            ...(average?.days.length ? [{ label: averageLabel, color: "#137772", dashed: true, dashPattern: "2 4", points: weekly.map((p) => ({ date: p.date, value: p.tenYear, detail: `${dateLabel(p.periodStart, lang)} – ${dateLabel(p.periodEnd, lang)} · ${p.tenYearCountLow === p.tenYearCountHigh ? p.tenYearCountLow : `${p.tenYearCountLow}–${p.tenYearCountHigh}`} ${lang === "en" ? "years per calendar date; available USGS daily means" : "años por fecha; promedios diarios disponibles del USGS"}` })) }] : []),
-            { label: lang === "en" ? "Historical daily mean" : "Promedio diario histórico", color: "#a85e20", dashed: true, points: weekly.map((p) => ({ date: p.date, value: p.historical, start: p.periodStart, end: p.periodEnd, detail: lang === "en" ? "Average of historical daily means" : "Promedio de los promedios diarios históricos" })) },
+            { label: year, color: "var(--chart-blue, #07516e)", points: weekly.map((p) => ({ date: p.date, value: p.current, start: p.start, end: p.through ?? undefined, detail: `${p.count} ${lang === "en" ? "observed daily means" : "promedios diarios observados"}` })) },
+            ...(average?.days.length ? [{ label: averageLabel, color: "var(--chart-teal, #137772)", dashed: true, dashPattern: "2 4", points: weekly.map((p) => ({ date: p.date, value: p.tenYear, detail: `${dateLabel(p.periodStart, lang)} – ${dateLabel(p.periodEnd, lang)} · ${p.tenYearCountLow === p.tenYearCountHigh ? p.tenYearCountLow : `${p.tenYearCountLow}–${p.tenYearCountHigh}`} ${lang === "en" ? "years per calendar date; available USGS daily means" : "años por fecha; promedios diarios disponibles del USGS"}` })) }] : []),
+            { label: lang === "en" ? "Historical daily mean" : "Promedio diario histórico", color: "var(--chart-amber, #a85e20)", dashed: true, points: weekly.map((p) => ({ date: p.date, value: p.historical, start: p.periodStart, end: p.periodEnd, detail: lang === "en" ? "Average of historical daily means" : "Promedio de los promedios diarios históricos" })) },
           ];
           return <article className="trend-card" key={station.site}>
             <div className="trend-card-heading"><h4>{station.name}</h4><span className={`status ${station.status}`}>{lang === "en" ? { fresh: "Verified", stale: "Stale · retained", unavailable: "Unavailable" }[station.status] : { fresh: "Verificado", stale: "Antiguo · conservado", unavailable: "No disponible" }[station.status]}</span></div>

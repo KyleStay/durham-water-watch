@@ -8,6 +8,7 @@ import { dashboardAt, metricStatus } from "../scripts/freshness.mjs";
 import { annualReservoirHeading, showsStageTwoGuidance } from "../scripts/stage-guidance.mjs";
 import TrendContext, { type TenYearAverage } from "./trend-charts";
 import WatershedMap, { type RainfallForecast } from "./watershed-map";
+import ThemeControl from "./theme-control";
 import { DroughtLevels, DroughtTrend, RestrictionLevels, StageTransitionChart, type DroughtReading, type StorageReading } from "./water-level-guide";
 
 type Lang = "en" | "es";
@@ -118,13 +119,14 @@ const streamflowHistorySeed = verifiedStreamflowHistory as StreamflowHistoryData
 const copy = {
   en: {
     skip: "Skip to main content",
-    unofficial: "Unofficial independent community dashboard",
+    unofficial: "Independent, unofficial dashboard",
     title: "Durham Water Watch",
     deck: "Current water status for Durham",
     official: "Official City guidance always takes precedence.",
     nav: ["Trends", "Reservoirs", "Supply", "River flow", "Water-use rules", "Drought levels", "Sources & data"],
     serious: "How serious is this?",
-    stage: "Durham Water Shortage Response Stage",
+    stage: "Water shortage response",
+    stageVerified: "Verified",
     inEffect: "in effect",
     effective: "Effective",
     checked: "Official source checked",
@@ -133,7 +135,8 @@ const copy = {
     risk: "Mandatory restrictions are active while dry conditions and low reservoir levels continue.",
     actionEyebrow: "Highest-priority action",
     action: "Do not use City water for spray irrigation.",
-    allRules: "See all official restrictions",
+    actionAllowance: "Hand watering and drip irrigation are allowed.",
+    allRules: "Read Durham’s official rules",
     composed: "How the official total is composed",
     accessible: "Easily accessible reservoir supply",
     below: "Below intake structures",
@@ -216,13 +219,14 @@ const copy = {
   },
   es: {
     skip: "Saltar al contenido principal",
-    unofficial: "Panel comunitario independiente no oficial",
+    unofficial: "Panel independiente no oficial",
     title: "Durham Water Watch",
     deck: "Estado actual del agua en Durham",
     official: "La orientación oficial de la Ciudad siempre tiene prioridad.",
     nav: ["Tendencias", "Embalses", "Suministro", "Caudal", "Reglas de uso", "Niveles de sequía", "Fuentes y datos"],
     serious: "¿Qué tan grave es?",
-    stage: "Etapa de Respuesta a la Escasez de Agua de Durham",
+    stage: "Respuesta a la escasez de agua",
+    stageVerified: "Verificada",
     inEffect: "vigente",
     effective: "Vigente desde",
     checked: "Fuente oficial verificada",
@@ -231,7 +235,8 @@ const copy = {
     risk: "Las restricciones obligatorias están vigentes mientras continúan las condiciones secas y los niveles bajos.",
     actionEyebrow: "Acción de mayor prioridad",
     action: "No use agua de la Ciudad para riego por aspersión.",
-    allRules: "Ver todas las restricciones oficiales",
+    actionAllowance: "Se permite el riego manual y por goteo.",
+    allRules: "Leer las reglas oficiales de Durham",
     composed: "Cómo se compone el total oficial",
     accessible: "Suministro de fácil acceso en los embalses",
     below: "Agua debajo de las tomas",
@@ -324,7 +329,7 @@ function fmtDate(value: string | null, lang: Lang, withTime = false) {
   }).format(date);
 }
 
-function Status({ metric, lang }: { metric: Metric; lang: Lang }) {
+function Status({ metric, lang, freshLabel }: { metric: Metric; lang: Lang; freshLabel?: string }) {
   const t = copy[lang];
   if (metric.status === "unavailable" || metric.value === null) return <span className="status unavailable">× {t.unavailable}</span>;
   if (metric.status === "stale") {
@@ -336,7 +341,7 @@ function Status({ metric, lang }: { metric: Metric; lang: Lang }) {
       </span>
     );
   }
-  return <span className="status fresh">✓ {t.fresh}</span>;
+  return <span className="status fresh">✓ {freshLabel ?? t.fresh}</span>;
 }
 
 function SourceLine({ metric, lang, label }: { metric: Metric; lang: Lang; label?: string }) {
@@ -531,7 +536,9 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
       ? metricStatus({ value: 1, verifiedAt: station.verifiedAt ?? comparison.updatedAt }, "stage", now)
       : station.status,
   });
-  const isStageTwo = showsStageTwoGuidance(data.stage.value);
+  const currentStage = data.stage.status === "fresh" && typeof data.stage.value === "number" ? data.stage.value : null;
+  const isStageTwo = showsStageTwoGuidance(currentStage);
+  const stageLabel = data.stage.value === null ? null : `${lang === "en" ? "Stage" : "Etapa"} ${data.stage.value}`;
   const storage = data.reservoirStorage;
   const reportedStorage = typeof storage?.value === "number" && storage.value >= 0 && storage.value <= 100 && storage.observedAt
     ? storage.value : null;
@@ -569,6 +576,10 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
     [t.quarry, data.supply.quarry],
     [t.total, data.supply.total],
   ] as const;
+  const navLabel = lang === "en" ? "Primary navigation" : "Navegación principal";
+  const sectionLinks = ["trends", "reservoirs", "supply", "rivers", "actions", "drought", "methodology"].map((id, index) => (
+    <a key={id} href={`#${id}`}>{t.nav[index]}</a>
+  ));
 
   return (
     <>
@@ -583,38 +594,64 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
               <span>{t.title}</span>
             </a>
           </div>
-          <button className="language" onClick={switchLang} aria-label={lang === "en" ? "Cambiar a español" : "Switch to English"}>
-            <span aria-hidden="true">文</span> {lang === "en" ? "Español" : "English"}
-          </button>
+          <div className="masthead-controls">
+            <ThemeControl lang={lang} />
+            <button className="language" onClick={switchLang} aria-label={lang === "en" ? "Cambiar a español" : "Switch to English"}>
+              {lang === "en" ? "Español" : "English"}
+            </button>
+            <details className="mobile-nav" onKeyDown={(event) => {
+              const menu = event.currentTarget;
+              if (event.key !== "Escape" || !menu.open) return;
+              event.stopPropagation();
+              menu.open = false;
+              menu.querySelector("summary")?.focus();
+            }}>
+              <summary>{lang === "en" ? "Sections" : "Secciones"}</summary>
+              <nav className="mobile-nav-links" aria-label={navLabel} onClick={(event) => {
+                if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+                if (!(event.target instanceof HTMLElement) || !event.target.closest("a")) return;
+                const menu = event.currentTarget.closest("details");
+                if (menu) menu.open = false;
+              }}>{sectionLinks}</nav>
+            </details>
+          </div>
         </div>
-        <nav className="nav wrap" aria-label={lang === "en" ? "Primary navigation" : "Navegación principal"}>
-          {["trends", "reservoirs", "supply", "rivers", "actions", "drought", "methodology"].map((id, index) => (
-            <a key={id} href={`#${id}`}>{t.nav[index]}</a>
-          ))}
-        </nav>
+        <nav className="nav wrap" aria-label={navLabel}>{sectionLinks}</nav>
       </header>
 
       <main id="main">
         <section id="overview" className="briefing-hero">
           <div className="wrap">
-            <p className="kicker">{lang === "en" ? "Durham’s water, in context" : "El agua de Durham, en contexto"}</p>
             <h1>{lang === "en" ? "Durham’s water over time" : "El agua de Durham a lo largo del tiempo"}</h1>
-            <p className="checked" data-publication-time={snapshot.generatedAt}>{lang === "en" ? "Published snapshot: " : "Instantánea publicada: "}{fmtDate(snapshot.generatedAt ?? null, lang, true)}. {lang === "en" ? "Sources checked daily; readings keep their observation dates." : "Fuentes verificadas a diario; las lecturas mantienen sus fechas de observación."}</p>
             <div className="restriction-brief">
-              <div><p className="eyebrow">{t.stage}</p><div className="stage-brief-value"><strong>Stage / Etapa {data.stage.value ?? "—"}</strong><Status metric={data.stage} lang={lang} /></div><p>{t.effective} {fmtDate(data.stage.effectiveDate, lang)}</p></div>
-              <div><p>{isStageTwo ? t.action : lang === "en" ? "Check the current City water-use rules." : "Consulte las reglas actuales de uso del agua de la Ciudad."}</p><a href="#actions">{lang === "en" ? "What to do now" : "Qué hacer ahora"} ↓</a><span aria-hidden="true"> · </span><a href={urls.stage} target="_blank" rel="noreferrer">{t.allRules} ↗</a><span aria-hidden="true"> · </span><a href="#restriction-levels">{lang === "en" ? "Compare water shortage stages" : "Comparar las etapas de escasez de agua"} ↓</a></div>
+              <div className="restriction-brief-status">
+                <p className="eyebrow">{t.stage}</p>
+                <div className="stage-brief-value">
+                  {stageLabel && <strong>{stageLabel}</strong>}
+                  <Status metric={data.stage} lang={lang} freshLabel={t.stageVerified} />
+                </div>
+                {stageLabel && data.stage.effectiveDate && <p>{t.effective} {fmtDate(data.stage.effectiveDate, lang)}</p>}
+              </div>
+              <div className="restriction-brief-action">
+                <p>{isStageTwo ? t.action : lang === "en" ? "Check the City’s current water-use rules." : "Consulte las reglas vigentes de la Ciudad sobre el uso del agua."}</p>
+                {isStageTwo && <p className="restriction-brief-allowance">{t.actionAllowance}</p>}
+                <div className="restriction-brief-links">
+                  <a className="restriction-brief-cta" href={urls.stage} target="_blank" rel="noreferrer">{t.allRules} <span aria-hidden="true">↗</span></a>
+                  {!isStageTwo && <a className="restriction-brief-secondary" href="#restriction-levels">{lang === "en" ? "Compare stages" : "Comparar etapas"}</a>}
+                </div>
+              </div>
             </div>
-            <p className="briefing-priority">{t.official} <a href="#stage-proximity">{lang === "en" ? "See the stage trend" : "Ver la tendencia de etapas"} ↓</a></p>
+            <p className="checked" data-publication-time={snapshot.generatedAt}>{lang === "en" ? "Published snapshot: " : "Instantánea publicada: "}{fmtDate(snapshot.generatedAt ?? null, lang, true)}</p>
             <noscript><p>Freshness labels reflect the published snapshot time. Check observation dates and official sources for current conditions.</p></noscript>
           </div>
         </section>
 
         <div className="section outlook-section">
           <div className="wrap">
-            <StageTransitionChart lang={lang} stage={data.stage.status === "fresh" && typeof data.stage.value === "number" ? data.stage.value : null}
+            <StageTransitionChart lang={lang} stage={currentStage}
               storage={reportedStorage} date={reportedStorage === null ? null : fmtDate(storage?.observedAt ?? null, lang)}
               stale={storage?.status !== "fresh"} readings={history.storageObservations ?? []} days={history.days} />
-            <RestrictionLevels lang={lang} currentStage={data.stage.status === "fresh" && typeof data.stage.value === "number" ? data.stage.value : null} />
+            <RestrictionLevels lang={lang} currentStage={currentStage} />
             <DroughtTrend lang={lang} readings={history.droughtObservations ?? []} />
           </div>
         </div>
@@ -650,8 +687,7 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
           <div className="wrap">
             {isStageTwo ? (
             <>
-            <div className="section-heading actions-heading"><p className="kicker">{t.whatNow}</p><h2>{lang === "en" ? "Stage 2 rules, at a glance." : "Reglas de la Etapa 2, de un vistazo."}</h2><p>{t.rulesCaveat}</p></div>
-            {data.stage.status === "stale" && <p className="stale-banner">! {t.confirmRules}</p>}
+            <div className="section-heading actions-heading"><h2>{lang === "en" ? "Stage 2 water-use rules" : "Reglas de uso del agua en la Etapa 2"}</h2><p>{t.rulesCaveat}</p></div>
             <div className="rules-grid">
               <article className="rule-column stop">
                 <h3><span aria-hidden="true">×</span>{t.prohibited}</h3>
@@ -681,13 +717,13 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
                 </ul>
               </article>
             </div>
-            <div className="rules-footer"><p>{lang === "en" ? "This summary does not replace the official rules." : "Este resumen no reemplaza las reglas oficiales."}</p><a className="button" href={urls.stage} target="_blank" rel="noreferrer">{t.readRules} ↗</a></div>
+            <div className="rules-footer"><a className="button" href={urls.stage} target="_blank" rel="noreferrer">{t.readRules} ↗</a></div>
             </>
             ) : (
               <>
-                <div className="section-heading actions-heading"><p className="kicker">{t.whatNow}</p><h2>{lang === "en" ? "Follow the rules for the displayed City stage." : "Siga las reglas de la etapa mostrada por la Ciudad."}</h2><p>{lang === "en" ? "Compare the stages above and confirm the current City declaration. The complete official rules control." : "Compare las etapas anteriores y confirme la declaración municipal actual. Las reglas oficiales completas tienen prioridad."}</p></div>
+                <div className="section-heading actions-heading"><h2>{lang === "en" ? "Current water-use rules" : "Reglas vigentes de uso del agua"}</h2><p>{lang === "en" ? "Confirm the current stage on the City website. The complete official rules control." : "Confirme la etapa vigente en el sitio web de la Ciudad. Las reglas oficiales completas tienen prioridad."}</p></div>
                 {data.stage.status === "stale" && <p className="stale-banner">! {t.confirmRules}</p>}
-                <div className="rules-footer"><p>{lang === "en" ? "Confirm the current stage and requirements on the City website." : "Confirme la etapa y los requisitos actuales en el sitio web de la Ciudad."}</p><a className="button" href={urls.stage} target="_blank" rel="noreferrer">{t.readRules} ↗</a></div>
+                <div className="rules-footer"><a className="button" href={urls.stage} target="_blank" rel="noreferrer">{t.readRules} ↗</a></div>
               </>
             )}
           </div>
@@ -942,7 +978,7 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
               <article className="exit-outlook" aria-labelledby="stage-plan-title">
                 <div className="exit-outlook-intro">
                   <p className="kicker">{lang === "en" ? "Current stage guidance" : "Orientación para la etapa actual"}</p>
-                  <h2 id="stage-plan-title">{lang === "en" ? "Stage 2 exit criteria do not apply to the displayed stage." : "Los criterios para salir de la Etapa 2 no corresponden a la etapa mostrada."}</h2>
+                  <h2 id="stage-plan-title">{lang === "en" ? "How Durham changes water restrictions" : "Cómo cambia Durham las restricciones de agua"}</h2>
                   <p>{lang === "en" ? "Use the official response plan and City water-use page for the criteria and restrictions that apply now." : "Consulte el plan oficial y la página de uso del agua de la Ciudad para conocer los criterios y restricciones vigentes."}</p>
                   <a href={urls.plan} target="_blank" rel="noreferrer">{lang === "en" ? "Read the official response plan" : "Leer el plan oficial"} ↗</a>
                 </div>

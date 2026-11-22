@@ -63,7 +63,8 @@ export function StageTransitionChart({ lang, stage, storage, date, stale, readin
   const daysUnit = en ? "days" : "días";
   const flows = (["flat", "little"] as const).map((key) => ({
     label: key === "flat" ? "Flat River" : "Little River",
-    color: key === "flat" ? "#07516e" : "#795384",
+    color: key === "flat" ? "var(--chart-blue, #07516e)" : "var(--chart-purple, #795384)",
+    marker: key === "little" ? "ring" as const : undefined,
     points: window ? weeklyFlow(visibleDays.map((day) => ({
       date: day.date, historicalMean: null,
       currentYear: day.measurementKinds?.streamflow === "USGS daily mean" && recorded(day, `streamflow.${key}`) ? day.values.streamflow[key] : null,
@@ -87,29 +88,34 @@ export function StageTransitionChart({ lang, stage, storage, date, stale, readin
     : `${en ? "Stage" : "Etapa"} ${rule.stage}`;
   return (
     <section id="stage-proximity" className="stage-proximity" aria-labelledby="stage-proximity-title">
-      <h2 id="stage-proximity-title">{en ? "How close are Durham’s water restrictions to changing?" : "¿Qué tan cerca está Durham de cambiar sus restricciones de agua?"}</h2>
+      <h2 id="stage-proximity-title">{en ? "Water shortage stage and storage" : "Etapa y almacenamiento"}</h2>
       <p>{storage === null
         ? en ? "City storage reading unavailable." : "Lectura municipal de almacenamiento no disponible."
-        : <><strong>{format.format(storage)}%</strong> {en ? "storage reported by Durham" : "de almacenamiento informado por Durham"} · {date}{stale && (en ? " · Last known" : " · Última lectura conocida")}</>}</p>
-      <p className="stage-proximity-note">{en
-        ? "The dashed lines show the storage targets in Durham’s plan. Durham uses forecast probabilities to change restrictions. The storage gaps are approximate. Supply and river flow share the same dates so you can compare how conditions moved."
-        : "Las líneas discontinuas muestran las metas de almacenamiento del plan de Durham. La Ciudad usa probabilidades del pronóstico para cambiar las restricciones. Las diferencias son aproximadas. El suministro y el caudal comparten las fechas para comparar cómo cambiaron las condiciones."}</p>
+        : <><strong>{format.format(storage)}%</strong> {en ? "storage reported by Durham" : "de almacenamiento municipal"} · {date}{stale && (en ? " · Last known" : " · Última lectura conocida")}</>}</p>
+      <div className="stage-trigger-note">
+        {next && <p><strong>{en ? `Stage ${next.stage} forecast trigger.` : `Criterio para la Etapa ${next.stage}.`}</strong>{" "}{en
+          ? <>A <b>{next.probability}% chance</b> of reaching <b>{next.storage}% combined usable reservoir storage</b> in <b>{next.weeks} weeks</b>.</>
+          : <><b>{next.probability}% de probabilidad prevista</b> de alcanzar <b>{next.storage}% de almacenamiento utilizable combinado</b> en <b>{next.weeks} semanas</b>.</>}</p>}
+        <p className="stage-proximity-note">{en
+          ? "The chart shows observed readings and storage targets. The City decides when restrictions change."
+          : "La gráfica muestra lecturas observadas y metas. La Ciudad decide cuándo cambiar de etapa."}</p>
+      </div>
       <figure className="stage-proximity-chart">
-        <figcaption>{en ? "Storage, stage targets and water conditions" : "Almacenamiento, metas de etapa y condiciones del agua"}</figcaption>
+        <figcaption className="sr-only">{en ? "Storage, stage targets and water conditions" : "Almacenamiento, metas de etapa y condiciones del agua"}</figcaption>
         {window ? <Chart title={en ? "Stage targets and contributing conditions" : "Metas de etapa y condiciones relacionadas"}
           description={en ? "Reported storage and five plan targets, accessible supply, and weekly USGS river flow share a date axis." : "El almacenamiento informado y cinco metas del plan, el suministro accesible y el caudal semanal del USGS comparten un eje de fechas."}
           label={en ? "Reservoir storage (%)" : "Almacenamiento de los embalses (%)"}
-          series={[{ label: storageLabel, color: "#286a67", points: readings.map((reading) => ({
+          series={[{ label: storageLabel, color: "var(--chart-teal, #286a67)", points: readings.map((reading) => ({
             date: reading.observedAt, value: reading.value,
             detail: [reading.bulletinDate ? bulletinLabel : "", next ? gap(reading.value, next.storage) : ""].filter(Boolean).join(" · "),
           })) }]}
           references={targets.map((rule) => ({
             label: `${label(rule)} · ${rule.storage}%`, value: rule.storage,
             inlineLabel: `${rule.stage ? `${en ? "S" : "E"}${rule.stage}` : en ? "Lift" : "Fin"} ${rule.storage}%`,
-            color: rule.stage === next?.stage ? "#9b4b1d" : "#526f7f", highlighted: rule.stage === next?.stage,
+            color: rule.stage === next?.stage ? "var(--chart-alert, #9b4b1d)" : "var(--chart-guide, #526f7f)", highlighted: rule.stage === next?.stage,
           }))}
           tracks={[
-            { label: `${accessibleLabel} (${daysUnit})`, unit: daysUnit, series: [{ label: accessibleLabel, color: "#4c7760",
+            { label: `${accessibleLabel} (${daysUnit})`, unit: daysUnit, series: [{ label: accessibleLabel, color: "var(--chart-green, #4c7760)",
               points: visibleDays.filter((day) => day.values.supply.accessible !== null && recorded(day, "supply.accessible"))
                 .map((day) => ({ date: day.date, value: day.values.supply.accessible })) }] },
             { label: en ? "Weekly river flow (ft³/s)" : "Caudal semanal (pies³/s)", unit: "ft³/s", series: flows, gapDays: 7 },
@@ -163,7 +169,7 @@ export function RestrictionLevels({ lang, currentStage }: { lang: Lang; currentS
         : "Los criterios siguientes usan la probabilidad, según el modelo municipal, de alcanzar un nivel de almacenamiento utilizable combinado al final de un período de pronóstico. No son niveles actuales ni límites de días de suministro."}</p>
       <div className="level-list">
         {stages.map(({ stage, probability, weeks, storage, ...rules }) => (
-          <article className="level-row" key={stage} aria-labelledby={`restriction-stage-${stage}`}>
+          <article className="level-row" key={stage} data-current={stage === currentStage || undefined} aria-labelledby={`restriction-stage-${stage}`}>
             <div>
               <h4 id={`restriction-stage-${stage}`}>{en ? "Stage" : "Etapa"} {stage}{stage === 4 ? (en ? " · Emergency" : " · Emergencia") : ""}{stage === currentStage && (en ? " · In effect" : " · En vigor")}</h4>
               <p className="level-trigger"><strong>{en ? "Model trigger: " : "Criterio del modelo: "}</strong>{en
@@ -217,7 +223,7 @@ export function DroughtTrend({ lang, readings }: { lang: Lang; readings: Drought
       <figcaption>{en ? "Weekly county category" : "Categoría semanal del condado"}</figcaption>
       {first && latest ? <Chart title={title}
         description={en ? "Official weekly North Carolina drought classifications for Durham County." : "Clasificaciones semanales oficiales de sequía de Carolina del Norte para el condado de Durham."}
-        series={[{ label: en ? "County drought category" : "Categoría de sequía del condado", color: "#9b4b1d", points }]}
+        series={[{ label: en ? "County drought category" : "Categoría de sequía del condado", color: "var(--chart-alert, #9b4b1d)", points }]}
         unit={en ? "Severity" : "Gravedad"} categories={categories} lang={lang} gapDays={7}
         window={first === latest ? trendWindow(latest, "30") : { start: first, end: latest }} />
         : <p>{en ? "No weekly classifications available." : "No hay clasificaciones semanales disponibles."}</p>}

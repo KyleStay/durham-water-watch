@@ -40,7 +40,7 @@ await writeFile(resolve(output, "404.html"), html);
 await writeFile(resolve(output, ".nojekyll"), "");
 
 const built = await readFile(resolve(output, "index.html"), "utf8");
-if (!built.includes("Unofficial independent community dashboard")) {
+if (!built.includes("Independent, unofficial dashboard")) {
   throw new Error("Static HTML is missing the required unofficial framing");
 }
 if (!built.includes("./assets/") && !built.includes("./_next/")) {

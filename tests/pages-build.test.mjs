@@ -17,7 +17,8 @@ test("produces a complete GitHub Pages artifact", async () => {
   ]);
 
   const html = await readFile(new URL("index.html", pagesRoot), "utf8");
-  assert.match(html, /Unofficial independent community dashboard/);
+  assert.match(html, /Independent, unofficial dashboard/);
+  assert.match(html, /<option value="dark">Dark theme<\/option>/);
 
   assert.match(html, /Daily snapshot record/);
   assert.match(html, /Exact daily values/);

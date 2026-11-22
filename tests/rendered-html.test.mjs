@@ -21,8 +21,8 @@ test("server-renders the resident-facing dashboard without JavaScript", async ()
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
   const html = await response.text();
   assert.match(html, /<title>Durham Water Watch<\/title>/i);
-  assert.match(html, /Unofficial independent community dashboard/);
-  assert.match(html, /Stage \/ Etapa/);
+  assert.match(html, /Independent, unofficial dashboard/);
+  assert.match(html, /aria-label="Color theme"/);
   assert.match(html, /Daily snapshot record/);
   assert.match(html, /Exact daily values/);
   assert.match(html, /Today and previous days/);
@@ -30,6 +30,7 @@ test("server-renders the resident-facing dashboard without JavaScript", async ()
   assert.ok(html.indexOf("Reservoirs: how far below full?") < html.indexOf("Supply: is the estimate rising or falling?"));
   assert.ok(html.indexOf("Supply: is the estimate rising or falling?") < html.indexOf("River flow: is this typical for the season?"));
   if (snapshot.stage.value === 2) {
+    assert.match(html, /Hand watering and drip irrigation are allowed/);
     assert.match(html, /No landscape spray irrigation/);
     assert.ok(html.indexOf("River flow: is this typical for the season?") < html.indexOf("No landscape spray irrigation"));
   } else {
@@ -42,7 +43,7 @@ test("server-renders the resident-facing dashboard without JavaScript", async ()
   assert.match(html, /verified ten-year numeric series is not available.*City reservoir levels or supply/);
   assert.match(html, /USGS daily means appear where available/);
   assert.match(html, /Official City guidance always takes precedence/);
-  assert.match(html, /What to do now/);
+  assert.match(html, /Read Durham’s official rules/);
   assert.match(html, /Restriction stages and triggers/);
   assert.match(html, /Drought categories: D0–D4/);
   assert.match(html, /not today’s storage or days-of-supply cutoffs/);
