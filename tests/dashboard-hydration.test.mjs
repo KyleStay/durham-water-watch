@@ -19,9 +19,9 @@ try {
 } finally { await rm(temporary, { recursive: true, force: true }); }
 const snapshot = JSON.parse(await readFile(join(root, 'public/data/dashboard.json'), 'utf8'));
 
-test('stage targets and contributing readings share one chart and county drought uses a separate step chart', () => {
+test('official stage duration and contributing readings share a date axis', () => {
   const data = structuredClone(snapshot);
-  data.stage = { ...data.stage, value: 2, verifiedAt: data.generatedAt, retrievalStatus: 'verified', validationResult: 'accepted' };
+  data.stage = { ...data.stage, value: 2, effectiveDate: '2026-06-15', verifiedAt: data.generatedAt, retrievalStatus: 'verified', validationResult: 'accepted' };
   data.reservoirStorage = { ...data.reservoirStorage, value: 28, observedAt: '2026-11-16', retrievalStatus: 'failed' };
   const renderCharts = () => {
     const dom = new JSDOM(renderToString(createElement(WaterWatch, { snapshot: data })));
@@ -31,6 +31,13 @@ test('stage targets and contributing readings share one chart and county drought
     const graphs = [...charts.querySelectorAll('figure svg')];
     assert.equal(graphs.length, 1);
     for (const graph of graphs) {
+      const period = graph.querySelector('.chart-stage-period');
+      assert.equal(period.dataset.start, '2026-06-15');
+      const band = period.querySelector('line');
+      const firstStorageDot = graph.querySelector('circle:has(title)');
+      assert.ok(Number(band.getAttribute('x1')) < Number(firstStorageDot.getAttribute('cx')));
+      assert.ok(Number(band.getAttribute('x2')) > Number(firstStorageDot.getAttribute('cx')));
+      assert.match(charts.querySelector('.stage-chart-caption').textContent, /Stage 2 in effect since Jun 15, 2026.*Storage readings begin Aug 4, 2026/);
       assert.ok(graph.querySelector('circle title').textContent.includes('Aug 4, 2026: 52.20'));
       assert.ok([...graph.querySelectorAll('circle title')].some((point) => point.textContent.includes('Nov 16, 2026: 28.00')));
       const dots = new Set([...graph.querySelectorAll('circle')].map(dot => `${dot.getAttribute('cx')},${dot.getAttribute('cy')}`));
@@ -41,7 +48,9 @@ test('stage targets and contributing readings share one chart and county drought
         assert.ok(dots.has(`${connector.getAttribute('x2')},${connector.getAttribute('y2')}`));
       }
     }
-    assert.equal(graphs[0].querySelectorAll('line[stroke-dasharray]').length, 5);
+    assert.equal(graphs[0].querySelectorAll('line[stroke-dasharray]').length, 1);
+    assert.doesNotMatch(graphs[0].textContent, /S2 35%/);
+    assert.match(charts.querySelector('.context-legend').textContent, /25% storage target in the City forecast rule/);
     assert.match(graphs[0].textContent, /Accessible supply \(days\).*Weekly river flow \(ft³\/s\)/);
     assert.ok([...graphs[0].querySelectorAll("circle title")].some((point) => point.textContent.includes("Flat River")));
     const drought = dom.window.document.querySelector('#drought-trend svg');
@@ -108,6 +117,7 @@ test('stale Stage 2 links to the City instead of offering stage-specific actions
   const briefing = dom.window.document.querySelector('.restriction-brief');
   assert.match(briefing.textContent, /Stage 2.*Stale.*Check the City’s current water-use rules/);
   assert.equal(briefing.querySelector('.restriction-brief-cta').href, data.stage.sourceUrl);
+  assert.equal(dom.window.document.querySelector('.chart-stage-period'), null);
   assert.doesNotMatch(dom.window.document.querySelector('main').textContent, /Hand watering and drip irrigation are allowed|Stage 2 water-use rules|Illustrative scenario explorer/);
   dom.window.close();
 });

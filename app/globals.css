@@ -899,6 +899,10 @@ footer a { color: #fff; font-size: .78rem; font-weight: 700; }
 .stage-proximity-note { max-width: 76ch; color: var(--muted); }
 .stage-proximity-chart { min-width: 0; margin: 0; padding: clamp(14px, 2.5vw, 24px); border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); }
 .stage-proximity-chart figcaption { margin-bottom: 12px; color: var(--blue-dark); font-size: 1.15rem; font-weight: 700; }
+.stage-proximity-chart .stage-chart-caption { display: flex; flex-wrap: wrap; column-gap: 16px; font-size: .88rem; font-weight: 400; }
+.stage-chart-caption span { color: var(--muted); }
+.chart-stage-period line { stroke: var(--blue); stroke-width: 3; }
+.chart-stage-period circle { fill: var(--blue); }
 .stage-proximity-chart ul { margin: 0; padding: 0; list-style: none; }
 .stage-proximity-chart li { padding: 9px 8px; }
 .stage-proximity-next { background: var(--amber-light); border-radius: 5px; }

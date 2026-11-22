@@ -38,9 +38,10 @@ type FactorDay = {
   quarantinedFields?: string[];
 };
 
-export function StageTransitionChart({ lang, stage, storage, date, stale, readings, days }: {
+export function StageTransitionChart({ lang, stage, effectiveDate, storage, date, stale, readings, days }: {
   lang: Lang;
   stage: number | null;
+  effectiveDate: string | null;
   storage: number | null;
   date: string | null;
   stale: boolean;
@@ -52,8 +53,11 @@ export function StageTransitionChart({ lang, stage, storage, date, stale, readin
   const format = new Intl.NumberFormat(locale, { maximumFractionDigits: 2 });
   const formatDate = new Intl.DateTimeFormat(locale, { dateStyle: "medium", timeZone: "UTC" });
   const next = stages.find((rule) => stage !== null && rule.stage === stage + 1);
-  const first = readings[0]?.observedAt ?? days[0]?.date;
+  const firstReading = readings[0]?.observedAt;
   const latest = [readings.at(-1)?.observedAt, days.at(-1)?.date].filter((day): day is string => Boolean(day)).sort().at(-1);
+  const stageStart = stage !== null && effectiveDate && latest && effectiveDate <= latest ? effectiveDate : null;
+  const first = [firstReading ?? days[0]?.date, stageStart].filter((day): day is string => Boolean(day)).sort()[0];
+  const stageName = `${en ? "Stage" : "Etapa"} ${stage}`;
   const window = first && latest
     ? first === latest ? trendWindow(latest, "30") : { start: first, end: latest }
     : null;
@@ -88,7 +92,7 @@ export function StageTransitionChart({ lang, stage, storage, date, stale, readin
     : `${en ? "Stage" : "Etapa"} ${rule.stage}`;
   return (
     <section id="stage-proximity" className="stage-proximity" aria-labelledby="stage-proximity-title">
-      <h2 id="stage-proximity-title">{en ? "Water shortage stage and storage" : "Etapa y almacenamiento"}</h2>
+      <h2 id="stage-proximity-title">{en ? "Official stage and reservoir storage" : "Etapa oficial y almacenamiento"}</h2>
       <p>{storage === null
         ? en ? "City storage reading unavailable." : "Lectura municipal de almacenamiento no disponible."
         : <><strong>{format.format(storage)}%</strong> {en ? "storage reported by Durham" : "de almacenamiento municipal"} · {date}{stale && (en ? " · Last known" : " · Última lectura conocida")}</>}</p>
@@ -97,23 +101,26 @@ export function StageTransitionChart({ lang, stage, storage, date, stale, readin
           ? <>A <b>{next.probability}% chance</b> of reaching <b>{next.storage}% combined usable reservoir storage</b> in <b>{next.weeks} weeks</b>.</>
           : <><b>{next.probability}% de probabilidad prevista</b> de alcanzar <b>{next.storage}% de almacenamiento utilizable combinado</b> en <b>{next.weeks} semanas</b>.</>}</p>}
         <p className="stage-proximity-note">{en
-          ? "The chart shows observed readings and storage targets. The City decides when restrictions change."
-          : "La gráfica muestra lecturas observadas y metas. La Ciudad decide cuándo cambiar de etapa."}</p>
+          ? "The City declares stage changes using forecasts and system conditions."
+          : "La Ciudad declara los cambios de etapa según los pronósticos y las condiciones del sistema."}</p>
       </div>
       <figure className="stage-proximity-chart">
-        <figcaption className="sr-only">{en ? "Storage, stage targets and water conditions" : "Almacenamiento, metas de etapa y condiciones del agua"}</figcaption>
-        {window ? <Chart title={en ? "Stage targets and contributing conditions" : "Metas de etapa y condiciones relacionadas"}
-          description={en ? "Reported storage and five plan targets, accessible supply, and weekly USGS river flow share a date axis." : "El almacenamiento informado y cinco metas del plan, el suministro accesible y el caudal semanal del USGS comparten un eje de fechas."}
+        {(stageStart || firstReading) && <figcaption className="stage-chart-caption">
+          {stageStart && <strong>{en ? `${stageName} in effect since` : `${stageName} en vigor desde`} <time dateTime={stageStart}>{formatDate.format(new Date(`${stageStart}T12:00:00Z`))}</time></strong>}
+          {firstReading && <span>{en ? "Storage readings begin" : "Primer dato de almacenamiento"} <time dateTime={firstReading}>{formatDate.format(new Date(`${firstReading}T12:00:00Z`))}</time>.</span>}
+        </figcaption>}
+        {window ? <Chart title={en ? "Official stage and observed water conditions" : "Etapa oficial y condiciones observadas"}
+          description={en ? "The stage dates come from the City declaration. Storage, accessible supply and weekly USGS river flow share a date axis." : "Las fechas de etapa provienen de la declaración municipal. El almacenamiento, el suministro accesible y el caudal semanal del USGS comparten un eje de fechas."}
+          stagePeriod={stageStart ? { start: stageStart, label: stageName } : undefined}
           label={en ? "Reservoir storage (%)" : "Almacenamiento de los embalses (%)"}
           series={[{ label: storageLabel, color: "var(--chart-teal, #286a67)", points: readings.map((reading) => ({
             date: reading.observedAt, value: reading.value,
             detail: [reading.bulletinDate ? bulletinLabel : "", next ? gap(reading.value, next.storage) : ""].filter(Boolean).join(" · "),
           })) }]}
-          references={targets.map((rule) => ({
-            label: `${label(rule)} · ${rule.storage}%`, value: rule.storage,
-            inlineLabel: `${rule.stage ? `${en ? "S" : "E"}${rule.stage}` : en ? "Lift" : "Fin"} ${rule.storage}%`,
-            color: rule.stage === next?.stage ? "var(--chart-alert, #9b4b1d)" : "var(--chart-guide, #526f7f)", highlighted: rule.stage === next?.stage,
-          }))}
+          references={next ? [{
+            label: en ? `${next.storage}% storage target in the City forecast rule` : `Meta del ${next.storage}% en el criterio de pronóstico`,
+            value: next.storage, color: "var(--chart-alert, #9b4b1d)", highlighted: true,
+          }] : []}
           tracks={[
             { label: `${accessibleLabel} (${daysUnit})`, unit: daysUnit, series: [{ label: accessibleLabel, color: "var(--chart-green, #4c7760)",
               points: visibleDays.filter((day) => day.values.supply.accessible !== null && recorded(day, "supply.accessible"))

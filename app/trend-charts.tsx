@@ -52,8 +52,9 @@ export type ChartTrack = {
   categories?: string[];
 };
 
-export function Chart({ title, description, window, lang, tracks = [], ...primary }: ChartTrack & {
+export function Chart({ title, description, window, lang, tracks = [], stagePeriod, ...primary }: ChartTrack & {
   title: string; description: string; window: { start: string; end: string }; lang: Lang; tracks?: ChartTrack[];
+  stagePeriod?: { start: string; label: string };
 }) {
   const id = useId();
   const container = useRef<HTMLDivElement>(null);
@@ -66,7 +67,8 @@ export function Chart({ title, description, window, lang, tracks = [], ...primar
     return () => observer.disconnect();
   }, []);
   const compactTracks = tracks.length > 0 && width < 450;
-  const primaryBottom = compactTracks ? 174 : 213;
+  const stageHeight = stagePeriod ? 26 : 0;
+  const primaryBottom = (compactTracks ? 174 : 213) + stageHeight;
   const trackHeight = compactTracks ? 72 : 99;
   const trackStride = trackHeight + 29;
   const height = primaryBottom + tracks.length * trackStride + 33;
@@ -83,7 +85,7 @@ export function Chart({ title, description, window, lang, tracks = [], ...primar
     const step = categories ? 1 : zeroReference ? Math.max(2, Math.ceil(Math.abs(min) / 4)) : Math.max(1, Math.ceil(max / 4));
     const low = categories ? 0 : Math.floor(min / step) * step;
     const high = categories ? categories.length - 1 : Math.max(low + step, Math.ceil(max / step) * step);
-    const top = index === 0 ? 26 : primaryBottom + 29 + (index - 1) * trackStride;
+    const top = index === 0 ? 26 + stageHeight : primaryBottom + 29 + (index - 1) * trackStride;
     const bottom = index === 0 ? primaryBottom : top + trackHeight;
     const y = (value: number) => top + (high - value) / (high - low) * (bottom - top);
     const ticks = Array.from({ length: Math.round((high - low) / step) + 1 }, (_, i) => low + i * step);
@@ -121,6 +123,12 @@ export function Chart({ title, description, window, lang, tracks = [], ...primar
     <svg viewBox={`0 0 ${width} ${height}`} role="group" aria-labelledby={`${id}-title`} aria-describedby={`${id}-desc`}>
       <title id={`${id}-title`}>{title}</title>
       <desc id={`${id}-desc`}>{description} {hasGaps && `${gapLabel}. `}{help}</desc>
+      {stagePeriod && <g className="chart-stage-period" data-start={stagePeriod.start}>
+        <title>{stagePeriod.label} · {fullDate(stagePeriod.start, lang)}</title>
+        <text className="context-axis" x={left} y={14}>{stagePeriod.label}</text>
+        <line x1={x(stagePeriod.start)} x2={width - right} y1={23} y2={23} />
+        <circle cx={x(stagePeriod.start)} cy={23} r={3} />
+      </g>}
       {plots.map(({ label, unit, traces, references, ticks, top, y, categories, zeroReference, gapDays }) => <g key={label ?? unit}>
         <text className="context-axis" x={left} y={top - 12}>{label ?? unit}</text>
         {ticks.map((tick) => <g key={tick}>

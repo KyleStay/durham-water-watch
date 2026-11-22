@@ -650,7 +650,7 @@ export default function WaterWatch({ snapshot = seed, history = historySeed, com
 
         <div className="section outlook-section">
           <div className="wrap">
-            <StageTransitionChart lang={lang} stage={currentStage}
+            <StageTransitionChart lang={lang} stage={currentStage} effectiveDate={data.stage.effectiveDate}
               storage={reportedStorage} date={reportedStorage === null ? null : fmtDate(storage?.observedAt ?? null, lang)}
               stale={storage?.status !== "fresh"} readings={history.storageObservations ?? []} days={history.days} />
             <RestrictionLevels lang={lang} currentStage={currentStage} />
