@@ -1,16 +1,6 @@
 [
   {
     "metrics": [
-      "reservoirs.michie",
-      "reservoirs.little"
-    ],
-    "sourceUrl": "https://www.durhamnc.gov/1225/Lake-Levels",
-    "reason": "Unexpected official response (403)",
-    "receivedAt": "2026-09-21T12:02:50.855Z",
-    "disposition": "rejected; last-known-good value preserved"
-  },
-  {
-    "metrics": [
       "supply.accessible",
       "supply.belowIntakes",
       "supply.quarry",
@@ -986,6 +976,15 @@
     "sourceUrl": "https://waterservices.usgs.gov/nwis/dv/?format=json&sites=0208521324&startDT=2016-01-01&endDT=2025-12-31&parameterCd=00060&statCd=00003&siteStatus=all",
     "reason": "Request timed out after 15000 ms",
     "receivedAt": "2026-11-22T11:00:10.703Z",
+    "disposition": "rejected; last-known-good ten-year average preserved"
+  },
+  {
+    "metrics": [
+      "streamflowHistory.little.tenYearAverage"
+    ],
+    "sourceUrl": "https://waterservices.usgs.gov/nwis/dv/?format=json&sites=0208521324&startDT=2016-01-01&endDT=2025-12-31&parameterCd=00060&statCd=00003&siteStatus=all",
+    "reason": "Request timed out after 15000 ms",
+    "receivedAt": "2026-11-23T11:06:02.139Z",
     "disposition": "rejected; last-known-good ten-year average preserved"
   }
 ]
