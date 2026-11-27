@@ -1,25 +1,6 @@
 [
   {
     "metrics": [
-      "streamflow.flat",
-      "streamflow.little"
-    ],
-    "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
-    "reason": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON",
-    "receivedAt": "2026-09-27T12:00:56.507Z",
-    "disposition": "rejected; last-known-good value preserved"
-  },
-  {
-    "metrics": [
-      "streamflowHistory.flat"
-    ],
-    "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/02085500/",
-    "reason": "The USGS year comparison could not be refreshed: Unexpected official response (503)",
-    "receivedAt": "2026-09-27T12:00:56.507Z",
-    "disposition": "rejected; last-known-good year comparison preserved"
-  },
-  {
-    "metrics": [
       "streamflowHistory.little"
     ],
     "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/0208521324/",
@@ -978,6 +959,24 @@
     "sourceUrl": "https://waterservices.usgs.gov/nwis/dv/?format=json&sites=0208521324&startDT=2016-01-01&endDT=2025-12-31&parameterCd=00060&statCd=00003&siteStatus=all",
     "reason": "Request timed out after 15000 ms",
     "receivedAt": "2026-11-26T11:01:08.763Z",
+    "disposition": "rejected; last-known-good ten-year average preserved"
+  },
+  {
+    "metrics": [
+      "streamflowHistory.little.tenYearAverage"
+    ],
+    "sourceUrl": "https://waterservices.usgs.gov/nwis/dv/?format=json&sites=0208521324&startDT=2016-01-01&endDT=2025-12-31&parameterCd=00060&statCd=00003&siteStatus=all",
+    "reason": "Request timed out after 15000 ms",
+    "receivedAt": "2026-11-27T11:00:20.814Z",
+    "disposition": "rejected; last-known-good ten-year average preserved"
+  },
+  {
+    "metrics": [
+      "streamflowHistory.flat.tenYearAverage"
+    ],
+    "sourceUrl": "https://waterservices.usgs.gov/nwis/dv/?format=json&sites=02085500&startDT=2016-01-01&endDT=2025-12-31&parameterCd=00060&statCd=00003&siteStatus=all",
+    "reason": "Request timed out after 15000 ms",
+    "receivedAt": "2026-11-27T11:00:20.814Z",
     "disposition": "rejected; last-known-good ten-year average preserved"
   }
 ]
