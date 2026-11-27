@@ -67,8 +67,8 @@
       "sha256": "81b7cbfaeb970611572256aba0e313425beb3809f6426f63750696c15d9c756b"
     },
     "data/quarantine.json": {
-      "bytes": 33349,
-      "sha256": "996cf744c417343248763b18009ea09e16ec7edb8ecdafaf50ee707cfef557b6"
+      "bytes": 33483,
+      "sha256": "bd8b3988065f55285f3a435337e94f8e45963dc49c20d1b47d7e750bbc0dbb52"
     },
     "eslint.config.mjs": {
       "bytes": 465,
@@ -91,20 +91,20 @@
       "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde"
     },
     "public/data/dashboard.json": {
-      "bytes": 19602,
-      "sha256": "46c42a29e96dddea70256494311c7afabf019f1500501e1841c8b7fd048c3e58"
+      "bytes": 19752,
+      "sha256": "b004f43704443054bb852ec85c3eb743ffb8ec43479cf99573e85f982cc94a88"
     },
     "public/data/history.json": {
-      "bytes": 361955,
-      "sha256": "baf55741ca0f9f9cd29e6754d69db7840cc5acfd0022398bbab33b6fb7ac037f"
+      "bytes": 362883,
+      "sha256": "732e8de3ad5aec8f0f2567a3a2831c5503ea76ea75117509a358c9ce18104f76"
     },
     "public/data/rainfall-forecast.png": {
-      "bytes": 32849,
-      "sha256": "e611f8cd988e64e9a1e5cdad01818cc87edbd1627de0a4e1572a5813bf1c68f4"
+      "bytes": 22229,
+      "sha256": "9d35ec47094739fdbc37001d881a32765135d3aa52eac37bba3b0f9c31b52e8a"
     },
     "public/data/streamflow-history.json": {
-      "bytes": 246063,
-      "sha256": "dc81273d49f51647e49dff422b3b71aa0fb646a14371214ba45e3072afdcfe1c"
+      "bytes": 246082,
+      "sha256": "d6d9e5954289a2677a5745af89d82449975d0f5116a74885b6231288954d3ed9"
     },
     "public/og.png": {
       "bytes": 1751932,
@@ -342,21 +342,21 @@
     },
     ".vite/manifest.json": {
       "bytes": 2575,
-      "sha256": "6b94044b5b5eb937f59ebeb37157c4b045a79b60c6de3fb2861f50dddbb88338"
+      "sha256": "c893a0803a111183307911b2831b972609850fbb95c0f3703b75f74c1592ea66"
     },
     "404.html": {
-      "bytes": 245550,
-      "sha256": "a6f2e238ca448f6b1e26db5de098327a5ed0cc510c7332a7198a8962f41c3514"
+      "bytes": 247343,
+      "sha256": "bb3b0b0bd9697f6390104a72bca8b26a14bac33ffc66f3da5306d65028b972d7"
     },
     "_headers": {
       "bytes": 131,
       "sha256": "2148fb62669525f5091532d36d4a48a8da95b08a5a797bacde75d2fe981351bb"
     },
-    "_next/static/5b9e220e-d07f-4848-b765-cf7b12385d0f/_buildManifest.js": {
+    "_next/static/01c76a3e-e523-46ab-8c8f-259304ea1ff8/_buildManifest.js": {
       "bytes": 159,
       "sha256": "47f02b34be6dc481257b6efce4c19e19111f37ef5c437f8ffed44f0da97fa9bb"
     },
-    "_next/static/5b9e220e-d07f-4848-b765-cf7b12385d0f/_ssgManifest.js": {
+    "_next/static/01c76a3e-e523-46ab-8c8f-259304ea1ff8/_ssgManifest.js": {
       "bytes": 76,
       "sha256": "653f3e53e89b4f8548ff86c19e92bb3c6b84b6be7485a320b1e00893ed877479"
     },
@@ -364,13 +364,13 @@
       "bytes": 190109,
       "sha256": "2a1edf81f32a49b1eacafc3546b371bca024c82a9191836e274d90890212e9df"
     },
-    "_next/static/chunks/index-dbd0mnKf.js": {
+    "_next/static/chunks/index-C3opvcVu.js": {
       "bytes": 108785,
-      "sha256": "0252411e685f8c67ec3e5380ea35082eadf788eea8ba44a2ba4b347c21e6655c"
+      "sha256": "caaa7418e79dcaf0a43b99199d38dfbe890fb7519f2bdf33ee469bf9cc8e77ee"
     },
-    "_next/static/chunks/layout-segment-context-DnXuNLTx.js": {
+    "_next/static/chunks/layout-segment-context-C5XuiFyQ.js": {
       "bytes": 496,
-      "sha256": "48713f309627e02c41aef32dd96b39fdfa81c108ba1cd6437de2a6e26ec9029b"
+      "sha256": "aea26e622229decc6b14521bddd80537bed1dd58165163ba07db2b1266929680"
     },
     "_next/static/chunks/leaflet-src-CglwsnG5.js": {
       "bytes": 148747,
@@ -380,41 +380,41 @@
       "bytes": 716,
       "sha256": "580ad8c58061a4dde99bde0a56905e382f0568516ee2f5b84dbfb52085709021"
     },
-    "_next/static/chunks/vinext-ByCRJHad.js": {
+    "_next/static/chunks/vinext-FpV87coM.js": {
       "bytes": 111758,
-      "sha256": "a063fd72280e3100b3afe43bdddcf226823fe052cf19e6d4990771df83eb4e33"
+      "sha256": "b9493a349417ea448b5b14ab6ab3dc920e6ee1e471d2128bcdf986855641c426"
     },
-    "_next/static/chunks/water-watch-DkIp59jh.js": {
-      "bytes": 481781,
-      "sha256": "b0d26d56028d88925f4cd543430cfc6025e98bf79586f9c24231919bc2e897a4"
+    "_next/static/chunks/water-watch-DiEqeDuz.js": {
+      "bytes": 482490,
+      "sha256": "af9f5ce565bc323f835a8f974ba0d9b2ebc29958d0ab4b5d449cd40b4add13d6"
     },
-    "_next/static/chunks/watershed-map-engine-DCFnZGO1.js": {
+    "_next/static/chunks/watershed-map-engine-DpiVDvIW.js": {
       "bytes": 4108,
-      "sha256": "b77d4384e53c9a8def01327da2dd026f583cd9b98c7a60340d03d9e5defe1caf"
+      "sha256": "497462caf0f294e9e689562977f9a97362efb895b5bd337c5dbda2cb830c3764"
     },
     "_next/static/css/index.BCvxGbJq.css": {
       "bytes": 170727,
       "sha256": "f50ac0549948474cc7a029fca7dd78887964a9ddcb64f3ebbd590f46de56b567"
     },
     "data/dashboard.json": {
-      "bytes": 19602,
-      "sha256": "46c42a29e96dddea70256494311c7afabf019f1500501e1841c8b7fd048c3e58"
+      "bytes": 19752,
+      "sha256": "b004f43704443054bb852ec85c3eb743ffb8ec43479cf99573e85f982cc94a88"
     },
     "data/history.json": {
-      "bytes": 361955,
-      "sha256": "baf55741ca0f9f9cd29e6754d69db7840cc5acfd0022398bbab33b6fb7ac037f"
+      "bytes": 362883,
+      "sha256": "732e8de3ad5aec8f0f2567a3a2831c5503ea76ea75117509a358c9ce18104f76"
     },
     "data/rainfall-forecast.png": {
-      "bytes": 32849,
-      "sha256": "e611f8cd988e64e9a1e5cdad01818cc87edbd1627de0a4e1572a5813bf1c68f4"
+      "bytes": 22229,
+      "sha256": "9d35ec47094739fdbc37001d881a32765135d3aa52eac37bba3b0f9c31b52e8a"
     },
     "data/streamflow-history.json": {
-      "bytes": 246063,
-      "sha256": "dc81273d49f51647e49dff422b3b71aa0fb646a14371214ba45e3072afdcfe1c"
+      "bytes": 246082,
+      "sha256": "d6d9e5954289a2677a5745af89d82449975d0f5116a74885b6231288954d3ed9"
     },
     "index.html": {
-      "bytes": 245550,
-      "sha256": "a6f2e238ca448f6b1e26db5de098327a5ed0cc510c7332a7198a8962f41c3514"
+      "bytes": 247343,
+      "sha256": "bb3b0b0bd9697f6390104a72bca8b26a14bac33ffc66f3da5306d65028b972d7"
     },
     "og.png": {
       "bytes": 1751932,
@@ -422,7 +422,7 @@
     },
     "vinext-client-entry-manifest.json": {
       "bytes": 65,
-      "sha256": "a6dfae2000d1370ee2f489c01fb50fee9c36553ed4e72b1e290b2bad4da7142a"
+      "sha256": "4f6002366a47b9b7a53b8a116fe4ca999d087628d5505d4cf04c09567e9f012a"
     }
   }
 }
